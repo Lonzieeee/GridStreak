@@ -93,6 +93,20 @@
 .get-in-touch:hover {
   background-color: #222;
 }
+
+/* Header for company pag */
+.white-header .logo,
+.white-header a,
+.white-header .get-in-touch {
+  color: white;
+}
+
+/* 
+.white-header .hamburger .bar {
+  background-color: white;
+} */
+
+
 /* Mobile  */
 @media (max-width: 768px) {
     .logo {
