@@ -1,0 +1,130 @@
+:root {
+    --lime: #B0F222;
+    --lime-soft: #C3F253;
+    --cream: #F2F1DF;
+    --grey: #F2F2F2;
+    --black: #0D0D0D;
+}
+
+.header {
+    background-color: transparent;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    border: 1px solid black
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+ 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    flex-wrap: nowrap;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0D0D0D;
+    flex: 1;
+    margin-left: -10%;
+}
+
+/* phone */
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 20;
+}
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    transition: 0.3s;
+}
+
+/* links */
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color:black ;
+    transition: color 0.3s;
+}
+.nav-links a:hover {
+    color: #646464;
+}
+
+.get-in-touch {
+    background-color: black;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+    text-decoration: none;
+    
+    text-align: right;
+    margin-left: 10%;
+
+}
+
+
+.get-in-touch:hover {
+  background-color: #222;
+}
+/* Mobile  */
+@media (max-width: 768px) {
+    .logo {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #0D0D0D;
+    flex: 1;
+    margin-left: -2%;
+}
+
+  .hamburger {
+    display: flex;
+    
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+  
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    padding: 1rem 0;
+  }
+
+  .nav-links.open {
+    display: flex;
+
+  }
+  .get-in-touch {
+ display: none;
+  }
+}
