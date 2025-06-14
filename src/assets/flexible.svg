@@ -1,0 +1,4 @@
+<!-- src/assets/flexible.svg -->
+<svg width="64" height="64" viewBox="0 0 24 24" fill="#B0F222" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 4h16v2H4V4zm0 6h10v2H4v-2zm0 6h16v2H4v-2z"/>
+</svg>
