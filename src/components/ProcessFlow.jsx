@@ -1,41 +1,80 @@
 import React from "react";
-import "./ProcessFlow.css";
-function ProcessFlow(){
+import "./ProcessFlow.css"
+
+function ProcessFlow () {
     return (
         <section className="process-section">
-            <h2>Our Process</h2>
-            <div className="process-flow">
-{/* inputs */}
-                <div className="input-box" style={{top: "10%"}}> Excess Solar</div>
+            <h2>Our process</h2>
+            <div className="process-wrapper">
+                <div className="process-container">
+                    {/* ARRROWS */}
+                    <svg className="process-arrows">
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#B0F222" />
+              </marker>
+            </defs>
 
-                 <div className="input-box" style={{top: "40%"}}> Geothermal Heat</div>
+            {/* CURVED ARROWS FOR THERMAL BRICKS */}
+ <path d="M140,40 Q230,40 300,160" className="arrow-line" markerEnd="url(#arrowhead)" />
+            <path d="M140,160 Q230,160 300,160" className="arrow-line" markerEnd="url(#arrowhead)" />
+            <path d="M140,280 Q230,280 300,160" className="arrow-line" markerEnd="url(#arrowhead)" />
+  {/* thrmal to diamond */}
+            <line x1="340" y1="172" x2="605" y2="172" className="arrow-line" markerEnd="url(#arrowhead)" />
 
-                 <div className="input-box" style={{top: "70%"}}> Plastic Pyrolysis</div>
+            {/* the arrows from diamond to ouyputs */}
+            <path d="M615,160 Q760,40 900,60" className="arrow-line" markerEnd="url(#arrowhead)" />
+            <line x1="615" y1="172" x2="900" y2="172" className="arrow-line" markerEnd="url(#arrowhead)" />
 
-                 {/* hermal Bricks */}
+            <path d="M615,160 Q760,280 900,292" className="arrow-line" markerEnd="url(#arrowhead)" />
+          </svg>
 
-                 <div className="center-box">Thermal Bricks</div>
+          {/* Input Sources */}
 
-                 {/* arrow stabalization */}
+          <div className="column-left">
+            <div className="process-box" style={{top: "20px"}}>Excess Solar</div>
+          </div>
 
-                 <div className="arrow-horizontal">→</div>
+          <div className="column-left">
+            <div className="process-box" style={{top: "140px"}}>Geothermal Heat</div>
+          </div>
 
-                 {/* Diamond Stabilization */}
+          <div className="column-left">
+            <div className="process-box" style={{top: "260px"}}>Plastic Pyrolysis</div>
+          </div>
+            
+            {/* THERMAL */}
 
-                 <div className="diamond-box">
-                    <span>Stabilization Services</span>
-                 </div>
+            <div className="process-box center-box" style={{top: "140px", left: "300px"}}>
+                Thermal Bricks
+            </div>
 
-                 {/* Outputs */}
+            {/* DIAMOND */}
 
-                 <div className="output-box" style={{top: "10%"}}>Frequency Regulation</div>
+            <div className="diamond-box" style={{top: "102px", left: "630px"}}>
+                <span>Stabilization Services</span>
+            </div>
 
-                   <div className="output-box" style={{top: "40%"}}>Black Start Capacity</div>
+            {/* OUTPUT SERVICES */}
 
-                     <div className="output-box" style={{top: "70%"}}>Renewable Smoothing</div>
+            <div className="column right">
+                <div className="process-box" style={{top : "20px", left: "900px"}}>Frequency Regulation</div>
+            </div>
 
+             <div className="column right">
+                <div className="process-box" style={{top : "147px", left: "900px"}}>Black Start Capacity</div>
+            </div>
+
+             <div className="column right">
+                <div className="process-box" style={{top : "265px", left: "900px"}}>Renewable Smoothing</div>
+            </div>
+
+
+
+                </div>
             </div>
         </section>
     );
 }
+
 export default ProcessFlow;
