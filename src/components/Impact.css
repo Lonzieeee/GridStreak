@@ -1,0 +1,24 @@
+.impact-pie-section {
+  padding: 4rem 2rem;
+  background-color: #fff;
+  border: 2px solid #000;
+  text-align: center;
+}
+
+.impact-pie-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #0D0D0D;
+  
+
+}
+.impact-chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rem;
+}
+
+.recharts-default-legend {
+  color: #0D0D0D;
+}

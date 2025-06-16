@@ -7,6 +7,7 @@ import carbonIcon from "../assets/zero-carbon.svg";
 import reliableIcon from "../assets/reliable.svg";
 import scalableIcon from "../assets/scalable.svg"
 import ProcessFlow from "../components/ProcessFlow";
+import Impact from "../components/Impact"
 
 const heroSlides = [
   {
@@ -15,7 +16,7 @@ const heroSlides = [
   },
   {
     heading: "Grid Stability Powered by 100% Clean and Renewable Energy.",
-    sub: "We're pioneering plastic-to-grid storage that is clean, scalable, and reliable for the future.",
+    
   },
 ];
 
@@ -96,6 +97,7 @@ function Home() {
         </div>
       </section>
       <ProcessFlow />
+      <Impact />
     </div>
   );
 }
