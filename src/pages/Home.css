@@ -160,4 +160,15 @@
   .why-gridstreak h2{
     font-size: 1.5rem;
   }
+  .hero-content h1 {
+    font-size: 1.5rem;
+    
+  }
+  .hero-content {
+    margin-top: 5rem;
+
+  }
+  .hero-content p{
+    font-size: 1rem;
+  }
 }

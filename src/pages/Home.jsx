@@ -8,6 +8,7 @@ import reliableIcon from "../assets/reliable.svg";
 import scalableIcon from "../assets/scalable.svg"
 import ProcessFlow from "../components/ProcessFlow";
 import Impact from "../components/Impact"
+import WhoWeAre from "../components/WhoWeAre";
 
 const heroSlides = [
   {
@@ -93,6 +94,7 @@ function Home() {
           </div>
         </div>
       </section>
+      <WhoWeAre />
       <ProcessFlow />
       <Impact />
     </div>
