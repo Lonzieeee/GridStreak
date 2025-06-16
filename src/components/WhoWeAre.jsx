@@ -24,7 +24,7 @@ function WhoWeAre() {
         </div>
 
         <div className="who-visual">
-          
+   
           <div className="visual-box">🌱</div>
         </div>
       </div>
