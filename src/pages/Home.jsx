@@ -9,6 +9,7 @@ import scalableIcon from "../assets/scalable.svg"
 import ProcessFlow from "../components/ProcessFlow";
 import Impact from "../components/Impact"
 import WhoWeAre from "../components/WhoWeAre";
+import MapSection from "../components/MapSection";
 
 const heroSlides = [
   {
@@ -97,6 +98,7 @@ function Home() {
       <WhoWeAre />
       <ProcessFlow />
       <Impact />
+      <MapSection />
     </div>
   );
 }
