@@ -132,7 +132,12 @@
     align-items: center;
     display: none;
     padding: 1rem 0;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
+
+
+
 
   .nav-links.open {
     display: flex;
@@ -141,4 +146,23 @@
   .get-in-touch {
  display: none;
   }
+}
+
+
+.nav-links {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  align-items: center;
+  display: none;
+  padding: 1rem 0;
+  background-color: white; /* ✅ Make it white */
+  z-index: 15;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: add subtle drop shadow */
+}
+
+.nav-links.open {
+  display: flex;
 }
