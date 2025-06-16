@@ -14,7 +14,7 @@
 .process-wrapper {
   display: flex;
   justify-content: center;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   padding: 0 1rem;
   width: 100%;
 }
@@ -126,14 +126,7 @@
 
 
 /* Responsive */
-@media (max-width: 768px) {
-  .process-container {
-    transform: scale(0.85);
-    transform-origin: top left;
-    height: 550px;
-    width: 1000px;
-  }
-}
+
 
 
 /* draw animatin */
@@ -146,7 +139,7 @@
 
 @media (max-width: 1024px) {
   .process-container {
-    transform: scale(0.9);
+    transform: scale(0.6);
     transform-origin: top left;
     width: 1100px;
     height: 500px;
@@ -155,10 +148,12 @@
 
 @media (max-width: 768px) {
   .process-container {
-    transform: scale(0.8);
+    transform: scale(0.6);
     transform-origin: top left;
-    width: 1100px;
-    height: 600px;
+    width: 100%;
+
+    height: 500px;
+    
   }
 
   .process-box {
@@ -175,4 +170,15 @@
     font-size: 0.8rem;
     max-width: 90px;
   }
+  .process-wrapper{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+      padding: 0;
+  }
+ 
+  
+
+  
 }

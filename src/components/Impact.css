@@ -1,10 +1,4 @@
-.impact-pie-section {
-  padding: 4rem 2rem;
-  background-color: #fff;
-  /* background-color: #0D0D0D; */
-  
-  text-align: center;
-}
+
 
 .impact-pie-section h2 {
   font-size: 2.5rem;
@@ -30,21 +24,8 @@
   text-align: center;
 }
 
-.impact-pie-section h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #0D0D0D;
-}
 
-.impact-chart-wrapper {
-  display: flex;
- 
-  justify-content: center;
-  align-items: center;
-  /* flex-wrap: wrap; */
-  /* gap: 3rem; */
-  /* position: relative; */
-}
+
 
 
 .custom-legend {
@@ -73,3 +54,14 @@
 }
 
 
+@media (max-width: 768px) {
+    .impact-pie-section {
+  margin-top: -50%;
+}
+.custom-legend{
+    display: none;
+}
+.impact-chart-wrapper{
+    margin-top: -20%;
+}
+}
