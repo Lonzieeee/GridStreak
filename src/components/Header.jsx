@@ -11,9 +11,9 @@ function Header() {
     <header className={`header ${isCompanyPage ? "white-header" : ""}`}>
       <div className="container">
         {/* Logo */}
-        <h1 className="logo">GridStreak</h1>
+        <Link to="/" className="logo">GridStreak</Link>
 
-        {/* Hambuger for phon */}
+        {/* Hamburger for phone */}
         <button className="hamburger" onClick={() => setIsOpen(!isOpen)}>
           <span className="bar"></span>
           <span className="bar"></span>
@@ -22,9 +22,9 @@ function Header() {
 
         {/* Navigation */}
         <nav className={`nav-links ${isOpen ? "open" : ""}`}>
-          <a href="#">Technology</a>
-          <a href="#">Solutions</a>
-          <a href="#">Manufacturing</a>
+          <a href="/technology">Technology</a>
+          <a href="/solutions">Solutions</a>
+          <a href="/manufacturing">Manufacturing</a>
           <Link to="/company">Company</Link>
           <a href="#">Careers</a>
           <a href="#">Insights</a> 
