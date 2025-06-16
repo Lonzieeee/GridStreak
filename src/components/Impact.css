@@ -56,12 +56,15 @@
 
 @media (max-width: 768px) {
     .impact-pie-section {
-  margin-top: -50%;
+  margin-top: -80%;
 }
 .custom-legend{
     display: none;
 }
 .impact-chart-wrapper{
     margin-top: -20%;
+}
+.impact-pie-section h2{
+    font-size: 1.5rem;
 }
 }

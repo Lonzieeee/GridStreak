@@ -67,31 +67,28 @@ function Home() {
             <img src={flexibleIcon} alt="Flexible Storage" className="feature-icon" />
             <h3>Flexible Storage</h3>
             <p>
-              Adaptable energy storage systems that evolve with grid demand and
-              size.
+              Works with Multiple renewable sources.
             </p>
           </div>
           <div className="feature-card">
             <img src={carbonIcon} alt="Carbon Icon" className="feature-icon" />
             <h3>Zero Carbon Emissions</h3>
             <p>
-              Clean, plastic-powered energy storage that doesn't pollute the
-              planet.
+             Fully decoupled from fossil fuel systems.
             </p>
           </div>
           <div className="feature-card">
             <img src={reliableIcon} alt="Reliable Icon" className="feature-icon" />
             <h3>Reliable</h3>
             <p>
-              Proven uptime and dependable output even during peak energy
-              usage.
+             Store heat for hours to days with minimal losses and providing instant dispatch.
             </p>
           </div>
           <div className="feature-card">
             <img src={scalableIcon} alt="scalable icon" className="feature-icon" />
             <h3>Scalable</h3>
             <p>
-              Designed to grow with your infrastructure—city to continent scale.
+             Modular units fits any size project.
             </p>
           </div>
         </div>
