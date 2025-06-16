@@ -36,7 +36,7 @@
   border-radius: 8px;
   white-space: nowrap;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   color: #0D0D0D;
   width: auto;
@@ -147,7 +147,7 @@
 
 @media (max-width: 768px) {
   .process-container {
-    transform: scale(0.6);
+    transform: scale(0.32);
     transform-origin: top left;
     width: 100%;
 
