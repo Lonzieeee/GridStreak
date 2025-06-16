@@ -23,10 +23,9 @@ const COLORS = ["#B0F222", "#f4f4ff","#F2F1DF"];
 // The lables inside pie's
 const renderCustomLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent}) => {
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) / 2;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
+  const radius = innerRadius + (outerRadius - innerRadius) / 2;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
     return (
         <text
         x={x}
@@ -42,6 +41,21 @@ const renderCustomLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent}
         </text>
     );
 };
+const renderLegend = () => {
+  return (
+    <ul className="custom-legend">
+      {data.map((entry, index) => (
+        <li key={index}>
+          <span
+            className="legend-color-box"
+            style={{ backgroundColor: COLORS[index] }}
+          ></span>
+          {entry.name}
+        </li>
+      ))}
+    </ul>
+  );
+};
 function Impact() {
     return (
         <section className="impact-pie-section">
@@ -49,14 +63,14 @@ function Impact() {
 
             <div className="impact-chart-wrapper">
 
-            <PieChart width={400} height={400}>
+            <PieChart width={600} height={400}>
                 <Pie
                 data={data}
-                cx="50%"
-                cy="50%"
+                cx={200}
+                cy={200}
                 innerRadius={0}
                 outerRadius={150}
-                fill="#8884d8"
+                // fill="#8884d8"
                 dataKey="value"
                 label={renderCustomLabel}
                 labelLine={false}
@@ -70,12 +84,25 @@ function Impact() {
           </Pie>
           <Tooltip/>
 
-          <Legend verticalAlign="middle" align="right" layout="vertical" />
-
-        
+          
+ <Legend content={renderLegend} />
             </PieChart>
+           
             </div>
         </section>
     );
 }
 export default Impact
+
+
+
+
+
+
+ 
+
+
+
+
+
+       

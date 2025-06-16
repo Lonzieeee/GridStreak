@@ -1,7 +1,8 @@
 .impact-pie-section {
   padding: 4rem 2rem;
   background-color: #fff;
-  border: 2px solid #000;
+  /* background-color: #0D0D0D; */
+  
   text-align: center;
 }
 
@@ -16,9 +17,59 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20rem;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top:2rem ;
+  margin-left: 40px;
+ 
+  
+}
+.impact-pie-section {
+  padding: 4rem 2rem;
+  background-color: #fff;
+  text-align: center;
 }
 
-.recharts-default-legend {
+.impact-pie-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
   color: #0D0D0D;
 }
+
+.impact-chart-wrapper {
+  display: flex;
+ 
+  justify-content: center;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  /* gap: 3rem; */
+  /* position: relative; */
+}
+
+
+.custom-legend {
+  list-style: none;
+  padding-left: 65%;
+  padding-bottom:25%;
+  margin-top: 10rem;
+  color: #0D0D0D;
+  font-weight: 500;
+  font-size: 0.95rem;
+  /* white-space: nowrap; */
+}
+
+.custom-legend li {
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-color-box {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+

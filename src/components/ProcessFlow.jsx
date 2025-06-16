@@ -15,7 +15,7 @@ function ProcessFlow () {
               </marker>
             </defs>
 
-            {/* CURVED ARROWS FOR THERMAL BRICKS */}
+            {/* thermal */}
  <path d="M140,40 Q230,40 300,160" className="arrow-line" markerEnd="url(#arrowhead)" />
             <path d="M140,160 Q230,160 300,160" className="arrow-line" markerEnd="url(#arrowhead)" />
             <path d="M140,280 Q230,280 300,160" className="arrow-line" markerEnd="url(#arrowhead)" />
@@ -27,6 +27,8 @@ function ProcessFlow () {
             <line x1="615" y1="172" x2="900" y2="172" className="arrow-line" markerEnd="url(#arrowhead)" />
 
             <path d="M615,160 Q760,280 900,292" className="arrow-line" markerEnd="url(#arrowhead)" />
+            {/* <path d="M615,160 Q740,270 850,292" className="arrow-line" markerEnd="url(#arrowhead)" /> */}
+
           </svg>
 
           {/* Input Sources */}
@@ -51,7 +53,7 @@ function ProcessFlow () {
 
             {/* DIAMOND */}
 
-            <div className="diamond-box" style={{top: "102px", left: "630px"}}>
+            <div className="diamond-box" style={{top: "109px", left: "630px"}}>
                 <span>Stabilization Services</span>
             </div>
 
