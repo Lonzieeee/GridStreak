@@ -12,6 +12,13 @@ body,
   height: 100%;
   width: 100%;
   overflow-x: hidden;
-  font-family: sans-serif;
+ 
   background-color: white;
+}
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, .about-title, .services-title {
+  font-family: 'Space Grotesk', sans-serif;
 }

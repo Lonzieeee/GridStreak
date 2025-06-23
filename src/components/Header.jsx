@@ -22,10 +22,10 @@ function Header() {
 
         {/* Navigation */}
         <nav className={`nav-links ${isOpen ? "open" : ""}`}>
-          <a href="/technology">Technology</a>
-          <a href="/solutions">Solutions</a>
-          <a href="/manufacturing">Manufacturing</a>
-          <Link to="/company">Company</Link>
+          <a href="#">Technology</a>
+          <a href="#">Solutions</a>
+          <a href="#">Manufacturing</a>
+          <Link to="#">Company</Link>
           <a href="#">Careers</a>
           <a href="#">Insights</a> 
         </nav>
