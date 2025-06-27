@@ -26,7 +26,7 @@ function Header() {
           <a href="#">Solutions</a>
           <a href="#">Manufacturing</a>
           <Link to="#">Company</Link>
-          <a href="#">Careers</a>
+          <a href="#">Sustainability</a>
           <a href="#">Insights</a> 
         </nav>
 
