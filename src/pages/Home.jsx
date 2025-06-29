@@ -8,6 +8,7 @@ import reliableIcon from "../assets/reliable.svg";
 import scalableIcon from "../assets/scalable.svg"
 import ProcessFlow from "../components/ProcessFlow";
 import Impact from "../components/Impact"
+import Sustainability from "../components/Sustainability";
 import WhoWeAre from "../components/WhoWeAre";
 import MapSection from "../components/MapSection";
 
@@ -98,6 +99,7 @@ function Home() {
       <WhoWeAre />
       <ProcessFlow />
       <Impact />
+      <Sustainability />
       <MapSection />
     </div>
   );

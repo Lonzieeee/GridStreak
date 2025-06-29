@@ -1,0 +1,116 @@
+.sustainability-section {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 5rem 2rem;
+  color: white;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sustainability-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+.sustainability-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.sustainability-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.sub-heading {
+  font-size: 1.2rem;
+  color: var(--lime);
+  margin-bottom: 1rem;
+}
+
+.main-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.sustainability-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.read-more-btn {
+  display: inline-block;
+  background-color: var(--lime);
+  color: black;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.read-more-btn:hover {
+  background-color: var(--lime-soft);
+}
+
+
+.pillars-wrapper {
+  flex: 1;
+  min-width: 320px;
+  text-align: left;
+}
+
+.pillars-wrapper h5 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.pillar-card {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pillar-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+@media (max-width: 900px) {
+  .sustainability-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
