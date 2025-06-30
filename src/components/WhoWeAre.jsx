@@ -1,5 +1,6 @@
 import React from "react";
 import "./WhoWeAre.css";
+import EnergyModel from "./EnergyModel";
 
 function WhoWeAre() {
   return (
@@ -24,8 +25,9 @@ function WhoWeAre() {
         </div>
 
         <div className="who-visual">
+          <EnergyModel />
    
-          <div className="visual-box">🌱</div>
+         
         </div>
       </div>
     </section>
