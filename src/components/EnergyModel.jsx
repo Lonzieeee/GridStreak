@@ -1,83 +1,107 @@
 import React, { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Trail } from "@react-three/drei";
+import { OrbitControls, useGLTF, Float } from "@react-three/drei";
 import * as THREE from "three";
 
 function Brick() {
-  const ref = useRef();
+  const brickRef = useRef();
   const materialRef = useRef();
+  const particlesRef = useRef([]);
   const { scene } = useGLTF("/assets/white_mesh.glb");
-
 
   scene.traverse((child) => {
     if (child.isMesh) {
       const material = new THREE.MeshStandardMaterial({
-        color: "#B0F222", 
-        emissive: "#ffffff",
-        emissiveIntensity: 0,
-        roughness: 0.4,
-        metalness: 0.3,
+        color: "#444", 
+        emissive: "#00ff99", 
+        emissiveIntensity: 0.1,
+        roughness: 0.5,
+        metalness: 0.4,
       });
       child.material = material;
       materialRef.current = material;
     }
   });
 
+  
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
 
-    // Rotation
-    ref.current.rotation.y = t * 0.6;
-    ref.current.rotation.x = Math.sin(t * 0.3) * 0.3;
 
-    // Floating
-    ref.current.position.y = Math.sin(t * 2) * 0.1;
-
-  
-    if (materialRef.current) {
-      const flicker = Math.sin(t * 10) * 0.2 + Math.random() * 0.05;
-      materialRef.current.emissiveIntensity = Math.min(t / 3, 1.3) + flicker;
+    brickRef.current.rotation.y = t * 0.6;
+    brickRef.current.position.y = Math.sin(t * 1.5) * 0.15;
 
     
-      const progress = Math.min(t / 10, 1);
-      const cold = new THREE.Color("#0D0D0D");
-      const ember = new THREE.Color("#8B0000");
-      const flame = new THREE.Color("#FFD700");
-      const hot = new THREE.Color("#0D0D0D");
-
-      if (progress < 0.33) {
-        materialRef.current.color = cold.lerp(ember, progress / 0.33);
-      } else if (progress < 0.66) {
-        materialRef.current.color = ember.lerp(flame, (progress - 0.33) / 0.33);
-      } else {
-        materialRef.current.color = flame.lerp(hot, (progress - 0.66) / 0.34);
-      }
+    if (materialRef.current) {
+      materialRef.current.emissiveIntensity = 0.8 + Math.sin(t * 3) * 0.2;
     }
+
+   
+    particlesRef.current.forEach((particle, i) => {
+      if (!particle) return;
+
+      const angle = t * 0.5 + i;
+      const radius = 2.2 + Math.sin(t + i) * 0.3;
+      particle.position.x = Math.cos(angle) * radius;
+      particle.position.z = Math.sin(angle) * radius;
+      particle.position.y = Math.sin(t * 2 + i) * 0.4;
+
+      
+      const distance = particle.position.distanceTo(brickRef.current.position);
+      if (distance < 1.5) {
+        particle.material.opacity = Math.max(0, particle.material.opacity - 0.015);
+        if (particle.material.opacity <= 0) {
+          particle.visible = false;
+        }
+      }
+    });
   });
+
+  const plasticParticles = [...Array(25)].map((_, i) => (
+    <mesh
+      key={i}
+      ref={(el) => (particlesRef.current[i] = el)}
+      position={[
+        Math.random() * 5 - 2.5,
+        Math.random() * 2 - 1,
+        Math.random() * 5 - 2.5,
+      ]}
+    >
+      <sphereGeometry args={[0.035, 6, 6]} />
+      <meshStandardMaterial
+        color={["#D3D3D3", "#A9A9A9", "#ADD8E6", "#CCCCCC"][i % 4]}
+        transparent
+        opacity={0.6}
+      />
+    </mesh>
+  ));
 
   return (
     <group>
-      {/*  ring underneath */}
-      <mesh position={[0, -1.8, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.2, 1.6, 64]} />
-        <meshBasicMaterial color="#B0F222" transparent opacity={0.5} />
+  {/* bottom ring */}
+      <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[1.3, 1.8, 64]} />
+        <meshBasicMaterial color="#00ff99" transparent opacity={0.4} />
       </mesh>
 
-      
-      {/* Brick itself */}
-      <primitive object={scene} ref={ref} scale={2} />
+      <primitive object={scene} ref={brickRef} scale={2} />
+
+  
+      {plasticParticles}
     </group>
   );
 }
 
 function EnergyModel() {
   return (
-    <div style={{ height: "500px", width: "100%" }}>
-      <Canvas camera={{ position: [0, 0, 5] }}>
-        <ambientLight intensity={0.4} />
+    <div style={{ height: "400px", width: "100%" }}>
+      <Canvas camera={{ position: [0, 0, 6] }}>
+        <ambientLight intensity={0.5} />
         <directionalLight position={[2, 2, 2]} intensity={1} />
         <Suspense fallback={null}>
-          <Brick />
+          <Float floatIntensity={1.5} speed={2}>
+            <Brick />
+          </Float>
         </Suspense>
         <OrbitControls enableZoom={false} />
       </Canvas>
