@@ -48,7 +48,7 @@
 
 .process-box:hover{
     transform: scale(1.05);
-  background-color: #eefced; 
+  background-color: #F2F1DF; 
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 
 }
