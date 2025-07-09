@@ -5,6 +5,7 @@ import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Company from "./pages/Company";
 import Footer from "./components/Footer"
+import ChatBot from './components/ChatBot';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
       </Routes>
       <Footer />
+      <ChatBot />
  
     </Router>
   );
