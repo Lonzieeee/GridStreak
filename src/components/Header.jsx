@@ -24,8 +24,8 @@ function Header() {
         <nav className={`nav-links ${isOpen ? "open" : ""}`}>
           <a href="#">Technology</a>
           <a href="#">Solutions</a>
-          <a href="#">Manufacturing</a>
-          <Link to="#">Company</Link>
+          <a href="#">Partners</a>
+        
           <a href="#">Sustainability</a>
           <a href="#">Insights</a> 
         </nav>
