@@ -1,0 +1,227 @@
+/* === HERO SECTION === */
+.hero-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 1s ease-in-out, opacity 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  animation: fadeInSlide 0.8s ease;
+  background-color: transparent;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  animation: fadeIn 1s ease forwards;
+}
+
+.hero-slide {
+  animation: slideFade 0.6s ease-in-out both;
+}
+
+.hero-text {
+  font-size: 3rem;
+  font-weight: bold;
+  animation: fadeInUp 1s ease-out;
+  max-width: 800px;
+}
+
+/* === INFO BOXES === */
+.hero-info-boxes {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.info-box {
+  background: linear-gradient(
+    to bottom right,
+    rgba(175, 241, 34, 0.6),
+    rgba(235, 106, 0, 0.6)
+  );
+  backdrop-filter: blur(6px);
+  color: black;
+  padding: 20px;
+  width: 300px;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  text-align: left;
+  opacity: 0;
+  animation: fadeSlideIn 0.8s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.delay-2 {
+  animation-delay: 0.6s;
+}
+
+/* === CIRCLE NAVIGATION === */
+.circle-nav {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-dot.active,
+.nav-dot:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: scale(1.01);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(60px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.slide-in {
+  animation: slideInFromRight 0.5s ease both;
+}
+
+.slide-out-left {
+  animation: slideOutToLeft 0.5s ease both;
+}
+
+.slide-out-right {
+  animation: slideOutToRight 0.5s ease both;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOutToLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideOutToRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+/* === SLIDER ADDITIONS === */
+.hero-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+}
+
+.hero-slide-track {
+  display: flex;
+  width: 300%; /* 3 slides */
+  height: 100%;
+  transition: transform 0.8s ease-in-out;
+}
+
+.hero-slide {
+  flex: 0 0 100%;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
