@@ -4,7 +4,7 @@
   right: 20px;
   width: 340px;
   background-color: #ffffff;
-  border: 2px solid #B0F222;
+  border: 2px solid #EB6A00;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   font-family: "Segoe UI", sans-serif;
@@ -27,7 +27,7 @@
 }
 
 .chat-header {
-  background-color: #B0F222;
+  background-color: #EB6A00;
   color: black;
   padding: 14px;
   font-weight: 600;
@@ -78,7 +78,7 @@
 
 .bot-msg .bubble {
   background-color: #e6ffe2;
-  border-left: 4px solid #B0F222;
+  border-left: 4px solid #EB6A00;
   color: #333;
 }
 
@@ -117,12 +117,12 @@
 }
 
 .faq-btn {
-  background-color: #B0F222;
-  color: black;
+  background-color: #EB6A00;
+  color: white;
 }
 
 .faq-btn:hover {
-  background-color: #d5ff6f;
+  background-color: #ff812e;
 }
 
 .end-btn {

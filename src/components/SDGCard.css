@@ -1,0 +1,82 @@
+.sdg-section {
+  padding: 40px 20px;
+  background-color: #ffffff;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sdg-title {
+  font-size: 2em;
+  margin-bottom: 30px;
+  color: #1a1a1a;
+}
+
+.sdg-card-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 320px;
+}
+
+.sdg-card {
+  position: absolute;
+  width: 240px;
+  height: 200px;
+  top: 60px;
+  left: 50%;
+  background-color: #fff;
+  border: 3px solid;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.4s ease;
+  transform-origin: bottom center;
+  transition: transform 0.4s ease, height 0.4s ease, z-index 0.3s;
+
+}
+
+.sdg-card.expanded {
+  height: 260px;
+  z-index: 10;
+}
+
+.sdg-card-header {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: white;
+  padding: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.sdg-card-body {
+  padding: 15px;
+  color: #333;
+  font-size: 0.95em;
+}
+.sdg-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.sdg-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+
+.sdg-title-text {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 8px;
+  text-align: center;
+}

@@ -125,7 +125,7 @@ const ChatBot = () => {
       ) : (
         <div className="chat-container slide-in">
           <div className="chat-header">
-            ⚡ StreakBot
+            StreakBot
             <button className="close-btn" onClick={() => setMinimized(true)}>
               &minus;
             </button>
