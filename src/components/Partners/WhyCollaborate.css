@@ -1,0 +1,134 @@
+.why-collaborate-section {
+  padding: 80px 20px;
+  background: #0a0a0a;
+  text-align: center;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.why-collab-heading {
+  font-size: 2.8rem;
+  margin-bottom: 50px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.benefit-card {
+  background: radial-gradient(circle at center, #ff7e00, #1a1a1a);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 0 25px rgba(255, 102, 0, 0.2);
+  transition: transform 0.5s ease, box-shadow 0.4s ease, background 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+}
+
+
+.benefit-card.slide-left {
+  transform: translateX(-100px);
+}
+.benefit-card.slide-right {
+  transform: translateX(100px);
+}
+
+.benefit-card.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.benefit-card.in-view::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 153, 0, 0.25) 0%, transparent 70%);
+  animation: pulseGlow 2s ease-out;
+  z-index: 0;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+
+.benefit-content {
+  position: relative;
+  z-index: 1;
+}
+
+.benefit-card h3 {
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.benefit-card p {
+  font-size: 1rem;
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.benefit-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 4px rgba(255, 140, 0, 0.6));
+  transition: transform 0.3s ease;
+}
+
+.benefit-card:hover .benefit-icon {
+  transform: scale(1.15);
+}
+
+.benefit-card:hover {
+  background: radial-gradient(circle at center, #ff9900, #222);
+  box-shadow: 0 0 45px rgba(255, 102, 0, 0.6);
+  transform: scale(1.03);
+}
+
+
+@media (max-width: 768px) {
+  .why-collab-heading {
+    font-size: 2rem;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefit-card {
+    padding: 30px 20px;
+    transform: translateY(50px);
+  }
+
+  .benefit-card.slide-left,
+  .benefit-card.slide-right {
+    transform: translateY(50px);
+  }
+
+  .benefit-card.in-view {
+    transform: translateY(0);
+  }
+}

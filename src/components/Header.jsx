@@ -20,14 +20,11 @@ function Header() {
           <span className="bar"></span>
         </button>
 
-        {/* Navigation */}
         <nav className={`nav-links ${isOpen ? "open" : ""}`}>
           <a href="#">Technology</a>
           <a href="#">Solutions</a>
-          <a href="#">Partners</a>
-        
-      <Link to="/sustainability">Sustainability</Link>
-
+          <Link to="/partners">Partners</Link> 
+          <Link to="/sustainability">Sustainability</Link>
           <a href="#">Insights</a> 
         </nav>
 
