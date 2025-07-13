@@ -1,0 +1,118 @@
+.partnership-alt-section {
+  padding: 100px 20px;
+  background: #F6F6F6;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.partnership-alt-title {
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 60px;
+}
+
+.opportunity-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.opportunity-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-top {
+  text-align: center;
+}
+
+.opportunity-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.opportunity-card:hover .opportunity-icon {
+  transform: scale(1.2);
+}
+
+.card-top h3 {
+  font-size: 1.2rem;
+  color: #eb6a00;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  margin-top: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.opportunity-svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.opportunity-card:hover .opportunity-svg {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .partnership-alt-section {
+    padding: 60px 15px;
+  }
+
+  .partnership-alt-title {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+
+  .opportunity-card-grid {
+    grid-template-columns: 1fr; 
+    gap: 20px;
+  }
+
+  .opportunity-card {
+    padding: 25px 20px;
+  }
+
+  .card-top h3 {
+    font-size: 1.05rem;
+  }
+
+  .card-description {
+    font-size: 0.95rem;
+  }
+
+  .opportunity-svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .opportunity-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

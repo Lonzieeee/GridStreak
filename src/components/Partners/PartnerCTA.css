@@ -1,0 +1,118 @@
+.partnercta-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 40px;
+  background: linear-gradient(135deg, #111, #333);
+  color: #fff;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.partnercta-left {
+  flex: 1;
+  min-width: 280px;
+  padding-right: 20px;
+}
+
+.typewriter-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.typewriter-sub {
+  font-size: 1.5rem;
+  color: #aff122;
+  font-family: monospace;
+  height: 30px;
+}
+
+.type-text {
+  color: #aff122;
+}
+
+.blinker {
+  color: #aff122;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.partnercta-right {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  justify-content: center;
+}
+
+.cta-card {
+  background-color: #fff;
+  color: #222;
+  border-radius: 16px;
+  padding: 40px 30px;
+  max-width: 450px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.cta-card h2 {
+  font-size: 1.6rem;
+  color: #eb6a00;
+  margin-bottom: 16px;
+}
+
+.cta-card p {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.cta-card a {
+  color: #eb6a00;
+  text-decoration: underline;
+}
+.cta-button {
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #ffffff;
+  color: #eb6a00;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid #eb6a00;
+  transition: all 0.3s ease;
+  text-decoration: none !important;
+}
+
+.cta-button:hover {
+  background-color: #eb6a00;
+  color: white;
+  text-decoration: none;
+}
+
+
+
+@media (max-width: 768px) {
+  .partnercta-section {
+    flex-direction: column;
+    padding: 60px 20px;
+  }
+
+  .typewriter-title {
+    font-size: 2rem;
+  }
+
+  .typewriter-sub {
+    font-size: 1.2rem;
+  }
+
+  .cta-card {
+    width: 100%;
+  }
+}

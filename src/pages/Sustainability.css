@@ -192,7 +192,7 @@
 }
 
 @keyframes dash {
-  to { stroke-dashoffset: -1000; }
+  to { stroke-dashoffset: -200; }
 }
 
 .impact-title {
