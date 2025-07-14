@@ -42,8 +42,8 @@ const ChatBot = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:3002");
+  useEffect(() => 
+    {ws.current = new WebSocket("wss://gridstreak-production.up.railway.app");
 
     ws.current.onopen = () => {
       console.log("WebSocket connected");
