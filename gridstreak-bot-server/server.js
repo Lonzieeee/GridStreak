@@ -1,11 +1,14 @@
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 3002 }, () => {
-  console.log("WebSocket Server running on ws://localhost:3002");
+
+const PORT = process.env.PORT || 3002;
+
+const wss = new WebSocket.Server({ port: PORT }, () => {
+  console.log(`WebSocket Server running on ws://localhost:${PORT}`);
 });
 
 wss.on('connection', (ws) => {
-  console.log("New client connected");
+  console.log("🔌 New client connected");
 
   ws.send("Hey! I'm StreakBot. Want to learn how we turn plastic into power?");
 
@@ -15,8 +18,7 @@ wss.on('connection', (ws) => {
     let response = "I'm not sure I understand yet 🤖";
 
     try {
-     const data = JSON.parse(message.toString());
-
+      const data = JSON.parse(message.toString());
 
       if (data.type === "faq") {
         const faqResponses = {
@@ -30,15 +32,14 @@ wss.on('connection', (ws) => {
         response = faqResponses[data.id] || response;
       }
     } catch (err) {
-//    If the question client has is not in th efaq fall back to key word smatching
       const userMessage = message.toString().toLowerCase();
 
       if (userMessage.includes("plastic")) {
-        response = "We use pyrolysis to convert plastic waste into heat energy stored in thermal bricks ";
+        response = "We use pyrolysis to convert plastic waste into heat energy stored in thermal bricks.";
       } else if (userMessage.includes("how") || userMessage.includes("work")) {
-        response = "GridStreak's thermal bricks store heat from plastic and release it to stabilize energy grids ";
+        response = "GridStreak's thermal bricks store heat from plastic and release it to stabilize energy grids.";
       } else if (userMessage.includes("demo")) {
-        response = "Cool! Please leave your email or reach us through the contact form ";
+        response = "Cool! Please leave your email or reach us through the contact form.";
       } else if (userMessage.includes("thanks")) {
         response = "You're welcome!";
       }
@@ -48,6 +49,6 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    console.log(" Client disconnected");
+    console.log("❌ Client disconnected");
   });
 });
