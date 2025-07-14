@@ -8,14 +8,14 @@ const wss = new WebSocket.Server({ port: PORT }, () => {
 });
 
 wss.on('connection', (ws) => {
-  console.log("🔌 New client connected");
+  console.log("New client connected");
 
   ws.send("Hey! I'm StreakBot. Want to learn how we turn plastic into power?");
 
   ws.on('message', (message) => {
     console.log("📩 User said:", message.toString());
 
-    let response = "I'm not sure I understand yet 🤖";
+    let response = "I'm not sure I understand yet";
 
     try {
       const data = JSON.parse(message.toString());
@@ -49,6 +49,6 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    console.log("❌ Client disconnected");
+    console.log("Client disconnected");
   });
 });

@@ -110,41 +110,43 @@
 
 /* Mobile  */
 @media (max-width: 768px) {
-    .logo {
+  .logo {
     font-size: 1.6rem;
-    font-weight: bold;
-    color: #0D0D0D;
-    flex: 1;
-    margin-left: -2%;
-}
+    margin-left: 0;
+  }
 
   .hamburger {
     display: flex;
-    
   }
 
   .nav-links {
-      position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  flex-direction: column;
-  align-items: center;
-  display: none;
-  padding: 1rem 0;
-  background-color: white; 
-  z-index: 15;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1)
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: max-height 0.3s ease-in-out;
   }
 
   .nav-links.open {
     display: flex;
-
   }
+
+  .nav-links a {
+    padding: 10px 0;
+    font-size: 1rem;
+  }
+
   .get-in-touch {
- display: none;
+    display: none;
   }
 }
+
 
 
 

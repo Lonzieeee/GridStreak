@@ -50,18 +50,61 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .who-wrapper {
     flex-direction: column;
     text-align: center;
+    gap: 2rem;
+   
   }
 
   .who-text h2 {
     font-size: 2.2rem;
   }
 
+  .who-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
   .visual-box {
+    width: 200px;
+    height: 200px;
+    font-size: 3rem;
     margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .who-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .who-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding: 0 1rem;
+  }
+
+  .visual-box {
+    width: 180px;
+    height: 180px;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .who-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .who-text p {
+    font-size: 0.9rem;
+  }
+
+  .visual-box {
+    width: 160px;
+    height: 160px;
+    font-size: 2.2rem;
   }
 }

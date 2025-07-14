@@ -180,3 +180,52 @@
     opacity: 1;
   }
 }
+@media screen and (max-width: 768px) {
+  .chat-container {
+    width: 95%;
+    right: 2.5%;
+    bottom: 80px;
+    max-height: 80vh;
+    border-radius: 12px;
+  }
+
+  .chat-header {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .chat-body {
+    padding: 12px;
+    max-height: 300px;
+    gap: 10px;
+  }
+
+  .bot-msg .bubble,
+  .user-msg .bubble {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .faq-btn,
+  .end-btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .chat-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .typing-dots {
+    font-size: 18px;
+  }
+}
+

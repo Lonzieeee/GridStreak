@@ -32,7 +32,7 @@ function Sustainability() {
             plastic-to-energy innovation.
           </p>
           <Link to="/sustainability" className="read-more-btn">
-            Read More →
+            Read More 
           </Link>
         </div>
 

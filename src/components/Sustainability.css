@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 .sustainability-overlay {
@@ -37,7 +38,7 @@
 
 .sub-heading {
   font-size: 1.2rem;
- color: #EB6A00;
+  color: #EB6A00;
   margin-bottom: 1rem;
 }
 
@@ -66,7 +67,6 @@
 .read-more-btn:hover {
   background-color: var(--lime-soft);
 }
-
 
 .pillars-wrapper {
   flex: 1;
@@ -109,9 +109,54 @@
   .sustainability-inner {
     flex-direction: column;
     align-items: stretch;
+    gap: 3rem;
   }
 
   .pillars-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Perfected */
+@media (max-width: 600px) {
+  .sustainability-section {
+    padding: 3rem 1.5rem;
+    height: auto;
+    min-height: auto;
+  }
+
+  .main-heading {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .sub-heading {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .sustainability-content p {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .read-more-btn {
+    display: block;
+    margin: 1rem auto 0 auto;
+    text-align: center;
+  }
+
+  .pillars-wrapper h5 {
+    text-align: center;
+  }
+
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .pillar-card {
+    font-size: 0.9rem;
+    padding: 0.9rem;
   }
 }

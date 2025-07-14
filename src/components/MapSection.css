@@ -40,13 +40,43 @@
   border: none;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
+  .map-section {
+    padding: 3rem 1rem;
+  }
+
   .map-content h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .map-content p {
+    font-size: 1rem;
+    padding: 0 0.5rem;
   }
 
   .map-card iframe {
-    height: 300px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .map-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .map-content p {
+    font-size: 0.95rem;
+  }
+
+  .map-card iframe {
+    height: 240px;
+  }
+
+  .map-card {
+    border-width: 2px;
   }
 }

@@ -18,9 +18,9 @@ function Footer () {
                        <li><Link to="/">Home</Link></li>
                        <li><Link to="/technology">Technology</Link></li>
                        <li><Link to="/solutions">Solutions</Link></li>
-                       <li><Link to="/manufacturing">Manufacturing</Link></li>
-                       <li><Link to="/company">Company</Link></li>
-                       <li><Link to="/careers">Careers</Link></li>
+                       
+                       <li><Link to="/partners">Partners</Link></li>
+                       <li><Link to="/sustainability">Sustainability</Link></li>
                        <li><Link to="/insights">Insights</Link></li>
                     </ul>
                 </div>

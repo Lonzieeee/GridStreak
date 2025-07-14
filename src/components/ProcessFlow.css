@@ -4,14 +4,11 @@
   background-color: #fff;
   height: 100vh;
 }
-
 .process-section h2 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
   color: #0D0D0D;
 }
-
-
 .process-wrapper {
   display: flex;
   justify-content: center;
@@ -19,7 +16,6 @@
   padding: 0 1rem;
   width: 100%;
 }
-
 .process-container {
   position: relative;
   height: 400px;
@@ -27,7 +23,6 @@
   margin: 0 auto;
   min-width: fit-content;
 }
-
 /* Boxes */
 .process-box {
   position: absolute;
@@ -45,19 +40,15 @@
   transition: all 0.3s ease;
   cursor: default;
 }
-
 .process-box:hover{
     transform: scale(1.05);
   background-color: #F2F1DF; 
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-
 }
-
 .center-box {
   background-color: #D9FAD3;
   font-weight: bold;
 }
-
 /* Diamond */
 .diamond-box {
   width: 120px;
@@ -70,7 +61,6 @@
   justify-content: center;
   animation: pulse 2s ease-in-out infinite;
 }
-
 .diamond-box span {
   transform: rotate(-45deg);
   display: block;
@@ -79,7 +69,6 @@
   max-width: 100px;
   color: #0D0D0D;
 }
-
 /* Arrows */
 .process-arrows {
   position: absolute;
@@ -89,15 +78,12 @@
   height: 100%;
   pointer-events: none;
 }
-
 .arrow-line {
   stroke: #B0F222;
   stroke-width: 2.5;
   fill: none;
   marker-end: url(#arrowhead);
 }
-
-
 .arrow-line {
     stroke: #B0F222;
     stroke-width: 2.5;
@@ -107,9 +93,7 @@
     stroke-dashoffset: 300;
     animation: draw 1.2s ease forwards;
 }
-
 /* diamond animation */
-
 @keyframes pulse {
     0% {
         transform: rotate(45deg) scale(1);
@@ -124,19 +108,47 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 }
-
-
-
-
-
 /* draw animatin */
 @keyframes draw {
     to {
         stroke-dashoffset: 0;
     }
 }
-
-
+.process-mobile {
+  display: none;
+}
+@media (max-width: 768px) {
+  .process-container,
+  .process-arrows {
+    display: none;
+  }
+  .process-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #F9F9F9;
+    padding: 2rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .process-step {
+    background: #fff;
+    border-left: 5px solid var(--lime);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  .process-step strong {
+    font-size: 1.1rem;
+    color: #0D0D0D;
+  }
+  .process-step p {
+    font-size: 0.95rem;
+    color: #444;
+    margin-top: 0.3rem;
+  }
+}
 @media (max-width: 1024px) {
   .process-container {
     transform: scale(0.6);
@@ -144,43 +156,4 @@
     width: 1100px;
     height: 500px;
   }
-}
-
-@media (max-width: 768px) {
-  .process-container {
-    transform: scale(0.32);
-    transform-origin: top left;
-    width: 100%;
-
-    height: 500px;
-    
-  }
-
-  .process-box {
-    font-size: 0.75rem;
-    padding: 0.8rem 1rem;
-  }
-
-  .diamond-box {
-    width: 110px;
-    height: 110px;
-  }
-
-  .diamond-box span {
-    font-size: 0.8rem;
-    max-width: 90px;
-  }
-  .process-wrapper{
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-      padding: 0;
-  }
- .process-section h2 {
-    font-size: 1.5rem;
- }
-  
-
-  
 }

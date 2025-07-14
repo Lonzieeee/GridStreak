@@ -80,3 +80,60 @@
   margin-top: 8px;
   text-align: center;
 }
+@media screen and (max-width: 768px) {
+  .sdg-section {
+    padding: 30px 15px;
+    min-height: auto;
+    height: auto;
+  }
+
+  .sdg-title {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+  }
+
+  .sdg-card-container {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .sdg-card {
+    position: relative;
+    width: 90%;
+    max-width: 320px;
+    height: auto;
+    top: auto;
+    left: auto;
+    transform: none !important;
+  }
+
+  .sdg-card.expanded {
+    height: auto;
+  }
+
+  .sdg-card-header {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .sdg-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .sdg-card-body {
+    padding: 12px;
+    font-size: 0.92rem;
+  }
+
+  .sdg-title-text {
+    font-size: 0.95rem;
+    margin-top: 6px;
+  }
+}
