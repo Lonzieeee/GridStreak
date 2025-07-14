@@ -10,7 +10,6 @@ function Header() {
   const navRef = useRef();
   const hamburgerRef = useRef();
 
-  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -28,13 +27,19 @@ function Header() {
     };
   }, []);
 
+  const handleNavClick = () => {
+    if (window.innerWidth < 768) {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <header className={`header ${isCompanyPage ? "white-header" : ""}`}>
       <div className="container">
         {/* Logo */}
         <Link to="/" className="logo">GridStreak</Link>
 
-        {/* Hamburger for phone */}
+        {/* Hamburger for mobile */}
         <button
           className="hamburger"
           ref={hamburgerRef}
@@ -47,14 +52,14 @@ function Header() {
 
         {/* Navigation */}
         <nav className={`nav-links ${isOpen ? "open" : ""}`} ref={navRef}>
-          <a href="#">Technology</a>
-          <a href="#">Solutions</a>
-          <Link to="/partners">Partners</Link>
-          <Link to="/sustainability">Sustainability</Link>
-          <a href="#">Insights</a>
+          <a href="#" onClick={handleNavClick}>Technology</a>
+          <a href="#" onClick={handleNavClick}>Solutions</a>
+          <Link to="/partners" onClick={handleNavClick}>Partners</Link>
+          <Link to="/sustainability" onClick={handleNavClick}>Sustainability</Link>
+          <a href="#" onClick={handleNavClick}>Insights</a>
         </nav>
 
-        {/* CTA */}
+        {/* CTA  */}
         <Link to="/contact" className="get-in-touch">Get in Touch</Link>
       </div>
     </header>
