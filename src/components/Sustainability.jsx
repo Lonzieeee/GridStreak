@@ -1,19 +1,36 @@
 import React from "react";
 import "./Sustainability.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bgImage from "../assets/land.jpg";
 
+
+import sdg3Icon from "../assets/sdg3-health.png";
+import sdg7Icon from "../assets/sdg7-energy.png";
+import sdg8Icon from "../assets/sdg8-work.png";
+import sdg12Icon from "../assets/sdg12-recycle.png";
+import sdg13Icon from "../assets/sdg13-climate.png";
+
 const pillars = [
-  { name: "Clean Energy Access", icon: "⚡" },        
-  { name: "Institutional Trust", icon: "🏛️" },       
-  { name: "Economic Growth", icon: "📈" },       
-  { name: "System Resilience", icon: "🛡️" },       
-  { name: "Environmental Impact", icon: "🌍" },   
-  { name: "Community Engagement", icon: "🤝" }   
+  { name: "Good Health and well-being", icon: sdg3Icon, sdgIndex: 2 },
+  { name: "Affordable Clean Energy", icon: sdg7Icon, sdgIndex: 0 },
+  { name: "Decent Work & Economic Growth", icon: sdg8Icon, sdgIndex: 3 },
+  { name: "Responsible Consumption & Production", icon: sdg12Icon, sdgIndex: 4 },
+  { name: "Climate Action", icon: sdg13Icon, sdgIndex: 1 },
 ];
 
-
 function Sustainability() {
+  const navigate = useNavigate();
+
+  const handleClick = (index) => {
+    navigate("/sustainability", { state: { expandSDGIndex: index } });
+    setTimeout(() => {
+      const cardSection = document.getElementById("sdg-section");
+      if (cardSection) {
+        cardSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100); 
+  };
+
   return (
     <section
       className="sustainability-section"
@@ -37,11 +54,16 @@ function Sustainability() {
         </div>
 
         <div className="pillars-wrapper">
-          <h5>7 Sustainability Pillars</h5>
+          <h5>Sustainable Development Goals</h5>
           <div className="pillars-grid">
             {pillars.map((pillar) => (
-              <div className="pillar-card" key={pillar.name}>
-                <span className="pillar-icon">{pillar.icon}</span>
+              <div
+                className="pillar-card"
+                key={pillar.name}
+                onClick={() => handleClick(pillar.sdgIndex)}
+                style={{ cursor: "pointer" }}
+              >
+                <img src={pillar.icon} alt={pillar.name} className="pillar-icon" />
                 <span className="pillar-name">{pillar.name}</span>
               </div>
             ))}

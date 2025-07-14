@@ -100,9 +100,16 @@
 }
 
 .pillar-icon {
-  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
   margin-bottom: 0.5rem;
 }
+.pillar-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease;
+}
+
 
 
 @media (max-width: 900px) {

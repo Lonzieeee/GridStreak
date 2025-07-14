@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import SDGCard from "./SDGCard";
 import "./SDGCard.css";
-
 
 import sdg7Icon from "../assets/sdg7-energy.png";
 import sdg13Icon from "../assets/sdg13-climate.png";
@@ -29,7 +29,7 @@ const sdgData = [
     color: "#4c9f38",
     icon: sdg3Icon,
     description:
-      "Clean cooking reduces indoor air pollution, improving respiratory health—especially for women and children.",
+      "Clean cooking reduces indoor air pollution, improving respiratory health especially for women and children.",
   },
   {
     title: "SDG 8: Decent Work & Economic Growth",
@@ -48,10 +48,17 @@ const sdgData = [
 ];
 
 const SDGCards = () => {
+  const location = useLocation();
   const [expandedIndex, setExpandedIndex] = useState(null);
 
+  useEffect(() => {
+    if (location?.state?.expandSDGIndex !== undefined) {
+      setExpandedIndex(location.state.expandSDGIndex);
+    }
+  }, [location]);
+
   return (
-    <div className="sdg-section">
+    <div className="sdg-section" id="sdg-section">
       <h2 className="sdg-title">Our Contribution To a Better World</h2>
       <div className="sdg-card-container">
         {sdgData.map((sdg, index) => {
