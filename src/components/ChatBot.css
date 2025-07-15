@@ -4,7 +4,7 @@
   right: 20px;
   width: 340px;
   background-color: #ffffff;
-  border: 2px solid #EB6A00;
+  border: 2px solid #333;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   font-family: "Segoe UI", sans-serif;
@@ -27,8 +27,8 @@
 }
 
 .chat-header {
-  background-color: #EB6A00;
-  color: black;
+  background-color: #000;
+  color: white;
   padding: 14px;
   font-weight: 600;
   text-align: center;
@@ -45,12 +45,12 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: black;
+  color: white;
 }
 
 .chat-body {
   padding: 16px;
-  background-color: #f7f7f7;
+  background-color: #f2f2f2;
   max-height: 360px;
   overflow-y: auto;
   display: flex;
@@ -77,9 +77,9 @@
 }
 
 .bot-msg .bubble {
-  background-color: #e6ffe2;
-  border-left: 4px solid #EB6A00;
-  color: #333;
+  background-color: #e0e0e0;
+  border-left: 4px solid #333;
+  color: #000;
 }
 
 .user-msg {
@@ -88,9 +88,9 @@
 }
 
 .user-msg .bubble {
-  background-color: #ffe6d9;
-  border-right: 4px solid #EB6A00;
-  color: #333;
+  background-color: #cfcfcf;
+  border-right: 4px solid #000;
+  color: #000;
 }
 
 .icon {
@@ -117,30 +117,30 @@
 }
 
 .faq-btn {
-  background-color: #EB6A00;
-  color: white;
+  /* background-color: #000; */
+  color: black;
 }
 
-.faq-btn:hover {
-  background-color: #ff812e;
-}
+/* .faq-btn:hover {
+  background-color: #333;
+} */
 
 .end-btn {
-  background-color: #EB6A00;
+  background-color: #000;
   color: white;
 }
 
 .end-btn:hover {
-  background-color: #ff812e;
+  background-color: #333;
 }
 
-/* Floatingicon */
+/* Floating icon */
 .chat-toggle {
   position: fixed;
   bottom: 20px;
   right: 20px;
   background-color: #B0F222;
-  color: black;
+  color: white;
   padding: 14px 16px;
   border-radius: 50%;
   font-size: 20px;
@@ -153,6 +153,7 @@
 .chat-toggle:hover {
   transform: scale(1.1);
 }
+
 .typing-dots {
   font-size: 20px;
   display: flex;
@@ -180,6 +181,7 @@
     opacity: 1;
   }
 }
+
 @media screen and (max-width: 768px) {
   .chat-container {
     width: 95%;
@@ -228,4 +230,3 @@
     font-size: 18px;
   }
 }
-

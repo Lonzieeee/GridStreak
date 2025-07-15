@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChatBot.css";
 
+import botIcon from "../assets/bot.png";
+import userIcon from "../assets/user.png";
+
 const faqList = [
   {
     id: "why_gridstreak",
@@ -42,24 +45,23 @@ const ChatBot = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => 
-    {ws.current = new WebSocket("wss://gridstreak-production.up.railway.app");
+  useEffect(() => {
+    ws.current = new WebSocket("wss://gridstreak-production.up.railway.app");
 
     ws.current.onopen = () => {
       console.log("WebSocket connected");
     };
 
-   ws.current.onmessage = (event) => {
-  const botMessage = event.data;
+    ws.current.onmessage = (event) => {
+      const botMessage = event.data;
 
-  setIsTyping(true);
+      setIsTyping(true);
 
-  setTimeout(() => {
-    setChatHistory((prev) => [...prev, { type: "bot", text: botMessage }]);
-    setIsTyping(false);
-  }, 1500); 
-};
-
+      setTimeout(() => {
+        setChatHistory((prev) => [...prev, { type: "bot", text: botMessage }]);
+        setIsTyping(false);
+      }, 1500);
+    };
 
     ws.current.onclose = () => {
       console.log("WebSocket disconnected");
@@ -134,7 +136,9 @@ const ChatBot = () => {
           <div className="chat-body">
             {chatHistory.length === 0 && (
               <div className="bot-msg">
-                <span className="icon">🤖</span>
+                <span className="icon">
+                  <img src={botIcon} alt="bot" width="20" height="20" />
+                </span>
                 <div className="bubble">Hey, I’m here to help you!</div>
               </div>
             )}
@@ -145,7 +149,12 @@ const ChatBot = () => {
                 className={entry.type === "bot" ? "bot-msg" : "user-msg"}
               >
                 <span className="icon">
-                  {entry.type === "bot" ? "🤖" : "🙋‍♀️"}
+                  <img
+                    src={entry.type === "bot" ? botIcon : userIcon}
+                    alt={entry.type}
+                    width="20"
+                    height="20"
+                  />
                 </span>
                 <div className="bubble">{entry.text}</div>
               </div>
@@ -153,7 +162,9 @@ const ChatBot = () => {
 
             {isTyping && (
               <div className="bot-msg">
-                <span className="icon">🤖</span>
+                <span className="icon">
+                  <img src={botIcon} alt="bot" width="20" height="20" />
+                </span>
                 <div className="bubble typing-dots">
                   <span>.</span>
                   <span>.</span>
