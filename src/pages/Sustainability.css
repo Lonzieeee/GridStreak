@@ -1,4 +1,3 @@
-/* hro */
 .hero-wrapper {
   position: relative;
   overflow: hidden;
@@ -11,21 +10,27 @@
   background-color: transparent;
   animation: fadeInSlide 0.8s ease;
 }
+
 .gradient-bg {
-  background: linear-gradient(135deg, #EB6A00, #B0F222);
+  background: linear-gradient(135deg, #EB6A00, #FFD580); 
   background-size: 200% 200%;
-  animation: gradientShift 8s ease infinite;
+  animation: gradientShift 6s ease infinite;
 }
+
+
+
 @keyframes gradientShift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+
 .hero-slide-track {
   display: flex;
   width: 300%;
   height: 100%;
   transition: transform 0.8s ease-in-out;
 }
+
 .hero-slide {
   flex: 0 0 100%;
   height: 100%;
@@ -35,6 +40,7 @@
   position: relative;
   color: white;
 }
+
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -46,57 +52,14 @@
   padding: 0 20px;
   animation: fadeIn 1s ease forwards;
 }
+
 .hero-text {
   font-size: 3rem;
   font-weight: bold;
   max-width: 800px;
   animation: fadeInUp 1s ease-out;
 }
-.hero-info-boxes {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 20px;
-}
-.info-box {
-  background: linear-gradient(to bottom right, rgba(175, 241, 34, 0.6), rgba(235, 106, 0, 0.6));
-  backdrop-filter: blur(6px);
-  color: black;
-  padding: 20px;
-  width: 300px;
-  text-align: left;
-  border-radius: 20px 0 0 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  opacity: 0;
-  animation: fadeSlideIn 0.8s ease forwards;
-}
-.delay-1 { animation-delay: 0.3s; }
-.delay-2 { animation-delay: 0.6s; }
-.typewriter-box {
-  max-width: 800px;
-  margin: 0 auto;
-  color: white;
-  text-align: left;
-  padding: 0 20px;
-}
-.typewriter-text {
-  font-size: 1.5rem;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  width: fit-content;
-  margin-bottom: 10px;
-}
-.typewriter-text.active {
-  border-right: 2px solid white;
-  animation: blinkCursor 0.8s step-end infinite;
-}
-@keyframes blinkCursor {
-  50% {
-    border-color: transparent;
-  }
-}
+
 .circle-nav {
   position: absolute;
   right: 30px;
@@ -106,6 +69,7 @@
   flex-direction: column;
   gap: 20px;
 }
+
 .nav-dot {
   width: 14px;
   height: 14px;
@@ -115,52 +79,44 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
 .nav-dot.active,
 .nav-dot:hover {
   opacity: 1;
   transform: scale(1.2);
 }
-@keyframes fadeInUp {
-  from 
-  { 
-    opacity: 0; transform: translateY(30px); 
- }
-  
-  to 
-  { 
-    opacity: 1; transform: translateY(0);
-   }
+
+
+.typewriter-box {
+  max-width: 800px;
+  margin: 0 auto;
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
-@keyframes fadeIn { 
-  from 
-  { 
-    opacity: 0; 
-  } to 
-  { 
-    opacity: 1; 
-  } 
+
+.typewriter-text {
+  white-space: nowrap;
+  overflow: hidden;
+  width: fit-content;
+  margin-bottom: 10px;
 }
-@keyframes fadeInSlide {
-  from 
-  { 
-    opacity: 0; transform: scale(1.01); 
-  }
-  to 
-  { 
-    opacity: 1; transform: scale(1); 
+
+.typewriter-text.active {
+  border-right: 2px solid white;
+  animation: blinkCursor 0.8s step-end infinite;
+}
+
+@keyframes blinkCursor {
+  50% {
+    border-color: transparent;
   }
 }
 
-@keyframes fadeSlideIn {
-  from 
-  { 
-    opacity: 0; transform: translateX(60px) scale(0.95); 
-  }
-  to 
-  { 
-    opacity: 1; transform: translateX(0) scale(1); 
-  }
-}
 
 .bottom-wave {
   position: absolute;
@@ -170,6 +126,36 @@
   height: 160px;
   z-index: 2;
 }
+
+.impact-pattern-bg {
+  position: relative;
+  background-image: url('../assets/utility-poles.png');
+  background-repeat: repeat;
+  background-size: 50px;
+  background-position: center;
+  background-color: #f8f8f8;
+}
+
+.impact-pattern-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.92);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.impact-pattern-bg::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 80px;
+  width: 100%;
+  background: linear-gradient(to bottom, transparent, white);
+  z-index: 2;
+}
+
 .impact-flow-container {
   position: relative;
   padding: 100px 20px;
@@ -178,8 +164,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(180deg, #ffffff, #f8f8f8);
+  z-index: 1;
 }
+
+.impact-title {
+  text-align: center;
+  font-size: 2.8rem;
+  color: #000;
+  font-weight: 800;
+  margin-bottom: 60px;
+  animation: fadeInUp 1.2s ease-in-out;
+  text-shadow: 1px 1px 0 white;
+}
+
 .impact-path {
   position: absolute;
   top: 0;
@@ -187,104 +184,212 @@
   transform: translateX(-50%);
   width: 300px;
   height: 100%;
-  animation: dash 10s linear infinite;
-  z-index: 0;
+  stroke-dasharray: 8,8;
+  animation: dash 10s linear infinite, fadeIn 2s ease forwards;
+  opacity: 0.4;
+  z-index: -1;
   pointer-events: none;
 }
-@keyframes dash {
-  to { stroke-dashoffset: -200; }
+
+
+.toggle-impact-btn {
+  background-color: transparent;
+  color: #eb6a00;
+  border: 2px solid #eb6a00;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.3s ease;
 }
-.impact-title {
+
+.toggle-impact-btn:hover {
+  background-color: #eb6a00;
+  color: white;
+}
+
+
+
+.triangle-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  z-index: 2;
+  position: relative;
+}
+
+.top-row {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: center;
+}
+
+.impact-card {
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  padding: 30px 25px;
+  width: 340px;
+  max-width: 90%;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.impact-card:hover {
+  transform: translateY(-5px);
+}
+
+.impact-icon {
   font-size: 2.5rem;
-  color: #222;
-  font-weight: 700;
-  margin-bottom: 50px;
-  animation: fadeInUp 1s ease-in-out;
+  margin-bottom: 15px;
 }
-.impact-station {
+
+.impact-card h3 {
+  font-size: 1.5rem;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.impact-card p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.impact-card ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+}
+
+.impact-card ul li {
+  margin-bottom: 10px;
+  padding-left: 1.5em;
   position: relative;
-  width: 100%;
-  max-width: 700px;
-  height: 300px;
-  margin: 80px 0;
+}
+.impact-card ul li::before {
+  content: none !important;
+}
+
+@keyframes fadeInSlide {
+  from { opacity: 0; transform: scale(1.01); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.impact-card-container {
+  width: 340px;
+  max-width: 90%;
+  height: 360px;
   perspective: 1000px;
+  margin: 1rem;
 }
-.flip-box {
+
+.impact-card-inner {
   width: 100%;
   height: 100%;
   position: relative;
-}
-.flip-box-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 0.8s ease-in-out;
   transform-style: preserve-3d;
+  transition: transform 0.8s;
+  backface-visibility: hidden; 
 }
-.impact-station:hover .flip-box-inner {
+
+.impact-card-container.flipped .impact-card-inner {
   transform: rotateY(180deg);
 }
-.flip-box-front,
-.flip-box-back {
+
+.impact-card-front,
+.impact-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   padding: 30px 25px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   backface-visibility: hidden;
-  border-radius: 40px 0 40px 0;
-  background-color: white;
-  border: 2px solid rgba(175, 241, 34, 0.5);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4px);
+  transform-style: preserve-3d;
 }
-.flip-box-front {
+
+.impact-card-front {
   z-index: 2;
-  backface-visibility: hidden;
-  visibility: visible;
+  transform: rotateY(0deg);
 }
-.flip-box-back {
+
+.impact-card-back {
   transform: rotateY(180deg);
-  z-index: 3;
-  backface-visibility: hidden;
 }
-.icon {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
-.impact-station h3 {
-  font-size: 1.5rem;
+
+
+.impact-card-back h4 {
+  font-size: 1.4rem;
   margin-bottom: 10px;
-  color: #eb6a00;
+  color: #000;
 }
-.description {
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-.impact-list {
+
+.impact-card-back ul {
   list-style: none;
   padding-left: 0;
+  text-align: left;
+  color: #333;
   font-size: 1rem;
-  color: #222;
+  margin-top: 10px;
 }
-.impact-list li {
+
+.impact-card-back li {
   margin-bottom: 10px;
-  position: relative;
   padding-left: 1.5em;
+  position: relative;
 }
-.impact-list li::before {
+
+.impact-card-back li::before {
   content: "✓";
   position: absolute;
   left: 0;
-  color: #AFF122;
+  color: #000;
   font-weight: bold;
 }
+
+.hover-info {
+  font-size: 0.8rem;
+  color: #777;
+  font-style: italic;
+  margin-top: 12px;
+}
+
 @media screen and (max-width: 768px) {
   .bottom-wave {
     display: none;
   }
+
   .hero-text {
     font-size: 1.8rem;
     padding: 0 1rem;
@@ -304,99 +409,67 @@
     transform: translateX(50%);
     gap: 15px;
   }
+
   .typewriter-box {
     padding: 0 15px;
   }
+
   .typewriter-text {
     font-size: 1.1rem;
     white-space: normal;
     text-align: center;
   }
+
   .impact-flow-container {
     padding: 40px 10px;
   }
+
   .impact-title {
     font-size: 2rem;
     padding: 0 1rem;
   }
+
   .impact-path {
     display: none;
   }
-  .impact-station {
-    width: 100%;
-    margin: 50px 0;
-    padding: 0 10px;
+
+  .triangle-layout {
+    gap: 40px;
+    margin-top: 60px;
+    margin-bottom: 60px;
   }
 
-  .flip-box,
-  .flip-box-inner {
-    height: auto;
-    transform: none !important;
-    transition: none !important;
-    perspective: none !important;
+  .top-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
   }
 
-  .flip-box-front,
-  .flip-box-back {
-    position: static;
-    transform: none !important;
-    backface-visibility: visible !important;
-    display: block;
-    height: auto;
-    border-radius: 24px;
-    background-color: #ffffff;
-    border: 1.5px solid rgba(175, 241, 34, 0.35);
-    padding: 24px 20px;
-    box-shadow: none;
+  .impact-card {
+    width: 90%;
   }
 
-  .flip-box-back {
-    display: none; 
-  }
-
-  .flip-box-front h3 {
+  .impact-card h3 {
     font-size: 1.25rem;
     margin-bottom: 12px;
-    color: #eb6a00;
     text-align: center;
   }
 
-  .description {
+  .impact-card p,
+  .impact-card ul {
     font-size: 1rem;
-    line-height: 1.6;
     text-align: center;
-    color: #444;
   }
 
-  .impact-list {
-    font-size: 0.95rem;
-    padding-left: 0;
-    color: #333;
-  }
-
-  .impact-list li {
+  .impact-card ul li {
+    text-align: left;
     padding-left: 1.5em;
-    margin-bottom: 10px;
-    position: relative;
   }
 
-  .impact-list li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #AFF122;
-    font-weight: bold;
-  }
-
-  .icon {
+  .impact-icon {
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
-  }
-
-  .icon svg {
-    width: 36px;
-    height: 36px;
   }
 
   .sdg-section {

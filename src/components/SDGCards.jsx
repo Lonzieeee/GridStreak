@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import SDGCard from "./SDGCard";
+import React, { useState, useEffect } from "react";
 import "./SDGCard.css";
-
 import sdg7Icon from "../assets/sdg7-energy.png";
 import sdg13Icon from "../assets/sdg13-climate.png";
 import sdg3Icon from "../assets/sdg3-health.png";
 import sdg8Icon from "../assets/sdg8-work.png";
 import sdg12Icon from "../assets/sdg12-recycle.png";
+import SDGCard from "./SDGCard";
 
 const sdgData = [
   {
@@ -48,41 +46,56 @@ const sdgData = [
 ];
 
 const SDGCards = () => {
-  const location = useLocation();
-  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [flippedIndexes, setFlippedIndexes] = useState(new Array(sdgData.length).fill(false));
 
   useEffect(() => {
-    if (location?.state?.expandSDGIndex !== undefined) {
-      setExpandedIndex(location.state.expandSDGIndex);
-    }
-  }, [location]);
+    let currentIndex = 0;
+
+    const flipSequentially = () => {
+      
+      setFlippedIndexes((prev) => {
+        const updated = [...prev];
+        updated[currentIndex] = true;
+        return updated;
+      });
+
+      setTimeout(() => {
+      
+        setFlippedIndexes((prev) => {
+          const updated = [...prev];
+          updated[currentIndex] = false;
+          return updated;
+        });
+
+       
+        setTimeout(() => {
+          currentIndex = (currentIndex + 1) % sdgData.length;
+          flipSequentially();
+        }, 2000);
+      }, 5000);
+    };
+
+    flipSequentially();
+  }, []);
 
   return (
-    <div className="sdg-section" id="sdg-section">
-      <h2 className="sdg-title">Our Contribution To a Better World</h2>
-      <div className="sdg-card-container">
-        {sdgData.map((sdg, index) => {
-          const rotation = (index - (sdgData.length - 1) / 2) * 12;
-          return (
-            <SDGCard
-              key={index}
-              title={sdg.title}
-              color={sdg.color}
-              icon={sdg.icon}
-              description={sdg.description}
-              isExpanded={expandedIndex === index}
-              onClick={() =>
-                setExpandedIndex(index === expandedIndex ? null : index)
-              }
-              style={{
-                transform: `translateX(-50%) rotate(${rotation}deg) ${
-                  expandedIndex === index ? "scale(1.1)" : ""
-                }`,
-                zIndex: expandedIndex === index ? 10 : index,
-              }}
-            />
-          );
-        })}
+    <div className="sdg-section-wrapper">
+      <h2 className="sdg-title-outside">Our Contribution To a Better World</h2>
+
+      <div className="sdg-section" id="sdg-section">
+        <div className="sdg-card-layout">
+          <div className="top-row">
+            <SDGCard {...sdgData[0]} flipped={flippedIndexes[0]} />
+            <SDGCard {...sdgData[1]} flipped={flippedIndexes[1]} />
+          </div>
+          <div className="center-row">
+            <SDGCard {...sdgData[2]} flipped={flippedIndexes[2]} />
+          </div>
+          <div className="bottom-row">
+            <SDGCard {...sdgData[3]} flipped={flippedIndexes[3]} />
+            <SDGCard {...sdgData[4]} flipped={flippedIndexes[4]} />
+          </div>
+        </div>
       </div>
     </div>
   );
