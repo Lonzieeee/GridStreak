@@ -1,7 +1,7 @@
 
 .sdg-section-wrapper {
   /* margin-bottom: 60px;  */
-  /* margin-top: 60px; */
+  /* margin top:60px */
 }
 
 .sdg-title-outside {
@@ -22,7 +22,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  z-index: 2;
+  z-index:2;
 }
 
 .sdg-section::before {

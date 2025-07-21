@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PartnerTypes.css";
 import govIcon from "../../assets/gov-agency.png";
-
 import utilityIcon from "../../assets/energy-utility.png";
 import industryIcon from "../../assets/industry.png";
 import ngoIcon from "../../assets/ngo-funding.png";
@@ -41,11 +40,15 @@ const partnerTypes = [
 ];
 
 const PartnerTypes = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const toggleIndex = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % partnerTypes.length);
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="partner-types-section">
@@ -53,12 +56,15 @@ const PartnerTypes = () => {
       <div className="partner-timeline">
         <div className="vertical-line" />
         {partnerTypes.map((partner, index) => (
-          <div className="partner-node" key={index}>
-            <div
-              className="partner-svg-icon"
-              onClick={() => toggleIndex(index)}
-            >
+          <div
+            className={`partner-node ${
+              activeIndex === index ? "active-node" : ""
+            }`}
+            key={index}
+          >
+            <div className="partner-svg-icon">
               <img src={partner.icon} alt={partner.title} />
+              {activeIndex === index && <div className="fill-bar"></div>}
             </div>
             <div className="partner-content">
               <h3>{partner.title}</h3>
