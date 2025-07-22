@@ -1,6 +1,10 @@
 .why-collaborate-section {
   padding: 80px 20px;
-  background: #0a0a0a;
+ 
+background-color: #121212;
+
+
+
   text-align: center;
   min-height: 100vh;
   color: white;
@@ -15,6 +19,15 @@
   color: #ffffff;
   font-weight: 700;
 }
+.benefit-content p {
+  font-size: 1.05rem;
+  color: #f5f5f5;
+  line-height: 1.6;
+  font-weight: 500;
+  margin-top: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+
+}
 
 .benefits-grid {
   display: grid;
@@ -25,16 +38,28 @@
 }
 
 .benefit-card {
-  background: radial-gradient(circle at center, #ff7e00, #1a1a1a);
+  background-image: url('../../assets/background-card.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   border-radius: 20px;
   padding: 40px 30px;
   box-shadow: 0 0 25px rgba(255, 102, 0, 0.2);
-  transition: transform 0.5s ease, box-shadow 0.4s ease, background 0.4s ease;
+  transition: transform 0.5s ease, box-shadow 0.4s ease;
   position: relative;
   overflow: hidden;
   opacity: 0;
 }
 
+
+.benefit-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
 
 .benefit-card.slide-left {
   transform: translateX(-100px);
@@ -49,14 +74,14 @@
 }
 
 
-.benefit-card.in-view::before {
+.benefit-card.in-view::after {
   content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 153, 0, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 153, 0, 0.12) 0%, transparent 70%);
   animation: pulseGlow 2s ease-out;
   z-index: 0;
 }
@@ -64,14 +89,13 @@
 @keyframes pulseGlow {
   0% {
     transform: scale(0.5);
-    opacity: 1;
+    opacity: 0.6;
   }
   100% {
-    transform: scale(1.5);
+    transform: scale(1.8);
     opacity: 0;
   }
 }
-
 
 .benefit-content {
   position: relative;
@@ -103,11 +127,9 @@
 }
 
 .benefit-card:hover {
-  background: radial-gradient(circle at center, #ff9900, #222);
-  box-shadow: 0 0 45px rgba(255, 102, 0, 0.6);
   transform: scale(1.03);
+  /* box-shadow: 0 0 45px rgba(255, 102, 0, 0.6); */
 }
-
 
 @media (max-width: 768px) {
   .why-collab-heading {
