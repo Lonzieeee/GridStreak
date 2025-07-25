@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Header.css";
 import { Link, useLocation } from "react-router-dom";
+import "./Header.css";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isCompanyPage = location.pathname === "/company";
-
   const navRef = useRef();
   const hamburgerRef = useRef();
+
+  const isActive = (path) => location.pathname === path;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -34,12 +34,10 @@ function Header() {
   };
 
   return (
-    <header className={`header ${isCompanyPage ? "white-header" : ""}`}>
+    <header className="header">
       <div className="container">
-        {/* Logo */}
         <Link to="/" className="logo">GridStreak</Link>
 
-        {/* Hamburger for mobile */}
         <button
           className="hamburger"
           ref={hamburgerRef}
@@ -50,17 +48,58 @@ function Header() {
           <span className="bar"></span>
         </button>
 
-        {/* Navigation */}
+     
         <nav className={`nav-links ${isOpen ? "open" : ""}`} ref={navRef}>
-          <a href="#" onClick={handleNavClick}>Technology</a>
-          <a href="#" onClick={handleNavClick}>Solutions</a>
-          <Link to="/partners" onClick={handleNavClick}>Partners</Link>
-          <Link to="/sustainability" onClick={handleNavClick}>Sustainability</Link>
-          <a href="#" onClick={handleNavClick}>Insights</a>
+          <Link
+            to="/technology"
+            onClick={handleNavClick}
+            className={isActive("/technology") ? "active-link" : ""}
+          >
+            Technology
+          </Link>
+          <Link
+            to="/solutions"
+            onClick={handleNavClick}
+            className={isActive("/solutions") ? "active-link" : ""}
+          >
+            Solutions
+          </Link>
+          <Link
+            to="/partners"
+            onClick={handleNavClick}
+            className={isActive("/partners") ? "active-link" : ""}
+          >
+            Partners
+          </Link>
+          <Link
+            to="/sustainability"
+            onClick={handleNavClick}
+            className={isActive("/sustainability") ? "active-link" : ""}
+          >
+            Sustainability
+          </Link>
+          <Link
+            to="/insights"
+            onClick={handleNavClick}
+            className={isActive("/insights") ? "active-link" : ""}
+          >
+            Insights
+          </Link>
         </nav>
 
-        {/* CTA  */}
-        <Link to="/contact" className="get-in-touch">Get in Touch</Link>
+       <Link
+  to="/contact"
+  className={`get-in-touch ${isActive("/contact") ? "disabled-contact" : ""}`}
+  onClick={(e) => {
+    if (isActive("/contact")) {
+      e.preventDefault(); 
+    }
+  }}
+>
+  Get in Touch
+</Link>
+
+
       </div>
     </header>
   );
