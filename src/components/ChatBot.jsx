@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChatBot.css";
 
-import botIcon from "../assets/bot.png";
-import userIcon from "../assets/user.png";
+const botIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/bot.png";
+const userIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/user.png";
 
 const faqList = [
   {
@@ -46,32 +46,40 @@ const ChatBot = () => {
   }, []);
 
   useEffect(() => {
-    ws.current = new WebSocket("wss://gridstreak-production.up.railway.app");
+    try {
+      ws.current = new WebSocket("wss://gridstreak-production.up.railway.app");
 
-    ws.current.onopen = () => {
-      console.log("WebSocket connected");
-    };
+      ws.current.onopen = () => {
+        console.log("WebSocket connected");
+      };
 
-    ws.current.onmessage = (event) => {
-      const botMessage = event.data;
+      ws.current.onmessage = (event) => {
+        const botMessage = event.data;
 
-      setIsTyping(true);
+        setIsTyping(true);
 
-      setTimeout(() => {
-        setChatHistory((prev) => [...prev, { type: "bot", text: botMessage }]);
-        setIsTyping(false);
-      }, 1500);
-    };
+        setTimeout(() => {
+          setChatHistory((prev) => [...prev, { type: "bot", text: botMessage }]);
+          setIsTyping(false);
+        }, 1500);
+      };
 
-    ws.current.onclose = () => {
-      console.log("WebSocket disconnected");
-    };
+      ws.current.onclose = () => {
+        console.log("WebSocket disconnected");
+      };
 
-    return () => {
-      if (ws.current) {
-        ws.current.close();
-      }
-    };
+      ws.current.onerror = (error) => {
+        console.warn("WebSocket connection failed - server may be unavailable");
+      };
+
+      return () => {
+        if (ws.current) {
+          ws.current.close();
+        }
+      };
+    } catch (error) {
+      console.warn("WebSocket initialization failed - server may be unavailable");
+    }
   }, []);
 
   const handleQuestionClick = (faq) => {

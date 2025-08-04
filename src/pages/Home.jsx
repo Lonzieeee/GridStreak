@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import heroImage from "../assets/hero1.webp";
+const heroImage = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hero1.webp";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import flexibleIcon from "../assets/flexible.svg";
-import carbonIcon from "../assets/zero-carbon.svg";
-import reliableIcon from "../assets/reliable.svg";
-import scalableIcon from "../assets/scalable.svg"
+const flexibleIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/flexible.svg";
+const carbonIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/zero-carbon.svg";
+const reliableIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/reliable.svg";
+const scalableIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/scalable.svg"
 import ProcessFlow from "../components/ProcessFlow";
 import Impact from "../components/Impact"
 import Sustainability from "../components/Sustainability";

@@ -1,7 +1,7 @@
 import React from "react";
 import "./PartnersHero.css";
 import { Link } from "react-router-dom";
-import auroraBg from "../../assets/aurora-background.webp";
+const auroraBg = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/aurora-background.webp";
 
 const PartnersHero = () => {
   return (

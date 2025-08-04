@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import "./WhyCollaborate.css";
 
-import innovationIcon from "../../assets/innovation.png";
-import circularIcon from "../../assets/circular.png";
-import impactIcon from "../../assets/impact.png";
-import scalableIcon from "../../assets/scalable.png";
+const innovationIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/innovation.png";
+const circularIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/circular.png";
+const impactIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/impact.png";
+const scalableIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/scalable.png";
 
 const benefits = [
   {

@@ -229,7 +229,7 @@
 /* impact sectio */
 .impact-pattern-bg {
   position: relative;
-  background: #f8f8f8 url('../assets/utility-poles.png') repeat center / 50px;
+  background: #f8f8f8 url('https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/utility-poles.png') repeat center / 50px;
 }
 
 .impact-pattern-bg::before {

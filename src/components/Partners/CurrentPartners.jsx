@@ -1,9 +1,9 @@
 import React from "react";
 import "./CurrentPartners.css";
 
-import zalishaLogo from "../../assets/zalisha.webp";
-import kenyattaLogo from "../../assets/kenyatta.jpeg";
-import keniaLogo from "../../assets/kenia.png";
+const zalishaLogo = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/zalisha.webp";
+const kenyattaLogo = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/kenyatta.jpeg";
+const keniaLogo = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/kenia.png";
 
 const partnerLogos = [
   { src: zalishaLogo, alt: "Zalisha", href: "https://www.zalishafrica.com/" },

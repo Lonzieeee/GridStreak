@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Sustainability.css";
 import SDGCards from "../components/SDGCards";
-import EnergyIcon from "../assets/energy.png";
-import ColdIcon from "../assets/cold.png";
-import EmpowerIcon from "../assets/empower.png";
+const EnergyIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/energy.png";
+const ColdIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cold.png";
+const EmpowerIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/empower.png";
 
 const slideTexts = [
   <>The <span className="highlight-orange">brighter</span> side of the future!</>,

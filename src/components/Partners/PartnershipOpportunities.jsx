@@ -1,10 +1,10 @@
 import React from "react";
 import "./PartnershipOpportunities.css";
 
-import projectDev from "../../assets/project-dev.png";
-import research from "../../assets/research.png";
-import investment from "../../assets/investment.png";
-import csr from "../../assets/csr.png";
+const projectDev = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/project-dev.png";
+const research = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/research.png";
+const investment = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/investment.png";
+const csr = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/csr.png";
 
 const opportunities = [
   {

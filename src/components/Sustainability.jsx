@@ -1,14 +1,14 @@
 import React from "react";
 import "./Sustainability.css";
 import { Link, useNavigate } from "react-router-dom";
-import bgImage from "../assets/land.jpg";
+const bgImage = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/land.jpg";
 
 
-import sdg3Icon from "../assets/sdg3-health.png";
-import sdg7Icon from "../assets/sdg7-energy.png";
-import sdg8Icon from "../assets/sdg8-work.png";
-import sdg12Icon from "../assets/sdg12-recycle.png";
-import sdg13Icon from "../assets/sdg13-climate.png";
+const sdg3Icon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sdg3-health.png";
+const sdg7Icon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sdg7-energy.png";
+const sdg8Icon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sdg8-work.png";
+const sdg12Icon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sdg12-recycle.png";
+const sdg13Icon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sdg13-climate.png";
 
 const pillars = [
   { name: "Good Health and well-being", icon: sdg3Icon, sdgIndex: 2 },

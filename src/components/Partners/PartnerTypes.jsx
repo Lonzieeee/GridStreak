@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./PartnerTypes.css";
-import govIcon from "../../assets/gov-agency.png";
-import utilityIcon from "../../assets/energy-utility.png";
-import industryIcon from "../../assets/industry.png";
-import ngoIcon from "../../assets/ngo-funding.png";
-import researchIcon from "../../assets/research.png";
+const govIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gov-agency.png";
+const utilityIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/energy-utility.png";
+const industryIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/industry.png";
+const ngoIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/ngo-funding.png";
+const researchIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/research.png";
 
 const partnerTypes = [
   {
