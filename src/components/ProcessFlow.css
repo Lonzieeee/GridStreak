@@ -97,7 +97,7 @@
   animation: draw 1.2s ease forwards;
 }
 
-/* Animations */
+
 @keyframes pulse {
   0% {
     transform: rotate(45deg) scale(1);
@@ -124,7 +124,6 @@
   display: none;
 }
 
-/* Mobile styles */
 @media (max-width: 768px) {
   .process-container,
   .process-arrows {

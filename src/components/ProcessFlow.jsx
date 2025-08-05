@@ -8,7 +8,7 @@ function ProcessFlow() {
 
       <div className="process-wrapper">
         <div className="process-container">
-          {/* ARROWS */}
+          
           <svg className="process-arrows">
             <defs>
               <marker
@@ -23,7 +23,7 @@ function ProcessFlow() {
               </marker>
             </defs>
 
-            {/* Input to Thermal */}
+            {/* thermal input */}
             <path
               d="M140,40 Q230,40 300,160"
               className="arrow-line"
@@ -40,7 +40,7 @@ function ProcessFlow() {
               markerEnd="url(#arrowhead)"
             />
 
-            {/* Thermal to Diamond */}
+            {/* thermal to diamond */}
             <line
               x1="340"
               y1="172"
@@ -50,7 +50,7 @@ function ProcessFlow() {
               markerEnd="url(#arrowhead)"
             />
 
-            {/* Diamond to Outputs */}
+            {/* fiamonds to output */}
             <path
               d="M615,160 Q760,40 900,60"
               className="arrow-line"
@@ -71,7 +71,7 @@ function ProcessFlow() {
             />
           </svg>
 
-          {/* INPUT SOURCES */}
+          {/* input box */}
           <div className="column-left">
             <div className="process-box" style={{ top: "20px" }}>
               Excess Solar
@@ -90,7 +90,7 @@ function ProcessFlow() {
             </div>
           </div>
 
-          {/* THERMAL CENTER */}
+          {/* cventre thermal */}
           <div
             className="process-box center-box"
             style={{ top: "140px", left: "300px" }}
@@ -98,12 +98,12 @@ function ProcessFlow() {
             Thermal Bricks
           </div>
 
-          {/* DIAMOND */}
+          {/* diamond */}
           <div className="diamond-box" style={{ top: "109px", left: "630px" }}>
             <span>Stabilization Services</span>
           </div>
 
-          {/* OUTPUTS */}
+          {/* outputs */}
           <div className="column right">
             <div className="process-box" style={{ top: "20px", left: "900px" }}>
               Frequency Regulation
@@ -130,10 +130,10 @@ function ProcessFlow() {
         </div>
       </div>
 
-      {/* MOBILE VERTICAL FLOW */}
+      {/* mobile vertical flow */}
       <div className="process-mobile-vertical">
         <div className="mobile-container">
-          {/* Mobile Arrows SVG */}
+          {/* scg arrows moile */}
           <svg className="mobile-arrows">
             <defs>
               <marker
@@ -148,7 +148,7 @@ function ProcessFlow() {
               </marker>
             </defs>
 
-            {/* Input sources to thermal bricks - from top with updated positions */}
+            {/* sources */}
             <path
               d="M60,80 Q60,110 140,140"
               className="mobile-arrow-line"
@@ -165,7 +165,7 @@ function ProcessFlow() {
               markerEnd="url(#mobile-arrowhead)"
             />
 
-            {/* Thermal to diamond */}
+            {/* thermal to diamond */}
             <line
               x1="190"
               y1="180"
@@ -175,7 +175,7 @@ function ProcessFlow() {
               markerEnd="url(#mobile-arrowhead)"
             />
 
-            {/* Diamond to outputs with updated positions */}
+           {/* diamond to outputs */}
             <path
               d="M145,340 Q60,380 60,420"
               className="mobile-arrow-line"
@@ -196,7 +196,7 @@ function ProcessFlow() {
             />
           </svg>
 
-          {/* INPUT SOURCES - Now at the top with better spacing */}
+          {/* input sources */}
           <div className="mobile-process-box" style={{ top: "20px", left: "10px" }}>
             Excess Solar
           </div>
@@ -207,17 +207,17 @@ function ProcessFlow() {
             Plastic Pyrolysis
           </div>
 
-          {/* THERMAL CENTER */}
+          {/* thermal cnter */}
           <div className="mobile-process-box mobile-center-box" style={{ top: "140px", left: "140px" }}>
             Thermal Bricks
           </div>
 
-          {/* DIAMOND */}
+          {/* diamond */}
           <div className="mobile-diamond-box" style={{ top: "260px", left: "145px" }}>
             <span>Stabilization Services</span>
           </div>
 
-          {/* OUTPUTS with better spacing */}
+          {/* outputs */}
           <div className="mobile-process-box" style={{ top: "420px", left: "10px" }}>
             Frequency Regulation
           </div>
