@@ -130,29 +130,103 @@ function ProcessFlow() {
         </div>
       </div>
 
-   {/* mobile phoneS */}
-      <div className="process-mobile">
-        <div className="process-step">
-          <strong>Excess Solar</strong>
-          <p>Stored in Thermal Bricks</p>
-        </div>
-        <div className="process-step">
-          <strong>Geothermal Heat</strong>
-          <p>Stored in Thermal Bricks</p>
-        </div>
-        <div className="process-step">
-          <strong>Plastic Pyrolysis</strong>
-          <p>Stored in Thermal Bricks</p>
-        </div>
-        <div className="process-step">
-          <strong>Thermal Bricks</strong>
-          <p>Provide Stabilization Services</p>
-        </div>
-        <div className="process-step">
-          <strong>Stabilization Services</strong>
-          <p>
-            Frequency Regulation, Black Start Capacity, Renewable Smoothing
-          </p>
+      {/* MOBILE VERTICAL FLOW */}
+      <div className="process-mobile-vertical">
+        <div className="mobile-container">
+          {/* Mobile Arrows SVG */}
+          <svg className="mobile-arrows">
+            <defs>
+              <marker
+                id="mobile-arrowhead"
+                markerWidth="8"
+                markerHeight="6"
+                refX="8"
+                refY="3"
+                orient="auto"
+              >
+                <polygon points="0 0, 8 3, 0 6" fill="#B0F222" />
+              </marker>
+            </defs>
+
+            {/* Input sources to thermal bricks - from top with updated positions */}
+            <path
+              d="M60,80 Q60,110 140,140"
+              className="mobile-arrow-line"
+              markerEnd="url(#mobile-arrowhead)"
+            />
+            <path
+              d="M190,80 L190,140"
+              className="mobile-arrow-line"
+              markerEnd="url(#mobile-arrowhead)"
+            />
+            <path
+              d="M320,80 Q320,110 240,140"
+              className="mobile-arrow-line"
+              markerEnd="url(#mobile-arrowhead)"
+            />
+
+            {/* Thermal to diamond */}
+            <line
+              x1="190"
+              y1="180"
+              x2="190"
+              y2="260"
+              className="mobile-arrow-line"
+              markerEnd="url(#mobile-arrowhead)"
+            />
+
+            {/* Diamond to outputs with updated positions */}
+            <path
+              d="M145,340 Q60,380 60,420"
+              className="mobile-arrow-line"
+              markerEnd="url(#mobile-arrowhead)"
+            />
+            <line
+              x1="190"
+              y1="340"
+              x2="190"
+              y2="420"
+              className="mobile-arrow-line"
+              markerEnd="url(#mobile-arrowhead)"
+            />
+            <path
+              d="M235,340 Q320,380 320,420"
+              className="mobile-arrow-line"
+              markerEnd="url(#mobile-arrowhead)"
+            />
+          </svg>
+
+          {/* INPUT SOURCES - Now at the top with better spacing */}
+          <div className="mobile-process-box" style={{ top: "20px", left: "10px" }}>
+            Excess Solar
+          </div>
+          <div className="mobile-process-box" style={{ top: "20px", left: "140px" }}>
+            Geothermal Heat
+          </div>
+          <div className="mobile-process-box" style={{ top: "20px", left: "270px" }}>
+            Plastic Pyrolysis
+          </div>
+
+          {/* THERMAL CENTER */}
+          <div className="mobile-process-box mobile-center-box" style={{ top: "140px", left: "140px" }}>
+            Thermal Bricks
+          </div>
+
+          {/* DIAMOND */}
+          <div className="mobile-diamond-box" style={{ top: "260px", left: "145px" }}>
+            <span>Stabilization Services</span>
+          </div>
+
+          {/* OUTPUTS with better spacing */}
+          <div className="mobile-process-box" style={{ top: "420px", left: "10px" }}>
+            Frequency Regulation
+          </div>
+          <div className="mobile-process-box" style={{ top: "420px", left: "140px" }}>
+            Black Start Capacity
+          </div>
+          <div className="mobile-process-box" style={{ top: "420px", left: "270px" }}>
+            Renewable Smoothing
+          </div>
         </div>
       </div>
     </section>
