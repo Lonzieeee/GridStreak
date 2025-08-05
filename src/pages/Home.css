@@ -101,7 +101,6 @@
 .features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-    grid-area: 2rem;
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
@@ -130,6 +129,11 @@
     opacity: 0;
     transform: translateY(40px);
     animation: fadeUp 0.6s ease forwards;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .feature-card:nth-child(1) {
@@ -152,10 +156,16 @@
     }
 }
 
-.feature-icon{
+.feature-icon {
     width: 60px;
     height: 60px;
     margin-bottom: 1rem;
+    filter: grayscale(100%) brightness(0.7) contrast(0.8);
+}
+
+.feature-card:nth-child(3) .feature-icon {
+    width: 80px;
+    height: 80px;
 }
 
 
@@ -164,8 +174,12 @@
     gap: 2rem;
     padding: 1rem;
   }
+  .feature-card {
+    min-height: 260px;
+    padding: 1.2rem;
+  }
   .why-gridstreak h2{
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   .hero-content h1 {
     font-size: 1.5rem;

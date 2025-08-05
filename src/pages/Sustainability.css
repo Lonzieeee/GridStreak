@@ -286,6 +286,7 @@
   height: 360px;
   perspective: 1000px;
   margin: 1rem;
+  
 }
 
 .impact-card-inner {
@@ -367,7 +368,7 @@
 }
 
 .impact-card-back li::before {
-  content: "✓";
+  content: "";
   position: absolute;
   left: 0;
   color: #000;
@@ -403,9 +404,13 @@
   .bottom-wave {
     display: none;
   }
+  .hero-wrapper {
+  
+  height: 80vh;
+}
 
   .hero-text {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     padding: 0 1rem;
   }
 
@@ -427,7 +432,10 @@
   .impact-card {
     width: 90%;
   }
-
+.impact-card-container {
+margin: 2rem;
+  
+}
   .impact-card h3 {
     font-size: 1.25rem;
   }

@@ -70,28 +70,28 @@ function Home() {
             <img src={flexibleIcon} alt="Flexible Storage" className="feature-icon" />
             <h3>Flexible Storage</h3>
             <p>
-              Works with Multiple renewable sources.
+                Works with multiple renewable energy sources, adapting to your specific power generation needs.
             </p>
           </div>
           <div className="feature-card">
             <img src={carbonIcon} alt="Carbon Icon" className="feature-icon" />
             <h3>Zero Carbon Emissions</h3>
             <p>
-             Fully decoupled from fossil fuel systems.
+              Fully decoupled from fossil fuel systems, ensuring completely clean energy storage.
             </p>
           </div>
           <div className="feature-card">
             <img src={reliableIcon} alt="Reliable Icon" className="feature-icon" />
             <h3>Reliable</h3>
             <p>
-             Store heat for hours to days with minimal losses and providing instant dispatch.
+          Store heat for hours to days with minimal losses and providing instant dispatch.
             </p>
           </div>
           <div className="feature-card">
             <img src={scalableIcon} alt="scalable icon" className="feature-icon" />
             <h3>Scalable</h3>
             <p>
-             Modular units fits any size project.
+              Modular units that can be configured to fit any size project from residential to industrial scale.
             </p>
           </div>
         </div>
@@ -106,3 +106,9 @@ function Home() {
 }
 
 export default Home;
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-.partner-types-section {
+ .partner-types-section {
   background: #ffffff;
   padding: 100px 20px;
   position: relative;
@@ -164,9 +164,7 @@
   }
 
   .vertical-line {
-    left: 50%;
-    transform: translateX(-50%);
-    height: 100%;
+    display: none;
   }
 
   .partner-timeline {

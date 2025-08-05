@@ -124,7 +124,7 @@
   }
 }
 
-/* Mobile Perfected */
+
 @media (max-width: 600px) {
   .sustainability-section {
     padding: 3rem 1.5rem;
@@ -135,11 +135,13 @@
   .main-heading {
     font-size: 1.6rem;
     text-align: center;
+    
   }
 
   .sub-heading {
     font-size: 1rem;
     text-align: center;
+    display: none;
   }
 
   .sustainability-content p {
@@ -151,6 +153,13 @@
     display: block;
     margin: 1rem auto 0 auto;
     text-align: center;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 30px;
+    font-weight: bold;
+    max-width: 220px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .pillars-wrapper h5 {
@@ -159,11 +168,31 @@
 
   .pillars-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 2rem;
+    justify-items: center;
   }
 
   .pillar-card {
-    font-size: 0.9rem;
-    padding: 0.9rem;
+    font-size: 1rem;
+    padding: 0.7rem 0.5rem;
+    margin: 0 auto;
+    width: 95vw;
+    max-width: 340px;
+    height: 180px;
+    min-height: 180px;
+    max-height: 180px;
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .pillar-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
   }
 }

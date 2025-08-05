@@ -50,15 +50,17 @@ function Header() {
 
      
         <nav className={`nav-links ${isOpen ? "open" : ""}`} ref={navRef}>
+          {/* close icon for mobile */}
+          <button className="close-menu" onClick={() => setIsOpen(false)} aria-label="Close menu">&times;</button>
           <Link
-            to="/technology"
+            to="/#"
             onClick={handleNavClick}
             className={isActive("/technology") ? "active-link" : ""}
           >
             Technology
           </Link>
           <Link
-            to="/solutions"
+            to="#"
             onClick={handleNavClick}
             className={isActive("/solutions") ? "active-link" : ""}
           >
@@ -79,7 +81,7 @@ function Header() {
             Sustainability
           </Link>
           <Link
-            to="/insights"
+            to="#"
             onClick={handleNavClick}
             className={isActive("/insights") ? "active-link" : ""}
           >

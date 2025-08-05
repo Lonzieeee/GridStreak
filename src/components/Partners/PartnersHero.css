@@ -51,7 +51,11 @@
   font-size: 1rem;
   text-decoration: none;
   transition: 0.3s ease;
+   display: inline-block;
 }
+
+
+
 
 .partner-cta-btn:hover {
   background-color: #ff812e;
@@ -76,35 +80,51 @@
     opacity: 1;
   }
 }
-@media (max-width: 768px) {
+
+
+
+  @media (max-width: 768px) {
   .partners-hero-section {
-    height: auto;
-    padding: 5rem 1.5rem;
+    height: 55vh; 
+    padding: 0;    
     text-align: center;
+    display: flex;  
+    align-items: center; 
+    justify-content: center;
   }
 
   .partners-hero-overlay {
     flex-direction: column;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem; 
+    height: 100%;
+    width: 100%;
   }
 
   .partners-hero-content {
-    padding: 0;
+    padding: 0 1.5rem; 
+    text-align: left;
   }
 
   .partners-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 1.5rem;
+    text-align: left;
   }
 
   .partners-subtext {
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 2rem;
+    text-align: left;
   }
 
   .partner-cta-btn {
     padding: 12px 24px;
     font-size: 0.95rem;
+    display: inline-block;
+   
   }
+  
 }
+
+

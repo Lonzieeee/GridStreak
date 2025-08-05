@@ -20,10 +20,12 @@
 .carousel-track {
   display: flex;
   animation: scrollBelt 20s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .carousel-logo {
-  flex: 0 0 33.3333%; /* 3 logos at a timr*/
+  flex: 0 0 33.3333%; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,42 +39,42 @@
 
 .carousel-logo:hover img {
   transform: scale(1.1);
-
 }
-
 
 @keyframes scrollBelt {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-33.3333%);
   }
 }
 
 
 @media (max-width: 768px) {
-  .carousel-track {
-    animation: none; 
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 60px;
-    overflow: hidden;
+  .partner-carousel-heading {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
   }
 
   .carousel-logo {
-    flex: 0 0 auto;
-  
+    flex: 0 0 50%; 
   }
 
   .carousel-logo img {
     height: 60px;
-    filter: none;
   }
 
+  .carousel-track {
+    animation: scrollBeltMobile 20s linear infinite;
+  }
 
-  .carousel-logo:nth-child(n + 4) {
-    display: none;
+  @keyframes scrollBeltMobile {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-150%);
+    }
   }
 }
