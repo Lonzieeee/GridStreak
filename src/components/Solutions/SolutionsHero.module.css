@@ -1,0 +1,104 @@
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --muted: #d1d1d1;
+  --heat: #EB6A00;
+  --green: #B0F222;
+}
+
+.hero {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 5vw, 5rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  max-width: 680px;
+  z-index: 2;
+  margin-left: 20%
+}
+
+.content h1 {
+  font-size: clamp(2.2rem, 4.2vw, 4rem);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.accent {
+  background: linear-gradient(90deg, var(--heat), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sub {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.cta {
+  margin-top: 2rem;
+  padding: 0.9rem 1.4rem;
+  background: transparent;
+  color: var(--fg);
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, var(--heat), var(--green)) 1;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.cta:hover {
+  background: linear-gradient(90deg, var(--heat), var(--green));
+  color: #000;
+}
+
+/* Globe Stage */
+.stage {
+  display: grid;
+  place-items: center;
+  min-height: 600px;    
+  position: relative;
+  z-index: 1;
+}
+
+.stage canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 600px;     
+  max-height: 600px;
+  border-radius: 50%;
+}
+
+
+
+@media (max-width: 1024px) {
+  .content{
+    margin: 0;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 6rem;
+  }
+
+  .stage {
+    margin-top: 3rem;
+    min-height: 400px;
+  }
+
+  .stage canvas {
+    max-width: 400px;
+    max-height: 400px;
+  }
+}

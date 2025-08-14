@@ -60,7 +60,7 @@ function Header() {
             Technology
           </Link>
           <Link
-            to="#"
+            to="/solutions"
             onClick={handleNavClick}
             className={isActive("/solutions") ? "active-link" : ""}
           >

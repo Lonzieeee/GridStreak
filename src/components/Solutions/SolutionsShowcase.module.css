@@ -1,0 +1,222 @@
+
+.solutionsShowcase {
+  position: relative;
+  padding: 5rem 1rem;
+  background: white; 
+  overflow: hidden;
+  color: black; 
+}
+
+
+.listIcon {
+  /* color: #FFB500;  */
+  color: #333;
+  margin-right: 0.5rem;
+  display: none;
+}
+.solutionList,
+.impactList {
+  list-style: none; 
+  padding-left: 0;  
+  margin: 0;  
+    
+}
+
+.showcaseContainer {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.showcaseHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.showcaseTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+
+
+.titleGradient {
+  background: none;
+  color: #EB6A00; 
+}
+
+.showcaseSubtitle {
+  font-size: 1.25rem;
+  color: #000;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.solutionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .solutionsGrid {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.solutionSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+.solutionButton {
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  border: 1px solid #ddd;
+  color: black;
+}
+
+.solutionButton:hover {
+  background-color: #f9f9f9;
+  /* border-color: #EB6A00; */
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+}
+
+.buttonIcon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.solutionIcon {
+  font-size: inherit;
+}
+
+.buttonTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #000;
+}
+
+
+
+
+.solutionDetail {
+  border-radius: 1.5rem;
+  padding: 2rem;
+  height: 100%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.detailIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+
+.detailTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.exploreButton {
+  padding: 0.5rem 1rem;
+  background-color: #B0F222; 
+  border-radius: 9999px;
+  color: black;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.techContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.problemSection,
+.solutionSection {
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+.sectionText {
+  color: #333;
+}
+
+
+.impactContent {
+  margin-top: 1.5rem;
+}
+
+.impactDescription {
+  color: #444;
+}
+
+.impactStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+
+.impactStat {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: #f5f5f5;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+
+@media (max-width: 768px) {
+  .showcaseHeader {
+    margin-bottom: 2rem;
+  }
+  
+  .detailTitle {
+    font-size: 1.5rem;
+  }
+  
+  .impactStats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+

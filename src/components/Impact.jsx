@@ -20,6 +20,7 @@ const data = [
 const COLORS = ["#B0F222", "#f4f4ff","#F2F1DF"];
 
 
+
 // The lables inside pie's
 const renderCustomLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent}) => {
     const RADIAN = Math.PI / 180;
