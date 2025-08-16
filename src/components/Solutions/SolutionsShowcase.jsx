@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaHospital, FaSnowflake, FaTint, FaRecycle, FaAmbulance, FaCheckCircle } from 'react-icons/fa';
-import { GiCookingPot } from 'react-icons/gi';
-import styles from './SolutionsShowcase.module.css';
+import React, { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaHospital, FaSnowflake, FaTint, FaRecycle, FaAmbulance, FaCheckCircle } from "react-icons/fa";
+import { GiCookingPot } from "react-icons/gi";
+import styles from "./SolutionsShowcase.module.css";
 
 const solutions = [
   {
@@ -16,12 +16,12 @@ harmful to health due to smoke inhalation.`,
     solution: [
       "GridStreak thermal bricks provide high and sustained heat for institutional and communal kitchens.",
       "Energy is stored during off-peak grid hours, from geothermal heat, or from waste-to-energy conversion.",
-      "Enables clean, smoke-free, and fuel-free cooking for schools, villages, and community kitchens."
+      "Enables clean, smoke-free, and fuel-free cooking for schools, villages, and community kitchens.",
     ],
     impact: [
       "Cuts firewood consumption by up to 90%.",
       "Reduces indoor air pollution-related illnesses.",
-      "Lowers CO₂ emissions from cooking by 70% or more."
+      "Lowers CO₂ emissions from cooking by 70% or more.",
     ],
   },
   {
@@ -35,12 +35,12 @@ patient safety and treatment outcomes.`,
     solution: [
       "GridStreak units provide uninterrupted thermal energy for hospital needs without relying solely on diesel generators or unstable national grid.",
       "Heat can power sterilizers, kitchen systems, laundry boilers, and space heating.",
-      "Waste heat from hospital operations can be recycled into the GridStreak system for future use."
+      "Waste heat from hospital operations can be recycled into the GridStreak system for future use.",
     ],
     impact: [
       "Increases operational resilience in healthcare facilities.",
       "Reduces hospital reliance on fossil fuels by up to 60%.",
-      "Enhances patient care in emergencies by maintaining heat-based systems during outages."
+      "Enhances patient care in emergencies by maintaining heat-based systems during outages.",
     ],
   },
   {
@@ -53,12 +53,12 @@ affordable cold storage — especially in rural markets.`,
     solution: [
       "GridStreak stores heat to run absorption chillers that convert thermal energy into cooling.",
       "Systems can be deployed in rural cooperatives, markets, and fishing communities.",
-      "Operates without the need for constant electricity, reducing food spoilage."
+      "Operates without the need for constant electricity, reducing food spoilage.",
     ],
     impact: [
       "Extends shelf life of fresh produce and fish by 3–5 times.",
       "Increases farmer incomes by reducing spoilage losses.",
-      "Reduces reliance on expensive, diesel-powered cold rooms."
+      "Reduces reliance on expensive, diesel-powered cold rooms.",
     ],
   },
   {
@@ -71,12 +71,12 @@ and unsafe water sources.`,
     solution: [
       "GridStreak heat powers distillation or pasteurization systems, eliminating pathogens without chemicals.",
       "Heat energy is stored from geothermal, waste-to-energy, or grid excess for 24/7 operation.",
-      "Can serve both emergency response and long-term community water supply."
+      "Can serve both emergency response and long-term community water supply.",
     ],
     impact: [
       "Provides safe drinking water for up to 1,000 people per unit daily.",
       "Reduces cases of waterborne disease by up to 90%.",
-      "Eliminates need for constant electric or diesel-powered water treatment systems."
+      "Eliminates need for constant electric or diesel-powered water treatment systems.",
     ],
   },
   {
@@ -89,12 +89,12 @@ and public health impacts. Open burning releases toxic gases, while landfill ove
     solution: [
       "GridStreak integrates oxygen-less pyrolysis to convert waste plastics into thermal energy.",
       "The stored energy is used for cooking, heating, industrial processes, or power generation.",
-      "Offers a safe, closed-loop waste management and energy generation process."
+      "Offers a safe, closed-loop waste management and energy generation process.",
     ],
     impact: [
       "Diverts up to 80% of plastic waste from landfills per installation.",
       "Cuts harmful emissions from plastic burning.",
-      "Creates local jobs in waste collection and processing."
+      "Creates local jobs in waste collection and processing.",
     ],
   },
   {
@@ -107,105 +107,140 @@ blackouts, communities lose access to reliable cooking, heating, water, and powe
     solution: [
       "Portable GridStreak units deployed to refugee camps, disaster shelters, and field hospitals.",
       "Provides heat for cooking, sterilization, water purification, and temporary cold storage.",
-      "Operates independently from the grid using waste heat, geothermal sources, or transported pre-charged units."
+      "Operates independently from the grid using waste heat, geothermal sources, or transported pre-charged units.",
     ],
     impact: [
       "Ensures life-saving energy access within hours of deployment.",
       "Reduces logistical burden of fuel transport to crisis zones.",
-      "Supports humanitarian agencies in delivering rapid, clean energy solutions."
+      "Supports humanitarian agencies in delivering rapid, clean energy solutions.",
     ],
-  }
+  },
 ];
 
 export default function SolutionsShowcase() {
   const [selectedSolution, setSelectedSolution] = useState(solutions[0]);
   const [isExploring, setIsExploring] = useState(false);
 
+  // Variants for staggered list animation
+  const listVariants = {
+    hidden: {},
+    show: {
+      transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -12 },
+    show: { opacity: 1, x: 0 },
+  };
+
+  // Derived accent color for current detail panel
+  const accentStyle = useMemo(() => ({ "--accent": selectedSolution.color }), [selectedSolution.color]);
+
   return (
-    <section id="solutions-showcase" className={styles.solutionsShowcase}>
-      <div className={styles.animatedBackground}>
-        {[...Array(12)].map((_, i) => (
+    <section id="solutions-showcase" className={styles.solutionsShowcase} aria-labelledby="solutions-title">
+      {/* Animated background orbs */}
+      <div className={styles.animatedBackground} aria-hidden>
+        {Array.from({ length: 12 }).map((_, i) => (
           <motion.div
             key={i}
             className={styles.floatingOrb}
             animate={{
-              x: [0, (Math.random() - 0.5) * 100],
-              y: [0, (Math.random() - 0.5) * 100],
-              opacity: [0.1, 0.3, 0.1],
+              x: [0, (Math.random() - 0.5) * 120],
+              y: [0, (Math.random() - 0.5) * 120],
+              opacity: [0.12, 0.25, 0.12],
             }}
-            transition={{
-              duration: Math.random() * 20 + 10,
-              repeat: Infinity,
-              repeatType: 'reverse',
-            }}
+            transition={{ duration: Math.random() * 18 + 12, repeat: Infinity, repeatType: "reverse" }}
           />
         ))}
       </div>
 
       <div className={styles.showcaseContainer}>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
+        <motion.header
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className={styles.showcaseHeader}
         >
-          <h2 className={styles.showcaseTitle}>
+          <h2 id="solutions-title" className={styles.showcaseTitle}>
             <span className={styles.titleGradient}>Energy Transformation</span> Solutions
           </h2>
           <p className={styles.showcaseSubtitle}>
             Revolutionary thermal storage applications solving critical global challenges
           </p>
-        </motion.div>
+        </motion.header>
 
         <div className={styles.solutionsGrid}>
-          <div className={styles.solutionSelector}>
-            {solutions.map((solution) => (
-              <motion.button
-                key={solution.id}
-                onClick={() => setSelectedSolution(solution)}
-                whileHover={{ x: 10 }}
-                whileTap={{ scale: 0.98 }}
-                className={styles.solutionButton}
-              >
-                <div className={styles.buttonContent}>
-                  <div className={styles.buttonIcon} style={{ color: solution.color }}>
-                    {solution.icon}
+          {/* Selector (acts like a tablist) */}
+          <motion.div
+            className={styles.solutionSelector}
+            role="tablist"
+            aria-label="Solution categories"
+            variants={listVariants}
+            initial="hidden"
+            animate="show"
+          >
+            {solutions.map((solution) => {
+              const isActive = selectedSolution.id === solution.id;
+              return (
+                <motion.button
+                  key={solution.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`panel-${solution.id}`}
+                  id={`tab-${solution.id}`}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => setSelectedSolution(solution)}
+                  whileHover={{ x: 8 }}
+                  whileTap={{ scale: 0.98 }}
+                  variants={itemVariants}
+                  className={`${styles.solutionButton} ${isActive ? styles.active : ""}`}
+                  style={{ "--btn-accent": solution.color }}
+                >
+                  <div className={styles.buttonContent}>
+                    <span className={styles.buttonIcon} style={{ color: solution.color }} aria-hidden>
+                      {solution.icon}
+                    </span>
+                    <span className={styles.buttonTitle}>{solution.title}</span>
                   </div>
-                  <h3 className={styles.buttonTitle}>
-                    {solution.title}
-                  </h3>
-                </div>
-              </motion.button>
-            ))}
-          </div>
+                </motion.button>
+              );
+            })}
+          </motion.div>
 
+          {/* Detail panel */}
           <div className={styles.solutionDisplay}>
             <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedSolution.id}
-                initial={{ opacity: 0, x: 50 }}
+              <motion.section
+                key={selectedSolution.id + String(isExploring)}
+                id={`panel-${selectedSolution.id}`}
+                role="tabpanel"
+                aria-labelledby={`tab-${selectedSolution.id}`}
+                initial={{ opacity: 0, x: 28 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0, x: -28 }}
+                transition={{ duration: 0.45 }}
                 className={styles.solutionDetail}
+                style={accentStyle}
               >
                 <div className={styles.detailHeader}>
                   <div>
-                    <div className={styles.detailIcon} style={{ color: selectedSolution.color }}>
+                    <div className={styles.detailIcon} style={{ color: selectedSolution.color }} aria-hidden>
                       {selectedSolution.icon}
                     </div>
-                    <h3 className={styles.detailTitle}>
-                      {selectedSolution.title}
-                    </h3>
+                    <h3 className={styles.detailTitle}>{selectedSolution.title}</h3>
                   </div>
+
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setIsExploring(!isExploring)}
+                    type="button"
+                    aria-pressed={isExploring}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setIsExploring((v) => !v)}
                     className={styles.exploreButton}
                   >
-                    {isExploring ? 'Show Impact' : 'Explore Tech'}
+                    {isExploring ? "Show Impact" : "Explore Tech"}
                   </motion.button>
                 </div>
 
@@ -216,7 +251,7 @@ export default function SolutionsShowcase() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.25 }}
                       className={styles.techContent}
                     >
                       <div className={styles.problemSection}>
@@ -228,7 +263,8 @@ export default function SolutionsShowcase() {
                         <ul className={styles.solutionList}>
                           {selectedSolution.solution.map((item, index) => (
                             <li key={index} className={styles.solutionItem}>
-                              <FaCheckCircle className={styles.listIcon} /> {item}
+                              <FaCheckCircle className={styles.listIcon} style={{ color: "var(--accent)" }} aria-hidden />
+                              <span>{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -240,21 +276,22 @@ export default function SolutionsShowcase() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.25 }}
                       className={styles.impactContent}
                     >
                       <h4 className={styles.sectionTitle}>Transformational Impact</h4>
                       <ul className={styles.impactList}>
                         {selectedSolution.impact.map((item, index) => (
                           <li key={index} className={styles.impactItem}>
-                            <FaCheckCircle className={styles.listIcon} /> {item}
+                            <FaCheckCircle className={styles.listIcon} style={{ color: "var(--accent)" }} aria-hidden />
+                            <span>{item}</span>
                           </li>
                         ))}
                       </ul>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </motion.section>
             </AnimatePresence>
           </div>
         </div>

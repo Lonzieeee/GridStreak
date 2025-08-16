@@ -2,14 +2,14 @@
   --bg: #000;
   --fg: #fff;
   --muted: #d1d1d1;
-  --heat: #EB6A00;
-  --green: #B0F222;
+  --heat: #eb6a00;
+  --green: #b0f222;
 }
 
 .hero {
   min-height: 100vh;
   width: 100%;
-  background: var(--bg);
+  background: #000;
   color: var(--fg);
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -23,7 +23,7 @@
 .content {
   max-width: 680px;
   z-index: 2;
-  margin-left: 20%
+  margin-left: 15%;
 }
 
 .content h1 {
@@ -67,7 +67,7 @@
 .stage {
   display: grid;
   place-items: center;
-  min-height: 600px;    
+  min-height: 600px;
   position: relative;
   z-index: 1;
 }
@@ -75,16 +75,16 @@
 .stage canvas {
   width: 100% !important;
   height: 100% !important;
-  max-width: 600px;     
+  max-width: 600px;
   max-height: 600px;
   border-radius: 50%;
 }
 
-
-
+/* Tablet */
 @media (max-width: 1024px) {
-  .content{
+  .content {
     margin: 0;
+    text-align: center;
   }
 
   .hero {
@@ -100,5 +100,26 @@
   .stage canvas {
     max-width: 400px;
     max-height: 400px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .content h1 {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+  }
+
+  .sub {
+    font-size: 1rem;
+  }
+
+  .cta {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .stage canvas {
+    max-width: 300px;
+    max-height: 300px;
   }
 }

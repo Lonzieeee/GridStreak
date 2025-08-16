@@ -15,7 +15,6 @@
   margin-bottom: 3rem;
 }
 
-
 .gridSection::before {
   content: '';
   position: absolute;
@@ -31,6 +30,7 @@
 .gridSection.in-view::before {
   opacity: 1;
 }
+
 .heading {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
@@ -45,17 +45,25 @@
   display: inline-block;
 }
 
+
 .highlight::after {
   content: '';
   position: absolute;
   bottom: 5px;
   left: 0;
-  width: 100%;
+  width: 0;
   height: 8px;
   background: rgba(59, 130, 246, 0.3);
   z-index: -1;
   border-radius: 4px;
+  transition: width 0.4s ease;
 }
+
+
+.highlight:hover::after {
+  width: 100%;
+}
+
 
 .subheading {
   font-size: 1.1rem;
@@ -82,7 +90,7 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background: white;
+  background: #fff;
   transform-style: preserve-3d;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
@@ -119,7 +127,11 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.1) 0%,
+    rgba(var(--accent-rgb), 0.05) 100%
+  );
   transition: transform 0.3s ease;
 }
 
@@ -157,6 +169,7 @@
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
+
 .learnMoreContainer {
   display: flex;
   justify-content: center;
@@ -167,7 +180,7 @@
   margin-top: 2rem;
   padding: 0.9rem 1.4rem;
   background: transparent;
-  color: black;
+  color: #000;
   border: 2px solid transparent;
   border-image: linear-gradient(90deg, var(--heat), var(--green)) 1;
   border-radius: 10px;
@@ -179,45 +192,46 @@
 
 .learnMoreButton:hover {
   background: linear-gradient(90deg, var(--heat), var(--green));
-  color: #000
+  color: #000;
 }
 
-.cooking { 
-  --accent: #EB6A00;
+/* Category Accent Colors */
+.cooking {
+  --accent: #eb6a00;
   --accent-rgb: 235, 106, 0;
 }
-.hospitals { 
-  --accent: #3B82F6;
+.hospitals {
+  --accent: #3b82f6;
   --accent-rgb: 59, 130, 246;
 }
-.cold { 
-  --accent: #0EA5E9;
+.cold {
+  --accent: #0ea5e9;
   --accent-rgb: 14, 165, 233;
 }
-.water { 
-  --accent: #0284C7;
+.water {
+  --accent: #0284c7;
   --accent-rgb: 2, 132, 199;
 }
-.waste { 
-  --accent: #15803D;
+.waste {
+  --accent: #15803d;
   --accent-rgb: 21, 128, 61;
 }
-.emergency { 
-  --accent: #DC2626;
+.emergency {
+  --accent: #dc2626;
   --accent-rgb: 220, 38, 38;
 }
 
-
+/* Mobile */
 @media (max-width: 768px) {
   .grid {
     gap: 1.5rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .cardInner {
     padding: 1.5rem 1rem;
   }
-  
+
   .iconWrapper {
     width: 60px;
     height: 60px;
