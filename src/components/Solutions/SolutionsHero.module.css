@@ -9,7 +9,7 @@
 .hero {
   min-height: 100vh;
   width: 100%;
-  background: #000;
+  background:#000;
   color: var(--fg);
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -27,8 +27,8 @@
 }
 
 .content h1 {
-  font-size: clamp(2.2rem, 4.2vw, 4rem);
-  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.2;
   margin: 0;
 }
 
@@ -67,59 +67,50 @@
 .stage {
   display: grid;
   place-items: center;
-  min-height: 600px;
+  min-height: 400px;
   position: relative;
   z-index: 1;
 }
 
 .stage canvas {
   width: 100% !important;
-  height: 100% !important;
+  height: auto !important;
   max-width: 600px;
   max-height: 600px;
   border-radius: 50%;
 }
 
-/* Tablet */
+/* 📱 Mobile Responsiveness */
 @media (max-width: 1024px) {
-  .content {
-    margin: 0;
-    text-align: center;
-  }
-
   .hero {
-    grid-template-columns: 1fr;
-    padding-top: 6rem;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem;
   }
-
-  .stage {
-    margin-top: 3rem;
-    min-height: 400px;
-  }
-
-  .stage canvas {
-    max-width: 400px;
-    max-height: 400px;
+  .content {
+    margin-left: 5%;
   }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-  .content h1 {
-    font-size: clamp(1.8rem, 6vw, 2.5rem);
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: left;
+    gap: 2rem;
+    padding: 10rem 1.5rem;
   }
 
-  .sub {
-    font-size: 1rem;
+  .content {
+    margin-left: 0;
+    max-width: 100%;
   }
 
-  .cta {
-    font-size: 0.95rem;
-    padding: 0.8rem 1.2rem;
+  .stage {
+    min-height: 320px;
   }
 
   .stage canvas {
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 320px;
+    max-height: 320px;
   }
 }

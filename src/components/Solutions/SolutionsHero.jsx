@@ -6,6 +6,7 @@ import styles from "./SolutionsHero.module.css";
 export default function SolutionsHero() {
   const globeRef = useRef();
   const [globeImage, setGlobeImage] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setGlobeImage("//unpkg.com/three-globe/example/img/earth-dark.jpg");
@@ -15,11 +16,19 @@ export default function SolutionsHero() {
         const controls = globeRef.current.controls();
         controls.autoRotate = true;
         controls.autoRotateSpeed = 2.0;
-        controls.enableZoom = false;    
-        controls.enablePan = false;     
+        controls.enableZoom = false;
+        controls.enablePan = false;
       }
     };
     setTimeout(rotate, 500);
+
+    // detect mobile size
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -60,8 +69,8 @@ export default function SolutionsHero() {
             ref={globeRef}
             globeImageUrl={globeImage}
             backgroundColor="#000000"
-            width={600}
-            height={600}
+            width={isMobile ? 320 : 600}
+            height={isMobile ? 320 : 600}
           />
         )}
       </motion.div>
