@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Globe from "react-globe.gl";
 import { motion } from "framer-motion";
 import styles from "./SolutionsHero.module.css";
+import earthTexture from "../../assets/earth-blue-marble.jpg";
 
 export default function SolutionsHero() {
   const globeRef = useRef();
@@ -28,38 +29,16 @@ export default function SolutionsHero() {
   ];
 
   useEffect(() => {
-
-    setGlobeImage("//unpkg.com/three-globe/example/img/earth-blue-marble.jpg");
-    
    
+    console.log("loaded from assets");
+    setGlobeImage(earthTexture);
+    
     setTimeout(() => {
       setPointsData(kenyaSustainableEnergyPoints);
     }, 1000);
 
-    const setupGlobe = () => {
-      if (globeRef.current) {
-        const globe = globeRef.current;
-        const controls = globe.controls();
-        
-     
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 1.5;
-        controls.enableZoom = false;
-        controls.enablePan = false;
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.1;
-       
-        globe.showAtmosphere(true);
-        globe.atmosphereColor('#4fa8d8');
-        globe.atmosphereAltitude(0.25);
-        
-       
-        globe.pointOfView({ lat: -1.2921, lng: 36.8219, altitude: 2.5 }, 2000);
-      }
-    };
-    setTimeout(setupGlobe, 500);
 
-    // detect mobile size
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -67,6 +46,32 @@ export default function SolutionsHero() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const setupGlobe = () => {
+      if (globeRef.current && globeImage) {
+        const globe = globeRef.current;
+        const controls = globe.controls();
+        
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 1.5;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+        
+        globe.showAtmosphere(true);
+        globe.atmosphereColor('#4fa8d8');
+        globe.atmosphereAltitude(0.25);
+        
+        globe.pointOfView({ lat: -1.2921, lng: 36.8219, altitude: 2.5 }, 2000);
+      }
+    };
+
+    if (globeImage) {
+      setTimeout(setupGlobe, 1000);
+    }
+  }, [globeImage]);
 
   return (
     <section className={styles.hero}>
@@ -95,7 +100,7 @@ export default function SolutionsHero() {
         </motion.button>
       </motion.div>
 
-      {/* Globe */}
+    
       <motion.div
         className={styles.stage}
         initial={{ opacity: 0, scale: 0.8 }}
@@ -110,8 +115,7 @@ export default function SolutionsHero() {
             backgroundImageUrl=""
             width={isMobile ? 280 : 600}
             height={isMobile ? 280 : 600}
-            
-            // Points data for sustainable energy solutions
+    
             pointsData={pointsData}
             pointLat={d => d.lat}
             pointLng={d => d.lng}
@@ -121,12 +125,12 @@ export default function SolutionsHero() {
             pointRadius={d => d.size * 0.3}
             pointsTransitionDuration={2000}
             
-            // Enhanced atmosphere
+         
             showAtmosphere={true}
             atmosphereColor="#4fa8d8"
             atmosphereAltitude={0.25}
             
-            // Interaction callbacks
+            
             onPointHover={(point, prevPoint) => {
               if (point !== prevPoint) {
    
