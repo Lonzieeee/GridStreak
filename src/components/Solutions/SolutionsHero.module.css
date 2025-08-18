@@ -9,21 +9,40 @@
 .hero {
   min-height: 100vh;
   width: 100%;
-  background:#000;
+  background: 
+    radial-gradient(ellipse at center, rgba(11, 19, 43, 0.8) 0%, rgba(0, 0, 0, 1) 70%),
+    #000;
   color: var(--fg);
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   align-items: center;
-  gap: 4rem;
-  padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 5vw, 5rem);
+  gap: clamp(2rem, 4vw, 4rem);
+  padding: clamp(1rem, 4vw, 4rem) clamp(1rem, 5vw, 5rem);
   position: relative;
   overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.05), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.08), transparent);
+  background-size: 200px 200px, 300px 300px, 150px 150px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .content {
   max-width: 680px;
   z-index: 2;
-  margin-left: 15%;
+  margin-left: clamp(0px, 8vw, 15%);
 }
 
 .content h1 {
@@ -34,29 +53,33 @@
 
 .accent {
   background: linear-gradient(90deg, var(--heat), var(--green));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .sub {
   margin-top: 1rem;
   color: var(--muted);
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
   line-height: 1.6;
+  max-width: 540px;
 }
 
 .cta {
   margin-top: 2rem;
-  padding: 0.9rem 1.4rem;
+  padding: 1rem 1.5rem;
   background: transparent;
   color: var(--fg);
   border: 2px solid transparent;
   border-image: linear-gradient(90deg, var(--heat), var(--green)) 1;
-  border-radius: 10px;
+  border-radius: 50%;
   cursor: pointer;
   font-weight: 500;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  transition: all 0.25s ease;
+  min-width: 160px;
 }
 .cta:hover {
   background: linear-gradient(90deg, var(--heat), var(--green));
@@ -78,17 +101,39 @@
   max-width: 600px;
   max-height: 600px;
   border-radius: 50%;
+  filter: drop-shadow(0 0 30px rgba(79, 168, 216, 0.3));
+  transition: filter 0.3s ease;
 }
 
-/* 📱 Mobile Responsiveness */
+.stage:hover canvas {
+  filter: drop-shadow(0 0 40px rgba(79, 168, 216, 0.5));
+}
+
+
+@media (max-width: 1200px) {
+  .hero {
+    gap: 3rem;
+    grid-template-columns: 1fr 0.9fr;
+  }
+  
+  .content {
+    margin-left: clamp(0px, 4vw, 8%);
+  }
+}
+
 @media (max-width: 1024px) {
   .hero {
     gap: 2rem;
-    grid-template-columns: 1fr 1fr;
-    padding: 2rem;
+    grid-template-columns: 1fr 0.8fr;
+    padding: clamp(1rem, 3vw, 2rem);
   }
+  
   .content {
-    margin-left: 5%;
+    margin-left: 0;
+  }
+  
+  .stage {
+    min-height: 350px;
   }
 }
 
@@ -97,20 +142,57 @@
     grid-template-columns: 1fr;
     text-align: left;
     gap: 2rem;
-    padding: 10rem 1.5rem;
+    padding: clamp(6rem, 12vh, 8rem) 1.5rem 2rem;
+    min-height: 100vh;
   }
 
   .content {
     margin-left: 0;
     max-width: 100%;
+    order: 1;
+  }
+  
+  .content h1 {
+    font-size: clamp(1.8rem, 8vw, 3rem);
   }
 
   .stage {
-    min-height: 320px;
+    min-height: 280px;
+    order: 2;
   }
 
   .stage canvas {
-    max-width: 320px;
-    max-height: 320px;
+    max-width: 280px;
+    max-height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: clamp(4rem, 10vh, 6rem) 1rem 1.5rem;
+  }
+  
+  .content h1 {
+    font-size: clamp(1.6rem, 7vw, 2.5rem);
+  }
+  
+  .sub {
+    font-size: 0.95rem;
+  }
+  
+  .cta {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .stage {
+    min-height: 240px;
+  }
+  
+  .stage canvas {
+    max-width: 240px;
+    max-height: 240px;
   }
 }

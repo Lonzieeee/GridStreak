@@ -1,27 +1,28 @@
 :root {
-    --lime: #B0F222;
-    --lime-soft: #C3F253;
-    --cream: #F2F1DF;
-    --grey: #F2F2F2;
+    --bg: #000;
+    --fg: #fff;
+    --muted: #d1d1d1;
+    --heat: #eb6a00;
+    --green: #b0f222;
     --black: #0D0D0D;
 }
 
 .header {
     background-color: white;
     color: white;
-    padding: 1rem 0;
+    padding: clamp(0.75rem, 2vh, 1rem) 0;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 10;
-    border: 1px solid black;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
 }
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
- 
+    padding: 0 clamp(1rem, 4vw, 2rem);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,12 +31,11 @@
 }
 
 .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #0D0D0D;
-    flex: 1;
-    margin-left: -10%;
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+    font-weight: 700;
+    color: var(--black);
     text-decoration: none;
+    white-space: nowrap;
 }
 
 /* mobile phone */
@@ -60,39 +60,41 @@
 
 .nav-links {
     display: flex;
-    gap: 1.5rem;
+    gap: clamp(1rem, 3vw, 1.5rem);
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: clamp(0.85rem, 2vw, 0.9rem);
     align-items: center;
     flex-wrap: nowrap;
 }
 
 .nav-links a {
     text-decoration: none;
-    color:black ;
-    transition: color 0.3s;
+    color: var(--black);
+    transition: color 0.2s ease;
+    font-weight: 500;
 }
 .nav-links a:hover {
-    color: #646464;
+    color: var(--heat);
 }
 
 .get-in-touch {
-    background-color: black;
+    background-color: var(--black);
     color: white !important;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: clamp(0.85rem, 2vw, 0.9rem);
+    transition: all 0.25s ease;
     text-decoration: none;
-    
-    text-align: right;
-    margin-left: 10%;
-
+    white-space: nowrap;
+    min-width: 120px;
 }
 
 
 .get-in-touch:hover {
-  background-color: #222;
+  background: linear-gradient(90deg, var(--heat), var(--green));
+  color: #000 !important;
 }
 .get-in-touch.disabled-contact {
   background-color: #ccc;
@@ -121,8 +123,8 @@
   bottom: -4px; 
   left: 0;
   width: 100%;
-  height: 4px;
-  background-color: #B0F222; 
+  height: 3px;
+  background: linear-gradient(90deg, var(--heat), var(--green));
   border-radius: 2px;
 }
 .nav-links .close-menu{
@@ -130,18 +132,49 @@
 }
 
 
-/* Mobile  */
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 1rem;
+  }
+  
+  .get-in-touch {
+    padding: 0.6rem 1.25rem;
+    min-width: 110px;
+  }
+}
+
+/* Tablet Portrait and Mobile */
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .get-in-touch {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+}
+
 @media (max-width: 768px) {
   .logo {
-    font-size: 1.6rem;
-    margin-left: 0;
+    font-size: 1.5rem;
   }
 
   .hamburger {
     display: flex;
   }
-  .header{
-    border: none;
+  
+  .header {
+    border-bottom: none;
   }
 
   .nav-links {
@@ -157,7 +190,7 @@
     backdrop-filter: blur(8px);
     padding: 2rem 1.5rem 1.5rem 2rem;
     box-shadow: -2px 0 16px rgba(0,0,0,0.12);
-    transition: right 0.35s cubic-bezier(0.77,0.2,0.05,1.0);
+    transition: right 0.25s cubic-bezier(0.77,0.2,0.05,1.0);
     z-index: 100;
     border: none !important;
   }
@@ -176,12 +209,22 @@
   }
 
   .nav-links a {
-    padding: 10px 0;
+    padding: 0.75rem 0;
     font-size: 1rem;
   }
 
   .get-in-touch {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .logo {
+    font-size: 1.4rem;
   }
 }
 

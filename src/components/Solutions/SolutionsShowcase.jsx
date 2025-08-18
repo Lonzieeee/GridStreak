@@ -28,9 +28,9 @@ harmful to health due to smoke inhalation.`,
     id: 2,
     title: "Powering Remote Hospitals",
     icon: <FaHospital />,
-    color: "#3B82F6",
+    color: "#B0F222",
     problem: `Healthcare facilities in off-grid or unstable grid regions suffer from unreliable
-heating for sterilization, laundry, cooking, and space heating and greatly risk
+heating for sterilization, laundry, cooking, and space heating and greatly risking
 patient safety and treatment outcomes.`,
     solution: [
       "GridStreak units provide uninterrupted thermal energy for hospital needs without relying solely on diesel generators or unstable national grid.",
@@ -83,7 +83,7 @@ and unsafe water sources.`,
     id: 5,
     title: "Waste Management",
     icon: <FaRecycle />,
-    color: "#15803D",
+    color: "#B0F222",
     problem: `Plastic waste accumulation is a growing crisis, with significant environmental
 and public health impacts. Open burning releases toxic gases, while landfill overflows contaminate soil and water.`,
     solution: [
@@ -101,7 +101,7 @@ and public health impacts. Open burning releases toxic gases, while landfill ove
     id: 6,
     title: "Emergency & Humanitarian Response",
     icon: <FaAmbulance />,
-    color: "#DC2626",
+    color: "#EB6A00",
     problem: `In crises such as wars, refugee displacement, earthquakes, floods, or prolonged
 blackouts, communities lose access to reliable cooking, heating, water, and power often for weeks or months.`,
     solution: [
@@ -121,20 +121,20 @@ export default function SolutionsShowcase() {
   const [selectedSolution, setSelectedSolution] = useState(solutions[0]);
   const [isExploring, setIsExploring] = useState(false);
 
-  // Variants for staggered list animation
+  
   const listVariants = {
     hidden: {},
     show: {
-      transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+      transition: { staggerChildren: 0.05, delayChildren: 0.1 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -12 },
-    show: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: -8 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.2 } },
   };
 
-  // Derived accent color for current detail panel
+
   const accentStyle = useMemo(() => ({ "--accent": selectedSolution.color }), [selectedSolution.color]);
 
   return (
@@ -157,9 +157,9 @@ export default function SolutionsShowcase() {
 
       <div className={styles.showcaseContainer}>
         <motion.header
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
           viewport={{ once: true }}
           className={styles.showcaseHeader}
         >
@@ -192,7 +192,7 @@ export default function SolutionsShowcase() {
                   id={`tab-${solution.id}`}
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => setSelectedSolution(solution)}
-                  whileHover={{ x: 8 }}
+                  whileHover={{ x: 4 }}
                   whileTap={{ scale: 0.98 }}
                   variants={itemVariants}
                   className={`${styles.solutionButton} ${isActive ? styles.active : ""}`}
@@ -217,10 +217,10 @@ export default function SolutionsShowcase() {
                 id={`panel-${selectedSolution.id}`}
                 role="tabpanel"
                 aria-labelledby={`tab-${selectedSolution.id}`}
-                initial={{ opacity: 0, x: 28 }}
+                initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -28 }}
-                transition={{ duration: 0.45 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.25 }}
                 className={styles.solutionDetail}
                 style={accentStyle}
               >

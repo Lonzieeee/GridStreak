@@ -75,23 +75,23 @@ export default function SolutionsGrid() {
   };
 
   const cardVariantsLeft = {
-    hidden: { opacity: 0, x: -80 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    hidden: { opacity: 0, x: -60 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
   };
 
   const cardVariantsRight = {
-    hidden: { opacity: 0, x: 80 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    hidden: { opacity: 0, x: 60 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
   };
 
   return (
     <section className={styles.gridSection} ref={ref}>
       <div className={styles.container}>
-        {/* Header */}
+      
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className={styles.header}
         >
           <h2 className={styles.heading}>
@@ -102,7 +102,7 @@ export default function SolutionsGrid() {
           </p>
         </motion.div>
 
-        {/* Top 3 Solutions */}
+      
         <motion.div
           className={styles.grid}
           variants={containerVariants}
@@ -129,7 +129,7 @@ export default function SolutionsGrid() {
           ))}
         </motion.div>
 
-        {/* Bottom 3 Solutions */}
+  
         <motion.div
           className={styles.grid}
           variants={containerVariants}
@@ -156,12 +156,12 @@ export default function SolutionsGrid() {
           ))}
         </motion.div>
 
-        {/* Learn More Button */}
+      
         <motion.div
           className={styles.learnMoreContainer}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: "easeOut", delay: 0.2 }}
         >
           <button className={styles.learnMoreButton} onClick={scrollToShowcase}>
             Learn More
