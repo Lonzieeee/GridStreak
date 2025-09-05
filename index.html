@@ -19,7 +19,77 @@
     <link rel="canonical" href="https://gridstreak.magical.africa/" />
 
 
-    <link rel="icon" href="https://pub-eb8df8ce05ba4243b626e4a16b3fd69b.r2.dev/gridfav.png" type="image/png" />
+    
+  
+  
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon-adjusted.svg?v=1" />
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/outLine-Orange@3x.png?v=2" />
+    <script>
+      (function() {
+        try {
+          const src = '/outLine-Orange@3x.png';
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            const size = 512;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, size, size);
+
+            const scaleX = 0.90;
+            const targetW = Math.round(size * scaleX);
+            const targetH = size;
+            const dx = Math.round((size - targetW) / 2);
+            const dy = 0;
+
+            const zoom = 1.18;
+            const ratio = Math.max(size / img.width, size / img.height) * zoom;
+            const drawW = Math.round(img.width * ratio);
+            const drawH = Math.round(img.height * ratio);
+            const sx = Math.round((drawW - size) / 2);
+            const sy = Math.round((drawH - size) / 2);
+
+            const off = document.createElement('canvas');
+            off.width = size;
+            off.height = size;
+            const octx = off.getContext('2d');
+            octx.clearRect(0,0,size,size);
+            octx.drawImage(img, -sx, -sy, drawW, drawH);
+
+            ctx.drawImage(off, dx, dy, targetW, targetH);
+
+            const dataUrl = canvas.toDataURL('image/png');
+
+            function setFavicon(href, sizes) {
+              const link = document.querySelector(`link[rel="icon"][type="image/png"][sizes="${sizes}"]`) || document.createElement('link');
+              link.rel = 'icon';
+              link.type = 'image/png';
+              link.sizes = sizes;
+              link.href = dataUrl;
+              document.head.appendChild(link);
+            }
+
+            setFavicon(dataUrl, '16x16');
+            setFavicon(dataUrl, '32x32');
+            setFavicon(dataUrl, '64x64');
+
+            let shortcut = document.querySelector('link[rel="shortcut icon"]');
+            if (!shortcut) {
+              shortcut = document.createElement('link');
+              shortcut.rel = 'shortcut icon';
+              shortcut.type = 'image/png';
+              document.head.appendChild(shortcut);
+            }
+            shortcut.href = dataUrl;
+          };
+          img.src = src + '?v=' + Date.now();
+        } catch (e) {}
+      })();
+    </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
 
@@ -44,9 +114,11 @@
         "name": "GridStreak",
         "url": "https://gridstreak.magical.africa/",
         "logo": "https://www.gridstreak.com/logo.png",
+        
         "sameAs": [
           "https://x.com/GridStreak",
-          "https://www.linkedin.com/company/grid-streak/?viewAsMember=true"
+          "https://www.linkedin.com/company/grid-streak/?viewAsMember=true",
+          "https://www.facebook.com/Gridstreak/"
         ]
       }
     </script>

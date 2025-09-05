@@ -36,7 +36,12 @@ function Header() {
   return (
     <header className="header">
       <div className="container">
-        <Link to="/" className="logo">GridStreak</Link>
+        <Link to="/" className="logo">
+          <img
+            src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/navbar.png"
+            alt="GridStreak"
+          />
+        </Link>
 
         <button
           className="hamburger"

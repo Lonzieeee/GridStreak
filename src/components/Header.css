@@ -38,6 +38,13 @@
     white-space: nowrap;
 }
 
+.logo img {
+    display: block;
+    height: 56px;
+    width: auto;
+    margin-top: 8px; 
+}
+
 /* mobile phone */
 
 .hamburger {
@@ -69,7 +76,7 @@
 
 .nav-links a {
     text-decoration: none;
-    color: var(--black);
+    color: #666;
     transition: color 0.2s ease;
     font-weight: 500;
 }
@@ -156,7 +163,9 @@
     gap: 0.75rem;
     font-size: 0.85rem;
   }
-  
+  .nav-links a{
+    color: #111;
+  }
   .get-in-touch {
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
@@ -167,6 +176,13 @@
 @media (max-width: 768px) {
   .logo {
     font-size: 1.5rem;
+  }
+  .logo img {
+    height: 44px;
+    margin-top: 6px;
+  }
+  .nav-links a{
+    color: #111;
   }
 
   .hamburger {
@@ -222,7 +238,9 @@
   .container {
     padding: 0 1rem;
   }
-  
+  .nav-links a{
+    color: #111;
+  }
   .logo {
     font-size: 1.4rem;
   }

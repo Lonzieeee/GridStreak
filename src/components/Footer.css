@@ -79,7 +79,9 @@
 
 .social-link svg {
   transition: transform 0.2s ease, opacity 0.2s ease;
-  opacity: 0.9;
+  opacity: 0.95;
+  color: #fff; 
+  background: transparent; 
 }
 
 .social-link:hover svg {
