@@ -45,16 +45,23 @@
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
   color: var(--primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.65rem;
   line-height: 1.2;
 }
 
 .titleGradient {
-  background: linear-gradient(90deg, var(--heat), var(--green));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--green);
+  -webkit-text-fill-color: var(--green);
+  background: none;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0;
+}
+
+.titleGradient::after {
+  content: none;
+  height: 0;
+  background: none;
 }
 
 .showcaseSubtitle {
@@ -123,6 +130,15 @@
   font-size: 1.4rem;
   line-height: 1;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconImg {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
 }
 
 .buttonTitle {
@@ -138,7 +154,7 @@
 
 .solutionDetail {
   border-radius: 12px;
-  padding: clamp(1.5rem, 4vw, 2rem);
+  padding: clamp(3rem, 6vw, 3.5rem);
   height: 100%;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
@@ -149,15 +165,24 @@
 { 
   display: flex; 
   justify-content: space-between; 
-  align-items: flex-start; 
-  gap: 1rem; 
-  margin-bottom: 1.25rem; 
+  align-items: center; 
+  flex-wrap: wrap;
+  gap: 1.5rem; 
+  margin-bottom: 1.5rem; 
 }
 .detailIcon 
 { 
   font-size: 2.25rem; 
   margin-bottom: .25rem; 
   color: var(--primary); 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detailIcon .iconImg {
+  width: 32px;
+  height: 32px;
 }
 .detailTitle 
 { 
@@ -166,22 +191,18 @@
 }
 
 .exploreButton {
-  padding: 0.75rem 1.25rem;
-  background: transparent;
-  border: 2px solid transparent;
-  border-image: linear-gradient(90deg, var(--heat), var(--green)) 1;
-  border-radius: 8px;
-  color: #111;
-  font-size: clamp(0.85rem, 2vw, 0.9rem);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  min-width: 120px;
+  background-color: #B0F222;
+  color: #0D0D0D;
+  padding: 0.9rem 2.2rem;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  border: none;
 }
 
 .exploreButton:hover {
-  background: linear-gradient(90deg, var(--heat), var(--green));
-  color: #000;
+  background-color: #F2F1DF;
 }
 
 .exploreButton:focus-visible {
@@ -194,7 +215,7 @@
   display: flex; 
   flex-direction: column; 
   gap: 1rem; 
-  margin-top: .25rem; 
+  margin-top: 1rem; 
 }
 
 .problemSection, .solutionSection {
@@ -244,7 +265,7 @@
 
 .impactContent 
 { 
-  margin-top: .5rem; 
+  margin-top: 1rem; 
 }
 
 
@@ -266,6 +287,7 @@
   
   .exploreButton {
     align-self: flex-start;
+    margin-top: 0.5rem;
   }
 }
 

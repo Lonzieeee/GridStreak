@@ -110,7 +110,7 @@ const ChatBot = () => {
       ...prev,
       {
         type: "bot",
-        text: "Okay! Feel free to reach out anytime. Goodbye for now! 👋",
+        text: "Okay! Feel free to reach out anytime. Goodbye for now! ",
       },
     ]);
     setRemainingFaqs([]);

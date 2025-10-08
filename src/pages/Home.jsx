@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import SEO from "../components/SEO";
 const heroImage = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hero1.webp";
 import { Link } from "react-router-dom";
 import "./Home.css";
@@ -41,6 +42,35 @@ function Home() {
 
   return (
     <div className="home-page">
+      <SEO
+        title="GridStreak | Clean Thermal Energy Storage"
+        description="GridStreak builds modular thermal brick storage for clean cooking, resilient healthcare, water safety, cold storage and more."
+        canonical="https://www.gridstreak.com/"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "GridStreak",
+            "url": "https://www.gridstreak.com/",
+            "logo": "https://www.gridstreak.com/logo.png",
+            "sameAs": [
+              "https://www.linkedin.com/company/grid-streak/",
+              "https://x.com/GridStreak",
+              "https://www.facebook.com/Gridstreak/"
+            ]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "https://www.gridstreak.com/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.gridstreak.com/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]}
+      />
       {/* Hero Section */}
       <section
         className="hero"

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SEO from "../components/SEO";
 import "./Sustainability.css";
 import SDGCards from "../components/SDGCards";
 const EnergyIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/energy.png";
@@ -90,6 +91,11 @@ const Sustainability = () => {
 
   return (
     <>
+      <SEO
+        title="Sustainability | GridStreak"
+        description="How GridStreak advances clean energy access, cold storage, and grid stability with sustainable thermal storage systems."
+        canonical="https://www.gridstreak.com/sustainability"
+      />
       <div className="hero-wrapper math-grid-hero">
         <div className="grid-background"></div>
 

@@ -1,14 +1,19 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaHospital, FaSnowflake, FaTint, FaRecycle, FaAmbulance, FaCheckCircle } from "react-icons/fa";
-import { GiCookingPot } from "react-icons/gi";
+import { FaCheckCircle } from "react-icons/fa";
 import styles from "./SolutionsShowcase.module.css";
 
 const solutions = [
   {
     id: 1,
     title: "Community and Institutional Cooking",
-    icon: <GiCookingPot />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking.png"
+        alt="Community and Institutional Cooking"
+        className={styles.iconImg}
+      />
+    ),
     color: "#EB6A00",
     problem: `Communities and institutions in rural and peri-urban regions still rely on biomass
 and kerosene for cooking. These fuels are costly, environmentally destructive, and
@@ -27,7 +32,13 @@ harmful to health due to smoke inhalation.`,
   {
     id: 2,
     title: "Powering Remote Hospitals",
-    icon: <FaHospital />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hospital.png"
+        alt="Powering Remote Hospitals"
+        className={styles.iconImg}
+      />
+    ),
     color: "#B0F222",
     problem: `Healthcare facilities in off-grid or unstable grid regions suffer from unreliable
 heating for sterilization, laundry, cooking, and space heating and greatly risking
@@ -46,7 +57,13 @@ patient safety and treatment outcomes.`,
   {
     id: 3,
     title: "Agricultural Cold Storage",
-    icon: <FaSnowflake />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/frozen-food.png"
+        alt="Agricultural Cold Storage"
+        className={styles.iconImg}
+      />
+    ),
     color: "#0EA5E9",
     problem: `Post-harvest losses in agriculture are as high as 40% in some areas due to lack of
 affordable cold storage — especially in rural markets.`,
@@ -64,7 +81,13 @@ affordable cold storage — especially in rural markets.`,
   {
     id: 4,
     title: "Water Purification",
-    icon: <FaTint />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/water.png"
+        alt="Water Purification"
+        className={styles.iconImg}
+      />
+    ),
     color: "#0284C7",
     problem: `Many communities lack access to clean drinking water due to microbial contamination
 and unsafe water sources.`,
@@ -82,7 +105,13 @@ and unsafe water sources.`,
   {
     id: 5,
     title: "Waste Management",
-    icon: <FaRecycle />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/waste%20management.png"
+        alt="Waste Management"
+        className={styles.iconImg}
+      />
+    ),
     color: "#B0F222",
     problem: `Plastic waste accumulation is a growing crisis, with significant environmental
 and public health impacts. Open burning releases toxic gases, while landfill overflows contaminate soil and water.`,
@@ -100,7 +129,13 @@ and public health impacts. Open burning releases toxic gases, while landfill ove
   {
     id: 6,
     title: "Emergency & Humanitarian Response",
-    icon: <FaAmbulance />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency.png"
+        alt="Emergency & Humanitarian Response"
+        className={styles.iconImg}
+      />
+    ),
     color: "#EB6A00",
     problem: `In crises such as wars, refugee displacement, earthquakes, floods, or prolonged
 blackouts, communities lose access to reliable cooking, heating, water, and power often for weeks or months.`,

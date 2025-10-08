@@ -1,10 +1,16 @@
 import React from "react";
+import SEO from "../components/SEO";
 
 import "./Contact.css";
 
 function Contact(){
     return (
         <div className="contact-page">
+            <SEO
+                title="Contact | GridStreak"
+                description="Contact GridStreak to learn more about clean thermal energy storage solutions for your needs."
+                canonical="https://www.gridstreak.com/contact"
+            />
             <div className="contact-left">
             <h2>Contact Us</h2>
             <p>We'd love to hear from you! Fill in the form :</p>

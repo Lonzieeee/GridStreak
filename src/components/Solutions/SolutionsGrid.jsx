@@ -1,55 +1,84 @@
 import React, { useRef } from "react";
 import styles from "./SolutionsGrid.module.css";
 import { motion, useInView } from "framer-motion";
-import {
-  FaUtensils,
-  FaHospital,
-  FaSnowflake,
-  FaTint,
-  FaRecycle,
-  FaAmbulance,
-} from "react-icons/fa";
+import { FaAmbulance } from "react-icons/fa";
 
 const solutions = [
   {
     id: 1,
     title: "Clean Cooking",
-    icon: <FaUtensils />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking.png"
+        alt="Clean Cooking"
+        className={styles.iconImage}
+      />
+    ),
     desc: "Reliable, smoke-free cooking solutions powered by stored heat.",
     category: "cooking",
   },
   {
     id: 2,
     title: "Hospitals & Clinics",
-    icon: <FaHospital />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hospital.png"
+        alt="Hospitals & Clinics"
+        className={styles.iconImage}
+      />
+    ),
     desc: "Resilient heating systems for sterilization, patient care, and comfort.",
     category: "hospitals",
   },
   {
     id: 3,
     title: "Cold Storage",
-    icon: <FaSnowflake />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/frozen-food.png"
+        alt="Cold Storage"
+        className={styles.iconImage}
+      />
+    ),
     desc: "Keep vaccines, food, and perishables safe with renewable cold storage.",
     category: "cold",
   },
   {
     id: 4,
     title: "Water Purification",
-    icon: <FaTint />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/water.png"
+        alt="Water Purification"
+        className={styles.iconImage}
+      />
+    ),
     desc: "Safe, clean water through thermal treatment and purification.",
     category: "water",
   },
   {
     id: 5,
     title: "Waste Management",
-    icon: <FaRecycle />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/waste%20management.png"
+        alt="Waste Management"
+        className={styles.iconImage}
+      />
+    ),
     desc: "Convert waste into energy and reduce landfill impact.",
     category: "waste",
   },
   {
     id: 6,
     title: "Emergency Relief",
-    icon: <FaAmbulance />,
+    icon: (
+      <img
+        src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency.png"
+        alt="Emergency Relief"
+        className={styles.iconImage}
+      />
+    ),
     desc: "Portable heating units for disaster response and relief efforts.",
     category: "emergency",
   },
@@ -57,7 +86,7 @@ const solutions = [
 
 export default function SolutionsGrid() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, { once: false, amount: 0.3 });
 
   const scrollToShowcase = () => {
     const showcase = document.getElementById("solutions-showcase");
@@ -90,7 +119,7 @@ export default function SolutionsGrid() {
       
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           className={styles.header}
         >

@@ -42,19 +42,32 @@
 .heading {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.65rem;
   color: #111;
   text-align: center;
 }
 
 .highlight {
-  background: linear-gradient(90deg, var(--heat), var(--green));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--green);
+  -webkit-text-fill-color: var(--green);
+  background: none;
   position: relative;
   display: inline-block;
+  padding-bottom: 8px;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -15px; 
+  height: 40px; 
+  background-image: url('https://pub-eb8df8ce05ba4243b626e4a16b3fd69b.r2.dev/underline.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: left center;
+  pointer-events: none;
 }
 
 
@@ -127,6 +140,7 @@
     rgba(var(--accent-rgb), 0.06) 100%
   );
   transition: transform 0.2s ease;
+  position: relative;
 }
 
 .icon {
@@ -135,12 +149,40 @@
   transition: transform 0.2s ease;
 }
 
+.iconImage {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  display: block;
+}
+
+.iconLink {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #b0f222;
+  color: #0d0d0d;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.iconLink:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
 .cardInner:hover .iconWrapper {
   transform: scale(1.03);
 }
 
 .cardInner:hover .icon {
-  transform: rotate(5deg);
+  transform: none;
 }
 
 .cardContent {
@@ -172,22 +214,18 @@
 }
 
 .learnMoreButton {
-  padding: 1rem 1.5rem;
-  background: transparent;
-  color: #111;
-  border: 2px solid transparent;
-  border-image: linear-gradient(90deg, var(--heat), var(--green)) 1;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  transition: all 0.25s ease;
-  min-width: 160px;
+  background-color: #B0F222;
+  color: #0D0D0D;
+  padding: 0.9rem 2.2rem;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  border: none;
 }
 
 .learnMoreButton:hover {
-  background: linear-gradient(90deg, var(--heat), var(--green));
-  color: #000;
+  background-color: #F2F1DF;
 }
 
 
