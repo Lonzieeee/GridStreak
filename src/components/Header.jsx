@@ -54,13 +54,14 @@ function Header() {
         </button>
 
      
-        <nav className={`nav-links ${isOpen ? "open" : ""}`} ref={navRef}>
+        <nav className={`nav-links ${isOpen ? "open" : ""}`} ref={navRef} role="navigation" aria-label="Main navigation">
           {/* close icon for mobile */}
           <button className="close-menu" onClick={() => setIsOpen(false)} aria-label="Close menu">&times;</button>
           <Link
             to="/#"
             onClick={handleNavClick}
             className={isActive("/technology") ? "active-link" : ""}
+            title="GridStreak Technology - Thermal Brick Innovation"
           >
             Technology
           </Link>
@@ -68,6 +69,7 @@ function Header() {
             to="/solutions"
             onClick={handleNavClick}
             className={isActive("/solutions") ? "active-link" : ""}
+            title="GridStreak Solutions - Clean Energy Storage Systems"
           >
             Solutions
           </Link>
@@ -75,6 +77,7 @@ function Header() {
             to="/partners"
             onClick={handleNavClick}
             className={isActive("/partners") ? "active-link" : ""}
+            title="GridStreak Partners - Collaboration Opportunities"
           >
             Partners
           </Link>
@@ -82,6 +85,7 @@ function Header() {
             to="/sustainability"
             onClick={handleNavClick}
             className={isActive("/sustainability") ? "active-link" : ""}
+            title="GridStreak Sustainability - Environmental Impact"
           >
             Sustainability
           </Link>
@@ -89,6 +93,7 @@ function Header() {
             to="#"
             onClick={handleNavClick}
             className={isActive("/insights") ? "active-link" : ""}
+            title="GridStreak Insights - Industry News & Updates"
           >
             Insights
           </Link>

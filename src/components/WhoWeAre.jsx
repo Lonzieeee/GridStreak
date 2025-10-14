@@ -9,9 +9,10 @@ function WhoWeAre() {
         <div className="who-text">
           <h2>Who We Are</h2>
           <p>
-            GridStreak pioneers clean energy grid stabilization through our
-            innovative thermal brick technology that converts plastic waste into
-            renewable energy storage.
+            GridStreak transforms plastic waste into clean thermal energy through
+            a zero-waste process, powering portable sand “brick” batteries
+            designed for scalable grid stabilization and community energy
+            systems.
             <br /><br />
             Our carbon-negative solution empowers businesses and governments to
             balance grid frequency, eliminate fossil fuel backups, and divert
@@ -26,8 +27,6 @@ function WhoWeAre() {
 
         <div className="who-visual">
           <EnergyModel />
-   
-         
         </div>
       </div>
     </section>

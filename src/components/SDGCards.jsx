@@ -41,7 +41,7 @@ const sdgData = [
     color: "#bf8b2e",
     icon: sdg12Icon,
     description:
-      "GridStreak promotes circularity by turning plastic waste into energy storage, supporting sustainable resource use.",
+      "GridStreak promotes circularity through zero-waste processes that transform plastic waste into portable sand brick batteries, supporting sustainable resource use and community energy systems.",
   },
 ];
 

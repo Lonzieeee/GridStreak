@@ -13,7 +13,7 @@ wss.on('connection', (ws) => {
   ws.send("Hey! I'm StreakBot. Want to learn how we turn plastic into power?");
 
   ws.on('message', (message) => {
-    console.log("📩 User said:", message.toString());
+    console.log("User said:", message.toString());
 
     let response = "I'm not sure I understand yet";
 

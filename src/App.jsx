@@ -10,11 +10,14 @@ import Solutions from "./pages/Solutions";
 
 import Footer from "./components/Footer";
 import ChatBot from "./components/ChatBot";
+import Breadcrumb from "./components/Breadcrumb";
+import BackToTop from "./components/BackToTop";
 
 function App() {
   return (
     <Router>
       <Header />
+      <Breadcrumb />
       
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,7 +26,7 @@ function App() {
         <Route path="/solutions" element={<Solutions />} />
         <Route path="/partners" element={<Partners />} /> 
       </Routes>
-      
+      <BackToTop />
       <Footer />
       <ChatBot />
     </Router>
