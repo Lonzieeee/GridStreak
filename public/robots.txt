@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://gridstreak.magical.africa/sitemap.xml
+Sitemap: https://gridstreak.com/sitemap.xml
 
 # Crawl delay to be respectful to our server
 Crawl-delay: 1

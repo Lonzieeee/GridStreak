@@ -9,11 +9,12 @@ import PartnerCTA from "../components/Partners/PartnerCTA";
 
 const Partners = () => {
   return (
+    
     <>
       <SEO
         title="Partners | GridStreak"
         description="Collaborate with GridStreak to deploy clean thermal energy solutions and scale impact across sectors."
-        canonical="https://www.gridstreak.com/partners"
+        canonical="https://gridstreak.com/partners"
       />
       <PartnersHero />
       <CurrentPartners />

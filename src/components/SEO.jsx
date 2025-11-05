@@ -41,12 +41,16 @@ export default function SEO({ title, description, canonical, jsonLd = [], meta =
       }
     });
 
+    // console.log('seo props: ',meta)
+
   
     meta.forEach(({ name, content, property }) => {
       if (!name && !property) return;
       const selector = name ? `meta[name="${name}"]` : `meta[property="${property}"]`;
       let tag = document.querySelector(selector);
+      // console.log('tags:',name,content,property);
       if (!tag) {
+        
         tag = document.createElement('meta');
         if (name) tag.setAttribute('name', name);
         if (property) tag.setAttribute('property', property);

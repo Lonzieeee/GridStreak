@@ -28,13 +28,13 @@ const Breadcrumb = () => {
               "@type": "ListItem",
               "position": 1,
               "name": "Home",
-              "item": "https://gridstreak.magical.africa/"
+              "item": "https://gridstreak.com/"
             },
             ...pathnames.map((name, index) => ({
               "@type": "ListItem",
               "position": index + 2,
               "name": breadcrumbNameMap[name] || name,
-              "item": `https://gridstreak.magical.africa/${pathnames.slice(0, index + 1).join('/')}`
+              "item": `https://gridstreak.com/${pathnames.slice(0, index + 1).join('/')}`
             }))
           ]
         })}

@@ -22,7 +22,8 @@ function Footer () {
                        
                        <li><Link to="/partners">Partners</Link></li>
                        <li><Link to="/sustainability">Sustainability</Link></li>
-                       <li><Link to="/insights">Insights</Link></li>
+                       <li><Link to="/contact">Contact</Link></li>
+                       <li><Link to="/site-map">Site Map</Link></li>
                     </ul>
                 </div>
 
