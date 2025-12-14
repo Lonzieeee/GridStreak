@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import styles from "./SolutionsGrid.module.css";
 import { motion, useInView } from "framer-motion";
 import { FaAmbulance } from "react-icons/fa";
@@ -7,6 +8,7 @@ const solutions = [
   {
     id: 1,
     title: "Clean Cooking",
+    path: "/solutions/clean-cooking",
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking.png"
@@ -20,6 +22,7 @@ const solutions = [
   {
     id: 2,
     title: "Hospitals & Clinics",
+    path: "/solutions/hospitals-clinics",
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hospital.png"
@@ -27,12 +30,13 @@ const solutions = [
         className={styles.iconImage}
       />
     ),
-    desc: "Resilient heating systems for sterilization, patient care, and comfort.",
+    desc: "Resilient heating systems for sterilization, patient care, comfort, and vaccine storage.",
     category: "hospitals",
   },
   {
     id: 3,
     title: "Cold Storage",
+    path: "/solutions/cold-storage",
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/frozen-food.png"
@@ -40,12 +44,13 @@ const solutions = [
         className={styles.iconImage}
       />
     ),
-    desc: "Keep vaccines, food, and perishables safe with renewable cold storage.",
+    desc: "Keep food and perishables safe with renewable cold storage.",
     category: "cold",
   },
   {
     id: 4,
     title: "Water Purification",
+    path: "/solutions/water-purification",
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/water.png"
@@ -59,6 +64,7 @@ const solutions = [
   {
     id: 5,
     title: "Waste Management",
+    path: "/solutions/waste-management",
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/waste%20management.png"
@@ -72,6 +78,7 @@ const solutions = [
   {
     id: 6,
     title: "Emergency Relief",
+    path: "/solutions/emergency-relief",
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency.png"
@@ -139,22 +146,26 @@ export default function SolutionsGrid() {
           animate={isInView ? "visible" : "hidden"}
         >
           {solutions.slice(0, 3).map((sol, index) => (
-            <motion.div
-              key={sol.id}
-              className={`${styles.card} ${styles[sol.category]}`}
-              variants={index % 2 === 0 ? cardVariantsLeft : cardVariantsRight}
-            >
-              <div className={styles.cardInner}>
-                <div className={styles.iconWrapper}>
-                  <div className={styles.icon}>{sol.icon}</div>
+            <Link key={sol.id} to={sol.path} style={{ textDecoration: "none", color: "inherit" }}>
+              <motion.div
+                className={`${styles.card} ${styles[sol.category]}`}
+                variants={index % 2 === 0 ? cardVariantsLeft : cardVariantsRight}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{ cursor: "pointer" }}
+              >
+                <div className={styles.cardInner}>
+                  <div className={styles.iconWrapper}>
+                    <div className={styles.icon}>{sol.icon}</div>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.title}>{sol.title}</h3>
+                    <p className={styles.desc}>{sol.desc}</p>
+                  </div>
+                  <div className={styles.cardAccent}></div>
                 </div>
-                <div className={styles.cardContent}>
-                  <h3 className={styles.title}>{sol.title}</h3>
-                  <p className={styles.desc}>{sol.desc}</p>
-                </div>
-                <div className={styles.cardAccent}></div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </motion.div>
 
@@ -166,22 +177,26 @@ export default function SolutionsGrid() {
           animate={isInView ? "visible" : "hidden"}
         >
           {solutions.slice(3, 6).map((sol, index) => (
-            <motion.div
-              key={sol.id}
-              className={`${styles.card} ${styles[sol.category]}`}
-              variants={index % 2 === 0 ? cardVariantsRight : cardVariantsLeft}
-            >
-              <div className={styles.cardInner}>
-                <div className={styles.iconWrapper}>
-                  <div className={styles.icon}>{sol.icon}</div>
+            <Link key={sol.id} to={sol.path} style={{ textDecoration: "none", color: "inherit" }}>
+              <motion.div
+                className={`${styles.card} ${styles[sol.category]}`}
+                variants={index % 2 === 0 ? cardVariantsRight : cardVariantsLeft}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{ cursor: "pointer" }}
+              >
+                <div className={styles.cardInner}>
+                  <div className={styles.iconWrapper}>
+                    <div className={styles.icon}>{sol.icon}</div>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.title}>{sol.title}</h3>
+                    <p className={styles.desc}>{sol.desc}</p>
+                  </div>
+                  <div className={styles.cardAccent}></div>
                 </div>
-                <div className={styles.cardContent}>
-                  <h3 className={styles.title}>{sol.title}</h3>
-                  <p className={styles.desc}>{sol.desc}</p>
-                </div>
-                <div className={styles.cardAccent}></div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </motion.div>
 

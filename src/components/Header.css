@@ -141,6 +141,68 @@
 }
 
 
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: -20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  width: 480px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.dropdown-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-transform: none;
+  border-radius: 6px;
+  border-left: 3px solid transparent;
+}
+
+.dropdown-menu a:hover {
+  color: var(--heat);
+  background-color: rgba(235, 106, 0, 0.1);
+  border-left-color: var(--heat);
+}
+
+.dropdown-menu .active-dropdown-item {
+  color: var(--heat);
+  background-color: rgba(235, 106, 0, 0.12);
+  border-left-color: var(--heat);
+  font-weight: 600;
+}
+
+
 
 @media (max-width: 1200px) {
   .container {
@@ -211,6 +273,7 @@
     transition: right 0.25s cubic-bezier(0.77,0.2,0.05,1.0);
     z-index: 100;
     border: none !important;
+    overflow-y: auto;
   }
   .nav-links.open {
     right: 0;
@@ -229,6 +292,61 @@
   .nav-links a {
     padding: 0.75rem 0;
     font-size: 1rem;
+  }
+
+
+  .nav-dropdown {
+    width: 100%;
+  }
+
+  .nav-dropdown > a::after {
+    content: "▼";
+    margin-left: 0.5rem;
+    font-size: 0.7rem;
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-dropdown:has(.dropdown-menu.open) > a::after {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    background: transparent;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    grid-template-rows: none;
+    gap: 0;
+    min-width: auto;
+  }
+
+  .dropdown-menu.open {
+    max-height: 500px;
+  }
+
+  .dropdown-menu a {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    border-left: none;
+    padding-left: 1rem;
+    border-radius: 0;
+  }
+
+  .dropdown-menu a:hover {
+    background-color: rgba(235, 106, 0, 0.08);
   }
 
   .get-in-touch {

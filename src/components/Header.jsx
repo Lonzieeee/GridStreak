@@ -4,9 +4,11 @@ import "./Header.css";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
   const location = useLocation();
   const navRef = useRef();
   const hamburgerRef = useRef();
+  const solutionsRef = useRef();
 
   const isActive = (path) => location.pathname === path;
 
@@ -19,6 +21,12 @@ function Header() {
       ) {
         setIsOpen(false);
       }
+      if (
+        solutionsRef.current &&
+        !solutionsRef.current.contains(event.target)
+      ) {
+        setIsSolutionsOpen(false);
+      }
     };
 
     document.addEventListener("click", handleClickOutside);
@@ -29,6 +37,20 @@ function Header() {
 
   const handleNavClick = () => {
     if (window.innerWidth < 768) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleSolutionsClick = (e) => {
+    if (window.innerWidth < 768) {
+      e.preventDefault();
+      setIsSolutionsOpen(!isSolutionsOpen);
+    }
+  };
+
+  const handleDropdownItemClick = () => {
+    if (window.innerWidth < 768) {
+      setIsSolutionsOpen(false);
       setIsOpen(false);
     }
   };
@@ -65,14 +87,66 @@ function Header() {
           >
             Technology
           </Link>
-          <Link
-            to="/solutions"
-            onClick={handleNavClick}
-            className={isActive("/solutions") ? "active-link" : ""}
-            title="GridStreak Solutions - Clean Energy Storage Systems"
+          <div
+            className="nav-dropdown"
+            ref={solutionsRef}
+            onMouseEnter={() => window.innerWidth >= 768 && setIsSolutionsOpen(true)}
+            onMouseLeave={() => window.innerWidth >= 768 && setIsSolutionsOpen(false)}
           >
-            Solutions
-          </Link>
+            <Link
+              to="/solutions"
+              onClick={handleSolutionsClick}
+              className={isActive("/solutions") || 
+                location.pathname.startsWith("/solutions/") ? "active-link" : ""}
+              title="GridStreak Solutions - Clean Energy Storage Systems"
+            >
+              Solutions
+            </Link>
+            <div className={`dropdown-menu ${isSolutionsOpen ? "open" : ""}`}>
+              <Link
+                to="/solutions/clean-cooking"
+                onClick={handleDropdownItemClick}
+                className={isActive("/solutions/clean-cooking") ? "active-dropdown-item" : ""}
+              >
+                Clean Cooking
+              </Link>
+              <Link
+                to="/solutions/hospitals-clinics"
+                onClick={handleDropdownItemClick}
+                className={isActive("/solutions/hospitals-clinics") ? "active-dropdown-item" : ""}
+              >
+                Hospitals & Clinics
+              </Link>
+              <Link
+                to="/solutions/cold-storage"
+                onClick={handleDropdownItemClick}
+                className={isActive("/solutions/cold-storage") ? "active-dropdown-item" : ""}
+              >
+                Cold Storage
+              </Link>
+              <Link
+                to="/solutions/water-purification"
+                onClick={handleDropdownItemClick}
+                className={isActive("/solutions/water-purification") ? "active-dropdown-item" : ""}
+              >
+                Water Purification
+              </Link>
+              <Link
+                to="/solutions/waste-management"
+                onClick={handleDropdownItemClick}
+                className={isActive("/solutions/waste-management") ? "active-dropdown-item" : ""}
+              >
+                Waste Management
+              </Link>
+              <Link
+                to="/solutions/emergency-relief"
+                onClick={handleDropdownItemClick}
+                className={isActive("/solutions/emergency-relief") ? "active-dropdown-item" : ""}
+              >
+                Emergency Relief
+              </Link>
+            </div>
+          </div>
           <Link
             to="/partners"
             onClick={handleNavClick}
