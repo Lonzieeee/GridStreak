@@ -55,7 +55,7 @@ const PartnerCTA = () => {
             We’re looking for collaborators who share our vision for clean energy access,
             circular systems, and community-first innovation.
           </p>
-          <p>📩 <strong>Email us:</strong> <a href="mailto:partnerships@gridstreak.com">partnerships@gridstreak.com</a></p>
+          <p>📩 <strong>Email us:</strong> <a href="mailto:info@gridstreak.com">info@gridstreak.com</a></p>
 
           <p>Or use the form below:</p>
           <a href="/contact" className="cta-button">Let's Connect</a>

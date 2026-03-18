@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 100px 40px;
+  padding: 80px 40px;
   background: linear-gradient(135deg, #111, #333);
   color: #fff;
   flex-wrap: wrap;
@@ -102,7 +102,9 @@
 @media (max-width: 768px) {
   .partnercta-section {
     flex-direction: column;
-    /* padding: 60px 20px; */
+    padding: 80px 20px 80px;
+    justify-content: flex-start;
+    height: auto;
     gap: 20px;
   }
 

@@ -265,8 +265,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
-  padding: 80px 20px;
+  gap: 32px;
+  padding: 72px 32px;
   z-index: 2;
   position: relative;
 }
@@ -281,12 +281,11 @@
 
 /* impact card */
 .impact-card-container {
-  width: 340px;
+  width: 300px;
   max-width: 90%;
-  height: 360px;
+  min-height: 300px;
   perspective: 1000px;
-  margin: 1rem;
-  
+  margin: 0.75rem;
 }
 
 .impact-card-inner {
@@ -306,10 +305,10 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 30px 25px;
+  padding: 24px 20px;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -330,28 +329,30 @@
   margin-bottom: 15px;
 }
 
-.impact-card h3 {
-  font-size: 1.5rem;
+.impact-card-front h3,
+.impact-card-back h4 {
+  font-size: 1.35rem;
   margin-bottom: 10px;
   color: #000;
 }
 
-.impact-card p {
-  font-size: 1rem;
+.impact-card-front p,
+.impact-card-back p {
+  font-size: 0.95rem;
   color: #444;
   margin-bottom: 15px;
   line-height: 1.6;
 }
 
-.impact-card ul {
+.impact-card-back ul {
   list-style: none;
   padding-left: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #333;
   text-align: left;
 }
 
-.impact-card ul li {
+.impact-card-back ul li {
   margin-bottom: 10px;
   padding-left: 1.5em;
   position: relative;
@@ -362,9 +363,7 @@
 }
 
 .impact-card-back h4 {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-  color: #000;
+  font-weight: 700;
 }
 
 .impact-card-back li::before {
@@ -399,15 +398,35 @@
   margin-top: 12px;
 }
 
-/* monile */
+/* tablet */
+@media screen and (max-width: 1024px) {
+  .hero-text {
+    font-size: 2.4rem;
+    max-width: 90%;
+  }
+
+  .impact-title {
+    font-size: 2.3rem;
+  }
+
+  .triangle-layout {
+    padding: 64px 24px;
+  }
+
+  .impact-card-container {
+    width: 280px;
+    margin: 0.85rem;
+  }
+}
+
+/* mobile */
 @media screen and (max-width: 768px) {
   .bottom-wave {
     display: none;
   }
   .hero-wrapper {
-  
-  height: 80vh;
-}
+    height: 80vh;
+  }
 
   .hero-text {
     font-size: 1.5rem;
@@ -421,7 +440,7 @@
 
   .triangle-layout {
     padding: 60px 10px;
-    gap: 40px;
+    gap: 32px;
   }
 
   .top-row {
@@ -429,25 +448,40 @@
     gap: 40px;
   }
 
-  .impact-card {
-    width: 90%;
-  }
-.impact-card-container {
-margin: 2rem;
-  
-}
-  .impact-card h3 {
-    font-size: 1.25rem;
+  .impact-card-container {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    min-height: 300px;
+    margin: 1.25rem 1rem;
   }
 
-  .impact-card p,
-  .impact-card ul {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  .impact-card ul li {
+  .impact-card-front {
+    align-items: flex-start;
     text-align: left;
+  }
+
+  .impact-card-front h3 {
+    text-align: left;
+    width: 100%;
+  }
+
+  .impact-card-front p {
+    text-align: left;
+    width: 100%;
+  }
+
+  .impact-card-back {
+    align-items: flex-start;
+  }
+
+  .impact-card-back h4 {
+    width: 100%;
+    text-align: left;
+  }
+
+  .impact-card-back ul {
+    width: 100%;
   }
 
   .impact-icon {
@@ -456,5 +490,31 @@ margin: 2rem;
 
   .math-grid-hero {
     background-size: 40px 40px;
+  }
+}
+
+/* small mobile */
+@media screen and (max-width: 480px) {
+  .hero-text {
+    font-size: 1.3rem;
+    max-width: 95%;
+  }
+
+  .impact-title {
+    font-size: 1.7rem;
+  }
+
+  .triangle-layout {
+    padding: 48px 12px;
+  }
+
+  .impact-card-container {
+    max-width: 330px;
+    margin: 0.85rem auto 1.25rem;
+  }
+
+  .impact-card-front,
+  .impact-card-back {
+    padding: 20px 16px;
   }
 }

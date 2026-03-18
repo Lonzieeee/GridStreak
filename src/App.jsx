@@ -5,10 +5,12 @@ import Footer from "./components/Footer";
 import ChatBot from "./components/ChatBot";
 import Breadcrumb from "./components/Breadcrumb";
 import BackToTop from "./components/BackToTop";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Header />
       <Breadcrumb />
       <main>

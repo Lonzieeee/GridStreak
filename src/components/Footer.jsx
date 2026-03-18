@@ -4,6 +4,15 @@ import "./Footer.css";
 import { Link } from "react-router-dom";
 
 function Footer () {
+
+    const handleFooterNavClick = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "auto",
+        });
+    };
+
     return (
         <footer className="footer">
             <div className="footer-wrapper">
@@ -16,14 +25,11 @@ function Footer () {
                 <div className="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                       <li><Link to="/">Home</Link></li>
-                       <li><Link to="/technology">Technology</Link></li>
-                       <li><Link to="/solutions">Solutions</Link></li>
-                       
-                       <li><Link to="/partners">Partners</Link></li>
-                       <li><Link to="/sustainability">Sustainability</Link></li>
-                       <li><Link to="/contact">Contact</Link></li>
-                       <li><Link to="/site-map">Site Map</Link></li>
+                       <li><Link to="/" onClick={handleFooterNavClick}>Home</Link></li>
+                       <li><Link to="/solutions" onClick={handleFooterNavClick}>Solutions</Link></li>
+                       <li><Link to="/partners" onClick={handleFooterNavClick}>Partners</Link></li>
+                       <li><Link to="/sustainability" onClick={handleFooterNavClick}>Sustainability</Link></li>
+                       <li><Link to="/contact" onClick={handleFooterNavClick}>Contact</Link></li>
                     </ul>
                 </div>
 

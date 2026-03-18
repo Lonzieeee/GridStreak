@@ -21,12 +21,6 @@ function Header() {
       ) {
         setIsOpen(false);
       }
-      if (
-        solutionsRef.current &&
-        !solutionsRef.current.contains(event.target)
-      ) {
-        setIsSolutionsOpen(false);
-      }
     };
 
     document.addEventListener("click", handleClickOutside);
@@ -39,13 +33,21 @@ function Header() {
     if (window.innerWidth < 768) {
       setIsOpen(false);
     }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
   };
 
   const handleSolutionsClick = (e) => {
-    if (window.innerWidth < 768) {
-      e.preventDefault();
-      setIsSolutionsOpen(!isSolutionsOpen);
-    }
+   
+    setIsSolutionsOpen((open) => (window.innerWidth < 768 ? !open : true));
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
   };
 
   const handleDropdownItemClick = () => {
@@ -96,17 +98,25 @@ function Header() {
             <Link
               to="/solutions"
               onClick={handleSolutionsClick}
+              aria-haspopup="menu"
+              aria-expanded={isSolutionsOpen}
+              aria-controls="solutions-submenu"
               className={isActive("/solutions") || 
                 location.pathname.startsWith("/solutions/") ? "active-link" : ""}
               title="GridStreak Solutions - Clean Energy Storage Systems"
             >
               Solutions
             </Link>
-            <div className={`dropdown-menu ${isSolutionsOpen ? "open" : ""}`}>
+            <div
+              id="solutions-submenu"
+              className={`dropdown-menu ${isSolutionsOpen ? "open" : ""}`}
+            >
               <Link
                 to="/solutions/clean-cooking"
                 onClick={handleDropdownItemClick}
                 className={isActive("/solutions/clean-cooking") ? "active-dropdown-item" : ""}
+                data-icon="🔥"
+                data-desc="Institutional clean cooking for schools, hospitals, and communities using thermal storage."
               >
                 Clean Cooking
               </Link>
@@ -114,6 +124,8 @@ function Header() {
                 to="/solutions/hospitals-clinics"
                 onClick={handleDropdownItemClick}
                 className={isActive("/solutions/hospitals-clinics") ? "active-dropdown-item" : ""}
+                data-icon="🏥"
+                data-desc="Reliable heat, steam, and hot water for critical healthcare facilities."
               >
                 Hospitals & Clinics
               </Link>
@@ -121,6 +133,8 @@ function Header() {
                 to="/solutions/cold-storage"
                 onClick={handleDropdownItemClick}
                 className={isActive("/solutions/cold-storage") ? "active-dropdown-item" : ""}
+                data-icon="❄️"
+                data-desc="Off-grid and grid-tied cold rooms that keep harvests fresh and reduce food loss."
               >
                 Cold Storage
               </Link>
@@ -128,6 +142,8 @@ function Header() {
                 to="/solutions/water-purification"
                 onClick={handleDropdownItemClick}
                 className={isActive("/solutions/water-purification") ? "active-dropdown-item" : ""}
+                data-icon="💧"
+                data-desc="Thermally powered water treatment for safe drinking water in remote areas."
               >
                 Water Purification
               </Link>
@@ -135,6 +151,8 @@ function Header() {
                 to="/solutions/waste-management"
                 onClick={handleDropdownItemClick}
                 className={isActive("/solutions/waste-management") ? "active-dropdown-item" : ""}
+                data-icon="♻️"
+                data-desc="Circular waste-heat and waste-to-value systems for institutions and industry."
               >
                 Waste Management
               </Link>
@@ -142,6 +160,8 @@ function Header() {
                 to="/solutions/emergency-relief"
                 onClick={handleDropdownItemClick}
                 className={isActive("/solutions/emergency-relief") ? "active-dropdown-item" : ""}
+                data-icon="🚑"
+                data-desc="Rapid-deploy thermal systems for disaster response, camps, and mobile operations."
               >
                 Emergency Relief
               </Link>
