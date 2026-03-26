@@ -259,24 +259,62 @@ const HospitalsClinics = () => {
         <ApplicationsCardStack reducedMotion={!!prefersReducedMotion} />
       </section>
 
-      {/* IMPACT */}
-      <section className="hc-section hc-dark">
-        <h2>Real Impact in Healthcare</h2>
-        <div className="hc-grid">
-          <div className="card">Up to 50% cost reduction</div>
-          <div className="card">Reduced diesel reliance</div>
-          <div className="card">Improved medicine preservation</div>
-          <div className="card">Increased uptime</div>
+      {/*
+      <section className="hc-section hc-impact">
+        <div className="hc-impact__head">
+          <p className="hc-impact__eyebrow">Proven outcomes</p>
+          <h2>Real Impact in Healthcare Operations</h2>
+          <p className="hc-impact__lead">
+            GridStreak systems are designed to reduce energy pressure on facilities while improving
+            service continuity for critical care environments.
+          </p>
+        </div>
+
+        <div className="hc-impact__grid" role="list" aria-label="Healthcare impact highlights">
+          <article className="hc-impact-card" role="listitem">
+            <p className="hc-impact-card__value">Up to 50%</p>
+            <p className="hc-impact-card__title">Lower energy cost burden</p>
+            <p className="hc-impact-card__desc">
+              Reduce generator and fuel-related operating expenses.
+            </p>
+          </article>
+
+          <article className="hc-impact-card" role="listitem">
+            <p className="hc-impact-card__value">High uptime</p>
+            <p className="hc-impact-card__title">Continuity for critical services</p>
+            <p className="hc-impact-card__desc">
+              Maintain power availability for essential equipment and care workflows.
+            </p>
+          </article>
+
+          <article className="hc-impact-card" role="listitem">
+            <p className="hc-impact-card__value">Less diesel</p>
+            <p className="hc-impact-card__title">Reduced fuel dependency</p>
+            <p className="hc-impact-card__desc">
+              Lower logistical risk and emissions linked to fuel supply chains.
+            </p>
+          </article>
+
+          <article className="hc-impact-card" role="listitem">
+            <p className="hc-impact-card__value">Safer storage</p>
+            <p className="hc-impact-card__title">Better cold-chain reliability</p>
+            <p className="hc-impact-card__desc">
+              Support medicine and vaccine preservation during grid instability.
+            </p>
+          </article>
         </div>
       </section>
+      */}
 
       {/* CTA */}
       <section className="hc-cta">
-        <h2>Deploy GridStreak in Your Healthcare Facility</h2>
-        <p>
-          Ensure uninterrupted care and reduce operational costs with clean energy.
+        <h2>Ready to deploy GridStreak?</h2>
+        <p className="hc-cta__lead">
+          Get a quick deployment plan tailored to your healthcare facility.
         </p>
-        <button className="primary-btn">Contact Us</button>
+        <div className="hc-cta__actions">
+          <button className="primary-btn hc-cta__btn">Get My Deployment Plan</button>
+        </div>
       </section>
 
       </div>
