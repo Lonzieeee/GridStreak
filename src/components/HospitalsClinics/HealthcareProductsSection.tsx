@@ -32,7 +32,7 @@ type Product = {
 const PRODUCTS: Product[] = [
   {
     id: "nano",
-    shortLabel: "Nano",
+    shortLabel: "Nano Cartridge",
     title: "Nano Cartridge",
     subtitle: "Compact Energy for Small Clinics & Remote Facilities",
     body: "Designed for small clinics, dispensaries, and off-grid health posts, the Nano Cartridge delivers essential energy where infrastructure is limited.",
@@ -47,7 +47,7 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "chamber",
-    shortLabel: "Chamber",
+    shortLabel: "GridStreak Circular Chamber",
     title: "GridStreak Circular Chamber",
     subtitle: "Sustainable Medical Waste Treatment & Energy Recovery",
     body: "The GridStreak Circular Chamber enables safe, high-temperature processing of medical and plastic waste, transforming waste into usable energy.",
@@ -62,7 +62,7 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "x",
-    shortLabel: "X",
+    shortLabel: "GridStreak X",
     title: "GridStreak X",
     subtitle: "Scalable Energy for Clinics & Mid-Sized Hospitals",
     body: "GridStreak X is built for growing healthcare facilities requiring reliable and continuous energy.",
@@ -77,7 +77,7 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "ultra",
-    shortLabel: "Ultra",
+    shortLabel: "GridStreak Ultra",
     title: "GridStreak Ultra",
     subtitle: "High-Capacity Energy for Large Hospitals & Healthcare Systems",
     body: "GridStreak Ultra delivers industrial-scale thermal energy storage for large hospitals and healthcare networks.",
@@ -88,7 +88,7 @@ const PRODUCTS: Product[] = [
       "Designed for long-term, high-performance operation",
     ],
     closing: "Built for major hospitals and national healthcare systems.",
-    image: "/images/ultra-placeholder.jpg",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/ultraaa.png",
   },
 ];
 

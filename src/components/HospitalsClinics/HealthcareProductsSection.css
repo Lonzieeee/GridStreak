@@ -5,6 +5,10 @@
 
 .hc-products-section {
   --green: #b0f222;
+  --hc-pattern-url: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/navbar.png");
+  --hc-pattern-size: 52px;
+  --hc-pattern-opacity: 0.11;
+  --hc-pattern-tilt: -8deg;
   --hc-gs-white: #ffffff;
   --hc-gs-bg: #f9f9f9;
   --hc-gs-text: #0d0d0d;
@@ -26,7 +30,27 @@
   color: var(--hc-gs-text);
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   font-family: "Rubik", sans-serif;
+}
+
+.hc-products-section::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background-image: var(--hc-pattern-url);
+  background-repeat: repeat;
+  background-size: var(--hc-pattern-size) var(--hc-pattern-size);
+  opacity: var(--hc-pattern-opacity);
+  transform: rotate(var(--hc-pattern-tilt));
+  transform-origin: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hc-products-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hc-products-section input,
@@ -135,18 +159,18 @@
   border-radius: 500px;
   box-shadow: var(--hc-gs-large-shadow);
   display: block;
-  width: min(51vh, 88vw);
-  height: min(51vh, 88vw);
+  width: min(55vh, 90vw);
+  height: min(55vh, 90vw);
   min-width: 176px;
   min-height: 176px;
-  max-width: min(51vh, 470px);
-  max-height: min(51vh, 470px);
+  max-width: min(55vh, 520px);
+  max-height: min(55vh, 520px);
   left: 0;
   object-fit: cover;
   object-position: 56% center;
   position: absolute;
   top: 50%;
-  transform: translate(calc(-50% + 13vh), -50%);
+  transform: translate(calc(-50% + 14vh), -50%);
   z-index: 2;
 }
 
@@ -244,13 +268,13 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 20vh;
-  min-width: 120px;
+  width: 26vh;
+  min-width: 180px;
   z-index: 4;
 }
 
 .hc-products-menu__full-option {
-  align-items: center;
+  align-items: flex-start;
   background-color: transparent;
   border: none;
   border-radius: 0.5vh;
@@ -261,7 +285,7 @@
   padding: 1vh;
   text-align: left;
   text-decoration: none;
-  transform: translateX(-0.5vh);
+  transform: translateX(-2vh);
   transition:
     opacity 150ms,
     transform 150ms;
@@ -274,22 +298,27 @@
 
 .hc-products-menu__full-option:first-of-type,
 .hc-products-menu__full-option:last-of-type {
-  transform: translateX(-4vh);
+  transform: translateX(-4.4vh);
 }
 
 .hc-products-menu__full-option:nth-of-type(2),
 .hc-products-menu__full-option:nth-of-type(3) {
-  transform: translateX(-2vh);
+  transform: translateX(-3.2vh);
 }
 
 .hc-products-menu__full-option h3.label {
   color: var(--hc-gs-text);
-  font-size: 1.5vh;
-  line-height: 1.2;
-  min-height: 2vh;
+  font-size: clamp(0.68rem, 1.22vh, 0.82rem);
+  line-height: 1.25;
+  min-height: 0;
   margin: 0;
   padding: 0;
-  font-weight: 400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 .hc-products-menu__full-option.is-active {
@@ -305,11 +334,11 @@
 /* Copy panel — scroll shell; inner surface is the “card” */
 .hc-products-menu__content {
   position: absolute;
-  right: clamp(1rem, 4vw, 2.5rem);
+  right: clamp(0.75rem, 2.8vw, 1.75rem);
   top: 50%;
   transform: translateY(-50%);
-  width: min(40vw, 420px);
-  max-width: calc(100% - 62vh);
+  width: min(46vw, 560px);
+  max-width: calc(100% - 56vh);
   max-height: min(75vh, 720px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -357,6 +386,7 @@
     var(--green) 0%,
     color-mix(in srgb, var(--green) 70%, #1a1a1a) 100%
   );
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -528,6 +558,11 @@
 }
 
 @media (max-width: 1200px) {
+  .hc-products-section {
+    --hc-pattern-size: 48px;
+    --hc-pattern-opacity: 0.09;
+  }
+
   .hc-products-menu {
     width: 30vh;
   }
@@ -537,20 +572,32 @@
   }
 
   .hc-products-menu__profile-img {
-    width: min(42vh, 84vw);
-    height: min(42vh, 84vw);
-    max-width: min(42vh, 400px);
-    max-height: min(42vh, 400px);
+    width: min(46vh, 86vw);
+    height: min(46vh, 86vw);
+    max-width: min(46vh, 430px);
+    max-height: min(46vh, 430px);
     object-position: 58% center;
-    transform: translate(calc(-50% + 11vh), -50%);
+    transform: translate(calc(-50% + 12vh), -50%);
   }
 
   .hc-products-menu__full-options {
     left: 42vh;
+    width: 24vh;
+    min-width: 168px;
+  }
+
+  .hc-products-menu__content {
+    width: min(48vw, 520px);
+    max-width: calc(100% - 46vh);
   }
 }
 
 @media (max-width: 800px) {
+  .hc-products-section {
+    --hc-pattern-size: 44px;
+    --hc-pattern-opacity: 0.075;
+  }
+
   .hc-products-menu {
     width: 25vh;
   }
@@ -560,22 +607,32 @@
   }
 
   .hc-products-menu__profile-img {
-    width: min(37vh, 82vw);
-    height: min(37vh, 82vw);
-    max-width: min(37vh, 350px);
-    max-height: min(37vh, 350px);
+    width: min(40vh, 84vw);
+    height: min(40vh, 84vw);
+    max-width: min(40vh, 380px);
+    max-height: min(40vh, 380px);
     object-position: 60% center;
-    transform: translate(calc(-50% + 10vh), -50%);
+    transform: translate(calc(-50% + 11vh), -50%);
   }
 
   .hc-products-menu__full-options {
     left: 36vh;
+    width: 22vh;
+    min-width: 150px;
+  }
+
+  .hc-products-menu__content {
+    width: min(50vw, 470px);
+    max-width: calc(100% - 40vh);
   }
 }
 
 /* ——— Mobile & small tablet: dedicated layout (hero + pill picker + full-width card) ——— */
 @media (max-width: 700px) {
   .hc-products-section {
+    --hc-pattern-size: 38px;
+    --hc-pattern-opacity: 0.045;
+    --hc-pattern-tilt: -6deg;
     padding-left: max(var(--hc-products-pad-x), env(safe-area-inset-left, 0px));
     padding-right: max(var(--hc-products-pad-x), env(safe-area-inset-right, 0px));
     padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px));
@@ -792,6 +849,22 @@
     font-size: 0.98rem;
     padding: 0.85rem 1rem;
     border-radius: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hc-products-section {
+    --hc-pattern-opacity: 0.03;
+    --hc-pattern-size: 34px;
+  }
+
+  .hc-products-menu__contentSurface {
+    padding-left: 0.95rem;
+    padding-right: 0.95rem;
+  }
+
+  .hc-products-menu__contentList--steps li {
+    padding-left: 2.55rem;
   }
 }
 

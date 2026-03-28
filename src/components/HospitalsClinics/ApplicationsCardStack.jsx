@@ -1,408 +1,302 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  FaBolt,
-  FaFire,
-  FaHeartbeat,
-  FaMicroscope,
-  FaSnowflake,
-  FaSyringe,
-  FaTint,
-  FaTrashAlt,
-} from "react-icons/fa";
+import { motion, useReducedMotion } from "framer-motion";
+import { LuActivity, LuChefHat, LuDroplets, LuFlaskConical, LuSnowflake, LuTrash2 } from "react-icons/lu";
+import { MdBiotech, MdOutlineMedicalServices } from "react-icons/md";
 
-const SWIPE_THRESHOLD_PX = 64;
-const AUTO_SWIPE_INTERVAL_MS = 12000;
-const AUTO_SWIPE_RESUME_DELAY_MS = 1400;
-const AUTO_SWIPE_DRAG_MS = 420;
-const AUTO_SWIPE_EXTRA_PX = 18;
-const UNSTACK_AFTER_LAST_MS = 2200;
+const APP_ICONS = [
+  LuSnowflake,
+  LuFlaskConical,
+  MdOutlineMedicalServices,
+  LuActivity,
+  LuChefHat,
+  MdBiotech,
+  LuDroplets,
+  LuTrash2,
+];
 
-const durationFromCSSVarMs = (variableName, element = document.documentElement) => {
-  const raw = getComputedStyle(element)?.getPropertyValue(variableName)?.trim();
-  if (!raw) return 0;
-  if (raw.endsWith("ms")) return Number.parseFloat(raw);
-  if (raw.endsWith("s")) return Number.parseFloat(raw) * 1000;
-  return Number.parseFloat(raw) || 0;
-};
+const APP_CARDS = [
+  {
+    title: "Cold-chain protection",
+    description: "Protect vaccines, blood, and temperature-sensitive medicines during outages.",
+  },
+  {
+    title: "Lab continuity",
+    description: "Keep diagnostics and laboratory workflows running without interruption.",
+  },
+  {
+    title: "Medical equipment uptime",
+    description: "Maintain reliable power for essential clinical and care devices.",
+  },
+  {
+    title: "Outage loss prevention",
+    description: "Reduce spoilage, downtime, and service disruption during grid instability.",
+  },
+  {
+    title: "Hospital kitchen heat",
+    description: "Deliver efficient, dependable thermal energy for meal operations.",
+  },
+  {
+    title: "Sterilization support",
+    description: "Provide consistent heat for infection prevention and equipment sterilization.",
+  },
+  {
+    title: "Hot water and sanitation",
+    description: "Support ward hygiene and sanitation with reliable hot water availability.",
+  },
+  {
+    title: "Safer waste handling",
+    description: "Enable high-temperature processing for medical and infectious waste.",
+  },
+];
 
-export default function ApplicationsCardStack({ reducedMotion = false }) {
+export default function ApplicationsCardStack() {
+  const sectionRef = useRef(null);
+  const gridRef = useRef(null);
+  const firstCardRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [gridWidth, setGridWidth] = useState(0);
+  const [gridHeight, setGridHeight] = useState(0);
+  const [cardSize, setCardSize] = useState({ width: 280, height: 220 });
+  const reducedMotion = useReducedMotion();
+
   const cards = useMemo(
-    () => [
-      {
-        id: "cold-chain",
-        category: "Protecting Critical Healthcare Systems",
-        title: "Cold storage for vaccines, blood, and medicines",
-        description: "Protect temperature-sensitive supplies with reliable energy through outages.",
-        Icon: FaSnowflake,
-        accent: "#57d7ff",
-      },
-      {
-        id: "labs",
-        category: "Protecting Critical Healthcare Systems",
-        title: "Continuous laboratory and diagnostic operations",
-        description: "Keep labs running for testing, diagnostics, and clinical decision-making.",
-        Icon: FaSyringe,
-        accent: "#b0f222",
-      },
-      {
-        id: "equipment",
-        category: "Protecting Critical Healthcare Systems",
-        title: "Reliable power for medical equipment",
-        description: "Support essential devices and maintain continuity of care.",
-        Icon: FaMicroscope,
-        accent: "#eb6a00",
-      },
-      {
-        id: "outages",
-        category: "Protecting Critical Healthcare Systems",
-        title: "Prevention of losses caused by power outages",
-        description: "Reduce spoilage, downtime, and disruption when the grid is unstable.",
-        Icon: FaHeartbeat,
-        accent: "#ff4d6d",
-      },
-      {
-        id: "cooking",
-        category: "Clean Heat for Essential Hospital Operations",
-        title: "Hospital cooking",
-        description: "Deliver efficient thermal energy for kitchens and meal preparation.",
-        Icon: FaBolt,
-        accent: "#ffd166",
-      },
-      {
-        id: "sterilization",
-        category: "Clean Heat for Essential Hospital Operations",
-        title: "Sterilization of medical equipment",
-        description: "Provide dependable heat to support infection prevention and control.",
-        Icon: FaFire,
-        accent: "#ff7a18",
-      },
-      {
-        id: "water",
-        category: "Clean Heat for Essential Hospital Operations",
-        title: "Water heating and sanitation",
-        description: "Support hot water needs for wards, cleaning, and hygiene.",
-        Icon: FaTint,
-        accent: "#62a8ff",
-      },
-      {
-        id: "waste",
-        category: "Clean Heat for Essential Hospital Operations",
-        title: "Safe destruction of medical and infectious waste",
-        description: "Enable high-temperature thermal use for safer waste handling.",
-        Icon: FaTrashAlt,
-        accent: "#a78bfa",
-      },
-    ],
+    () => APP_CARDS.map((card, index) => ({ ...card, Icon: APP_ICONS[index] })),
     []
   );
 
-  const [order, setOrder] = useState(() => cards.map((c) => c.id));
-  const [step, setStep] = useState(0);
-  const [expanded, setExpanded] = useState(false);
-  const stackRef = useRef(null);
-  const isSwipingRef = useRef(false);
-  const autoAnimatingRef = useRef(false);
-  const autoPausedRef = useRef(false);
-  const autoResumeTimeoutRef = useRef(null);
-  const autoIntervalRef = useRef(null);
-  const unstackTimeoutRef = useRef(null);
-  const startXRef = useRef(0);
-  const currentXRef = useRef(0);
-  const rafRef = useRef(null);
-
-  const activeId = order[0];
-  const totalCards = cards.length;
-  const counterCurrent = (step % Math.max(totalCards, 1)) + 1;
-
-  const getCardElById = (id) =>
-    stackRef.current?.querySelector(`[data-hc-app-card-id="${id}"]`) ?? null;
-
-  const rotateOnce = () => {
-    setOrder((prev) => (prev.length ? [...prev.slice(1), prev[0]] : prev));
-    setStep((s) => s + 1);
-  };
-
-  const autoSwipeOnce = () => {
-    if (reducedMotion) return;
-    if (expanded) return;
-    if (autoAnimatingRef.current || isSwipingRef.current) return;
-    if (!activeId) return;
-
-    autoAnimatingRef.current = true;
-    const duration = durationFromCSSVarMs("--hc-app-swap-duration");
-
-    // Drive auto-advance through the same path as manual swipe:
-    // applySwipeStyles(deltaX) → handleEnd() (which performs the fling + rotateOnce()).
-    const direction = 1;
-    const targetDeltaX = (SWIPE_THRESHOLD_PX + AUTO_SWIPE_EXTRA_PX) * direction;
-    const el = getCardElById(activeId);
-
-    isSwipingRef.current = true;
-    startXRef.current = 0;
-    currentXRef.current = 0;
-
-    if (el) el.style.transition = "none";
-
-    const startTs = performance.now();
-    const tick = (now) => {
-      const t = Math.min(1, (now - startTs) / AUTO_SWIPE_DRAG_MS);
-      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-      const deltaX = targetDeltaX * eased;
-      currentXRef.current = deltaX;
-      applySwipeStyles(deltaX);
-
-      if (t < 1) {
-        requestAnimationFrame(tick);
-        return;
-      }
-
-      handleEnd();
-
-      window.setTimeout(() => {
-        autoAnimatingRef.current = false;
-      }, Math.max(0, duration) + 50);
+  useEffect(() => {
+    const checkScreen = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsDesktop(width > 1024);
     };
-
-    requestAnimationFrame(tick);
-  };
-
-  const resetAllCardTransforms = () => {
-    if (!stackRef.current) return;
-    order.forEach((id, idx) => {
-      const el = getCardElById(id);
-      if (!el) return;
-      el.style.setProperty("--i", String(idx));
-      el.style.setProperty("--hc-app-i-target", "");
-      el.dataset.hcAppMoving = "0";
-      el.style.setProperty("--swipe-x", "0px");
-      el.style.setProperty("--swipe-rotate", "0deg");
-      el.style.opacity = "1";
-      el.style.transition = "";
-    });
-  };
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
   useEffect(() => {
-    resetAllCardTransforms();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order.join("|")]);
+    const el = sectionRef.current;
+    if (!el) return undefined;
 
-  useEffect(() => {
-    if (reducedMotion) return undefined;
-    if (expanded) return undefined;
-    if (counterCurrent !== totalCards) return undefined;
-
-    const attempt = () => {
-      if (expanded) return;
-      if (autoPausedRef.current || isSwipingRef.current || autoAnimatingRef.current) {
-        unstackTimeoutRef.current = window.setTimeout(attempt, 700);
-        return;
-      }
-      setExpanded(true);
-    };
-
-    unstackTimeoutRef.current = window.setTimeout(attempt, UNSTACK_AFTER_LAST_MS);
-
-    return () => {
-      if (unstackTimeoutRef.current) window.clearTimeout(unstackTimeoutRef.current);
-      unstackTimeoutRef.current = null;
-    };
-  }, [counterCurrent, expanded, reducedMotion, totalCards]);
-
-  const applySwipeStyles = (deltaX) => {
-    const el = getCardElById(activeId);
-    if (!el) return;
-    el.style.setProperty("--swipe-x", `${deltaX}px`);
-    el.style.setProperty("--swipe-rotate", `${deltaX * 0.18}deg`);
-    el.style.opacity = String(1 - Math.min(Math.abs(deltaX) / 140, 1) * 0.75);
-  };
-
-  const handleStart = (clientX) => {
-    if (reducedMotion) return;
-    if (isSwipingRef.current) return;
-    isSwipingRef.current = true;
-    autoPausedRef.current = true;
-    if (autoResumeTimeoutRef.current) window.clearTimeout(autoResumeTimeoutRef.current);
-    startXRef.current = clientX;
-    currentXRef.current = clientX;
-    const el = getCardElById(activeId);
-    if (el) el.style.transition = "none";
-  };
-
-  const handleMove = (clientX) => {
-    if (reducedMotion) return;
-    if (!isSwipingRef.current) return;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      currentXRef.current = clientX;
-      const deltaX = currentXRef.current - startXRef.current;
-      applySwipeStyles(deltaX);
-      if (Math.abs(deltaX) > SWIPE_THRESHOLD_PX) handleEnd();
-    });
-  };
-
-  const handleEnd = () => {
-    if (reducedMotion) return;
-    if (!isSwipingRef.current) return;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-
-    const deltaX = currentXRef.current - startXRef.current;
-    const el = getCardElById(activeId);
-    const duration = durationFromCSSVarMs("--hc-app-swap-duration");
-    const targetIndex = Math.max(0, order.length - 1);
-
-    if (el) {
-      el.style.transition = `transform ${duration}ms ease, opacity ${duration}ms ease`;
-      if (Math.abs(deltaX) > SWIPE_THRESHOLD_PX) {
-        el.dataset.hcAppMoving = "1";
-        el.style.setProperty("--hc-app-i-target", String(targetIndex));
-        el.style.setProperty("--swipe-x", "0px");
-        el.style.setProperty("--swipe-rotate", "0deg");
-        el.style.opacity = "1";
-
-        window.setTimeout(() => {
-          rotateOnce();
-        }, Math.max(0, duration));
-      } else {
-        applySwipeStyles(0);
-      }
-    }
-
-    isSwipingRef.current = false;
-    startXRef.current = 0;
-    currentXRef.current = 0;
-
-    autoResumeTimeoutRef.current = window.setTimeout(() => {
-      autoPausedRef.current = false;
-    }, AUTO_SWIPE_RESUME_DELAY_MS);
-  };
-
-  const orderedCards = useMemo(() => {
-    const map = new Map(cards.map((c) => [c.id, c]));
-    return order.map((id) => map.get(id)).filter(Boolean);
-  }, [cards, order]);
-
-  useEffect(() => {
-    if (reducedMotion) return undefined;
-    if (expanded) return undefined;
-    if (autoIntervalRef.current) window.clearInterval(autoIntervalRef.current);
-
-    autoIntervalRef.current = window.setInterval(() => {
-      if (autoPausedRef.current || isSwipingRef.current || autoAnimatingRef.current) return;
-      autoSwipeOnce();
-    }, AUTO_SWIPE_INTERVAL_MS);
-
-    return () => {
-      if (autoIntervalRef.current) window.clearInterval(autoIntervalRef.current);
-      autoIntervalRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reducedMotion, totalCards, expanded]);
-
-  if (reducedMotion) {
-    return (
-      <div className="hc-app-grid" role="list" aria-label="Applications">
-        {orderedCards.map(({ id, category, title, description, Icon, accent }) => (
-          <div className="hc-app-tile" role="listitem" key={id} style={{ "--hc-app-accent": accent }}>
-            <span className="hc-app-tile__icon" aria-hidden="true">
-              {React.createElement(Icon)}
-            </span>
-            <div className="hc-app-tile__body">
-              <p className="hc-app-tag">{category}</p>
-              <h3 className="hc-app-tile__title">{title}</h3>
-              <p className="hc-app-tile__desc">{description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.2 }
     );
-  }
 
-  if (expanded) {
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const updateMetrics = () => {
+      if (gridRef.current) {
+        setGridWidth(gridRef.current.clientWidth);
+        setGridHeight(gridRef.current.clientHeight);
+      }
+      if (firstCardRef.current) {
+        const rect = firstCardRef.current.getBoundingClientRect();
+        if (rect.width) {
+          setCardSize({ width: rect.width, height: rect.height || 220 });
+        }
+      }
+    };
+
+    updateMetrics();
+    window.addEventListener("resize", updateMetrics);
+    return () => window.removeEventListener("resize", updateMetrics);
+  }, []);
+
+  const sparklePositions = [
+    { top: "11%", left: "10%" },
+    { top: "17%", left: "82%" },
+    { top: "36%", left: "28%" },
+    { top: "44%", left: "63%" },
+    { top: "62%", left: "15%" },
+    { top: "70%", left: "74%" },
+    { top: "84%", left: "52%" },
+    { top: "12%", left: "55%" },
+  ];
+
+  const cardGap = isMobile ? 12 : 20;
+  const rowGap = isMobile ? 12 : 26;
+
+  const getColumnCount = () => {
+    const width = cardSize.width || 280;
+    const available = gridWidth || 1200;
+    const breakpointMaxCols = isDesktop ? 4 : available >= 900 ? 3 : 2;
+    const fitCols = Math.floor((available + cardGap) / (width + cardGap));
+    if (isDesktop) {
+      return 4;
+    }
+    return Math.max(1, Math.min(cards.length, breakpointMaxCols, fitCols || 1));
+  };
+
+  const columns = getColumnCount();
+  const rows = Math.ceil(cards.length / columns);
+  const animatedGridHeight =
+    rows * (cardSize.height || 220) + Math.max(0, rows - 1) * rowGap;
+
+  const calculateRowPosition = (index) => {
+    const width = cardSize.width || 280;
+    const height = cardSize.height || 220;
+    const row = Math.floor(index / columns);
+    const col = index % columns;
+    const cardsInRow = Math.min(columns, cards.length - row * columns);
+    const rowWidth = cardsInRow * width + (cardsInRow - 1) * cardGap;
+    const startX = ((gridWidth || 1200) - rowWidth) / 2;
+    return {
+      left: startX + col * (width + cardGap),
+      top: row * (height + rowGap),
+    };
+  };
+
+  const calculateStackPosition = (index) => {
+    const width = cardSize.width || 280;
+    const height = cardSize.height || 220;
+    const centerX = (gridWidth || 1200) / 2 - width / 2;
+    const centerY = (gridHeight || (height * 2 + rowGap)) / 2 - height / 2;
+    return {
+      left: centerX + index * 3,
+      top: centerY - index * 1.5,
+      rotate: (index % 2 === 0 ? -1 : 1) * index * 0.55,
+      scale: 1 - index * 0.02,
+      zIndex: cards.length - index,
+    };
+  };
+
+  if (isMobile || reducedMotion) {
     return (
-      <div className="hc-app-stackWrap">
-        <div className="hc-app-meta">
-          <p className="hc-app-hint">All applications at a glance.</p>
-          <p className="hc-app-counter" aria-label={`All ${totalCards} cards`}>
-            <span aria-hidden="true">{totalCards}</span>
-            <span aria-hidden="true"> / </span>
-            <span aria-hidden="true">{totalCards}</span>
-          </p>
-        </div>
-
-        <div className="hc-app-unstackGrid" role="list" aria-label="Applications grid">
-          {cards.map(({ id, category, title, description, Icon, accent }) => (
-            <div
-              key={id}
-              role="listitem"
-              className="hc-app-unstackCard"
-              style={{ "--hc-app-accent": accent }}
+      <section
+        ref={sectionRef}
+        className={["hc-app-themes", isVisible ? "hc-app-themes--visible" : ""].filter(Boolean).join(" ")}
+        aria-label="Healthcare applications themes"
+      >
+        <div className="hc-app-themes__sparkles" aria-hidden="true">
+          {sparklePositions.map((pos, index) => (
+            <svg
+              key={index}
+              className="hc-app-themes__sparkle"
+              style={{ ...pos, animationDelay: `${(index * 0.7).toFixed(2)}s` }}
+              viewBox="0 0 20 20"
+              fill="none"
             >
-              <span className="hc-app-unstackCard__icon" aria-hidden="true">
-                {React.createElement(Icon)}
-              </span>
-              <p className="hc-app-tag">{category}</p>
-              <h3 className="hc-app-unstackCard__title">{title}</h3>
-              <p className="hc-app-unstackCard__desc">{description}</p>
-            </div>
+              <path d="M10 2 L11 9 L18 10 L11 11 L10 18 L9 11 L2 10 L9 9 Z" fill="#fffbe6" stroke="#eb6a00" strokeWidth="0.8" />
+            </svg>
           ))}
         </div>
-      </div>
+        <div className="hc-app-themes__container">
+          <div className="hc-app-themes__grid-static" role="list" aria-label="Healthcare applications">
+            {cards.map(({ title, description, Icon }, index) => (
+              <article className="hc-app-theme-card" role="listitem" key={title} style={{ "--stagger": index }}>
+                <p className="hc-app-theme-card__index" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <span className="hc-app-theme-card__icon" aria-hidden="true">
+                  {React.createElement(Icon, { size: 30, strokeWidth: 2.1 })}
+                </span>
+                <h3 className="hc-app-theme-card__title">{title}</h3>
+                <p className="hc-app-theme-card__desc">{description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     );
   }
 
   return (
-    <div className="hc-app-stackWrap">
-      <div className="hc-app-meta">
-        <p className="hc-app-hint">Swipe the cards to explore applications.</p>
-        <p className="hc-app-counter" aria-label={`Card ${counterCurrent} of ${totalCards}`}>
-          <span aria-hidden="true">{counterCurrent}</span>
-          <span aria-hidden="true"> / </span>
-          <span aria-hidden="true">{totalCards}</span>
-        </p>
-      </div>
-      <section
-        className="hc-app-cardStack"
-        ref={stackRef}
-        aria-label="Applications card stack"
-        onMouseEnter={() => {
-          autoPausedRef.current = true;
-          if (autoResumeTimeoutRef.current) window.clearTimeout(autoResumeTimeoutRef.current);
-        }}
-        onMouseLeave={() => {
-          autoResumeTimeoutRef.current = window.setTimeout(() => {
-            autoPausedRef.current = false;
-          }, 400);
-        }}
-        onPointerDown={(e) => {
-          e.currentTarget.setPointerCapture?.(e.pointerId);
-          handleStart(e.clientX);
-        }}
-        onPointerMove={(e) => handleMove(e.clientX)}
-        onPointerUp={handleEnd}
-        onPointerCancel={handleEnd}
-      >
-        {orderedCards.map(({ id, category, title, description, Icon, accent }, idx) => (
-          <article
-            key={id}
-            className="hc-app-card"
-            data-hc-app-card-id={id}
-            style={{
-              "--i": idx,
-              "--hc-app-accent": accent,
-            }}
+    <section
+      ref={sectionRef}
+      className={["hc-app-themes", isVisible ? "hc-app-themes--visible" : ""].filter(Boolean).join(" ")}
+      aria-label="Healthcare applications themes"
+    >
+      <div className="hc-app-themes__sparkles" aria-hidden="true">
+        {sparklePositions.map((pos, index) => (
+          <svg
+            key={index}
+            className="hc-app-themes__sparkle"
+            style={{ ...pos, animationDelay: `${(index * 0.7).toFixed(2)}s` }}
+            viewBox="0 0 20 20"
+            fill="none"
           >
-            <div className="hc-app-card__inner">
-              <span className="hc-app-card__icon" aria-hidden="true">
-                {React.createElement(Icon)}
-              </span>
-              <p className="hc-app-tag">{category}</p>
-              <h3 className="hc-app-card__title">{title}</h3>
-              <p className="hc-app-card__desc">{description}</p>
-            </div>
-          </article>
+            <path d="M10 2 L11 9 L18 10 L11 11 L10 18 L9 11 L2 10 L9 9 Z" fill="#fffbe6" stroke="#eb6a00" strokeWidth="0.8" />
+          </svg>
         ))}
-      </section>
-    </div>
+      </div>
+
+      <div className="hc-app-themes__container">
+        <div
+          className="hc-app-themes__pyramid-grid"
+          ref={gridRef}
+          role="list"
+          aria-label="Healthcare applications"
+          style={{ height: animatedGridHeight }}
+        >
+          {cards.map(({ title, description, Icon }, index) => {
+            const rowPos = calculateRowPosition(index);
+            const stackPos = calculateStackPosition(index);
+            return (
+              <motion.article
+                key={title}
+                className="hc-app-theme-card hc-app-theme-card--animated"
+                role="listitem"
+                ref={index === 0 ? firstCardRef : null}
+                initial={{
+                  opacity: 0,
+                  left: stackPos.left,
+                  top: stackPos.top,
+                  rotate: stackPos.rotate,
+                  scale: stackPos.scale,
+                  zIndex: stackPos.zIndex,
+                }}
+                animate={
+                  isVisible
+                    ? {
+                        opacity: 1,
+                        left: rowPos.left,
+                        top: rowPos.top,
+                        rotate: 0,
+                        scale: 1,
+                        zIndex: 1,
+                        transition: {
+                          type: "spring",
+                          stiffness: 80,
+                          damping: 20,
+                          mass: 0.8,
+                          delay: index * 0.14,
+                        },
+                      }
+                    : {
+                        opacity: 0,
+                        left: stackPos.left,
+                        top: stackPos.top,
+                        rotate: stackPos.rotate,
+                        scale: stackPos.scale,
+                        zIndex: stackPos.zIndex,
+                      }
+                }
+              >
+                <p className="hc-app-theme-card__index" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <span className="hc-app-theme-card__icon" aria-hidden="true">
+                  {React.createElement(Icon, { size: 30, strokeWidth: 2.1 })}
+                </span>
+                <h3 className="hc-app-theme-card__title">{title}</h3>
+                <p className="hc-app-theme-card__desc">{description}</p>
+              </motion.article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
 

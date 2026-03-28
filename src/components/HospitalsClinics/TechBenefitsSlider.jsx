@@ -39,14 +39,10 @@ function modIndex(i, len) {
 }
 
 
-const AUTO_ADVANCE_MS = 5000;
-
+const AUTO_ADVANCE_MS = 6200;
 const PEEK_START_MS = 1000;
-
 const PEEK_HOLD_MS = 3200;
-
-
-const MOBILE_ADVANCE_MS = 8500;
+const MOBILE_ADVANCE_MS = 9800;
 const MOBILE_PEEK_START_MS = 850;
 const MOBILE_PEEK_HOLD_MS = 4400;
 
@@ -130,9 +126,7 @@ export default function TechBenefitsSlider({ reducedMotion = false, children = n
   const slides = TECH_SLIDES;
   const n = slides.length;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [pauseAdvanceHover, setPauseAdvanceHover] = useState(false);
-  const [pausePeekHover, setPausePeekHover] = useState(false);
-  const [autoPeek, setAutoPeek] = useState(false);
+  const [autoPeek, setAutoPeek] = useState(true);
   const baseId = useId();
 
   const prevIndex = modIndex(currentIndex - 1, n);
@@ -152,41 +146,43 @@ export default function TechBenefitsSlider({ reducedMotion = false, children = n
 
 
   useEffect(() => {
-    if (reducedMotion || pauseAdvanceHover) return;
+    if (reducedMotion) return;
     const id = window.setInterval(() => {
       setCurrentIndex((i) => modIndex(i + 1, n));
     }, advanceMs);
     return () => window.clearInterval(id);
-  }, [reducedMotion, pauseAdvanceHover, advanceMs, n]);
+  }, [reducedMotion, advanceMs, n]);
 
   useEffect(() => {
-    if (reducedMotion || pausePeekHover) {
-      setAutoPeek(false);
+    if (reducedMotion) {
+      setAutoPeek(true);
       return;
     }
-    setAutoPeek(false);
-    const show = window.setTimeout(() => setAutoPeek(true), peekStartMs);
-    const hide = window.setTimeout(() => setAutoPeek(false), peekStartMs + peekHoldMs);
-    return () => {
-      window.clearTimeout(show);
-      window.clearTimeout(hide);
-    };
-  }, [currentIndex, reducedMotion, pausePeekHover, peekStartMs, peekHoldMs]);
 
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        go(-1);
-      }
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-        go(1);
-      }
+    setAutoPeek(false);
+    const showId = window.setTimeout(() => {
+      setAutoPeek(true);
+    }, peekStartMs);
+    const hideId = window.setTimeout(() => {
+      setAutoPeek(false);
+    }, peekStartMs + peekHoldMs);
+
+    return () => {
+      window.clearTimeout(showId);
+      window.clearTimeout(hideId);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [go]);
+  }, [currentIndex, reducedMotion, peekStartMs, peekHoldMs]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      go(-1);
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      go(1);
+    }
+  };
 
   const [tiltOk, setTiltOk] = useState(false);
   useEffect(() => {
@@ -218,8 +214,7 @@ export default function TechBenefitsSlider({ reducedMotion = false, children = n
       role="region"
       aria-roledescription="carousel"
       aria-label="Key technology benefits, continuous loop"
-      onMouseEnter={() => setPauseAdvanceHover(true)}
-      onMouseLeave={() => setPauseAdvanceHover(false)}
+      onKeyDown={handleKeyDown}
     >
       {children ? <div className="hc-tech-slider__header">{children}</div> : null}
 
@@ -256,8 +251,6 @@ export default function TechBenefitsSlider({ reducedMotion = false, children = n
               ref={curTrigger}
               data-current
               tabIndex={0}
-              onMouseEnter={() => setPausePeekHover(true)}
-              onMouseLeave={() => setPausePeekHover(false)}
             >
               <div className="hc-tech-slider__slideInner" ref={curInner}>
                 <div className="hc-tech-slider__imgWrap">

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion as Motion, useReducedMotion } from "framer-motion";
 import { FaGlobeAfrica, FaHeartbeat, FaBolt, FaGasPump } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import TechBenefitsSlider from "../components/HospitalsClinics/TechBenefitsSlider";
 import HealthcareProductsSection from "../components/HospitalsClinics/HealthcareProductsSection";
@@ -51,6 +52,122 @@ const builtForCardMotion = (prefersReducedMotion, index) => {
 
 const HospitalsClinics = () => {
   const prefersReducedMotion = useReducedMotion();
+  const impactRef = useRef(null);
+  const counterIntervalRef = useRef(null);
+  const impactResetTimeoutRef = useRef(null);
+  const impactInViewRef = useRef(false);
+  const [impactCounts, setImpactCounts] = useState({
+    costReduction: 0,
+    uptime: 0,
+  });
+
+  const impactTargets = {
+    costReduction: 50,
+    uptime: 24,
+  };
+
+  useEffect(() => {
+    return () => {
+      if (counterIntervalRef.current) {
+        clearInterval(counterIntervalRef.current);
+      }
+      if (impactResetTimeoutRef.current) {
+        clearTimeout(impactResetTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const startImpactCounting = () => {
+    if (prefersReducedMotion) {
+      setImpactCounts(impactTargets);
+      return;
+    }
+
+    const duration = 2000;
+    const steps = 60;
+    const stepDuration = duration / steps;
+    let currentStep = 0;
+
+    if (counterIntervalRef.current) {
+      clearInterval(counterIntervalRef.current);
+    }
+
+    counterIntervalRef.current = setInterval(() => {
+      currentStep += 1;
+      setImpactCounts({
+        costReduction: Math.min(Math.floor((impactTargets.costReduction / steps) * currentStep), impactTargets.costReduction),
+        uptime: Math.min(Math.floor((impactTargets.uptime / steps) * currentStep), impactTargets.uptime),
+      });
+
+      if (currentStep >= steps) {
+        clearInterval(counterIntervalRef.current);
+      }
+    }, stepDuration);
+  };
+
+  useEffect(() => {
+    const el = impactRef.current;
+    if (!el) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (impactResetTimeoutRef.current) {
+              clearTimeout(impactResetTimeoutRef.current);
+              impactResetTimeoutRef.current = null;
+            }
+            if (impactInViewRef.current) {
+              return;
+            }
+
+            impactInViewRef.current = true;
+            startImpactCounting();
+            return;
+          }
+
+          impactInViewRef.current = false;
+          if (impactResetTimeoutRef.current) {
+            clearTimeout(impactResetTimeoutRef.current);
+          }
+          impactResetTimeoutRef.current = setTimeout(() => {
+            if (counterIntervalRef.current) {
+              clearInterval(counterIntervalRef.current);
+            }
+            setImpactCounts({ costReduction: 0, uptime: 0 });
+          }, 180);
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      if (impactResetTimeoutRef.current) {
+        clearTimeout(impactResetTimeoutRef.current);
+        impactResetTimeoutRef.current = null;
+      }
+    };
+  }, [prefersReducedMotion]);
+
+  const formatImpactNumber = (value, type) => {
+    if (type === "costReduction") {
+      return `${value}%`;
+    }
+    if (type === "uptime") {
+      return `${value}/7`;
+    }
+    return `${value}`;
+  };
+
+  const scrollToSection = (id) => {
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    }
+  };
 
   return (
     <>
@@ -63,7 +180,6 @@ const HospitalsClinics = () => {
 
       {/* HERO SECTION */}
       <section className="hc-hero">
-        <img src="/images/hero-placeholder.jpg" alt="Healthcare energy" className="hc-hero-img" />
         <div className="hc-hero-content">
           <h1>Reliable, Clean Energy for Hospitals & Clinics Anywhere</h1>
           <p>
@@ -71,8 +187,16 @@ const HospitalsClinics = () => {
             cold storage, and waste-to-energy systems.
           </p>
           <div className="hc-buttons">
-            <button className="primary-btn">Deploy GridStreak</button>
-            <button className="secondary-btn">Talk to Us</button>
+            <button
+              type="button"
+              className="primary-btn"
+              onClick={() => scrollToSection("hc-products-heading")}
+            >
+              See Deployment Options
+            </button>
+            <Link className="secondary-btn" to="/contact">
+              Talk to Us
+            </Link>
           </div>
         </div>
       </section>
@@ -175,6 +299,7 @@ const HospitalsClinics = () => {
             role="listitem"
             {...builtForCardMotion(prefersReducedMotion, 0)}
           >
+            <p className="hc-built-card__index" aria-hidden="true">01</p>
             <span className="hc-built-card__icon" aria-hidden="true">
               <FaBolt />
             </span>
@@ -187,6 +312,7 @@ const HospitalsClinics = () => {
             role="listitem"
             {...builtForCardMotion(prefersReducedMotion, 1)}
           >
+            <p className="hc-built-card__index" aria-hidden="true">02</p>
             <span className="hc-built-card__icon" aria-hidden="true">
               <FaGlobeAfrica />
             </span>
@@ -199,6 +325,7 @@ const HospitalsClinics = () => {
             role="listitem"
             {...builtForCardMotion(prefersReducedMotion, 2)}
           >
+            <p className="hc-built-card__index" aria-hidden="true">03</p>
             <span className="hc-built-card__icon" aria-hidden="true">
               <FaGasPump />
             </span>
@@ -211,6 +338,7 @@ const HospitalsClinics = () => {
             role="listitem"
             {...builtForCardMotion(prefersReducedMotion, 3)}
           >
+            <p className="hc-built-card__index" aria-hidden="true">04</p>
             <span className="hc-built-card__icon" aria-hidden="true">
               <FaHeartbeat />
             </span>
@@ -229,11 +357,11 @@ const HospitalsClinics = () => {
           >
             <TechBenefitsSlider reducedMotion={!!prefersReducedMotion}>
               <Motion.h2 className="hc-tech-slider__title" {...techTitleMotion(prefersReducedMotion)}>
-                Sand-Based Thermal Energy Storage Technology
+                Reliable Thermal Storage Built for Healthcare Operations
               </Motion.h2>
               <Motion.p className="hc-tech-slider__lead" {...techSlideInMotion(prefersReducedMotion, 0.12)}>
-                At the core of GridStreak is a breakthrough affordable and long-lasting sand-based
-                thermal energy storage system that stores energy as heat and releases it on demand.
+                GridStreak uses long-life sand-based thermal storage to keep essential services
+                running, stabilize energy costs, and release heat on demand when facilities need it.
               </Motion.p>
             </TechBenefitsSlider>
           </Motion.div>
@@ -257,63 +385,64 @@ const HospitalsClinics = () => {
           </p>
         </div>
         <ApplicationsCardStack reducedMotion={!!prefersReducedMotion} />
+        <p className="hc-applications__footnote">
+          With over 25,000 healthcare facilities in Sub-Saharan Africa lacking electricity, the
+          need for scalable solutions is urgent.
+        </p>
       </section>
 
-      {/*
-      <section className="hc-section hc-impact">
+      <section ref={impactRef} className="hc-section hc-impact" id="impact">
         <div className="hc-impact__head">
           <p className="hc-impact__eyebrow">Proven outcomes</p>
-          <h2>Real Impact in Healthcare Operations</h2>
-          <p className="hc-impact__lead">
-            GridStreak systems are designed to reduce energy pressure on facilities while improving
-            service continuity for critical care environments.
-          </p>
+          <h2 className="hc-impact__title">
+            Measurable <span className="handUnderline">Impact in Healthcare</span>
+          </h2>
+          <p className="hc-impact__lead">GridStreak delivers real, measurable outcomes for healthcare operations.</p>
         </div>
 
         <div className="hc-impact__grid" role="list" aria-label="Healthcare impact highlights">
           <article className="hc-impact-card" role="listitem">
-            <p className="hc-impact-card__value">Up to 50%</p>
-            <p className="hc-impact-card__title">Lower energy cost burden</p>
-            <p className="hc-impact-card__desc">
-              Reduce generator and fuel-related operating expenses.
-            </p>
+            <p className="hc-impact-card__value">{formatImpactNumber(impactCounts.costReduction, "costReduction")}</p>
+            <p className="hc-impact-card__title">Reduction in healthcare energy costs</p>
           </article>
 
           <article className="hc-impact-card" role="listitem">
-            <p className="hc-impact-card__value">High uptime</p>
-            <p className="hc-impact-card__title">Continuity for critical services</p>
-            <p className="hc-impact-card__desc">
-              Maintain power availability for essential equipment and care workflows.
-            </p>
+            <p className="hc-impact-card__value">Less Diesel</p>
+            <p className="hc-impact-card__title">Reduced reliance on diesel and polluting fuels</p>
           </article>
 
           <article className="hc-impact-card" role="listitem">
-            <p className="hc-impact-card__value">Less diesel</p>
-            <p className="hc-impact-card__title">Reduced fuel dependency</p>
-            <p className="hc-impact-card__desc">
-              Lower logistical risk and emissions linked to fuel supply chains.
-            </p>
+            <p className="hc-impact-card__value">Safer Storage</p>
+            <p className="hc-impact-card__title">Improved medical supply preservation</p>
           </article>
 
           <article className="hc-impact-card" role="listitem">
-            <p className="hc-impact-card__value">Safer storage</p>
-            <p className="hc-impact-card__title">Better cold-chain reliability</p>
-            <p className="hc-impact-card__desc">
-              Support medicine and vaccine preservation during grid instability.
-            </p>
+            <p className="hc-impact-card__value">{formatImpactNumber(impactCounts.uptime, "uptime")}</p>
+            <p className="hc-impact-card__title">Increased uptime for life-saving healthcare services</p>
           </article>
         </div>
       </section>
-      */}
 
       {/* CTA */}
-      <section className="hc-cta">
-        <h2>Ready to deploy GridStreak?</h2>
-        <p className="hc-cta__lead">
-          Get a quick deployment plan tailored to your healthcare facility.
-        </p>
+      <section className="hc-cta" id="deployment-plan">
+        <div className="hc-cta__media" aria-hidden="true">
+          <img
+            src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Adobe%20Express%20-%20file.png"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+        <div className="hc-cta__content">
+          <h2>Deploy GridStreak in Your Healthcare Facility</h2>
+          <p className="hc-cta__lead">
+            Ensure uninterrupted care, protect critical supplies, and reduce operational costs with
+            GridStreak.
+          </p>
         <div className="hc-cta__actions">
-          <button className="primary-btn hc-cta__btn">Get My Deployment Plan</button>
+          <Link className="primary-btn hc-cta__btn" to="/contact?solution=hospitals-clinics">
+            Contact Us Today
+          </Link>
+        </div>
         </div>
       </section>
 
