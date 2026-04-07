@@ -1,6 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaFire, FaLeaf, FaBolt, FaClock } from "react-icons/fa";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  FaBatteryFull,
+  FaBolt,
+  FaChargingStation,
+  FaClock,
+  FaFire,
+  FaHeartbeat,
+  FaLeaf,
+  FaLungs,
+  FaMoneyBillWave,
+  FaPlug,
+  FaSeedling,
+  FaSolarPanel,
+  FaTree,
+} from "react-icons/fa";
 import SEO from "../components/SEO";
 import HealthcareProductsSection from "../components/HospitalsClinics/HealthcareProductsSection";
 import "./CleanCooking.css";
@@ -96,7 +111,10 @@ const cleanCookingProducts = [
     shortLabel: "GridStreak Nano Cooker",
     title: "GridStreak Nano Cooker",
     subtitle: "Clean Cooking for Households",
-    body: "Designed for families and small households with reliable, high-heat cooking performance.",
+    bodyParagraphs: [
+      "Designed for families and small households with reliable, high-heat cooking performance.",
+      "2-4 tons CO2 saved per year.",
+    ],
     bullets: [
       "Serves up to 8 people",
       "Delivers up to 8 meals per charge",
@@ -112,7 +130,10 @@ const cleanCookingProducts = [
     shortLabel: "GridStreak X Cooker",
     title: "GridStreak X Cooker",
     subtitle: "Community Cooking for Medium-Sized Groups",
-    body: "Built for shared kitchens and community use where dependable clean cooking is essential.",
+    bodyParagraphs: [
+      "Built for shared kitchens and community use where dependable clean cooking is essential.",
+      "6-12 tons CO2 saved per year.",
+    ],
     bullets: [
       "Serves 20-50 people",
       "Provides up to 8 meals per charge",
@@ -128,7 +149,10 @@ const cleanCookingProducts = [
     shortLabel: "GridStreak Ultra Cooker",
     title: "GridStreak Ultra Cooker",
     subtitle: "Large-Scale Cooking & Water Heating",
-    body: "Designed for high-demand environments requiring continuous, high-capacity thermal output.",
+    bodyParagraphs: [
+      "Designed for high-demand environments requiring continuous, high-capacity thermal output.",
+      "15-30+ tons CO2 saved per year.",
+    ],
     bullets: [
       "Serves 100-200 people",
       "Supports both clean cooking and water heating",
@@ -141,10 +165,200 @@ const cleanCookingProducts = [
   },
 ];
 
+const solarCookingCards = [
+  {
+    icon: FaSolarPanel,
+    title: "Store Solar Energy",
+    description: "Store solar energy during the day and cook anytime.",
+  },
+  {
+    icon: FaMoneyBillWave,
+    title: "Lower Daily Costs",
+    description: "Reduce or eliminate fuel and electricity costs.",
+  },
+  {
+    icon: FaPlug,
+    title: "Fully Off-Grid Ready",
+    description: "Enable fully off-grid clean cooking systems.",
+  },
+  {
+    icon: FaSeedling,
+    title: "Renewable Every Day",
+    description: "Use renewable energy for daily cooking needs.",
+  },
+  {
+    icon: FaChargingStation,
+    title: "Flexible Off-Peak Charging",
+    description: "Charge using grid electricity during off-peak hours.",
+  },
+  {
+    icon: FaBatteryFull,
+    title: "Store Extra Energy",
+    description: "Store excess renewable energy for later use.",
+  },
+];
+
+const impactInfoCards = [
+  {
+    icon: FaMoneyBillWave,
+    shortLabel: "COST",
+    title: "Lower Fuel Costs",
+    description: "Reduced household fuel costs.",
+    color: "#f2c300",
+  },
+  {
+    icon: FaLungs,
+    shortLabel: "AIR",
+    title: "Cleaner Indoor Air",
+    description: "Elimination of indoor air pollution.",
+    color: "#13b5cf",
+  },
+  {
+    icon: FaTree,
+    shortLabel: "FOREST",
+    title: "Forest Protection",
+    description: "Reduced deforestation and charcoal demand.",
+    color: "#145b8c",
+  },
+  {
+    icon: FaHeartbeat,
+    shortLabel: "HEALTH",
+    title: "Healthier Families",
+    description: "Improved health outcomes for families.",
+    color: "#c11764",
+  },
+  {
+    icon: FaBolt,
+    shortLabel: "ACCESS",
+    title: "Reliable Energy Access",
+    description: "Increased access to clean and reliable cooking energy.",
+    color: "#f03b47",
+  },
+];
+
+const IMPACT_CENTER = 200;
+const IMPACT_INNER_RADIUS = 80;
+const IMPACT_OUTER_RADIUS = 178;
+
+const toRadians = (angle) => (angle * Math.PI) / 180;
+
+const getImpactPlacement = (index) => {
+  const angle = -90 + index * 72 + 36;
+  const rad = toRadians(angle);
+  const tipRadius = 420;
+  const tipX = 600 + tipRadius * Math.cos(rad);
+  const tipY = 450 + tipRadius * Math.sin(rad);
+  const cos = Math.cos(rad);
+
+  let align = "center";
+  if (cos > 0.2) {
+    align = "left";
+  } else if (cos < -0.2) {
+    align = "right";
+  }
+
+  return {
+    angle,
+    left: tipX / 12,
+    top: tipY / 9,
+    align,
+  };
+};
+
+const createImpactSegmentPath = (startAngle, endAngle) => {
+  const startRad = toRadians(startAngle);
+  const endRad = toRadians(endAngle);
+
+  const x1 = IMPACT_CENTER + IMPACT_INNER_RADIUS * Math.cos(startRad);
+  const y1 = IMPACT_CENTER + IMPACT_INNER_RADIUS * Math.sin(startRad);
+  const x2 = IMPACT_CENTER + IMPACT_OUTER_RADIUS * Math.cos(startRad);
+  const y2 = IMPACT_CENTER + IMPACT_OUTER_RADIUS * Math.sin(startRad);
+  const x3 = IMPACT_CENTER + IMPACT_OUTER_RADIUS * Math.cos(endRad);
+  const y3 = IMPACT_CENTER + IMPACT_OUTER_RADIUS * Math.sin(endRad);
+  const x4 = IMPACT_CENTER + IMPACT_INNER_RADIUS * Math.cos(endRad);
+  const y4 = IMPACT_CENTER + IMPACT_INNER_RADIUS * Math.sin(endRad);
+
+  return `
+    M ${x1} ${y1}
+    L ${x2} ${y2}
+    A ${IMPACT_OUTER_RADIUS} ${IMPACT_OUTER_RADIUS} 0 0 1 ${x3} ${y3}
+    L ${x4} ${y4}
+    A ${IMPACT_INNER_RADIUS} ${IMPACT_INNER_RADIUS} 0 0 0 ${x1} ${y1}
+    Z
+  `;
+};
+
+const getSolarGridConfig = (width) => {
+  if (width <= 520) {
+    return { columns: 1, cardWidth: 280, cardHeight: 230, gap: 18 };
+  }
+
+  if (width <= 900) {
+    return { columns: 2, cardWidth: 250, cardHeight: 230, gap: 22 };
+  }
+
+  return { columns: 3, cardWidth: 275, cardHeight: 245, gap: 26 };
+};
+
+const getImpactCircleSize = (width) => {
+  if (width <= 900) {
+    return Math.min(width * 0.88, 360);
+  }
+
+  return Math.min(Math.max(width * 0.34, 320), 430);
+};
+
 const CleanCooking = () => {
   const [showIntro, setShowIntro] = useState(false);
+  const [solarVisible, setSolarVisible] = useState(false);
+  const [solarStart, setSolarStart] = useState(false);
+  const [impactVisible, setImpactVisible] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window === "undefined" ? 1280 : window.innerWidth,
+  );
+  const solarSectionRef = useRef(null);
+  const impactSectionRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const introLabelChars = useMemo(() => "Clean Cooking".split(""), []);
+  const solarGrid = useMemo(() => getSolarGridConfig(viewportWidth), [viewportWidth]);
+  const impactCircleSize = useMemo(() => getImpactCircleSize(viewportWidth), [viewportWidth]);
+
+  const getSolarGridPosition = (index) => {
+    const row = Math.floor(index / solarGrid.columns);
+    const col = index % solarGrid.columns;
+
+    return {
+      x: col * (solarGrid.cardWidth + solarGrid.gap),
+      y: row * (solarGrid.cardHeight + solarGrid.gap),
+    };
+  };
+
+  const getSolarDeckCenter = () => {
+    const totalRows = Math.ceil(solarCookingCards.length / solarGrid.columns);
+    const totalWidth =
+      solarGrid.columns * solarGrid.cardWidth + (solarGrid.columns - 1) * solarGrid.gap;
+    const totalHeight =
+      totalRows * solarGrid.cardHeight + (totalRows - 1) * solarGrid.gap;
+
+    return {
+      x: totalWidth / 2 - solarGrid.cardWidth / 2,
+      y: totalHeight / 2 - solarGrid.cardHeight / 2,
+    };
+  };
+
+  const getSolarStackPosition = (index) => {
+    const center = getSolarDeckCenter();
+    const step = index * 5;
+
+    return {
+      x: center.x + step,
+      y: center.y - step * 0.35,
+      rotate: (index % 2 === 0 ? -1 : 1) * index * 0.9,
+      scale: 1 - index * 0.02,
+      zIndex: solarCookingCards.length - index,
+    };
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -163,6 +377,69 @@ const CleanCooking = () => {
 
     return () => {
       window.clearTimeout(hideTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const onResize = () => {
+      setViewportWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    let revealTimer;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSolarVisible(true);
+          revealTimer = window.setTimeout(() => {
+            setSolarStart(true);
+          }, 500);
+        } else {
+          setSolarVisible(false);
+          setSolarStart(false);
+          if (revealTimer) {
+            window.clearTimeout(revealTimer);
+          }
+        }
+      },
+      { threshold: 0.15 },
+    );
+
+    if (solarSectionRef.current) {
+      observer.observe(solarSectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (revealTimer) {
+        window.clearTimeout(revealTimer);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setImpactVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 },
+    );
+
+    if (impactSectionRef.current) {
+      observer.observe(impactSectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
     };
   }, []);
 
@@ -295,6 +572,72 @@ const CleanCooking = () => {
           </p>
         </section>
 
+        <section className="cc-section cc-solar-grid-section" ref={solarSectionRef}>
+          <h2>Solar-Powered Clean Cooking Systems</h2>
+          <p className="cc-solar-grid-lead">
+            GridStreak enables solar-powered cooking at scale, making it one of
+            the most practical solutions for off-grid communities.
+          </p>
+
+          <div
+            className="cc-solar-grid"
+            style={{
+              width:
+                solarGrid.columns * solarGrid.cardWidth +
+                (solarGrid.columns - 1) * solarGrid.gap,
+              height:
+                Math.ceil(solarCookingCards.length / solarGrid.columns) * solarGrid.cardHeight +
+                (Math.ceil(solarCookingCards.length / solarGrid.columns) - 1) * solarGrid.gap,
+            }}
+          >
+            {solarCookingCards.map((card, index) => {
+              const Icon = card.icon;
+              const stackPos = getSolarStackPosition(index);
+              const gridPos = getSolarGridPosition(index);
+
+              return (
+                <motion.article
+                  key={card.title}
+                  className="cc-solar-card"
+                  initial={{
+                    opacity: 0,
+                    x: stackPos.x,
+                    y: stackPos.y,
+                    rotate: stackPos.rotate,
+                    scale: stackPos.scale,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: solarStart || prefersReducedMotion ? gridPos.x : stackPos.x,
+                    y: solarStart || prefersReducedMotion ? gridPos.y : stackPos.y,
+                    rotate: solarStart || prefersReducedMotion ? 0 : stackPos.rotate,
+                    scale: solarStart || prefersReducedMotion ? 1 : stackPos.scale,
+                    zIndex: solarStart || prefersReducedMotion ? 1 : stackPos.zIndex,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 20,
+                    mass: 0.8,
+                    delay: prefersReducedMotion ? 0 : index * 0.14,
+                  }}
+                  whileHover={solarVisible ? { scale: 1.04, zIndex: 12 } : {}}
+                  style={{
+                    width: `${solarGrid.cardWidth}px`,
+                    height: `${solarGrid.cardHeight}px`,
+                  }}
+                >
+                  <div className="cc-solar-card-icon" aria-hidden="true">
+                    <Icon />
+                  </div>
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
+                </motion.article>
+              );
+            })}
+          </div>
+        </section>
+
         <section className="cc-section cc-section-dark cc-thermal-section">
           <h2>Clean Cooking Powered by Thermal Energy Storage</h2>
           <p className="cc-thermal-intro">
@@ -321,6 +664,7 @@ const CleanCooking = () => {
           </p>
         </section>
 
+        {/*
         <section className="cc-section">
           <h2>Built for Households, Communities &amp; Off-Grid Areas</h2>
           <p>
@@ -337,6 +681,7 @@ const CleanCooking = () => {
             ensures reliable clean cooking every day.
           </p>
         </section>
+        */}
 
         <HealthcareProductsSection
           sectionId="clean-cooking-systems"
@@ -346,102 +691,137 @@ const CleanCooking = () => {
           imageOverride="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/kilnn.jpg"
         />
 
-        <section className="cc-section cc-two-col">
-          <div>
-            <h2>Solar-Powered Clean Cooking Systems</h2>
-            <p>
-              GridStreak enables solar-powered cooking at scale, making it one of
-              the most practical solutions for off-grid communities.
-            </p>
-            <ul className="cc-list">
-              <li>Store solar energy during the day and cook anytime.</li>
-              <li>Reduce or eliminate fuel and electricity costs.</li>
-              <li>Enable fully off-grid clean cooking systems.</li>
-              <li>Use renewable energy for daily cooking needs.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Flexible Charging Options</h3>
-            <ul className="cc-list">
-              <li>Charge using grid electricity during off-peak hours.</li>
-              <li>Store excess renewable energy for later use.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="cc-section cc-emissions">
-          <h2>CO2 Emissions Reduction with GridStreak Cookers</h2>
-          <p>
-            Switching to GridStreak significantly reduces carbon emissions from
-            daily cooking.
-          </p>
-          <div className="cc-emissions-baseline">
-            <p>Charcoal cooking emits approximately 2.5-3.0 kg CO2 per kg burned.</p>
-            <p>Households can emit 2-5 tons of CO2 annually from cooking.</p>
-          </div>
-          <div className="cc-savings-grid">
-            <div className="cc-savings-card">
-              <h3>Nano Cooker</h3>
-              <p>2-4 tons CO2 saved per year</p>
-            </div>
-            <div className="cc-savings-card">
-              <h3>X Cooker</h3>
-              <p>6-12 tons CO2 saved per year</p>
-            </div>
-            <div className="cc-savings-card">
-              <h3>Ultra Cooker</h3>
-              <p>15-30+ tons CO2 saved per year</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="cc-section cc-two-col">
-          <div>
-            <h2>Safe, Non-Explosive &amp; Built to Last</h2>
-            <ul className="cc-list">
-              <li>Non-explosive technology with no gas or pressurized fuels.</li>
-              <li>No risk of battery fires or thermal runaway.</li>
-              <li>Built with stable, non-reactive materials.</li>
-              <li>25+ year lifespan with warranty.</li>
-              <li>Minimal maintenance requirements.</li>
-            </ul>
-            <p>A safer alternative to LPG, kerosene, and lithium-ion cookers.</p>
-          </div>
-          <div>
-            <h2>Reliable in Remote &amp; Emergency Environments</h2>
-            <ul className="cc-list">
-              <li>Operate in off-grid and rural areas.</li>
-              <li>Work during power outages and grid instability.</li>
-              <li>Ideal for emergency response and humanitarian use.</li>
-              <li>Suitable for refugee camps and disaster relief operations.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="cc-section">
+        <section className="cc-section cc-impact-section" ref={impactSectionRef}>
           <h2>Measurable Impact for Households &amp; Communities</h2>
-          <ul className="cc-list">
-            <li>Reduced household fuel costs.</li>
-            <li>Elimination of indoor air pollution.</li>
-            <li>Reduced deforestation and charcoal demand.</li>
-            <li>Improved health outcomes for families.</li>
-            <li>Increased access to clean and reliable cooking energy.</li>
-          </ul>
-        </section>
 
-        <section className="cc-section cc-scale">
-          <h2>A Scalable Solution for Clean Cooking</h2>
-          <p>GridStreak enables clean cooking at scale across:</p>
-          <div className="cc-chip-row">
-            <span>Households</span>
-            <span>Rural communities</span>
-            <span>Schools and institutions</span>
-            <span>Urban and peri-urban settlements</span>
+          <div className="cc-impact-infographic">
+            <svg className="cc-impact-circle" viewBox="0 0 400 400" aria-hidden="true">
+              {impactInfoCards.map((item, index) => {
+                const startAngle = -90 + index * 72 + 2;
+                const endAngle = -90 + (index + 1) * 72 - 2;
+                const midAngle = -90 + index * 72 + 36;
+                const labelRadius = (IMPACT_INNER_RADIUS + IMPACT_OUTER_RADIUS) / 2;
+                const labelX = IMPACT_CENTER + labelRadius * Math.cos(toRadians(midAngle));
+                const labelY = IMPACT_CENTER + labelRadius * Math.sin(toRadians(midAngle));
+
+                return (
+                  <React.Fragment key={`impact-segment-${item.title}`}>
+                    <motion.path
+                      d={createImpactSegmentPath(startAngle, endAngle)}
+                      fill={item.color}
+                      className="cc-impact-segment"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={impactVisible ? { scale: 1, opacity: 1 } : {}}
+                      transition={{ duration: 0.42, delay: 0.24 + index * 0.08 }}
+                      style={{ transformOrigin: `${IMPACT_CENTER}px ${IMPACT_CENTER}px` }}
+                    />
+                    <motion.text
+                      x={labelX}
+                      y={labelY}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="cc-impact-segment-label"
+                      initial={{ opacity: 0 }}
+                      animate={impactVisible ? { opacity: 1 } : {}}
+                      transition={{ duration: 0.35, delay: 0.52 + index * 0.08 }}
+                    >
+                      {item.shortLabel}
+                    </motion.text>
+                  </React.Fragment>
+                );
+              })}
+            </svg>
+
+            <div className="cc-impact-center-label" aria-hidden="true">
+              <span>IMPACT</span>
+            </div>
+
+            <div className="cc-impact-icon-layer" aria-hidden="true">
+              {impactInfoCards.map((item, index) => {
+                const Icon = item.icon;
+                const angle = -90 + index * 72 + 36;
+
+                return (
+                  <motion.div
+                    key={`impact-icon-${item.title}`}
+                    className="cc-impact-node"
+                    style={{ "--impact-angle": `${angle}deg` }}
+                    initial={{ opacity: 0, scale: 0.7 }}
+                    animate={impactVisible ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.35, delay: 0.52 + index * 0.08 }}
+                  >
+                    <Icon />
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <svg className="cc-impact-lines-overlay" viewBox="0 0 1200 900" preserveAspectRatio="none" aria-hidden="true">
+              {impactInfoCards.map((item, index) => {
+                const placement = getImpactPlacement(index);
+                const ringScale = impactCircleSize / 400;
+                const lineStartRadius = IMPACT_OUTER_RADIUS * ringScale + 10;
+                const lineStartX = 600 + lineStartRadius * Math.cos(toRadians(placement.angle));
+                const lineStartY = 450 + lineStartRadius * Math.sin(toRadians(placement.angle));
+                const targetX = placement.left * 12;
+                const targetY = placement.top * 9;
+                const dx = targetX - lineStartX;
+                const dy = targetY - lineStartY;
+                const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+                const extension = index === 3 ? 90 : index === 2 ? -50 : 0;
+                const lineEndX = targetX + (dx / distance) * extension;
+                const lineEndY = targetY + (dy / distance) * extension;
+
+                return (
+                  <motion.line
+                    key={`impact-line-${item.title}`}
+                    x1={lineStartX}
+                    y1={lineStartY}
+                    x2={lineEndX}
+                    y2={lineEndY}
+                    stroke="#3f6f54"
+                    strokeWidth="2"
+                    opacity="0.45"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={impactVisible ? { pathLength: 1, opacity: 0.45 } : {}}
+                    transition={{ duration: 0.55, delay: 0.7 + index * 0.08 }}
+                  />
+                );
+              })}
+            </svg>
+
+            {impactInfoCards.map((item, index) => (
+              (() => {
+                const placement = getImpactPlacement(index);
+                const cardLeft =
+                  placement.left +
+                  (index === 2 ? -7 : 0) +
+                  (index === 3 ? -10 : 0) +
+                  (index === 4 ? -8 : 0);
+                const cardTop =
+                  placement.top +
+                  (index === 0 ? -5 : 0) +
+                  (index === 1 ? -5 : 0) +
+                  (index === 2 ? -7 : 0) +
+                  (index === 3 ? -1 : 0) +
+                  (index === 4 ? -10 : 0);
+
+                return (
+              <motion.article
+                key={`impact-copy-${item.title}`}
+                className={`cc-impact-description cc-impact-description-${placement.align}`}
+                style={{ left: `${cardLeft}%`, top: `${cardTop}%` }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={impactVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.34, delay: 0.82 + index * 0.08 }}
+              >
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </motion.article>
+                );
+              })()
+            ))}
           </div>
-          <p>
-            Our modular systems allow communities to start small and scale over
-            time.
-          </p>
         </section>
 
         <section className="cc-section cc-cta cc-cta-vortex">

@@ -667,6 +667,280 @@
   gap: 1rem;
 }
 
+.cc-solar-grid-section {
+  --cc-pattern-url: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/navbar.png");
+  --cc-pattern-size: 52px;
+  --cc-pattern-opacity: 0.11;
+  --cc-pattern-tilt: -8deg;
+  width: 100vw;
+  max-width: none;
+  min-height: 100vh;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0;
+  overflow: hidden;
+  background: #fbfbfb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.9rem, 1.8vw, 1.4rem);
+  padding-top: clamp(1.5rem, 3.2vw, 2.4rem);
+  padding-bottom: clamp(1.5rem, 3.2vw, 2.4rem);
+  isolation: isolate;
+}
+
+.cc-solar-grid-section::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background-image: var(--cc-pattern-url);
+  background-repeat: repeat;
+  background-size: var(--cc-pattern-size) var(--cc-pattern-size);
+  opacity: var(--cc-pattern-opacity);
+  transform: rotate(var(--cc-pattern-tilt));
+  transform-origin: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cc-solar-grid-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.cc-solar-grid-section h2 {
+  text-align: center;
+}
+
+.cc-solar-grid-lead {
+  width: min(72ch, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cc-solar-grid {
+  position: relative;
+  margin: 0 auto;
+  max-width: 100%;
+  perspective: 1100px;
+}
+
+.cc-solar-card {
+  position: absolute;
+  border-radius: 12px;
+  background: rgba(176, 242, 34, 0.2);
+  border: 1px solid rgba(176, 242, 34, 0.45);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  padding: 1.1rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  will-change: transform, opacity;
+}
+
+.cc-solar-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.55rem;
+  color: #b0f222;
+  background: rgba(13, 13, 13, 0.82);
+  font-size: 1rem;
+}
+
+.cc-solar-card h3 {
+  margin: 0;
+  font-size: 1.06rem;
+  line-height: 1.35;
+  color: #1b2600;
+}
+
+.cc-solar-card p {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.45;
+  color: #2b3b03;
+}
+
+.cc-impact-section {
+  width: 100vw;
+  max-width: none;
+  min-height: 98vh;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0;
+  background: #f3f3f3;
+  padding: clamp(1.3rem, 3vw, 2.4rem) clamp(1rem, 3vw, 2.2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cc-impact-section > h2 {
+  text-align: center;
+  margin-bottom: clamp(1rem, 2.2vw, 1.6rem);
+}
+
+.cc-impact-infographic {
+  position: relative;
+  width: min(100%, 1200px);
+  height: min(84vh, 900px);
+  margin: 0 auto;
+}
+
+.cc-impact-circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(320px, 34vw, 430px);
+  height: clamp(320px, 34vw, 430px);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.cc-impact-segment {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 2;
+}
+
+.cc-impact-center-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(110px, 10vw, 138px);
+  height: clamp(110px, 10vw, 138px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f3f3;
+  box-shadow: inset 0 0 0 2px rgba(13, 13, 13, 0.08);
+  z-index: 3;
+}
+
+.cc-impact-center-label span {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 800;
+  font-size: clamp(0.95rem, 1.4vw, 1.18rem);
+  letter-spacing: 0.1em;
+  color: #1f1f1f;
+}
+
+.cc-impact-segment-label {
+  fill: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.cc-impact-icon-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.cc-impact-node {
+  --impact-icon-radius: clamp(112px, 11.4vw, 146px);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(48px, 4.8vw, 58px);
+  height: clamp(48px, 4.8vw, 58px);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: clamp(1.35rem, 1.8vw, 1.75rem);
+  transform: translate(-50%, -50%) rotate(var(--impact-angle))
+    translateY(calc(-1 * var(--impact-icon-radius))) rotate(calc(-1 * var(--impact-angle)));
+}
+
+.cc-impact-lines-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cc-impact-description {
+  position: absolute;
+  width: clamp(220px, 23vw, 280px);
+  padding: 1rem 1.1rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.cc-impact-description-right {
+  transform: translate(-100%, -50%);
+  text-align: right;
+}
+
+.cc-impact-description-left {
+  transform: translate(0, -50%);
+  text-align: left;
+}
+
+.cc-impact-description-center {
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.cc-impact-description-1 {
+  left: 19%;
+  top: 18%;
+}
+
+.cc-impact-description-2 {
+  left: 17%;
+  top: 41%;
+}
+
+.cc-impact-description-3 {
+  left: 21%;
+  top: 67%;
+}
+
+.cc-impact-description-4 {
+  left: 81%;
+  top: 24%;
+}
+
+.cc-impact-description-5 {
+  left: 83%;
+  top: 56%;
+}
+
+.cc-impact-description h3 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  color: #2c2c2c;
+}
+
+.cc-impact-description p {
+  margin: 0;
+  color: #4a4a4a;
+  line-height: 1.45;
+}
+
 .cc-emissions-baseline {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -718,6 +992,11 @@
 .cc-cta {
   text-align: center;
   background: linear-gradient(160deg, #0d0d0d 0%, #1a1a1a 100%);
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  overflow: hidden;
 }
 
 .cc-cta h2,
@@ -849,6 +1128,84 @@
   .cc-two-col {
     grid-template-columns: 1fr;
   }
+
+  .cc-impact-section {
+    min-height: auto;
+  }
+
+  .cc-impact-infographic {
+    height: auto;
+    min-height: 460px;
+  }
+
+  .cc-impact-circle {
+    width: min(88vw, 360px);
+    height: min(88vw, 360px);
+  }
+
+  .cc-impact-node {
+    --impact-icon-radius: min(31vw, 128px);
+  }
+
+  .cc-impact-lines-overlay {
+    display: none;
+  }
+
+  .cc-impact-description,
+  .cc-impact-description-1,
+  .cc-impact-description-2,
+  .cc-impact-description-3,
+  .cc-impact-description-4,
+  .cc-impact-description-5,
+  .cc-impact-description-right,
+  .cc-impact-description-left {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: min(100%, 560px);
+    text-align: center;
+    margin: 0.35rem auto;
+    padding: 0.9rem 1rem;
+  }
+
+  .cc-solar-card {
+    border-radius: 12px;
+    padding: 1.1rem;
+  }
+
+  .cc-solar-card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .cc-solar-card h3 {
+    font-size: 1rem;
+  }
+
+  .cc-solar-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .cc-solar-grid {
+    width: 100% !important;
+    height: auto !important;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    justify-items: center;
+  }
+
+  .cc-solar-card {
+    position: relative !important;
+    transform: none !important;
+    width: min(100%, 320px) !important;
+    height: auto !important;
+    min-height: 210px;
+  }
 }
 
 /* Vortex CTA Section */
@@ -858,13 +1215,13 @@
 }
 
 .cc-container-vortex {
-  --sz: min(85vh, clamp(360px, 60vw, 500px));
+  --sz: min(90vh, clamp(420px, 68vw, 640px));
   --fz: calc(0.032 * var(--sz));
   --xv: 0;
   --yv: 0;
   width: var(--sz);
-  height: calc(1.05 * var(--sz));
-  max-width: calc(100vw - 24px);
+  height: calc(1.08 * var(--sz));
+  max-width: calc(100vw - 16px);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -892,6 +1249,7 @@
   padding: 12px 22px;
   position: absolute;
   z-index: 2;
+  font-family: "Inter", sans-serif;
 }
 
 .cc-tilt::before {
@@ -915,16 +1273,15 @@
   border-radius: 4px;
   color: #fff;
   font-size: 0.8em;
-  font-size: calc(0.8 * var(--fz));
+  font-size: calc(0.72 * var(--fz));
   margin: 0 auto 22px auto;
   padding: 4px 8px;
-  font-family: "Inter", sans-serif;
   font-weight: 600;
 }
 
 .cc-tilt h2 {
-  font-size: 3.6em;
-  font-size: calc(3.6 * var(--fz));
+  font-size: 2.9em;
+  font-size: calc(2.9 * var(--fz));
   font-weight: 800;
   line-height: 116%;
   background: linear-gradient(0deg, #fff8 0%, #fffd 100%);
@@ -933,12 +1290,11 @@
   -webkit-text-fill-color: transparent;
   text-align: center;
   margin: 0;
-  font-family: "Space Grotesk", sans-serif;
 }
 
 .cc-tilt p {
-  font-size: 1.3em;
-  font-size: calc(1.3 * var(--fz));
+  font-size: 1.04em;
+  font-size: calc(1.04 * var(--fz));
   font-weight: 600;
   line-height: 142%;
   color: #fff8;
@@ -965,7 +1321,7 @@
   left: 0;
   right: 0;
   bottom: -6%;
-  width: 88%;
+  width: 94%;
   margin: auto;
   opacity: 0.4;
   color: rgba(255, 255, 255, 0.2);
