@@ -50,6 +50,13 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
+.process-box--wide-label {
+  white-space: normal;
+  max-width: 240px;
+  line-height: 1.28;
+  font-size: 1.02rem;
+}
+
 .center-box {
   background-color: #D9FAD3;
   font-weight: bold;
@@ -194,6 +201,13 @@
     transform: scale(1.05);
     background-color: #F2F1DF;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .mobile-process-box--wide-label {
+    width: 110px;
+    font-size: 0.6rem;
+    line-height: 1.22;
+    padding: 0.7rem 0.45rem;
   }
   
   .mobile-center-box {

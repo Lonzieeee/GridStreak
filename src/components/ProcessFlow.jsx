@@ -85,8 +85,8 @@ function ProcessFlow() {
           </div>
 
           <div className="column-left">
-            <div className="process-box" style={{ top: "260px" }}>
-              Plastic Pyrolysis
+            <div className="process-box process-box--wide-label" style={{ top: "260px" }}>
+              Pyrolysis of Organic and Inorganic Waste
             </div>
           </div>
 
@@ -203,8 +203,11 @@ function ProcessFlow() {
           <div className="mobile-process-box" style={{ top: "20px", left: "140px" }}>
             Geothermal Heat
           </div>
-          <div className="mobile-process-box" style={{ top: "20px", left: "270px" }}>
-            Plastic Pyrolysis
+          <div
+            className="mobile-process-box mobile-process-box--wide-label"
+            style={{ top: "20px", left: "262px" }}
+          >
+            Pyrolysis of Organic and Inorganic Waste
           </div>
 
           {/* thermal cnter */}

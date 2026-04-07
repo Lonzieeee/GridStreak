@@ -289,15 +289,15 @@ const createImpactSegmentPath = (startAngle, endAngle) => {
 };
 
 const getSolarGridConfig = (width) => {
-  if (width <= 520) {
-    return { columns: 1, cardWidth: 280, cardHeight: 230, gap: 18 };
+  if (width <= 640) {
+    return { columns: 1, cardWidth: 280, cardHeight: 220, gap: 16 };
   }
 
-  if (width <= 900) {
-    return { columns: 2, cardWidth: 250, cardHeight: 230, gap: 22 };
+  if (width <= 1024) {
+    return { columns: 2, cardWidth: 220, cardHeight: 220, gap: 16 };
   }
 
-  return { columns: 3, cardWidth: 275, cardHeight: 245, gap: 26 };
+  return { columns: 3, cardWidth: 275, cardHeight: 245, gap: 24 };
 };
 
 const getImpactCircleSize = (width) => {
@@ -323,6 +323,7 @@ const CleanCooking = () => {
   const introLabelChars = useMemo(() => "Clean Cooking".split(""), []);
   const solarGrid = useMemo(() => getSolarGridConfig(viewportWidth), [viewportWidth]);
   const impactCircleSize = useMemo(() => getImpactCircleSize(viewportWidth), [viewportWidth]);
+  const isMobileImpact = viewportWidth <= 900;
 
   const getSolarGridPosition = (index) => {
     const row = Math.floor(index / solarGrid.columns);
@@ -694,6 +695,101 @@ const CleanCooking = () => {
         <section className="cc-section cc-impact-section" ref={impactSectionRef}>
           <h2>Measurable Impact for Households &amp; Communities</h2>
 
+          {isMobileImpact ? (
+            <div className="cc-impact-mobile">
+              <div className="cc-impact-mobile-wheel">
+                <svg className="cc-impact-circle" viewBox="0 0 400 400" aria-hidden="true">
+                  {impactInfoCards.map((item, index) => {
+                    const startAngle = -90 + index * 72 + 2;
+                    const endAngle = -90 + (index + 1) * 72 - 2;
+                    const midAngle = -90 + index * 72 + 36;
+                    const labelRadius = (IMPACT_INNER_RADIUS + IMPACT_OUTER_RADIUS) / 2;
+                    const labelX = IMPACT_CENTER + labelRadius * Math.cos(toRadians(midAngle));
+                    const labelY = IMPACT_CENTER + labelRadius * Math.sin(toRadians(midAngle));
+
+                    return (
+                      <React.Fragment key={`impact-mobile-segment-${item.title}`}>
+                        <motion.path
+                          d={createImpactSegmentPath(startAngle, endAngle)}
+                          fill={item.color}
+                          className="cc-impact-segment"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={impactVisible ? { scale: 1, opacity: 1 } : {}}
+                          transition={{ duration: 0.36, delay: 0.16 + index * 0.06 }}
+                          style={{ transformOrigin: `${IMPACT_CENTER}px ${IMPACT_CENTER}px` }}
+                        />
+                        <motion.text
+                          x={labelX}
+                          y={labelY}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          className="cc-impact-segment-label"
+                          initial={{ opacity: 0 }}
+                          animate={impactVisible ? { opacity: 1 } : {}}
+                          transition={{ duration: 0.28, delay: 0.35 + index * 0.06 }}
+                        >
+                          {item.shortLabel}
+                        </motion.text>
+                      </React.Fragment>
+                    );
+                  })}
+                </svg>
+
+                <div className="cc-impact-center-label" aria-hidden="true">
+                  <span>IMPACT</span>
+                </div>
+
+                <div className="cc-impact-icon-layer" aria-hidden="true">
+                  {impactInfoCards.map((item, index) => {
+                    const Icon = item.icon;
+                    const angle = -90 + index * 72 + 36;
+
+                    return (
+                      <motion.div
+                        key={`impact-mobile-icon-${item.title}`}
+                        className="cc-impact-node"
+                        style={{ "--impact-angle": `${angle}deg` }}
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={impactVisible ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ duration: 0.3, delay: 0.34 + index * 0.06 }}
+                      >
+                        <Icon />
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="cc-impact-mobile-list" role="list" aria-label="Impact highlights">
+                {impactInfoCards.map((item, index) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <motion.article
+                      key={`impact-mobile-copy-${item.title}`}
+                      className="cc-impact-mobile-card"
+                      role="listitem"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={impactVisible ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.32, delay: 0.44 + index * 0.08 }}
+                    >
+                      <span
+                        className="cc-impact-mobile-icon"
+                        style={{ "--impact-mobile-color": item.color }}
+                        aria-hidden="true"
+                      >
+                        <Icon />
+                      </span>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>{item.description}</p>
+                      </div>
+                    </motion.article>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
           <div className="cc-impact-infographic">
             <svg className="cc-impact-circle" viewBox="0 0 400 400" aria-hidden="true">
               {impactInfoCards.map((item, index) => {
@@ -822,6 +918,7 @@ const CleanCooking = () => {
               })()
             ))}
           </div>
+          )}
         </section>
 
         <section className="cc-section cc-cta cc-cta-vortex">
