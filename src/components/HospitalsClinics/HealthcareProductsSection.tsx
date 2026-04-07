@@ -5,12 +5,12 @@ import "./HealthcareProductsSection.css";
 const PROFILE_IMAGE_FALLBACK =
   "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Adobe%20Express%20-%20file.png";
 
-type ProductBulletGroup = {
+export type ProductBulletGroup = {
   heading: string;
   items: string[];
 };
 
-type Product = {
+export type Product = {
   id: string;
   shortLabel: string;
   title: string;
@@ -27,6 +27,14 @@ type Product = {
   /** Optional closing line */
   closing?: string;
   image: string;
+};
+
+type HealthcareProductsSectionProps = {
+  sectionTitle?: string;
+  headingId?: string;
+  sectionId?: string;
+  products?: Product[];
+  imageOverride?: string;
 };
 
 const PRODUCTS: Product[] = [
@@ -92,23 +100,38 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-export default function HealthcareProductsSection() {
-  const [selectedId, setSelectedId] = useState<string>(PRODUCTS[0].id);
-  const [imgSrc, setImgSrc] = useState<string>(PRODUCTS[0].image);
+export default function HealthcareProductsSection({
+  sectionTitle = "Our Healthcare Energy Systems",
+  headingId = "hc-products-heading",
+  sectionId,
+  products = PRODUCTS,
+  imageOverride,
+}: HealthcareProductsSectionProps) {
+  const safeProducts = products.length > 0 ? products : PRODUCTS;
+  const [selectedId, setSelectedId] = useState<string>(safeProducts[0].id);
+  const [imgSrc, setImgSrc] = useState<string>(imageOverride ?? safeProducts[0].image);
 
   const selected = useMemo(
-    () => PRODUCTS.find((p) => p.id === selectedId) ?? PRODUCTS[0],
-    [selectedId],
+    () => safeProducts.find((p) => p.id === selectedId) ?? safeProducts[0],
+    [safeProducts, selectedId],
   );
 
   useEffect(() => {
-    setImgSrc(selected.image);
-  }, [selected.image, selected.id]);
+    setSelectedId(safeProducts[0].id);
+  }, [safeProducts]);
+
+  useEffect(() => {
+    setImgSrc(imageOverride ?? selected.image);
+  }, [imageOverride, selected.image, selected.id]);
 
   return (
-    <section className="hc-products-section" aria-labelledby="hc-products-heading">
-      <h2 id="hc-products-heading" className="hc-products-section__title">
-        Our Healthcare Energy Systems
+    <section
+      id={sectionId}
+      className="hc-products-section"
+      aria-labelledby={headingId}
+    >
+      <h2 id={headingId} className="hc-products-section__title">
+        {sectionTitle}
       </h2>
 
       <div className="hc-products-app">
@@ -129,7 +152,11 @@ export default function HealthcareProductsSection() {
             />
           </div>
 
-          <FullOptionsList selectedId={selectedId} onSelect={setSelectedId} />
+          <FullOptionsList
+            products={safeProducts}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+          />
         </div>
 
         <div
@@ -203,15 +230,17 @@ export default function HealthcareProductsSection() {
 }
 
 function FullOptionsList({
+  products,
   selectedId,
   onSelect,
 }: {
+  products: Product[];
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
   return (
     <div className="hc-products-menu__full-options" role="tablist" aria-label="Product systems">
-      {PRODUCTS.map((p) => {
+      {products.map((p) => {
         const isActive = selectedId === p.id;
         return (
           <button
