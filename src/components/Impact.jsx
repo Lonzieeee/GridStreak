@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 const data = [
-    { name: "Plastic Waste to Energy", value:30},
+    { name: "Organic and Inorganic Waste to Energy", value:30},
     { name: "Decarbonization", value:35},
     { name: "Grid Stabilization", value:35},
 
