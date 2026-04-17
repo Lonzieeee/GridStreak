@@ -9,19 +9,15 @@ function WhoWeAre() {
         <div className="who-text">
           <h2>Who We Are</h2>
           <p>
-            GridStreak transforms plastic waste into clean thermal energy through
-            a zero-waste process, powering portable sand “brick” batteries
-            designed for scalable grid stabilization and community energy
-            systems.
+            GridStreak is a thermal energy storage startup developing long-duration, sand-based "brick" batteries
+            that deliver safe, affordable, and reliable energy across household, healthcare, agricultural, industrial,
+            and emergency applications.
             <br /><br />
-            Our carbon-negative solution empowers businesses and governments to
-            balance grid frequency, eliminate fossil fuel backups, and divert
-            plastic from landfills — all while cutting costs by 40%.
-            <br /><br />
-            As the only energy storage system integrating waste-to-energy
-            pyrolysis, long period thermal storage, and instant grid response,
-            we’re redefining how the world achieves zero-carbon grid resilience
-            from small scale to large scale industrial use.
+            Our advanced systems store energy from solar energy, geothermal energy, off-peak grid electricity, and
+            co-pyrolysis, converting it into consistent thermal power for real-world use. GridStreak enables clean
+            cooking, water heating, medical sterilization, vaccine and drug cold-chain stability, agricultural
+            processing, and industrial heat applications, making it a versatile solution for both off-grid and grid-
+            connected environments.
           </p>
         </div>
 

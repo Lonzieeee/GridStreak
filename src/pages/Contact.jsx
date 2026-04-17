@@ -54,7 +54,7 @@ function Contact() {
   
       <SEO
         title="Contact | GridStreak"
-        description="Contact GridStreak to learn more about clean thermal energy storage solutions for your needs."
+        description="Contact GridStreak to discuss thermal energy storage deployments, partnerships, pilot projects, and scalable clean energy systems."
         canonical="https://www.gridstreak.com/contact"
       />
 

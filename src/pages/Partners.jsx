@@ -13,8 +13,8 @@ const Partners = () => {
     <>
       <SEO
         title="Partners | GridStreak"
-        description="Collaborate with GridStreak to deploy clean thermal energy solutions and scale impact across sectors."
-        canonical="https://gridstreak.com/partners"
+        description="Partner with GridStreak to scale clean, reliable, and affordable thermal energy storage across communities, healthcare, agriculture, and industry."
+        canonical="https://www.gridstreak.com/partners"
       />
       <PartnersHero />
       <CurrentPartners />

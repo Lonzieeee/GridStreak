@@ -172,9 +172,9 @@ const HospitalsClinics = () => {
   return (
     <>
       <SEO
-        title="Healthcare Energy Solutions for Hospitals & Clinics | GridStreak Energy Startup"
-        description="GridStreak provides thermal energy storage solutions for hospitals and rural clinics. Reliable off-grid energy, medical cold storage, and waste-to-energy systems."
-        canonical="https://gridstreak.com/solutions/hospitals-clinics"
+        title="Healthcare Thermal Energy Storage for Hospitals and Clinics | GridStreak"
+        description="GridStreak provides thermal energy storage for hospitals and clinics, enabling sterilization, sanitation, reliable heat, and cold-chain continuity in grid-unstable environments."
+        canonical="https://www.gridstreak.com/solutions/hospitals-clinics"
       />
       <div className="hc-container">
 

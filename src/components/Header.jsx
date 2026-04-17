@@ -1,6 +1,65 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  FaFire,
+  FaHospital,
+  FaSnowflake,
+  FaTint,
+  FaRecycle,
+  FaAmbulance,
+} from "react-icons/fa";
 import "./Header.css";
+
+const solutionDropdownItems = [
+  {
+    to: "/solutions/clean-cooking",
+    label: "Clean Cooking",
+    Icon: FaFire,
+    iconColor: "#eb6a00",
+    description:
+      "Institutional clean cooking for schools, hospitals, and communities using thermal storage.",
+  },
+  {
+    to: "/solutions/hospitals-clinics",
+    label: "Hospitals & Clinics",
+    Icon: FaHospital,
+    iconColor: "#dc2626",
+    description:
+      "Reliable heat, steam, and hot water for critical healthcare facilities.",
+  },
+  {
+    to: "/solutions/cold-storage",
+    label: "Cold Storage",
+    Icon: FaSnowflake,
+    iconColor: "#0ea5e9",
+    description:
+      "Off-grid and grid-tied cold rooms that keep harvests fresh and reduce food loss.",
+  },
+  {
+    to: "/solutions/water-purification",
+    label: "Water Purification",
+    Icon: FaTint,
+    iconColor: "#0284c7",
+    description:
+      "Thermally powered water treatment for safe drinking water in remote areas.",
+  },
+  {
+    to: "/solutions/waste-management",
+    label: "Waste Management",
+    Icon: FaRecycle,
+    iconColor: "#16a34a",
+    description:
+      "Circular waste-heat and waste-to-value systems for institutions and industry.",
+  },
+  {
+    to: "/solutions/emergency-relief",
+    label: "Emergency Relief",
+    Icon: FaAmbulance,
+    iconColor: "#b91c1c",
+    description:
+      "Rapid-deploy thermal systems for disaster response, camps, and mobile operations.",
+  },
+];
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -111,60 +170,26 @@ function Header() {
               id="solutions-submenu"
               className={`dropdown-menu ${isSolutionsOpen ? "open" : ""}`}
             >
-              <Link
-                to="/solutions/clean-cooking"
-                onClick={handleDropdownItemClick}
-                className={isActive("/solutions/clean-cooking") ? "active-dropdown-item" : ""}
-                data-icon="🔥"
-                data-desc="Institutional clean cooking for schools, hospitals, and communities using thermal storage."
-              >
-                Clean Cooking
-              </Link>
-              <Link
-                to="/solutions/hospitals-clinics"
-                onClick={handleDropdownItemClick}
-                className={isActive("/solutions/hospitals-clinics") ? "active-dropdown-item" : ""}
-                data-icon="🏥"
-                data-desc="Reliable heat, steam, and hot water for critical healthcare facilities."
-              >
-                Hospitals & Clinics
-              </Link>
-              <Link
-                to="/solutions/cold-storage"
-                onClick={handleDropdownItemClick}
-                className={isActive("/solutions/cold-storage") ? "active-dropdown-item" : ""}
-                data-icon="❄️"
-                data-desc="Off-grid and grid-tied cold rooms that keep harvests fresh and reduce food loss."
-              >
-                Cold Storage
-              </Link>
-              <Link
-                to="/solutions/water-purification"
-                onClick={handleDropdownItemClick}
-                className={isActive("/solutions/water-purification") ? "active-dropdown-item" : ""}
-                data-icon="💧"
-                data-desc="Thermally powered water treatment for safe drinking water in remote areas."
-              >
-                Water Purification
-              </Link>
-              <Link
-                to="/solutions/waste-management"
-                onClick={handleDropdownItemClick}
-                className={isActive("/solutions/waste-management") ? "active-dropdown-item" : ""}
-                data-icon="♻️"
-                data-desc="Circular waste-heat and waste-to-value systems for institutions and industry."
-              >
-                Waste Management
-              </Link>
-              <Link
-                to="/solutions/emergency-relief"
-                onClick={handleDropdownItemClick}
-                className={isActive("/solutions/emergency-relief") ? "active-dropdown-item" : ""}
-                data-icon="🚑"
-                data-desc="Rapid-deploy thermal systems for disaster response, camps, and mobile operations."
-              >
-                Emergency Relief
-              </Link>
+              {solutionDropdownItems.map(({ to, label, Icon, iconColor, description }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  onClick={handleDropdownItemClick}
+                  className={isActive(to) ? "active-dropdown-item" : ""}
+                >
+                  <span className="dropdown-item-head">
+                    <span
+                      className="dropdown-item-icon"
+                      style={{ "--icon-color": iconColor }}
+                      aria-hidden="true"
+                    >
+                      <Icon />
+                    </span>
+                    <span className="dropdown-item-label">{label}</span>
+                  </span>
+                  <span className="dropdown-item-desc">{description}</span>
+                </Link>
+              ))}
             </div>
           </div>
           <Link

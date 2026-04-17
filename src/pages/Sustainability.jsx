@@ -93,8 +93,8 @@ const Sustainability = () => {
     <>
       <SEO
         title="Sustainability | GridStreak"
-        description="How GridStreak advances clean energy access, cold storage, and grid stability with sustainable thermal storage systems."
-        canonical="https://gridstreak.com/sustainability"
+        description="GridStreak advances climate and methane mitigation through circular thermal energy systems that improve clean energy access and reduce unmanaged waste emissions."
+        canonical="https://www.gridstreak.com/sustainability"
       />
       <div className="hero-wrapper math-grid-hero">
         <div className="grid-background"></div>

@@ -1,6 +1,14 @@
 import { useEffect } from "react";
 
-export default function SEO({ title, description, canonical, jsonLd = [], meta = [] }) {
+export default function SEO({
+  title,
+  description,
+  canonical,
+  jsonLd = [],
+  meta = [],
+  type = "website",
+  image = "https://www.gridstreak.com/logo.png",
+}) {
   useEffect(() => {
     if (title) {
       document.title = title;
@@ -44,7 +52,22 @@ export default function SEO({ title, description, canonical, jsonLd = [], meta =
     // console.log('seo props: ',meta)
 
   
-    meta.forEach(({ name, content, property }) => {
+    const baseMeta = [
+      { property: "og:site_name", content: "GridStreak" },
+      { property: "og:type", content: type },
+      title ? { property: "og:title", content: title } : null,
+      description ? { property: "og:description", content: description } : null,
+      canonical ? { property: "og:url", content: canonical } : null,
+      image ? { property: "og:image", content: image } : null,
+      { name: "twitter:card", content: "summary_large_image" },
+      title ? { name: "twitter:title", content: title } : null,
+      description ? { name: "twitter:description", content: description } : null,
+      image ? { name: "twitter:image", content: image } : null,
+    ].filter(Boolean);
+
+    const resolvedMeta = [...baseMeta, ...meta];
+
+    resolvedMeta.forEach(({ name, content, property }) => {
       if (!name && !property) return;
       const selector = name ? `meta[name="${name}"]` : `meta[property="${property}"]`;
       let tag = document.querySelector(selector);
@@ -58,7 +81,7 @@ export default function SEO({ title, description, canonical, jsonLd = [], meta =
       }
       tag.setAttribute('content', content || '');
     });
-  }, [title, description, canonical, JSON.stringify(jsonLd), JSON.stringify(meta)]);
+  }, [title, description, canonical, type, image, JSON.stringify(jsonLd), JSON.stringify(meta)]);
 
   return null;
 }

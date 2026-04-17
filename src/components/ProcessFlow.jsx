@@ -86,7 +86,7 @@ function ProcessFlow() {
 
           <div className="column-left">
             <div className="process-box process-box--wide-label" style={{ top: "260px" }}>
-              Pyrolysis of Organic and Inorganic Waste
+              Co-pyrolysis of Organic and Inorganic Waste
             </div>
           </div>
 
@@ -207,7 +207,7 @@ function ProcessFlow() {
             className="mobile-process-box mobile-process-box--wide-label"
             style={{ top: "20px", left: "262px" }}
           >
-            Pyrolysis of Organic and Inorganic Waste
+            Co-pyrolysis of Organic and Inorganic Waste
           </div>
 
           {/* thermal cnter */}

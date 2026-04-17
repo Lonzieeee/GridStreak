@@ -43,8 +43,8 @@ function Home() {
   return (
     <div className="home-page">
       <SEO
-        title="GridStreak | Clean Thermal Energy Storage"
-        description="GridStreak builds modular thermal brick storage for clean cooking, resilient healthcare, water safety, cold storage and more."
+        title="Thermal Energy Storage Startup for Clean, Reliable and Scalable Energy | GridStreak"
+        description="GridStreak is a thermal energy storage startup building long-duration, sand-based brick batteries for clean cooking, healthcare, agriculture, industry, and emergency energy systems."
         canonical="https://www.gridstreak.com/"
         jsonLd={[
           {
@@ -53,6 +53,7 @@ function Home() {
             "name": "GridStreak",
             "url": "https://www.gridstreak.com/",
             "logo": "https://www.gridstreak.com/logo.png",
+            "description": "GridStreak develops long-duration thermal energy storage systems using sand-based brick batteries for clean, reliable, and scalable energy access.",
             "sameAs": [
               "https://www.linkedin.com/company/grid-streak/",
               "https://x.com/GridStreak",
@@ -62,6 +63,7 @@ function Home() {
           {
             "@context": "https://schema.org",
             "@type": "WebSite",
+            "name": "GridStreak",
             "url": "https://www.gridstreak.com/",
             "potentialAction": {
               "@type": "SearchAction",

@@ -21,7 +21,7 @@ import HealthcareProductsSection from "../components/HospitalsClinics/Healthcare
 import "./CleanCooking.css";
 import "./HospitalsClinics.css";
 
-const INTRO_DURATION_MS = 8600;
+const INTRO_DURATION_MS = 3200;
 
 const introBgGroups = {
   2: "cc-animation-common-bg01",
@@ -460,9 +460,9 @@ const CleanCooking = () => {
   return (
     <>
       <SEO
-        title="Clean Cooking Solutions for Households & Communities | GridStreak Energy Startup"
-        description="GridStreak provides solar-powered clean cooking systems using thermal energy storage. Affordable, smoke-free cooking for households and communities in off-grid areas."
-        canonical="https://gridstreak.com/solutions/clean-cooking"
+        title="Clean Cooking with Thermal Energy Storage for Households and Communities | GridStreak"
+        description="GridStreak delivers clean cooking systems powered by long-duration thermal energy storage for households, communities, and institutions in off-grid and grid-connected regions."
+        canonical="https://www.gridstreak.com/solutions/clean-cooking"
       />
 
       <div className="cc-page">
