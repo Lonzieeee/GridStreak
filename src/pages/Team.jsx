@@ -8,7 +8,7 @@ const TEAM_MEMBERS = [
   {
     name: "Faith Mwabe",
     role: "Mechanical Engineer",
-    bio: "Designs and validates the mechanical systems behind GridStreak's thermal storage and water hardware.",
+    bio: "Engineers the mechanical backbone of GridStreak's thermal energy platform, designing the hardware that turns clean heat into reliable energy for homes, hospitals, and communities.",
     photo:
       "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Faith%20Mwabe.jpeg",
   },
