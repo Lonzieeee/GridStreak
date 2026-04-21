@@ -44,8 +44,15 @@
     linear-gradient(var(--hc-c2), var(--hc-c2)),
     linear-gradient(var(--hc-c1), var(--hc-c1));
   background-position: 0% 7%, 100% 21%, 0% 35%, 100% 49%, 0% 63%, 100% 77%, 0% 91%;
-  animation: hcShowBars 3.5s;
+  animation: hcShowBars 3.5s both;
+  /* Hold the bars in their pre-animation state until PageIntroAnimation
+     finishes, then resume playback so the hero intro is actually visible. */
+  animation-play-state: paused;
   z-index: 1;
+}
+
+.hc-hero[data-intro-ready="true"]::before {
+  animation-play-state: running;
 }
 
 .hc-hero::after {
@@ -70,6 +77,12 @@
   animation: hcShowText 2s 1;
   animation-fill-mode: forwards;
   animation-delay: 3.5s;
+  /* Keep content hidden until the intro overlay clears, then resume. */
+  animation-play-state: paused;
+}
+
+.hc-hero[data-intro-ready="true"] .hc-hero-content {
+  animation-play-state: running;
 }
 
 .hc-hero-content h1 {
@@ -1982,6 +1995,7 @@
   .hc-hero-content {
     transform: translate(0, 0);
     animation: hcShowTextReduced 0.6s ease 0.2s forwards;
+    animation-play-state: running !important;
   }
 }
 

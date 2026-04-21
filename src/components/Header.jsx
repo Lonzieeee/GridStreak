@@ -201,6 +201,14 @@ function Header() {
             Partners
           </Link>
           <Link
+            to="/team"
+            onClick={handleNavClick}
+            className={isActive("/team") ? "active-link" : ""}
+            title="GridStreak Team - Meet the People Behind the Mission"
+          >
+            Team
+          </Link>
+          <Link
             to="/sustainability"
             onClick={handleNavClick}
             className={isActive("/sustainability") ? "active-link" : ""}

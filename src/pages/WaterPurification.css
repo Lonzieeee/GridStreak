@@ -1,127 +1,14 @@
-/* WaterPurification.css - Pixel-perfect match to HospitalsClinics.css */
-.wp-container { padding-top: 100px; min-height: 80vh; padding: 100px 2rem 2rem; max-width: 1200px; margin: 0 auto; }
-.wp-hero { margin-bottom: 2.5rem; }
-.wp-hero-content h1 { font-size: 2.2rem; margin-bottom: 1rem; }
-.wp-hero-list { margin: 1rem 0 1.5rem 1.5rem; }
-.wp-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; }
-.wp-section { margin-bottom: 3rem; }
-.wp-products__grid, .wp-applications__grid, .wp-impact__grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.wp-product-card, .wp-app-card, .wp-impact-card { background: #fff; border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 1.5rem; }
-.wp-product-card__title { font-weight: bold; margin-bottom: 0.5rem; }
-.wp-product-card__capacity { font-size: 1.1rem; color: #1e88e5; margin-bottom: 0.5rem; }
-.wp-product-card__features { margin-left: 1.2rem; }
-.wp-app-card__title { font-weight: bold; margin-bottom: 0.3rem; }
-.wp-impact__eyebrow { color: #1e88e5; font-weight: 600; margin-bottom: 0.2rem; }
-.wp-impact__title { font-size: 1.5rem; margin-bottom: 0.5rem; }
-.wp-impact__lead { margin-bottom: 1.2rem; }
-.wp-cta { display: flex; gap: 2rem; align-items: center; margin-top: 3rem; background: #f5faff; border-radius: 1.5rem; padding: 2rem; }
-.wp-cta__media img { max-width: 220px; border-radius: 1rem; }
-.wp-cta__content { flex: 1; }
-.wp-cta__lead { margin-bottom: 1rem; }
-.wp-cta__actions { margin-top: 1rem; }
-.wp-circular-chamber__head h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-.wp-circular-chamber__body h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-.wp-circular-chamber__body ul { margin-left: 1.2rem; margin-bottom: 0.5rem; }
-/* Add more styles here as needed for pixel-perfect match */
-.wp-container {
-  padding-top: 100px;
-  min-height: 80vh;
-  padding: 100px 2rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.wp-hero {
-  margin-bottom: 2.5rem;
-}
-.wp-hero-content h1 {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-}
-.wp-hero-list {
-  margin: 1rem 0 1.5rem 1.5rem;
-}
-.wp-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-.wp-section {
-  margin-bottom: 3rem;
-}
-.wp-products__grid,
-.wp-applications__grid,
-.wp-impact__grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-.wp-product-card,
-.wp-app-card,
-.wp-impact-card {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 1.5rem;
-}
-.wp-product-card__title {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-.wp-product-card__capacity {
-  font-size: 1.1rem;
-  color: #1e88e5;
-  margin-bottom: 0.5rem;
-}
-.wp-product-card__features {
-  margin-left: 1.2rem;
-}
-.wp-app-card__title {
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-}
-.wp-impact__eyebrow {
-  color: #1e88e5;
-  font-weight: 600;
-  margin-bottom: 0.2rem;
-}
-.wp-impact__title {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-.wp-impact__lead {
-  margin-bottom: 1.2rem;
-}
-.wp-cta {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  margin-top: 3rem;
-  background: #f5faff;
-  border-radius: 1.5rem;
-  padding: 2rem;
-}
-.wp-cta__media img {
-  max-width: 220px;
-  border-radius: 1rem;
-}
-.wp-cta__content {
-  flex: 1;
-}
-.wp-cta__lead {
-  margin-bottom: 1rem;
-}
-.wp-cta__actions {
-  margin-top: 1rem;
-}
-.wp-circular-chamber__head h2 {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-}
-.wp-circular-chamber__body h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.3rem;
-}
-.wp-circular-chamber__body ul {
-  margin-left: 1.2rem;
-  margin-bottom: 0.5rem;
+/*
+ * WaterPurification.css
+ * Reuses the Hospitals & Clinics visual system (hc-* classes) verbatim.
+ * Also imports Clean Cooking styles so the Measurable Impact wheel (cc-impact-*)
+ * is available on this page.
+ * Only the hero background image is swapped for a water-themed photo.
+ */
+@import "./HospitalsClinics.css";
+@import "./CleanCooking.css";
+
+.hc-hero.hc-hero--water {
+  --hc-c1: #b0f222;
+  background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/purificationhero.webp");
 }

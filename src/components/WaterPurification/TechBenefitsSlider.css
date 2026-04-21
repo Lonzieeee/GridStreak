@@ -1,0 +1,693 @@
+.wp-voyage {
+  --voyage-slide-width: clamp(220px, 24vw, 300px);
+  --voyage-slide-aspect: 2 / 3;
+  --voyage-transition-duration: 800ms;
+  --voyage-transition-easing: ease;
+  --voyage-font-heading: "Space Grotesk", system-ui, sans-serif;
+  --voyage-font-body: "Inter", system-ui, sans-serif;
+  --voyage-accent: #b0f222;
+  --voyage-accent-deep: #5a7a12;
+
+  position: relative;
+  width: 100%;
+  min-height: min(720px, 100vh);
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.787);
+  padding: clamp(2.25rem, 6vw, 4rem) clamp(0.75rem, 3vw, 2rem);
+  box-sizing: border-box;
+}
+
+/* ---------------- BACKGROUND LAYER ---------------- */
+.wp-voyage__bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wp-voyage__bg {
+  position: absolute;
+  inset: -10%;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center center;
+  opacity: 0;
+  transition: opacity var(--voyage-transition-duration) ease,
+    transform var(--voyage-transition-duration) ease;
+}
+
+.wp-voyage__bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.wp-voyage__bg[data-current] {
+  opacity: 1;
+}
+
+.wp-voyage__bg[data-previous] {
+  transform: translateX(-10%);
+}
+
+.wp-voyage__bg[data-next] {
+  transform: translateX(10%);
+}
+
+/* ---------------- HEADER ---------------- */
+.wp-voyage__header {
+  position: relative;
+  z-index: 2;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  align-self: start;
+  text-align: center;
+  width: min(92%, 64rem);
+  margin: 0 auto;
+}
+
+/* ---------------- SLIDER STAGE ---------------- */
+.wp-voyage__slider {
+  position: relative;
+  z-index: 2;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  width: calc(3 * var(--voyage-slide-width));
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  place-self: center;
+}
+
+.wp-voyage__btn {
+  --size: 48px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size);
+  height: var(--size);
+  color: #ffffff;
+  opacity: 0.9;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: opacity 0.25s cubic-bezier(0.215, 0.61, 0.355, 1),
+    color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.25s ease;
+  z-index: 80;
+}
+
+.wp-voyage__btn--prev {
+  left: clamp(0.75rem, 3vw, 2rem);
+}
+
+.wp-voyage__btn--next {
+  right: clamp(0.75rem, 3vw, 2rem);
+}
+
+.wp-voyage__btn:hover,
+.wp-voyage__btn:focus-visible {
+  opacity: 1;
+  color: var(--voyage-accent);
+  background: rgba(0, 0, 0, 0.6);
+  outline: none;
+}
+
+.wp-voyage__btn--prev:hover,
+.wp-voyage__btn--prev:focus-visible {
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.wp-voyage__btn--next:hover,
+.wp-voyage__btn--next:focus-visible {
+  transform: translateY(-50%) translateX(2px);
+}
+
+.wp-voyage__btn svg {
+  width: 26px;
+  height: 26px;
+  stroke: currentColor;
+}
+
+.wp-voyage__slides-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.wp-voyage__slides-wrapper > * {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.wp-voyage__slides,
+.wp-voyage__infos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.wp-voyage__slides > *,
+.wp-voyage__infos > * {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+/* ---------------- SLIDE ---------------- */
+.wp-voyage__slide {
+  --slide-tx: 0px;
+  --slide-ty: 0vh;
+  --slide-rotY: 0deg;
+  --slide-scale: 1;
+  --slide-tz: 0px;
+
+  width: var(--voyage-slide-width);
+  aspect-ratio: var(--voyage-slide-aspect);
+  user-select: none;
+  perspective: 800px;
+  pointer-events: none;
+
+  transform: perspective(1000px)
+    translate3d(var(--slide-tx), var(--slide-ty), var(--slide-tz))
+    rotateY(var(--slide-rotY)) scale(var(--slide-scale));
+  transition: transform var(--voyage-transition-duration)
+    var(--voyage-transition-easing);
+}
+
+.wp-voyage__slide[data-current] {
+  --slide-scale: 1.2;
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.wp-voyage__slide[data-next] {
+  --slide-tx: calc(1 * var(--voyage-slide-width) * 1.07);
+  --slide-rotY: -45deg;
+  z-index: 10;
+}
+
+.wp-voyage__slide[data-previous] {
+  --slide-tx: calc(-1 * var(--voyage-slide-width) * 1.07);
+  --slide-rotY: 45deg;
+  z-index: 10;
+}
+
+.wp-voyage__slide:not([data-current]):not([data-next]):not([data-previous]) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wp-voyage__slide-inner {
+  --rotX: 0deg;
+  --rotY: 0deg;
+  --bgPosX: 0%;
+  --bgPosY: 0%;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rotX)) rotateY(var(--rotY));
+}
+
+.wp-voyage__slide-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.7);
+}
+
+.wp-voyage__slide-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.7) 22%,
+    rgba(0, 0, 0, 0.35) 48%,
+    rgba(0, 0, 0, 0.1) 72%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity var(--voyage-transition-duration)
+    var(--voyage-transition-easing);
+}
+
+.wp-voyage__slide:not([data-current]) .wp-voyage__slide-image-wrap::after {
+  opacity: 0.55;
+}
+
+.wp-voyage__slide-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%) scale(1.25)
+    translate3d(var(--bgPosX), var(--bgPosY), 0);
+  transition: filter var(--voyage-transition-duration)
+    var(--voyage-transition-easing);
+  filter: brightness(0.5);
+}
+
+.wp-voyage__slide[data-current] .wp-voyage__slide-image {
+  filter: brightness(0.85);
+}
+
+/* ---------------- SLIDE INFO ---------------- */
+.wp-voyage__info {
+  position: relative;
+  width: var(--voyage-slide-width);
+  aspect-ratio: var(--voyage-slide-aspect);
+  user-select: none;
+  perspective: 800px;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.wp-voyage__info-inner {
+  --rotX: 0deg;
+  --rotY: 0deg;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rotX)) rotateY(var(--rotY));
+}
+
+.wp-voyage__info-text-wrap {
+  --z-offset: 45px;
+
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: min(340px, 96%);
+  transform: translate(-50%, 0) translateZ(var(--z-offset));
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wp-voyage__info-text {
+  color: #ffffff;
+  overflow: hidden;
+  font-family: var(--voyage-font-heading);
+}
+
+.wp-voyage__info-text[data-description] {
+  font-family: var(--voyage-font-body);
+}
+
+.wp-voyage__info-text span {
+  display: block;
+  white-space: nowrap;
+  transition: var(--voyage-transition-duration) var(--voyage-transition-easing);
+  transition-property: opacity, transform;
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+}
+
+.wp-voyage__info[data-current] .wp-voyage__info-text span {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 250ms;
+}
+
+.wp-voyage__info-text[data-title] {
+  font-size: clamp(1.15rem, 2vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.wp-voyage__info-text[data-subtitle] {
+  margin-top: 0.2rem;
+  font-size: clamp(0.7rem, 0.95vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--voyage-accent);
+  line-height: 1.2;
+}
+
+.wp-voyage__info-text[data-description] {
+  margin: 0.65rem auto 0;
+  font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 34ch;
+  color: rgba(255, 255, 255, 0.88);
+  overflow: visible;
+}
+
+.wp-voyage__info-text[data-description] span {
+  white-space: normal;
+}
+
+.wp-voyage__info-text[data-description] span {
+  white-space: normal;
+}
+
+/* ---------------- COUNTER ---------------- */
+.wp-voyage__counter {
+  position: absolute;
+  bottom: clamp(1rem, 2vw, 2rem);
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  z-index: 4;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: var(--voyage-font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.wp-voyage__counter > :first-child {
+  color: var(--voyage-accent);
+  font-size: 1.4rem;
+}
+
+.wp-voyage__counter-sep {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------------- HEADER TYPOGRAPHY ---------------- */
+.wp-voyage__header .wp-cover-title {
+  font-family: var(--voyage-font-heading);
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 0.85rem;
+  position: relative;
+  padding-bottom: 0.7rem;
+  text-align: center;
+}
+
+.wp-voyage__header .wp-cover-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(120px, 28vw);
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #eb6a00, var(--voyage-accent));
+}
+
+.wp-voyage__header .wp-cover-lead {
+  font-family: var(--voyage-font-body);
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 auto;
+  max-width: 44rem;
+  text-align: center;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+/* Tablet / small laptop */
+@media (max-width: 1024px) {
+  .wp-voyage {
+    --voyage-slide-width: clamp(200px, 30vw, 260px);
+    min-height: min(680px, 100vh);
+  }
+
+  .wp-voyage__slider {
+    width: calc(2.4 * var(--voyage-slide-width));
+  }
+
+  .wp-voyage__slide[data-current] {
+    --slide-scale: 1.12;
+  }
+
+  .wp-voyage__slide[data-next] {
+    --slide-tx: calc(1 * var(--voyage-slide-width) * 1);
+    --slide-rotY: -38deg;
+  }
+
+  .wp-voyage__slide[data-previous] {
+    --slide-tx: calc(-1 * var(--voyage-slide-width) * 1);
+    --slide-rotY: 38deg;
+  }
+
+  .wp-voyage__info-text[data-description] {
+    max-width: 28ch;
+  }
+}
+
+/* Tablet portrait */
+@media (max-width: 768px) {
+  .wp-voyage {
+    --voyage-slide-width: clamp(180px, 40vw, 240px);
+    padding: 2.5rem 1rem 3rem;
+    min-height: 620px;
+  }
+
+  .wp-voyage__btn {
+    --size: 40px;
+  }
+
+  .wp-voyage__btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .wp-voyage__btn--prev {
+    left: 0.5rem;
+  }
+
+  .wp-voyage__btn--next {
+    right: 0.5rem;
+  }
+
+  .wp-voyage__slide[data-current] {
+    --slide-scale: 1.08;
+  }
+
+  .wp-voyage__slide[data-next] {
+    --slide-tx: calc(1 * var(--voyage-slide-width) * 0.9);
+    --slide-rotY: -32deg;
+  }
+
+  .wp-voyage__slide[data-previous] {
+    --slide-tx: calc(-1 * var(--voyage-slide-width) * 0.9);
+    --slide-rotY: 32deg;
+  }
+
+  .wp-voyage__info-text-wrap {
+    width: min(320px, 92%);
+    bottom: 7%;
+  }
+
+  .wp-voyage__info-text[data-title] {
+    font-size: clamp(1.05rem, 3.6vw, 1.5rem);
+  }
+
+  .wp-voyage__info-text[data-subtitle] {
+    font-size: 0.7rem;
+  }
+
+  .wp-voyage__info-text[data-description] {
+    font-size: 0.85rem;
+    max-width: 26ch;
+  }
+
+  .wp-voyage__counter {
+    bottom: 0.9rem;
+    right: 0.9rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* Phone — stack the header above the slider and show ONE card at a time. */
+@media (max-width: 560px) {
+  .wp-voyage {
+    --voyage-slide-width: min(74vw, 260px);
+    padding: 1.75rem 0.75rem 2.25rem;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    place-items: initial;
+  }
+
+  .wp-voyage__header {
+    grid-column: auto;
+    grid-row: auto;
+    align-self: auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.25rem;
+  }
+
+  .wp-voyage__header .wp-cover-title {
+    font-size: clamp(1.3rem, 6vw, 1.7rem);
+    line-height: 1.2;
+    padding-bottom: 0.55rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .wp-voyage__header .wp-cover-title::after {
+    width: min(90px, 22vw);
+    height: 2.5px;
+  }
+
+  .wp-voyage__header .wp-cover-lead {
+    font-size: clamp(0.88rem, 3.6vw, 1rem);
+    line-height: 1.55;
+    max-width: 38ch;
+  }
+
+  .wp-voyage__slider {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    max-width: 100%;
+    place-self: auto;
+  }
+
+  .wp-voyage__btn {
+    --size: 36px;
+    border-width: 1px;
+  }
+
+  .wp-voyage__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .wp-voyage__btn--prev {
+    left: 0.5rem;
+  }
+
+  .wp-voyage__btn--next {
+    right: 0.5rem;
+  }
+
+  /* Hide the side slides on phones so the active card is clearly the focus
+     and nothing gets clipped at the viewport edges. */
+  .wp-voyage__slide[data-next],
+  .wp-voyage__slide[data-previous] {
+    --slide-tx: 0px;
+    --slide-rotY: 0deg;
+    --slide-scale: 0.94;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .wp-voyage__info[data-next],
+  .wp-voyage__info[data-previous] {
+    opacity: 0;
+  }
+
+  .wp-voyage__slide[data-current] {
+    --slide-scale: 1;
+  }
+
+  .wp-voyage__info-text-wrap {
+    width: min(300px, 92%);
+    bottom: 5.5%;
+  }
+
+  .wp-voyage__info-text[data-title] {
+    font-size: 1.2rem;
+    letter-spacing: 0.01em;
+  }
+
+  .wp-voyage__info-text[data-subtitle] {
+    font-size: 0.68rem;
+  }
+
+  .wp-voyage__info-text[data-description] {
+    font-size: 0.82rem;
+    max-width: 28ch;
+    line-height: 1.45;
+  }
+
+  .wp-voyage__counter {
+    position: static;
+    align-self: center;
+    font-size: 0.78rem;
+  }
+
+  .wp-voyage__counter > :first-child {
+    font-size: 1rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .wp-voyage {
+    --voyage-slide-width: min(82vw, 240px);
+    padding: 1.5rem 0.6rem 2rem;
+  }
+
+  .wp-voyage__header .wp-cover-title {
+    font-size: 1.15rem;
+  }
+
+  .wp-voyage__header .wp-cover-lead {
+    font-size: 0.85rem;
+  }
+
+  .wp-voyage__info-text[data-title] {
+    font-size: 1.08rem;
+  }
+
+  .wp-voyage__info-text[data-description] {
+    font-size: 0.78rem;
+  }
+}
+
+/* Short viewports (landscape phones, small laptops) */
+@media (max-height: 640px) and (min-width: 561px) {
+  .wp-voyage {
+    --voyage-slide-width: clamp(160px, 20vw, 220px);
+    min-height: 540px;
+    padding: 1.75rem 1rem 2.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-voyage__slide,
+  .wp-voyage__bg,
+  .wp-voyage__info-text span {
+    transition: none !important;
+  }
+}

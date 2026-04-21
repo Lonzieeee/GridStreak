@@ -18,55 +18,9 @@ import {
 } from "react-icons/fa";
 import SEO from "../components/SEO";
 import HealthcareProductsSection from "../components/HospitalsClinics/HealthcareProductsSection";
+import PageIntroAnimation from "../components/PageIntroAnimation";
 import "./CleanCooking.css";
 import "./HospitalsClinics.css";
-
-const INTRO_DURATION_MS = 3200;
-
-const introBgGroups = {
-  2: "cc-animation-common-bg01",
-  3: "cc-animation-common-bg01",
-  4: "cc-animation-common-bg01",
-  5: "cc-animation-common-bg01",
-  6: "cc-animation-common-bg02",
-  7: "cc-animation-common-bg02",
-  8: "cc-animation-common-bg02",
-  9: "cc-animation-common-bg02",
-  10: "cc-animation-common-bg03",
-  11: "cc-animation-common-bg04",
-  12: "cc-animation-common-bg03",
-  13: "cc-animation-common-bg04",
-  14: "cc-animation-common-bg03",
-  15: "cc-animation-common-bg04",
-  16: "cc-animation-common-bg03",
-  17: "cc-animation-common-bg04",
-  18: "cc-animation-common-bg05",
-  19: "cc-animation-common-bg05",
-  20: "cc-animation-common-bg05",
-  21: "cc-animation-common-bg05",
-  22: "cc-animation-common-bg05",
-  23: "cc-animation-common-bg06",
-  24: "cc-animation-common-bg06",
-  25: "cc-animation-common-bg06",
-  26: "cc-animation-common-bg06",
-  27: "cc-animation-common-bg07",
-  28: "cc-animation-common-bg07",
-  29: "cc-animation-common-bg07",
-  30: "cc-animation-common-bg07",
-  31: "cc-animation-common-bg07",
-  32: "cc-animation-common-bg08",
-  33: "cc-animation-common-bg08",
-  34: "cc-animation-common-bg08",
-  35: "cc-animation-common-bg08",
-  36: "cc-animation-common-bg09",
-  37: "cc-animation-common-bg10",
-  38: "cc-animation-common-bg09",
-  39: "cc-animation-common-bg10",
-  40: "cc-animation-common-bg09",
-  41: "cc-animation-common-bg10",
-  42: "cc-animation-common-bg09",
-  43: "cc-animation-common-bg10",
-};
 
 const cookingChallengeStats = [
   "Over 900 million people rely on charcoal, firewood, and kerosene for cooking.",
@@ -309,7 +263,6 @@ const getImpactCircleSize = (width) => {
 };
 
 const CleanCooking = () => {
-  const [showIntro, setShowIntro] = useState(false);
   const [solarVisible, setSolarVisible] = useState(false);
   const [solarStart, setSolarStart] = useState(false);
   const [impactVisible, setImpactVisible] = useState(false);
@@ -320,7 +273,6 @@ const CleanCooking = () => {
   const impactSectionRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const introLabelChars = useMemo(() => "Clean Cooking".split(""), []);
   const solarGrid = useMemo(() => getSolarGridConfig(viewportWidth), [viewportWidth]);
   const impactCircleSize = useMemo(() => getImpactCircleSize(viewportWidth), [viewportWidth]);
   const isMobileImpact = viewportWidth <= 900;
@@ -360,26 +312,6 @@ const CleanCooking = () => {
       zIndex: solarCookingCards.length - index,
     };
   };
-
-  useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-
-    const shouldReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (shouldReduceMotion) {
-      return undefined;
-    }
-
-    setShowIntro(true);
-
-    const hideTimer = window.setTimeout(() => {
-      setShowIntro(false);
-    }, INTRO_DURATION_MS);
-
-    return () => {
-      window.clearTimeout(hideTimer);
-    };
-  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -460,40 +392,108 @@ const CleanCooking = () => {
   return (
     <>
       <SEO
-        title="Clean Cooking with Thermal Energy Storage for Households and Communities | GridStreak"
-        description="GridStreak delivers clean cooking systems powered by long-duration thermal energy storage for households, communities, and institutions in off-grid and grid-connected regions."
+        title="Clean Cooking with Thermal Energy Storage | GridStreak"
+        description="Safe, affordable, smoke-free clean cooking powered by GridStreak's sand-based thermal batteries — for homes, schools, and clinics, on-grid or off-grid."
         canonical="https://www.gridstreak.com/solutions/clean-cooking"
+        type="website"
+        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking(2).png"
+        meta={[
+          { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
+          {
+            name: "keywords",
+            content:
+              "clean cooking, thermal cooking, sand battery, electric cooking, off-grid cooking, replace biomass, replace charcoal, household energy Africa, institutional cooking, GridStreak",
+          },
+          { property: "og:locale", content: "en_US" },
+          {
+            property: "og:image:alt",
+            content: "Family using GridStreak clean cooking stove powered by thermal energy storage",
+          },
+          { property: "og:image:width", content: "1200" },
+          { property: "og:image:height", content: "630" },
+          { name: "twitter:site", content: "@GridStreak" },
+          { name: "twitter:creator", content: "@GridStreak" },
+          {
+            name: "twitter:image:alt",
+            content: "Family using GridStreak clean cooking stove powered by thermal energy storage",
+          },
+          { name: "author", content: "GridStreak" },
+        ]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Clean Cooking with Thermal Energy Storage | GridStreak",
+            url: "https://www.gridstreak.com/solutions/clean-cooking",
+            description:
+              "Safe, affordable, smoke-free clean cooking powered by GridStreak's sand-based thermal batteries for households, communities, and institutions.",
+            inLanguage: "en",
+            isPartOf: {
+              "@type": "WebSite",
+              name: "GridStreak",
+              url: "https://www.gridstreak.com/",
+            },
+            primaryImageOfPage: {
+              "@type": "ImageObject",
+              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking(2).png",
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "GridStreak Clean Cooking Solutions",
+            serviceType: "Clean Cooking with Thermal Energy Storage",
+            provider: {
+              "@type": "Organization",
+              name: "GridStreak",
+              url: "https://www.gridstreak.com/",
+              logo: "https://www.gridstreak.com/outLine-Orange@3x.png",
+            },
+            areaServed: [
+              { "@type": "Place", name: "Kenya" },
+              { "@type": "Place", name: "Sub-Saharan Africa" },
+              { "@type": "Place", name: "Africa" },
+            ],
+            description:
+              "Thermal-battery-powered clean cooking for homes, schools, clinics, and community kitchens — replacing charcoal, firewood, and LPG with clean, reliable heat.",
+            audience: {
+              "@type": "Audience",
+              audienceType: "Households, institutions, and off-grid communities",
+            },
+            url: "https://www.gridstreak.com/solutions/clean-cooking",
+            image:
+              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking(2).png",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.gridstreak.com/",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Solutions",
+                item: "https://www.gridstreak.com/solutions",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Clean Cooking",
+                item: "https://www.gridstreak.com/solutions/clean-cooking",
+              },
+            ],
+          },
+        ]}
       />
 
+      <PageIntroAnimation text="Clean Cooking" color="#eb6a00" colorDark="#7a3700" />
+
       <div className="cc-page">
-        {showIntro && (
-          <div className="cc-animation" aria-hidden="true">
-            <div className="cc-animation-title-wrap">
-              <h2 className="cc-animation-title">
-                {introLabelChars.map((char, index) => (
-                  <span
-                    key={`${char}-${index}`}
-                    className="cc-animation-char"
-                    style={{ "--char-index": index }}
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                ))}
-              </h2>
-            </div>
-
-            {Array.from({ length: 43 }, (_, i) => i + 1).map((num) => {
-              const groupClass = introBgGroups[num] || "";
-              return (
-                <div
-                  key={`bg-${num}`}
-                  className={`cc-animation-bg cc-animation-bg${String(num).padStart(2, "0")} ${groupClass}`.trim()}
-                />
-              );
-            })}
-          </div>
-        )}
-
         <section className="cc-hero">
           <div className="cc-hero-overlay" />
           <div className="cc-hero-content">

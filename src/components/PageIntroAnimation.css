@@ -1,0 +1,265 @@
+.page-intro {
+  --page-intro-duration: 6s;
+  --page-intro-wave-duration: calc(var(--page-intro-duration) * 0.25);
+  --page-intro-text-in-delay: calc(var(--page-intro-duration) * 0.275);
+  --page-intro-text-in-duration: calc(var(--page-intro-duration) * 0.1);
+  --page-intro-easing: cubic-bezier(0.5, 0, 0.5, 1);
+  --page-intro-dot-color: #eb6a00;
+  --page-intro-dot-color-dark: #7a3700;
+
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+  background: #060506;
+  color: #ffffff;
+  font-family: "Heebo", "Space Grotesk", sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  animation: pageIntroExit 0.5s ease var(--page-intro-duration) forwards;
+}
+
+.page-intro:not([data-play]) *,
+.page-intro:not([data-play]) *::before,
+.page-intro:not([data-play]) *::after {
+  visibility: hidden !important;
+  animation: none !important;
+}
+
+@keyframes pageIntroExit {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.page-intro-container {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.page-intro-container > * {
+  grid-area: 1 / 1;
+}
+
+.page-intro-title {
+  font-family: "Heebo", "Space Grotesk", sans-serif;
+  font-size: 10vmin;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.page-intro-char {
+  position: relative;
+  display: inline-block;
+  --delay: calc(var(--page-intro-text-in-delay) + (0.25s * (1 - var(--distance-percent, 0))));
+  animation: pageIntroTextIn var(--page-intro-text-in-duration) var(--page-intro-easing) var(--delay) backwards;
+  transform-origin: center 1em;
+}
+
+.page-intro-char::before {
+  content: attr(data-char);
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.page-intro-char[data-char="t"],
+.page-intro-char[data-char="i"],
+.page-intro-char[data-char="I"],
+.page-intro-char[data-char="l"],
+.page-intro-char[data-char="f"] {
+  visibility: hidden;
+  --squish-scale: 0.6;
+  --squish-y: 10%;
+}
+
+.page-intro-char[data-char="t"]::before,
+.page-intro-char[data-char="i"]::before,
+.page-intro-char[data-char="I"]::before,
+.page-intro-char[data-char="l"]::before,
+.page-intro-char[data-char="f"]::before {
+  animation: pageIntroTextSquish var(--page-intro-duration) var(--page-intro-easing) forwards;
+  visibility: visible;
+  transform-origin: center 1em;
+}
+
+.page-intro-char[data-char="i"],
+.page-intro-char[data-char="I"],
+.page-intro-char[data-char="l"] {
+  --squish-scale: 0.9;
+  --squish-y: 5%;
+}
+
+.page-intro-char:last-child {
+  animation:
+    pageIntroTextIn var(--page-intro-text-in-duration) var(--page-intro-easing) var(--delay) backwards,
+    pageIntroTextBonk var(--page-intro-duration) var(--page-intro-easing) forwards;
+}
+
+@keyframes pageIntroTextIn {
+  0% {
+    opacity: 0;
+    transform: translateX(calc(-0.4em * var(--char-offset, 0))) scale(0);
+  }
+  90% {
+    transform: translateX(0em) scale(1.1);
+  }
+}
+
+@keyframes pageIntroTextSquish {
+  47.5%,
+  52.5% {
+    transform: none;
+  }
+  50% {
+    transform: translateY(var(--squish-y, 0)) scaleY(var(--squish-scale, 1));
+  }
+}
+
+@keyframes pageIntroTextBonk {
+  80%,
+  85%,
+  to {
+    transform: none;
+  }
+  82% {
+    transform: translateX(-20%);
+  }
+}
+
+.page-intro-dot {
+  font-size: 5vmin;
+  width: 1em;
+  height: 1em;
+  animation: pageIntroDot var(--page-intro-duration) var(--page-intro-easing) both;
+}
+
+.page-intro-dot-inner {
+  animation: pageIntroDotInner var(--page-intro-duration) var(--page-intro-easing) both;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.page-intro-dot-inner > * {
+  grid-area: 1 / 1;
+}
+
+.page-intro-dot-wave {
+  width: 200%;
+  height: 200%;
+  fill: var(--page-intro-dot-color);
+  animation: pageIntroWaveIn var(--page-intro-wave-duration) var(--page-intro-easing);
+  --offset-x: -110%;
+}
+
+.page-intro-dot-wave--bg {
+  fill: var(--page-intro-dot-color-dark);
+  animation-duration: calc(0.95 * var(--page-intro-wave-duration));
+  --offset-x: 110%;
+}
+
+@keyframes pageIntroWaveIn {
+  0% {
+    transform: translateY(100%) translateX(var(--offset-x));
+  }
+  70% {
+    transform: translateY(30%) translateX(0%);
+  }
+}
+
+@keyframes pageIntroDot {
+  from {
+    opacity: 0;
+    transform: scale(3);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(3);
+  }
+  15% {
+    transform: scale(3) translateY(0.5em) scaleY(1.5);
+  }
+  20% {
+    transform: scale(1) translateY(-300%);
+  }
+  30% {
+    transform: translateY(1em) scaleY(0.5);
+  }
+  40% {
+    transform: translateY(-400%);
+  }
+  50% {
+    transform: translateY(-1em);
+  }
+  53% {
+    transform: translateY(-300%);
+  }
+  56% {
+    transform: translateY(-1em);
+  }
+  59% {
+    transform: translateY(-200%);
+  }
+  62% {
+    transform: translateY(1em);
+  }
+  80%,
+  90%,
+  to {
+    transform: translateY(1em);
+  }
+}
+
+@keyframes pageIntroDotInner {
+  from,
+  45% {
+    transform: none;
+  }
+  70% {
+    transform: translateX(6em);
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0);
+  }
+  80% {
+    transform: translateX(4.3em);
+    animation-timing-function: var(--page-intro-easing);
+  }
+  83%,
+  to {
+    transform: translateX(4.4em);
+  }
+}
+
+@media (max-width: 640px) {
+  .page-intro-title {
+    font-size: 11vmin;
+  }
+
+  .page-intro-dot {
+    font-size: 6vmin;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-intro {
+    display: none;
+  }
+}

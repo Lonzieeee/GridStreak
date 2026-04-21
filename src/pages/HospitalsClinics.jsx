@@ -3,6 +3,7 @@ import { motion as Motion, useReducedMotion } from "framer-motion";
 import { FaGlobeAfrica, FaHeartbeat, FaBolt, FaGasPump } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import PageIntroAnimation from "../components/PageIntroAnimation";
 import TechBenefitsSlider from "../components/HospitalsClinics/TechBenefitsSlider";
 import HealthcareProductsSection from "../components/HospitalsClinics/HealthcareProductsSection";
 import ApplicationsCardStack from "../components/HospitalsClinics/ApplicationsCardStack";
@@ -56,6 +57,7 @@ const HospitalsClinics = () => {
   const counterIntervalRef = useRef(null);
   const impactResetTimeoutRef = useRef(null);
   const impactInViewRef = useRef(false);
+  const [introDone, setIntroDone] = useState(false);
   const [impactCounts, setImpactCounts] = useState({
     costReduction: 0,
     uptime: 0,
@@ -172,14 +174,115 @@ const HospitalsClinics = () => {
   return (
     <>
       <SEO
-        title="Healthcare Thermal Energy Storage for Hospitals and Clinics | GridStreak"
-        description="GridStreak provides thermal energy storage for hospitals and clinics, enabling sterilization, sanitation, reliable heat, and cold-chain continuity in grid-unstable environments."
+        title="Thermal Energy for Hospitals & Clinics | GridStreak"
+        description="Reliable energy, sterilization heat, and cold-chain continuity for hospitals and clinics — powered by GridStreak's sand-based thermal storage in grid-unstable regions."
         canonical="https://www.gridstreak.com/solutions/hospitals-clinics"
+        type="website"
+        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Hospitalrural(1).png"
+        meta={[
+          { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
+          {
+            name: "keywords",
+            content:
+              "healthcare energy, hospital thermal storage, rural clinic power, cold chain, medical cold storage, vaccine storage, sterilization heat, off-grid hospital, sand battery healthcare, GridStreak",
+          },
+          { property: "og:locale", content: "en_US" },
+          {
+            property: "og:image:alt",
+            content: "Rural hospital powered by GridStreak thermal energy storage for reliable healthcare",
+          },
+          { property: "og:image:width", content: "1200" },
+          { property: "og:image:height", content: "630" },
+          { name: "twitter:site", content: "@GridStreak" },
+          { name: "twitter:creator", content: "@GridStreak" },
+          {
+            name: "twitter:image:alt",
+            content: "Rural hospital powered by GridStreak thermal energy storage for reliable healthcare",
+          },
+          { name: "author", content: "GridStreak" },
+        ]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Thermal Energy for Hospitals & Clinics | GridStreak",
+            url: "https://www.gridstreak.com/solutions/hospitals-clinics",
+            description:
+              "Reliable energy, sterilization heat, and cold-chain continuity for hospitals and clinics — delivered by GridStreak sand-based thermal storage in grid-unstable regions.",
+            inLanguage: "en",
+            isPartOf: {
+              "@type": "WebSite",
+              name: "GridStreak",
+              url: "https://www.gridstreak.com/",
+            },
+            primaryImageOfPage: {
+              "@type": "ImageObject",
+              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Hospitalrural(1).png",
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "GridStreak Thermal Energy Storage for Healthcare",
+            serviceType: "Thermal Energy Storage for Hospitals and Clinics",
+            provider: {
+              "@type": "Organization",
+              name: "GridStreak",
+              url: "https://www.gridstreak.com/",
+              logo: "https://www.gridstreak.com/outLine-Orange@3x.png",
+            },
+            areaServed: [
+              { "@type": "Place", name: "Kenya" },
+              { "@type": "Place", name: "Sub-Saharan Africa" },
+              { "@type": "Place", name: "Africa" },
+            ],
+            description:
+              "Sand-based thermal energy storage that keeps hospitals and clinics running — powering cold chain, sterilization, hot water, and essential loads through outages.",
+            audience: {
+              "@type": "Audience",
+              audienceType:
+                "Hospitals, rural clinics, maternity wards, and health facilities in grid-unstable regions",
+            },
+            url: "https://www.gridstreak.com/solutions/hospitals-clinics",
+            image:
+              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Hospitalrural(1).png",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.gridstreak.com/",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Solutions",
+                item: "https://www.gridstreak.com/solutions",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Hospitals & Clinics",
+                item: "https://www.gridstreak.com/solutions/hospitals-clinics",
+              },
+            ],
+          },
+        ]}
+      />
+      <PageIntroAnimation
+        text="Hospitals & Clinics"
+        color="#c11764"
+        colorDark="#650a35"
+        onFinish={() => setIntroDone(true)}
       />
       <div className="hc-container">
 
       {/* HERO SECTION */}
-      <section className="hc-hero">
+      <section className="hc-hero" data-intro-ready={introDone ? "true" : undefined}>
         <div className="hc-hero-content">
           <h1>Reliable, Clean Energy for Hospitals & Clinics Anywhere</h1>
           <p>
@@ -423,7 +526,8 @@ const HospitalsClinics = () => {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA — temporarily disabled */}
+      {/*
       <section className="hc-cta" id="deployment-plan">
         <div className="hc-cta__media" aria-hidden="true">
           <img
@@ -445,6 +549,7 @@ const HospitalsClinics = () => {
         </div>
         </div>
       </section>
+      */}
 
       </div>
     </>
