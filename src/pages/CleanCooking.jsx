@@ -19,15 +19,9 @@ import {
 import SEO from "../components/SEO";
 import HealthcareProductsSection from "../components/HospitalsClinics/HealthcareProductsSection";
 import PageIntroAnimation from "../components/PageIntroAnimation";
+import CookingCrisisCarousel from "../components/CleanCooking/CookingCrisisCarousel";
 import "./CleanCooking.css";
 import "./HospitalsClinics.css";
-
-const cookingChallengeStats = [
-  "Over 900 million people rely on charcoal, firewood, and kerosene for cooking.",
-  "Household air pollution causes over 3.2 million deaths annually.",
-  "Families spend a large share of income on cooking fuel and energy.",
-  "Traditional cooking contributes to deforestation and CO2 emissions.",
-];
 
 const thermalFeatureCards = [
   {
@@ -396,7 +390,7 @@ const CleanCooking = () => {
         description="Safe, affordable, smoke-free clean cooking powered by GridStreak's sand-based thermal batteries — for homes, schools, and clinics, on-grid or off-grid."
         canonical="https://www.gridstreak.com/solutions/clean-cooking"
         type="website"
-        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking(2).png"
+        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg"
         meta={[
           { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
           {
@@ -435,7 +429,7 @@ const CleanCooking = () => {
             },
             primaryImageOfPage: {
               "@type": "ImageObject",
-              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking(2).png",
+              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
             },
           },
           {
@@ -462,7 +456,7 @@ const CleanCooking = () => {
             },
             url: "https://www.gridstreak.com/solutions/clean-cooking",
             image:
-              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking(2).png",
+              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
           },
           {
             "@context": "https://schema.org",
@@ -513,64 +507,6 @@ const CleanCooking = () => {
               </Link>
             </div>
           </div>
-        </section>
-
-        <section className="hc-section hc-problem cc-crisis-problem">
-          <h2 className="hc-problem-title">
-            The Traditional Cooking Fuel <span className="hc-problem-title-accent">Crisis</span>
-          </h2>
-          <div className="hc-problem-grid">
-            <ul className="hc-problem-list hc-problem-list--left" aria-label="Key statistics">
-              <li>{cookingChallengeStats[0]}</li>
-              <li>{cookingChallengeStats[1]}</li>
-            </ul>
-
-            <div className="hc-problem-scene-wrap" aria-hidden="true">
-              <div className="hc-cube-scene">
-                <div className="hc-cube-platform">
-                  <div className="hc-cube-stage">
-                    <div />
-                    <div />
-                    <div />
-                    <div />
-                  </div>
-                </div>
-                <div className="hc-cube-bottom">
-                  <i>
-                    <div className="hc-cube-mid">
-                      <i />
-                      <i />
-                      <i />
-                      <i />
-                      <i>
-                        <div className="hc-cube-top">
-                          <i />
-                          <i />
-                          <i />
-                          <i />
-                          <i />
-                        </div>
-                      </i>
-                    </div>
-                  </i>
-                  <i />
-                  <i />
-                  <i />
-                  <i />
-                </div>
-              </div>
-            </div>
-
-            <ul className="hc-problem-list hc-problem-list--right" aria-label="Operational impact">
-              <li>{cookingChallengeStats[2]}</li>
-              <li>{cookingChallengeStats[3]}</li>
-            </ul>
-          </div>
-          <p className="hc-highlight hc-problem-foot">
-            GridStreak provides a scalable, long-term solution enabling smoke-free,
-            cost-effective, and sustainable cooking in both urban and rural
-            environments.
-          </p>
         </section>
 
         <section className="cc-section cc-solar-grid-section" ref={solarSectionRef}>
@@ -639,30 +575,8 @@ const CleanCooking = () => {
           </div>
         </section>
 
-        <section className="cc-section cc-section-dark cc-thermal-section">
-          <h2>Clean Cooking Powered by Thermal Energy Storage</h2>
-          <p className="cc-thermal-intro">
-            GridStreak systems use sand-based thermal energy storage technology to
-            store energy and deliver high, consistent heat on demand.
-          </p>
-          <div className="cc-thermal-cards" role="list" aria-label="Thermal storage benefits">
-            {thermalFeatureCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <article className="cc-thermal-card" role="listitem" key={card.title}>
-                  <span className="cc-thermal-icon" aria-hidden="true">
-                    <Icon />
-                  </span>
-                  <h3>{card.title}</h3>
-                  <p>{card.text}</p>
-                </article>
-              );
-            })}
-          </div>
-          <p className="hc-highlight cc-thermal-highlight">
-            With a 25+ year lifespan, GridStreak offers a durable and
-            cost-effective alternative to conventional cooking systems.
-          </p>
+        <section className="hc-section hc-problem cc-crisis-problem">
+          <CookingCrisisCarousel reducedMotion={!!prefersReducedMotion} />
         </section>
 
         {/*
@@ -691,6 +605,32 @@ const CleanCooking = () => {
           products={cleanCookingProducts}
           imageOverride="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/kilnn.jpg"
         />
+
+        <section className="cc-section cc-section-dark cc-thermal-section">
+          <h2>Clean Cooking Powered by Thermal Energy Storage</h2>
+          <p className="cc-thermal-intro">
+            GridStreak systems use sand-based thermal energy storage technology to
+            store energy and deliver high, consistent heat on demand.
+          </p>
+          <div className="cc-thermal-cards" role="list" aria-label="Thermal storage benefits">
+            {thermalFeatureCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <article className="cc-thermal-card" role="listitem" key={card.title}>
+                  <span className="cc-thermal-icon" aria-hidden="true">
+                    <Icon />
+                  </span>
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              );
+            })}
+          </div>
+          <p className="hc-highlight cc-thermal-highlight">
+            With a 25+ year lifespan, GridStreak offers a durable and
+            cost-effective alternative to conventional cooking systems.
+          </p>
+        </section>
 
         <section className="cc-section cc-impact-section" ref={impactSectionRef}>
           <h2>Measurable Impact for Households &amp; Communities</h2>

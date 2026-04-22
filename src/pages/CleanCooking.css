@@ -17,7 +17,7 @@
   display: grid;
   place-items: center;
   padding: 8rem 1.2rem 3rem;
-  background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleancooking(2).png");
+  background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg");
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -1179,5 +1179,13 @@
   .cc-container-vortex {
     --sz: min(94vw, 340px);
   }
+}
+
+/* Crisis section: just the full-viewport carousel, no padding/min-height */
+.cc-crisis-problem {
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 

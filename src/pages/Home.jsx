@@ -88,7 +88,7 @@ function Home() {
             <h1>{heroSlides[currentSlide].heading}</h1>
             <p>{heroSlides[currentSlide].sub}</p>
           </div>
-          <Link to="/company" className="hero-btn">
+          <Link to="/solutions" className="hero-btn">
             Learn More
           </Link>
         </div>

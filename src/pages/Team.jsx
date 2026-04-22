@@ -15,14 +15,14 @@ const TEAM_MEMBERS = [
   {
     name: "Kombo Steve",
     role: "Computational Material Scientist",
-    bio: "Models and optimizes the sand-based materials that let our thermal batteries store heat efficiently.",
+    bio: "Models and optimizes the materials inside GridStreak's thermal batteries, tuning how they capture, store, and release heat to deliver clean, reliable energy.",
     photo:
       "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Kombo.jpeg",
   },
   {
     name: "Lorna Wanderi",
-    role: "Software Engineer",
-    bio: "Builds the software, controls, and monitoring tools that keep every GridStreak deployment connected.",
+    role: "Embedded Software Engineer",
+    bio: "Builds the embedded software, controls, and monitoring tools that keep every GridStreak deployment connected and running reliably.",
     photo:
       "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Lonzieee.jpeg",
   },
@@ -49,7 +49,7 @@ const Team = () => {
     <>
       <SEO
         title="Our Team | GridStreak"
-        description="Meet the team building GridStreak — engineers, operators, and advocates turning clean, reliable energy and water into reality."
+        description="Meet the engineers and scientists behind GridStreak — building long-duration thermal energy storage for clean cooking, healthcare, agriculture, and industry across Africa."
         canonical="https://www.gridstreak.com/team"
       />
 
@@ -59,11 +59,10 @@ const Team = () => {
             <span className="team-hero__kicker">The People Behind GridStreak</span>
             <h1 className="team-hero__title">Meet the Team Powering Clean Energy in Africa</h1>
             <p className="team-hero__lead team-hero__lead--desktop">
-              Engineers, scientists, and builders on a mission to deliver reliable energy,
-              clean water, and real impact to the communities that need it most.
+              We're engineers, scientists, and builders developing long-duration thermal energy storage.
             </p>
             <p className="team-hero__lead team-hero__lead--mobile">
-              Engineers and scientists building clean energy for Africa.
+              Engineers and scientists building long-duration thermal energy storage for Africa.
             </p>
           </div>
         </section>
