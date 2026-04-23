@@ -8,6 +8,11 @@ import {
   FaClock,
   FaFire,
   FaHeartbeat,
+  FaHome,
+  FaIndustry,
+  FaSchool,
+  FaUsers,
+  FaUtensils,
   FaLeaf,
   FaLungs,
   FaMoneyBillWave,
@@ -20,6 +25,7 @@ import SEO from "../components/SEO";
 import HealthcareProductsSection from "../components/HospitalsClinics/HealthcareProductsSection";
 import PageIntroAnimation from "../components/PageIntroAnimation";
 import CookingCrisisCarousel from "../components/CleanCooking/CookingCrisisCarousel";
+import ImpactCountStat from "../components/CleanCooking/ImpactCountStat";
 import "./CleanCooking.css";
 import "./HospitalsClinics.css";
 
@@ -59,9 +65,29 @@ const cleanCookingProducts = [
     shortLabel: "GridStreak Nano Cooker",
     title: "GridStreak Nano Cooker",
     subtitle: "Clean Cooking for Households",
+    sections: [
+      {
+        title: "Overview",
+        text: "Designed for families and small households, delivering reliable high-heat cooking performance for everyday meals and weekly routines.",
+        icon: FaHome,
+      },
+      { title: "Carbon Impact", text: "Avoids about 2-4 tons of CO2 emissions each year per household, depending on usage patterns.", icon: FaLeaf, highlight: true },
+      { title: "Capacity", text: "Comfortably serves up to 8 people in a typical family setting, including peak meal times.", icon: FaHeartbeat },
+      {
+        title: "Meals Per Charge",
+        text: "Delivers up to 8 meals per charge, optimized for African cooking styles, high-heat dishes, and long simmer times.",
+        icon: FaClock,
+      },
+      { title: "Power Input", text: "Operates efficiently with 2 x 600W solar panels for dependable daytime charging and predictable energy planning.", icon: FaSolarPanel },
+      {
+        title: "Best Fit",
+        text: "Compact, safe, and easy to use, making it ideal for replacing charcoal and firewood in everyday household cooking.",
+        icon: FaBolt,
+      },
+    ],
     bodyParagraphs: [
       "Designed for families and small households with reliable, high-heat cooking performance.",
-      "2-4 tons CO2 saved per year.",
+      { text: "2-4 tons CO2 saved per year.", highlight: true },
     ],
     bullets: [
       "Serves up to 8 people",
@@ -78,9 +104,29 @@ const cleanCookingProducts = [
     shortLabel: "GridStreak X Cooker",
     title: "GridStreak X Cooker",
     subtitle: "Community Cooking for Medium-Sized Groups",
+    sections: [
+      {
+        title: "Overview",
+        text: "Built for shared kitchens and community cooking where dependable clean heat is essential every day across multiple meals.",
+        icon: FaUtensils,
+      },
+      { title: "Carbon Impact", text: "Cuts roughly 6-12 tons of CO2 emissions per year, depending on usage intensity and fuel displacement.", icon: FaLeaf, highlight: true },
+      { title: "Capacity", text: "Designed to serve about 20-50 people across schools, feeding programs, or community kitchens.", icon: FaUsers },
+      { title: "Meals Per Charge", text: "Provides up to 8 meals per charge with stable heat output and consistent cooking quality.", icon: FaClock },
+      {
+        title: "Power Input",
+        text: "Operates with 4 x 600W solar panels to reduce fuel costs, improve operating efficiency, and support regular daily service.",
+        icon: FaSolarPanel,
+      },
+      {
+        title: "Best Fit",
+        text: "Well suited for schools, community kitchens, and small institutions as a scalable clean-cooking solution that can grow with demand.",
+        icon: FaSchool,
+      },
+    ],
     bodyParagraphs: [
       "Built for shared kitchens and community use where dependable clean cooking is essential.",
-      "6-12 tons CO2 saved per year.",
+      { text: "6-12 tons CO2 saved per year.", highlight: true },
     ],
     bullets: [
       "Serves 20-50 people",
@@ -97,9 +143,29 @@ const cleanCookingProducts = [
     shortLabel: "GridStreak Ultra Cooker",
     title: "GridStreak Ultra Cooker",
     subtitle: "Large-Scale Cooking & Water Heating",
+    sections: [
+      {
+        title: "Overview",
+        text: "Designed for high-demand environments that require continuous, high-capacity thermal output and operational reliability.",
+        icon: FaChargingStation,
+      },
+      { title: "Carbon Impact", text: "Can avoid 15-30+ tons of CO2 emissions per year at institutional scale with sustained daily operation.", icon: FaLeaf, highlight: true },
+      { title: "Capacity", text: "Built to serve approximately 100-200 people in high-volume operations such as boarding facilities.", icon: FaUsers },
+      {
+        title: "Operating Scope",
+        text: "Supports both clean cooking and water heating at institutional scale for continuous high-capacity use across multiple departments.",
+        icon: FaFire,
+      },
+      { title: "Power Input", text: "Operates with up to 10 x 600W solar panels to sustain large daily demand and long service windows.", icon: FaSolarPanel },
+      {
+        title: "Best Fit",
+        text: "Ideal for schools, hospitals, and large institutions needing a robust high-volume energy system for mission-critical operations.",
+        icon: FaIndustry,
+      },
+    ],
     bodyParagraphs: [
       "Designed for high-demand environments requiring continuous, high-capacity thermal output.",
-      "15-30+ tons CO2 saved per year.",
+      { text: "15-30+ tons CO2 saved per year.", highlight: true },
     ],
     bullets: [
       "Serves 100-200 people",
@@ -151,35 +217,50 @@ const impactInfoCards = [
     icon: FaMoneyBillWave,
     shortLabel: "COST",
     title: "Lower Fuel Costs",
-    description: "Reduced household fuel costs.",
+    stat: "Up to 80%",
+    countUp: { type: "single", end: 80, format: (n) => `Up to ${Math.round(n)}%` },
+    description: "less on household fuel in a typical year.",
     color: "#f2c300",
   },
   {
     icon: FaLungs,
     shortLabel: "AIR",
     title: "Cleaner Indoor Air",
-    description: "Elimination of indoor air pollution.",
+    stat: "Zero smoke",
+    countUp: null,
+    description: "No smoke or indoor fumes from the cookstove.",
     color: "#13b5cf",
   },
   {
     icon: FaTree,
     shortLabel: "FOREST",
     title: "Forest Protection",
-    description: "Reduced deforestation and charcoal demand.",
+    stat: "2–30+ tonnes",
+    countUp: {
+      type: "range",
+      endMin: 2,
+      endMax: 30,
+      format: (a, b) => `${Math.round(a)}–${Math.round(b)}+ tonnes`,
+    },
+    description: "CO₂ avoided per home per year, by system size.",
     color: "#145b8c",
   },
   {
     icon: FaHeartbeat,
     shortLabel: "HEALTH",
     title: "Healthier Families",
-    description: "Improved health outcomes for families.",
+    stat: "600K+ per year",
+    countUp: { type: "k", end: 600, format: (n) => `${Math.round(n)}K+ per year` },
+    description: "deaths in sub-Saharan Africa from home air pollution. Clean cooking cuts exposure.",
     color: "#c11764",
   },
   {
     icon: FaBolt,
     shortLabel: "ACCESS",
     title: "Reliable Energy Access",
-    description: "Increased access to clean and reliable cooking energy.",
+    stat: "25+ years",
+    countUp: { type: "single", end: 25, format: (n) => `${Math.round(n)}+ years` },
+    description: "expected life. Steady clean heat for cooking, every day.",
     color: "#f03b47",
   },
 ];
@@ -260,6 +341,7 @@ const CleanCooking = () => {
   const [solarVisible, setSolarVisible] = useState(false);
   const [solarStart, setSolarStart] = useState(false);
   const [impactVisible, setImpactVisible] = useState(false);
+  const [impactCountActive, setImpactCountActive] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(
     typeof window === "undefined" ? 1280 : window.innerWidth,
   );
@@ -368,6 +450,34 @@ const CleanCooking = () => {
     return () => {
       observer.disconnect();
     };
+  }, []);
+
+  // Count-up whenever a meaningful part of the impact section is in view. Turn
+  // off when it leaves, so re-entering replays the animation. (No one-shot:
+  // tall blocks need a loose visibility test so intersectionRatio can be low.)
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const el = impactSectionRef.current;
+    if (!el) return undefined;
+
+    const isMeaningfulVisible = (entry) => {
+      if (!entry.isIntersecting) return false;
+      const hVis = entry.intersectionRect?.height ?? 0;
+      return entry.intersectionRatio >= 0.06 || hVis >= 80;
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          setImpactCountActive(isMeaningfulVisible(entry));
+        }
+      },
+      { root: null, threshold: [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] },
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -601,9 +711,11 @@ const CleanCooking = () => {
         <HealthcareProductsSection
           sectionId="clean-cooking-systems"
           headingId="clean-cooking-systems-heading"
-          sectionTitle="Our Clean Cooking Systems"
+          sectionTitle="Our Products"
           products={cleanCookingProducts}
           imageOverride="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/kilnn.jpg"
+          autoRotate
+          autoRotateIntervalMs={14000}
         />
 
         <section className="cc-section cc-section-dark cc-thermal-section">
@@ -722,7 +834,18 @@ const CleanCooking = () => {
                       </span>
                       <div>
                         <h3>{item.title}</h3>
-                        <p>{item.description}</p>
+                        <p>
+                          <ImpactCountStat
+                            stat={item.stat}
+                            countUp={item.countUp}
+                            start={impactCountActive}
+                            reducedMotion={!!prefersReducedMotion}
+                            delayMs={index * 150}
+                            style={{ color: item.color }}
+                          />
+                          {" "}
+                          {item.description}
+                        </p>
                       </div>
                     </motion.article>
                   );
@@ -852,7 +975,23 @@ const CleanCooking = () => {
                 transition={{ duration: 0.34, delay: 0.82 + index * 0.08 }}
               >
                 <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <p>
+                  <ImpactCountStat
+                    stat={item.stat}
+                    countUp={item.countUp}
+                    start={impactCountActive}
+                    reducedMotion={!!prefersReducedMotion}
+                    delayMs={index * 150}
+                    style={{
+                      color: item.color,
+                      display: "block",
+                      fontSize: "1.25em",
+                      lineHeight: 1.15,
+                      marginBottom: "0.2em",
+                    }}
+                  />
+                  {item.description}
+                </p>
               </motion.article>
                 );
               })()
@@ -942,4 +1081,3 @@ const CleanCooking = () => {
 };
 
 export default CleanCooking;
-

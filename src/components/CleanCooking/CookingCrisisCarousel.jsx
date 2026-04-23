@@ -61,8 +61,10 @@ export default function CookingCrisisCarousel({
   const [virtualIndex, setVirtualIndex] = useState(1); // start on first real slide
   const [animate, setAnimate] = useState(true);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
   const baseId = useId();
   const trackRef = useRef(null);
+  const rootRef = useRef(null);
 
   // Real slide index (0..total-1) derived from the virtual index.
   const currentIndex = wrap(virtualIndex - 1, total);
@@ -87,15 +89,33 @@ export default function CookingCrisisCarousel({
     }
   };
 
-  // Autoplay always advances forward — the seamless loop handles the wrap.
+  // Start autoplay only when the section is visible in the viewport.
   useEffect(() => {
-    if (!autoplay || reducedMotion || paused || total <= 1) return undefined;
+    const el = rootRef.current;
+    if (typeof window === "undefined" || !el) return undefined;
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return undefined;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+      },
+      { threshold: 0.2, rootMargin: "0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Autoplay advances only while in view — the seamless loop handles the wrap.
+  useEffect(() => {
+    if (!autoplay || reducedMotion || paused || !inView || total <= 1) return undefined;
     const id = window.setInterval(() => {
       setAnimate(true);
       setVirtualIndex((v) => v + 1);
     }, autoplayIntervalMs);
     return () => window.clearInterval(id);
-  }, [autoplay, reducedMotion, paused, total, autoplayIntervalMs]);
+  }, [autoplay, reducedMotion, paused, inView, total, autoplayIntervalMs]);
 
   useEffect(() => {
     if (typeof document === "undefined") return undefined;
@@ -135,6 +155,7 @@ export default function CookingCrisisCarousel({
 
   return (
     <div
+      ref={rootRef}
       className="cc-crisis-carousel"
       role="region"
       aria-roledescription="carousel"

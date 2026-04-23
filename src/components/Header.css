@@ -202,8 +202,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--icon-color, #555) 35%, #dcdcdc);
+  background: color-mix(in srgb, var(--icon-color, #555) 8%, #ffffff);
   font-size: 1rem;
   color: var(--icon-color, #555);
+  flex-shrink: 0;
 }
 
 .dropdown-item-label {

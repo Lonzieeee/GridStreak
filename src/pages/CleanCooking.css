@@ -340,7 +340,7 @@
 .cc-solar-grid-section {
   --cc-pattern-url: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/navbar.png");
   --cc-pattern-size: 52px;
-  --cc-pattern-opacity: 0.11;
+  --cc-pattern-opacity: 0.17;
   --cc-pattern-tilt: -8deg;
   width: 100vw;
   max-width: none;
@@ -561,7 +561,7 @@
 
 .cc-impact-description-right {
   transform: translate(-100%, -50%);
-  text-align: right;
+  text-align: left;
 }
 
 .cc-impact-description-left {
@@ -571,7 +571,7 @@
 
 .cc-impact-description-center {
   transform: translate(-50%, -50%);
-  text-align: center;
+  text-align: left;
 }
 
 .cc-impact-description-1 {
@@ -745,6 +745,7 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+  margin-bottom: 0;
   border-radius: 0;
   overflow: hidden;
 }

@@ -15,6 +15,7 @@ import PageIntroAnimation from "../components/PageIntroAnimation";
 import TechBenefitsSlider from "../components/WaterPurification/TechBenefitsSlider";
 import WaterProductsSection from "../components/WaterPurification/WaterProductsSection";
 import ApplicationsCardStack from "../components/WaterPurification/ApplicationsCardStack";
+import ImpactCountStat from "../components/CleanCooking/ImpactCountStat";
 import "./WaterPurification.css";
 
 const problemSlideViewport = { once: true, amount: 0.32, margin: "0px 0px -100px 0px" };
@@ -54,6 +55,8 @@ const impactInfoCards = [
     icon: FaMoneyBillWave,
     shortLabel: "COST",
     title: "Lower Operating Costs",
+    stat: "Up to 60%",
+    countUp: { type: "single", end: 60, format: (n) => `Up to ${Math.round(n)}%` },
     description: "Reduced diesel and fuel costs for water heating and distribution.",
     color: "#f2c300",
   },
@@ -61,6 +64,13 @@ const impactInfoCards = [
     icon: FaLeaf,
     shortLabel: "CO₂",
     title: "Lower Emissions",
+    stat: "6–30+ tonnes",
+    countUp: {
+      type: "range",
+      endMin: 6,
+      endMax: 30,
+      format: (a, b) => `${Math.round(a)}-${Math.round(b)}+ tonnes`,
+    },
     description: "Cleaner water systems powered by solar + thermal storage.",
     color: "#13b5cf",
   },
@@ -68,6 +78,8 @@ const impactInfoCards = [
     icon: FaRecycle,
     shortLabel: "PLASTIC",
     title: "Less Plastic Waste",
+    stat: "Up to 90%",
+    countUp: { type: "single", end: 90, format: (n) => `Up to ${Math.round(n)}%` },
     description: "Plastic diverted from rivers, drains, and coastal ecosystems.",
     color: "#145b8c",
   },
@@ -75,6 +87,8 @@ const impactInfoCards = [
     icon: FaHeartbeat,
     shortLabel: "HEALTH",
     title: "Healthier Communities",
+    stat: "24/7 hygiene support",
+    countUp: { type: "single", end: 24, format: (n) => `${Math.round(n)}/7 hygiene support` },
     description: "Safe drinking water and reliable hot water for hygiene.",
     color: "#c11764",
   },
@@ -82,6 +96,8 @@ const impactInfoCards = [
     icon: FaTint,
     shortLabel: "ACCESS",
     title: "Reliable Water Access",
+    stat: "24/7 access",
+    countUp: { type: "single", end: 24, format: (n) => `${Math.round(n)}/7 access` },
     description: "24/7 clean water availability in off-grid and coastal regions.",
     color: "#f03b47",
   },
@@ -150,6 +166,7 @@ const WaterPurification = () => {
   const prefersReducedMotion = useReducedMotion();
   const impactSectionRef = useRef(null);
   const [impactVisible, setImpactVisible] = useState(false);
+  const [impactCountActive, setImpactCountActive] = useState(false);
   const [introDone, setIntroDone] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(
     typeof window === "undefined" ? 1280 : window.innerWidth,
@@ -169,6 +186,15 @@ const WaterPurification = () => {
     const observer = new IntersectionObserver(
       ([entry]) => setImpactVisible(entry.isIntersecting),
       { threshold: 0.2 },
+    );
+    if (impactSectionRef.current) observer.observe(impactSectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setImpactCountActive(entry.isIntersecting),
+      { threshold: 0.01 },
     );
     if (impactSectionRef.current) observer.observe(impactSectionRef.current);
     return () => observer.disconnect();
@@ -576,7 +602,17 @@ const WaterPurification = () => {
                       </span>
                       <div>
                         <h3>{item.title}</h3>
-                        <p>{item.description}</p>
+                        <p>
+                          <ImpactCountStat
+                            stat={item.stat}
+                            countUp={item.countUp}
+                            start={impactCountActive}
+                            reducedMotion={!!prefersReducedMotion}
+                            delayMs={index * 150}
+                            style={{ color: item.color }}
+                          />{" "}
+                          {item.description}
+                        </p>
                       </div>
                     </motion.article>
                   );
@@ -711,7 +747,23 @@ const WaterPurification = () => {
                       transition={{ duration: 0.34, delay: 0.82 + index * 0.08 }}
                     >
                       <h3>{item.title}</h3>
-                      <p>{item.description}</p>
+                      <p>
+                        <ImpactCountStat
+                          stat={item.stat}
+                          countUp={item.countUp}
+                          start={impactCountActive}
+                          reducedMotion={!!prefersReducedMotion}
+                          delayMs={index * 150}
+                          style={{
+                            color: item.color,
+                            display: "block",
+                            fontSize: "1.25em",
+                            lineHeight: 1.15,
+                            marginBottom: "0.2em",
+                          }}
+                        />
+                        {item.description}
+                      </p>
                     </motion.article>
                   );
                 })()
