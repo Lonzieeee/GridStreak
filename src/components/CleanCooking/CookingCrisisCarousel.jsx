@@ -29,7 +29,7 @@ const CRISIS_SLIDES = [
   {
     id: "crisis-4",
     eyebrow: "Crisis 04",
-    text: "Traditional cooking emits major climate pollutants including CO2 and methane—driving over 1 billion metric tons of CO2-equivalent emissions each year.",
+    text: "Traditional cooking releases methane and CO2, driving over 1 billion metric tons of climate emissions each year.",
     image:
       "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Deforestation-ezremove.webp",
     alt: "A deforested hillside with charcoal kilns billowing smoke into the sky.",
