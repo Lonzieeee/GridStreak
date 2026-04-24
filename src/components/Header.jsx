@@ -141,12 +141,12 @@ function Header() {
           {/* close icon for mobile */}
           <button className="close-menu" onClick={() => setIsOpen(false)} aria-label="Close menu">&times;</button>
           <Link
-            to="/#"
+            to="/"
             onClick={handleNavClick}
-            className={isActive("/technology") ? "active-link" : ""}
-            title="GridStreak Technology - Thermal Brick Innovation"
+            className={isActive("/") ? "active-link" : ""}
+            title="GridStreak Home"
           >
-            Technology
+            Home
           </Link>
           <div
             className="nav-dropdown"
@@ -204,9 +204,9 @@ function Header() {
             to="/team"
             onClick={handleNavClick}
             className={isActive("/team") ? "active-link" : ""}
-            title="GridStreak Team - Meet the People Behind the Mission"
+            title="About GridStreak - Meet the People Behind the Mission"
           >
-            Team
+            About
           </Link>
           <Link
             to="/sustainability"
@@ -218,11 +218,13 @@ function Header() {
           </Link>
           <Link
             to="#"
-            onClick={handleNavClick}
-            className={isActive("/insights") ? "active-link" : ""}
-            title="GridStreak Insights - Industry News & Updates"
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            className=""
+            title="GridStreak Industries - Sector Solutions"
           >
-            Insights
+            Industries
           </Link>
         </nav>
 

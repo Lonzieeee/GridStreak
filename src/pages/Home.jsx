@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SEO from "../components/SEO";
-const heroImage = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hero1.webp";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import CookingCrisisCarousel from "../components/CleanCooking/CookingCrisisCarousel";
 const flexibleIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/flexible.svg";
 const carbonIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/zero-carbon.svg";
 const reliableIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/reliable.svg";
@@ -13,32 +13,63 @@ import Sustainability from "../components/Sustainability";
 import WhoWeAre from "../components/WhoWeAre";
 import MapSection from "../components/MapSection";
 
+const MOBILE_HERO_IMAGE = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakNano.jpg";
+const HERO_ROTATE_MS = 5500;
+
 const heroSlides = [
   {
     heading: "Zero-Carbon Grid Stability Starts Here",
-    sub: "Our thermal bricks convert plastic waste into grid resilience—stabilizing networks with 100% clean energy storage.",
+    sub: "Our thermal bricks convert plastic waste into grid resilience stabilizing networks with 100% clean energy storage.",
   },
   {
     heading: "Grid Stability Powered by 100% Clean and Renewable Energy.",
-    
+    sub: "Containerized thermal storage systems deliver dependable power continuity for industrial and community-scale operations.",
+  },
+  {
+    heading: "Thermal Energy Systems Built for Power, Heat, and Clean Water.",
+    sub: "From GridStreak X to Ultra and clean water deployments, each unit turns renewable energy into reliable daily service.",
+  },
+];
+
+const heroCarouselSlides = [
+  {
+    id: "home-gridstreak-x",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakX.jpg",
+    alt: "GridStreak X thermal energy container with rooftop solar panels.",
+  },
+  {
+    id: "home-gridstreak-ultra",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakUltra.jpg",
+    alt: "GridStreak Ultra thermal brick battery system inside a container.",
+  },
+  {
+    id: "home-clean-water",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
+    alt: "GridStreak clean water thermal energy system inside containerized unit.",
   },
 ];
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isSliding, setIsSliding] = useState(false);
+  const [isMobileHero, setIsMobileHero] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false,
+  );
+  const activeHeroSlide = heroSlides[currentSlide] ?? heroSlides[0];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsSliding(true);
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-        setIsSliding(false);
-      }, 600);
-    }, 5000);
-
-    return () => clearInterval(interval);
+  React.useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const onResize = () => setIsMobileHero(window.innerWidth <= 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  React.useEffect(() => {
+    if (!isMobileHero) return undefined;
+    const id = window.setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, HERO_ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [isMobileHero]);
 
   return (
     <div className="home-page">
@@ -74,19 +105,26 @@ function Home() {
         ]}
       />
       {/* Hero Section */}
-      <section
-        className="hero"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
+      <section className="hero">
+        {isMobileHero ? (
+          <div
+            className="hero-mobile-image"
+            style={{ backgroundImage: `url(${MOBILE_HERO_IMAGE})` }}
+            aria-hidden="true"
+          />
+        ) : (
+          <CookingCrisisCarousel
+            slides={heroCarouselSlides}
+            showCaptions={false}
+            ariaLabel="GridStreak system showcase"
+            onSlideChange={setCurrentSlide}
+          />
+        )}
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <div
-            className={`hero-slide ${
-              isSliding ? "slide-out-left" : "slide-in-right"
-            }`}
-          >
-            <h1>{heroSlides[currentSlide].heading}</h1>
-            <p>{heroSlides[currentSlide].sub}</p>
+          <div className="hero-slide slide-in-right">
+            <h1>{activeHeroSlide.heading}</h1>
+            <p>{activeHeroSlide.sub}</p>
           </div>
           <Link to="/solutions" className="hero-btn">
             Learn More

@@ -29,7 +29,7 @@ const CRISIS_SLIDES = [
   {
     id: "crisis-4",
     eyebrow: "Crisis 04",
-    text: "Traditional cooking contributes to deforestation and CO₂ emissions.",
+    text: "Traditional cooking emits major climate pollutants including CO2 and methane—driving over 1 billion metric tons of CO2-equivalent emissions each year.",
     image:
       "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Deforestation-ezremove.webp",
     alt: "A deforested hillside with charcoal kilns billowing smoke into the sky.",
@@ -44,8 +44,12 @@ export default function CookingCrisisCarousel({
   reducedMotion = false,
   autoplay = true,
   autoplayIntervalMs = AUTOPLAY_INTERVAL_MS,
+  slides: slidesProp,
+  showCaptions = true,
+  ariaLabel = "Traditional cooking fuel crisis",
+  onSlideChange,
 }) {
-  const slides = CRISIS_SLIDES;
+  const slides = Array.isArray(slidesProp) && slidesProp.length > 0 ? slidesProp : CRISIS_SLIDES;
   const total = slides.length;
 
   // Build an extended track with a clone of the last slide at the start
@@ -118,6 +122,12 @@ export default function CookingCrisisCarousel({
   }, [autoplay, reducedMotion, paused, inView, total, autoplayIntervalMs]);
 
   useEffect(() => {
+    if (typeof onSlideChange === "function") {
+      onSlideChange(currentIndex);
+    }
+  }, [currentIndex, onSlideChange]);
+
+  useEffect(() => {
     if (typeof document === "undefined") return undefined;
     const onVisibility = () => setPaused(document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
@@ -159,7 +169,7 @@ export default function CookingCrisisCarousel({
       className="cc-crisis-carousel"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Traditional cooking fuel crisis"
+      aria-label={ariaLabel}
       onKeyDown={onKeyDown}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -195,11 +205,13 @@ export default function CookingCrisisCarousel({
                 />
                 <div className="cc-crisis-slide__scrim" aria-hidden="true" />
 
-                <div className="cc-crisis-slide__body">
-                  <p className="cc-crisis-slide__eyebrow">{slide.eyebrow}</p>
-                  <p className="cc-crisis-slide__quote-mark" aria-hidden="true">“</p>
-                  <h3 className="cc-crisis-slide__text">{slide.text}</h3>
-                </div>
+                {showCaptions ? (
+                  <div className="cc-crisis-slide__body">
+                    <p className="cc-crisis-slide__eyebrow">{slide.eyebrow}</p>
+                    <p className="cc-crisis-slide__quote-mark" aria-hidden="true">“</p>
+                    <h3 className="cc-crisis-slide__text">{slide.text}</h3>
+                  </div>
+                ) : null}
               </article>
             );
           })}
@@ -241,7 +253,7 @@ export default function CookingCrisisCarousel({
                   data-current={isCurrent ? "" : undefined}
                   role="tab"
                   aria-selected={isCurrent}
-                  aria-label={`Go to crisis ${index + 1}`}
+                  aria-label={`Go to slide ${index + 1}`}
                   onClick={() => goTo(index)}
                 >
                   <span className="cc-crisis-carousel__dot-bar" />
