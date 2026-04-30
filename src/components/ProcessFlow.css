@@ -57,6 +57,12 @@
   font-size: 1.02rem;
 }
 
+.process-box__sub-label {
+  display: inline-block;
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+
 .center-box {
   background-color: #D9FAD3;
   font-weight: bold;

@@ -14,7 +14,7 @@ function WhoWeAre() {
             and emergency applications.
             <br /><br />
             Our advanced systems store energy from solar energy, geothermal energy, off-peak grid electricity, and
-            co-pyrolysis, converting it into consistent thermal power for real-world use. GridStreak enables clean
+            co-pyrolysis (plastic waste or organic waste), converting it into consistent thermal power for real-world use. GridStreak enables clean
             cooking, water heating, medical sterilization, vaccine and drug cold-chain stability, agricultural
             processing, and industrial heat applications, making it a versatile solution for both off-grid and grid-
             connected environments.

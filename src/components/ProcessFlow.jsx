@@ -86,7 +86,9 @@ function ProcessFlow() {
 
           <div className="column-left">
             <div className="process-box process-box--wide-label" style={{ top: "260px" }}>
-              Co-pyrolysis of Organic and Inorganic Waste
+              Co-pyrolysis
+              <br />
+              <span className="process-box__sub-label">(Plastic Waste + 0rganic Waste)</span>
             </div>
           </div>
 
