@@ -12,7 +12,6 @@ import "./SolutionOverviewSection.css";
 import "./TechnologyDeepSection.css";
 import "./ClimateImpactSection.css";
 import "./ValueCreationSection.css";
-import waterSystemsCardImage from "/home/lonzieee/.cursor/projects/home-lonzieee-Documents-CODE-gridstreak/assets/image-77f07c6a-ae9a-426a-b7c1-8633e3eb9d1a.png";
 
 const wasteCrisisImages = [
   "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/impactsectionwastemanagement.jpg",
@@ -457,7 +456,7 @@ const valueCreationCards = [
   },
   {
     title: "Water Systems",
-    image: waterSystemsCardImage,
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/impactsectionwastemanagement.jpg",
     body: "GridStreak delivers efficient heat for water sanitation and purification, supporting communities and institutions while reducing reliance on diesel systems.",
   },
   {
