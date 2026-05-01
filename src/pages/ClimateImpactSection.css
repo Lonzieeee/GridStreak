@@ -1,0 +1,102 @@
+.climate-impact-section {
+  position: relative;
+  width: 100%;
+  min-height: 90vh;
+  padding: clamp(3.4rem, 8vh, 5.2rem) clamp(1rem, 3vw, 2.4rem);
+  background-color: #1b2632;
+  background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/wide-angle-shot-white-smoke-coming-out-nuclear-plants.webp");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.climate-impact-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    116deg,
+    rgba(8, 10, 14, 0.78) 0%,
+    rgba(17, 23, 32, 0.68) 42%,
+    rgba(18, 27, 36, 0.62) 100%
+  );
+}
+
+.climate-impact-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  color: #f4f7fb;
+}
+
+.climate-impact-header {
+  max-width: 760px;
+  margin-bottom: clamp(1.6rem, 4vh, 2.2rem);
+}
+
+.climate-impact-header h2 {
+  margin: 0 0 0.6rem;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.08;
+}
+
+.climate-impact-header p {
+  margin: 0;
+  font-size: clamp(0.98rem, 1.35vw, 1.2rem);
+  line-height: 1.5;
+  color: rgba(244, 247, 251, 0.88);
+  max-width: 66ch;
+}
+
+.climate-impact-metrics {
+  margin-top: clamp(1.2rem, 3vh, 1.8rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.6vw, 1rem);
+  position: relative;
+  z-index: 1;
+}
+
+.climate-impact-metric {
+  padding: clamp(0.4rem, 1vw, 0.7rem) clamp(0.5rem, 1.2vw, 0.9rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.climate-impact-metric-value {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 800;
+  color: #b0f222;
+  line-height: 1.05;
+}
+
+.climate-impact-metric-value--text {
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  color: #b0f222;
+  font-weight: 700;
+}
+
+.climate-impact-metric-label {
+  font-size: clamp(0.84rem, 1vw, 0.95rem);
+  color: rgba(244, 247, 251, 0.88);
+  line-height: 1.35;
+}
+
+@media (max-width: 960px) {
+  .climate-impact-section {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+
+  .climate-impact-metrics {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { FaWheatAwnCircleExclamation, FaCloud, FaUsers } from "react-icons/fa6";
 import { FaRecycle, FaFire, FaThermometerHalf, FaBolt } from "react-icons/fa";
 import ImpactCountStat from "../components/CleanCooking/ImpactCountStat";
@@ -10,9 +10,31 @@ import "./WasteManagementHero.css";
 import "./WasteCrisisSection.css";
 import "./SolutionOverviewSection.css";
 import "./TechnologyDeepSection.css";
+import "./ClimateImpactSection.css";
+import "./ValueCreationSection.css";
+import waterSystemsCardImage from "/home/lonzieee/.cursor/projects/home-lonzieee-Documents-CODE-gridstreak/assets/image-77f07c6a-ae9a-426a-b7c1-8633e3eb9d1a.png";
 
-const WasteCrisisSection = () => (
-  <section className="waste-crisis-section">
+const wasteCrisisImages = [
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/impactsectionwastemanagement.jpg",
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/plasticlandfill-1.webp",
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/ocean.jpg",
+];
+
+const WasteCrisisSection = () => {
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (prefersReducedMotion) return undefined;
+    const id = window.setInterval(() => {
+      setActiveImageIdx((prev) => (prev + 1) % wasteCrisisImages.length);
+    }, 3600);
+
+    return () => window.clearInterval(id);
+  }, [prefersReducedMotion]);
+
+  return (
+    <section className="waste-crisis-section">
     <motion.div
       className="waste-crisis-content"
       initial={{ opacity: 0, y: 28 }}
@@ -72,17 +94,29 @@ const WasteCrisisSection = () => (
         </motion.div>
       </div>
     </motion.div>
-    <motion.img
-      className="waste-crisis-image"
-      src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/impactsectionwastemanagement.jpg"
-      alt="Waste management impact illustration"
+    <motion.div
+      className="waste-crisis-image-frame"
       initial={{ opacity: 0, x: 30, scale: 0.985 }}
       whileInView={{ opacity: 1, x: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.35 }}
       transition={{ duration: 0.6, ease: "easeOut", delay: 0.18 }}
-    />
+    >
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={wasteCrisisImages[activeImageIdx]}
+          className="waste-crisis-image"
+          src={wasteCrisisImages[activeImageIdx]}
+          alt="Waste crisis and pollution scene"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: "easeInOut" }}
+        />
+      </AnimatePresence>
+    </motion.div>
   </section>
-);
+  );
+};
 
 const solutionCardVariants = {
   hidden: { opacity: 0 },
@@ -368,10 +402,10 @@ const TechnologyDeepSection = () => {
               transition={{ duration: 0.44, ease: "easeOut", delay: 0.42 }}
             >
               <ImpactCountStat
-                stat="300-800°C+"
+                stat="300-1800°C+"
                 countUp={{
                   type: "single",
-                  end: 800,
+                  end: 1800,
                   format: (n) => `300-${Math.round(n)}\u00B0C+`,
                 }}
                 start={startMetricCount}
@@ -405,6 +439,218 @@ const TechnologyDeepSection = () => {
             </motion.article>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+};
+
+const valueCreationCards = [
+  {
+    title: "Clean Cooking",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/CLEANCOOKING%281%29.jpg",
+    body: "GridStreak replaces firewood and charcoal with clean, reliable heat, eliminating indoor air pollution while reducing fuel costs for households and community kitchens.",
+  },
+  {
+    title: "Agriculture",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/agricdry.jpg",
+    body: "By providing consistent thermal energy, GridStreak enables crop drying, preservation, and greenhouse heating, reducing post-harvest losses and improving productivity.",
+  },
+  {
+    title: "Water Systems",
+    image: waterSystemsCardImage,
+    body: "GridStreak delivers efficient heat for water sanitation and purification, supporting communities and institutions while reducing reliance on diesel systems.",
+  },
+  {
+    title: "Industry",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/industrytake2.jpg",
+    body: "GridStreak supplies low-cost process heat for small and medium industries, improving efficiency while lowering fuel and operational costs.",
+  },
+  {
+    title: "Emergency & Off-Grid",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency%281%29.jpg",
+    zoom: "128%",
+    body: "In remote and disaster settings, GridStreak provides reliable, rapidly deployable energy to support essential services like cooking, water, and shelter.",
+  },
+  {
+    title: "Waste Processing",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Untitled%20design.jpg",
+    body: "GridStreak converts organic and plastic waste into usable energy, reducing landfill dependency while enabling circular waste systems.",
+  },
+];
+
+const ValueCreationSection = () => {
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: false, amount: 0.24 });
+  const prefersReducedMotion = useReducedMotion();
+
+  const getCardMotion = (index) => {
+    const firstRow = index < 3;
+    if (prefersReducedMotion) {
+      return {
+        initial: false,
+        animate: { opacity: 1, x: 0, y: 0, scale: 1 },
+        transition: { duration: 0.2 },
+      };
+    }
+
+    if (firstRow) {
+      const xOffsets = [-48, 0, 48];
+      return {
+        initial: { opacity: 0, y: 34, x: xOffsets[index], scale: 0.9 },
+        animate: inView ? { opacity: 1, y: 0, x: 0, scale: 1 } : { opacity: 0, y: 34, x: xOffsets[index], scale: 0.9 },
+        transition: { duration: 0.52, delay: 0.12 + index * 0.12, ease: [0.22, 1, 0.36, 1] },
+      };
+    }
+
+    return {
+      initial: { opacity: 0, y: 24, scale: 0.96 },
+      animate: inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: 0.96 },
+      transition: { duration: 0.46, delay: 0.66 + (index - 3) * 0.1, ease: "easeOut" },
+    };
+  };
+
+  return (
+    <section className="value-creation-section" ref={sectionRef}>
+      <div className="value-creation-inner">
+        <motion.header
+          className="value-creation-header"
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
+          animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
+          <h2>Where GridStreak Creates Value</h2>
+          <p>From households to industry, delivering reliable energy across critical sectors.</p>
+        </motion.header>
+
+        <div className="value-creation-grid">
+          {valueCreationCards.map((card, index) => (
+            <motion.article
+              key={card.title}
+              className={`value-creation-card ${index < 3 ? "value-card-first-row" : "value-card-second-row"}`}
+              style={
+                card.image
+                  ? {
+                      backgroundImage: `url(${card.image})`,
+                      backgroundSize: card.zoom ?? "cover",
+                    }
+                  : undefined
+              }
+              {...getCardMotion(index)}
+            >
+              <div className="value-creation-card-overlay" />
+              <div className="value-creation-card-content">
+                <h3>{card.title}</h3>
+                <p>{card.body}</p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ClimateImpactSection = () => {
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, amount: 0.25 });
+  const prefersReducedMotion = useReducedMotion();
+  const [startCount, setStartCount] = useState(false);
+
+  useEffect(() => {
+    if (!inView) return undefined;
+
+    if (prefersReducedMotion) {
+      setStartCount(true);
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => setStartCount(true), 120);
+    return () => window.clearTimeout(timer);
+  }, [inView, prefersReducedMotion]);
+
+  return (
+    <section
+      className="climate-impact-section"
+      ref={sectionRef}
+      style={{
+        backgroundColor: "#1b2632",
+        backgroundImage:
+          'url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/wide-angle-shot-white-smoke-coming-out-nuclear-plants.webp")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="climate-impact-overlay" />
+      <div className="climate-impact-inner">
+        <motion.header
+          className="climate-impact-header"
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
+          animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
+          <h2>Measurable Climate Impact</h2>
+          <p>
+            Every ton of waste processed through GridStreak delivers verified emissions
+            reductions and helps shift communities away from landfill dependence.
+          </p>
+        </motion.header>
+
+        <div className="climate-impact-metrics" role="list" aria-label="Climate impact metrics">
+          <motion.div
+            className="climate-impact-metric"
+            role="listitem"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.06 }}
+          >
+            <ImpactCountStat
+              stat="100 kg CH₄"
+              countUp={{
+                type: "single",
+                end: 100,
+                format: (n) => `${Math.round(n)} kg CH₄`,
+              }}
+              start={startCount}
+              reducedMotion={!!prefersReducedMotion}
+              className="climate-impact-metric-value"
+            />
+            <span className="climate-impact-metric-label">avoided per ton</span>
+          </motion.div>
+
+          <motion.div
+            className="climate-impact-metric"
+            role="listitem"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.14 }}
+          >
+            <ImpactCountStat
+              stat="2.8 tCO₂e"
+              countUp={{
+                type: "single",
+                end: 2.8,
+                format: (n) => `${n.toFixed(1)} tCO₂e`,
+              }}
+              start={startCount}
+              reducedMotion={!!prefersReducedMotion}
+              delayMs={120}
+              className="climate-impact-metric-value"
+            />
+            <span className="climate-impact-metric-label">avoided per ton</span>
+          </motion.div>
+
+          <motion.div
+            className="climate-impact-metric"
+            role="listitem"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.22 }}
+          >
+            <strong className="climate-impact-metric-value climate-impact-metric-value--text">
+              Reduced landfill dependency
+            </strong>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -501,6 +747,8 @@ const WasteManagement = () => {
       <WasteCrisisSection />
       <SolutionOverviewSection />
       <TechnologyDeepSection />
+      <ValueCreationSection />
+      <ClimateImpactSection />
     </>
   );
 };
