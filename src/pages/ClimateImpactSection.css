@@ -1,8 +1,10 @@
 .climate-impact-section {
   position: relative;
   width: 100%;
+  max-width: 100%;
   min-height: 90vh;
-  padding: clamp(3.4rem, 8vh, 5.2rem) clamp(1rem, 3vw, 2.4rem);
+  padding: clamp(3.4rem, 8vh, 5.2rem) max(clamp(1rem, 3vw, 2.4rem), env(safe-area-inset-right))
+    clamp(3.4rem, 8vh, 5.2rem) max(clamp(1rem, 3vw, 2.4rem), env(safe-area-inset-left));
   background-color: #1b2632;
   background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/wide-angle-shot-white-smoke-coming-out-nuclear-plants.webp");
   background-size: cover;
@@ -29,6 +31,7 @@
   position: relative;
   z-index: 1;
   width: min(1320px, 100%);
+  max-width: 100%;
   margin: 0 auto;
   color: #f4f7fb;
 }
@@ -89,14 +92,43 @@
   line-height: 1.35;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
   .climate-impact-section {
     min-height: auto;
-    padding: 3rem 1rem;
+    padding-top: clamp(2.5rem, 6vh, 3.5rem);
+    padding-bottom: clamp(2.5rem, 6vh, 3.5rem);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 960px) {
+  .climate-impact-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.65rem, 1.8vw, 1rem);
+  }
+
+  .climate-impact-metric:last-child {
+    grid-column: 1 / -1;
+    max-width: 36rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .climate-impact-section {
+    min-height: auto;
+    padding: max(2.25rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+      max(2rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   }
 
   .climate-impact-metrics {
     grid-template-columns: 1fr;
-    gap: 0.7rem;
+    gap: 0.75rem;
+  }
+
+  .climate-impact-header h2 {
+    font-size: clamp(1.55rem, 5.5vw, 1.9rem);
+  }
+
+  .climate-impact-header p {
+    font-size: clamp(0.92rem, 3.2vw, 1rem);
   }
 }

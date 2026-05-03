@@ -3,10 +3,14 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: clamp(1.5rem, 3.2vh, 2.8rem) clamp(1rem, 2.5vw, 2.4rem);
+  padding: clamp(1.5rem, 3.2vh, 2.8rem) max(clamp(1rem, 2.5vw, 2.4rem), env(safe-area-inset-right))
+    clamp(1.5rem, 3.2vh, 2.8rem) max(clamp(1rem, 2.5vw, 2.4rem), env(safe-area-inset-left));
   background: #ffffff;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 
 .waste-tech-section::before {
@@ -42,9 +46,10 @@
   position: relative;
   z-index: 1;
   width: min(1320px, 100%);
+  max-width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(430px, 1.08fr) minmax(420px, 0.92fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   gap: clamp(1.8rem, 4.2vw, 4.2rem);
   align-items: center;
 }
@@ -136,7 +141,7 @@
 @media (max-width: 1120px) {
   .waste-tech-section {
     min-height: auto;
-    padding: 2rem 1rem 2.4rem;
+    padding: 2rem max(1rem, env(safe-area-inset-right)) 2.4rem max(1rem, env(safe-area-inset-left));
   }
 
   .waste-tech-inner {
@@ -145,14 +150,38 @@
   }
 
   .waste-tech-figure img {
-    height: clamp(300px, 48vh, 460px);
+    height: clamp(280px, 42vw, 460px);
+    max-height: min(520px, 70vh);
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1120px) {
+  .waste-tech-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.55rem, 1.2vw, 0.85rem);
+  }
+
+  .waste-tech-metrics .waste-tech-metric-row:nth-child(3) {
+    grid-column: auto;
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .waste-tech-metric-row {
+    padding: 0.5rem 0.35rem;
+    border-bottom: none;
+    border-right: 1px solid rgba(13, 13, 13, 0.1);
+  }
+
+  .waste-tech-metric-row:last-child {
+    border-right: none;
   }
 }
 
 @media (max-width: 760px) {
   .waste-tech-section {
     min-height: auto;
-    padding: 1.2rem 0.95rem 1.6rem;
+    padding: 1.2rem max(0.95rem, env(safe-area-inset-right)) 1.6rem max(0.95rem, env(safe-area-inset-left));
   }
 
   .waste-tech-content h2 {
@@ -169,7 +198,16 @@
     grid-template-columns: 1fr;
   }
 
+  .waste-tech-metrics .waste-tech-metric-row:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(260px, 100%);
+    border-right: none;
+  }
+
   .waste-tech-metric-row {
+    border-right: none;
+    border-bottom: 1px solid rgba(13, 13, 13, 0.12);
     gap: 0.24rem;
     padding: 0.42rem 0;
   }

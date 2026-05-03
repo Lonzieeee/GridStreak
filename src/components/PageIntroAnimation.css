@@ -258,6 +258,13 @@
   }
 }
 
+@media (max-width: 380px) {
+  .page-intro-title {
+    font-size: 9vmin;
+    max-width: 96vw;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-intro {
     display: none;

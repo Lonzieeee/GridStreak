@@ -1,9 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChatBot.css";
 
 const botIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/bot.png";
 const userIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/user.png";
+
+const INITIAL_BOT_MESSAGE =
+  "Hey! I'm StreakBot. Want to learn how we turn plastic into power?";
+
+const FAQ_RESPONSES = {
+  why_gridstreak:
+    "GridStreak offers a carbon-negative, low-cost, and scalable energy storage solution using plastic waste helping the planet while saving money.",
+  what_does_gridstreak_do:
+    "GridStreak converts plastic waste into thermal bricks that store clean energy, helping stabilize grids and reduce fossil fuel use.",
+  who_can_use_gridstreak:
+    "Governments, businesses, and industries looking to improve energy stability, cut carbon emissions, and eliminate plastic waste.",
+  where_is_gridstreak_located: "GridStreak operates globally with its roots in Kenya.",
+  how_to_contact: "I'll take you to our contact page right now!",
+};
 
 const faqList = [
   {
@@ -36,50 +50,12 @@ const ChatBot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [remainingFaqs, setRemainingFaqs] = useState(faqList);
   const navigate = useNavigate();
-  const ws = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(true);
     }, 10000);
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    try {
-      ws.current = new WebSocket("wss://gridstreak-production.up.railway.app");
-
-      ws.current.onopen = () => {
-        console.log("WebSocket connected");
-      };
-
-      ws.current.onmessage = (event) => {
-        const botMessage = event.data;
-
-        setIsTyping(true);
-
-        setTimeout(() => {
-          setChatHistory((prev) => [...prev, { type: "bot", text: botMessage }]);
-          setIsTyping(false);
-        }, 1500);
-      };
-
-      ws.current.onclose = () => {
-        console.log("WebSocket disconnected");
-      };
-
-      ws.current.onerror = (error) => {
-        console.warn("WebSocket connection failed - server may be unavailable");
-      };
-
-      return () => {
-        if (ws.current) {
-          ws.current.close();
-        }
-      };
-    } catch (error) {
-      console.warn("WebSocket initialization failed - server may be unavailable");
-    }
   }, []);
 
   const handleQuestionClick = (faq) => {
@@ -94,9 +70,11 @@ const ChatBot = () => {
 
     setIsTyping(true);
 
-    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-      ws.current.send(JSON.stringify({ type: "faq", id: faq.id }));
-    }
+    const reply = FAQ_RESPONSES[faq.id] ?? "I'm not sure I understand yet";
+    setTimeout(() => {
+      setChatHistory((prev) => [...prev, { type: "bot", text: reply }]);
+      setIsTyping(false);
+    }, 1500);
 
     if (faq.routeTo) {
       setTimeout(() => {
@@ -147,7 +125,7 @@ const ChatBot = () => {
                 <span className="icon">
                   <img src={botIcon} alt="bot" width="20" height="20" />
                 </span>
-                <div className="bubble">Hey, I’m here to help you!</div>
+                <div className="bubble">{INITIAL_BOT_MESSAGE}</div>
               </div>
             )}
 

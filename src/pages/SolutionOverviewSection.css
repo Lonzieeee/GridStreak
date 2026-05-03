@@ -200,16 +200,6 @@
   }
 }
 
-@media (min-width: 701px) and (max-width: 900px) {
-  .solution-overview-flow {
-    height: clamp(400px, 48vw, 450px);
-  }
-
-  .solution-overview-title {
-    margin-bottom: clamp(1.75rem, 3.5vh, 2.75rem);
-  }
-}
-
 @media (max-width: 900px) {
   .solution-overview-flow {
     display: none;
