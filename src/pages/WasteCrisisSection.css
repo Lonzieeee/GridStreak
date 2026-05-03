@@ -1,15 +1,18 @@
 .waste-crisis-section {
   display: grid;
-  grid-template-columns: minmax(420px, 1.05fr) minmax(400px, 0.95fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   align-items: center;
   min-height: 98vh;
   width: min(1320px, 100%);
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
   color: #0d0d0d;
   font-family: "Space Grotesk", system-ui, sans-serif;
   gap: clamp(2.4rem, 4.6vw, 5.4rem);
   padding: clamp(2rem, 4vh, 3.2rem) clamp(1.2rem, 2.8vw, 2.2rem);
+  padding-left: max(clamp(1.2rem, 2.8vw, 2.2rem), env(safe-area-inset-left));
+  padding-right: max(clamp(1.2rem, 2.8vw, 2.2rem), env(safe-area-inset-right));
   box-sizing: border-box;
 }
 .waste-crisis-content {
@@ -23,14 +26,14 @@
 }
 .waste-crisis-content h2 {
   font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.55rem, 2.4vw + 1rem, 2.2rem);
   font-weight: 800;
   margin-bottom: 1.05rem;
   color: #0d0d0d;
 }
 .waste-crisis-content p {
   font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: 1.18rem;
+  font-size: clamp(1rem, 0.35vw + 0.95rem, 1.18rem);
   margin-bottom: 1.55rem;
   color: #2f2f2f;
   line-height: 1.48;
@@ -91,7 +94,19 @@
 @media (max-width: 1120px) {
   .waste-crisis-section {
     min-height: auto;
-    padding: 2rem 1.2rem 2.2rem;
+    padding: 2rem max(1.2rem, env(safe-area-inset-right)) 2.2rem max(1.2rem, env(safe-area-inset-left));
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .waste-crisis-section {
+    gap: clamp(1.5rem, 3vw, 2.4rem);
+    padding-top: clamp(1.6rem, 3vh, 2.4rem);
+    padding-bottom: clamp(1.6rem, 3vh, 2.4rem);
+  }
+
+  .waste-crisis-image-frame {
+    height: clamp(280px, 42vh, 420px);
   }
 }
 
@@ -99,20 +114,21 @@
   .waste-crisis-section {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding: 1.5rem 1rem 1.6rem;
+    padding: 1.5rem max(1rem, env(safe-area-inset-right)) 1.6rem max(1rem, env(safe-area-inset-left));
     gap: 1rem;
   }
   .waste-crisis-content {
     max-width: 100%;
-    padding: 0.8rem 0.4rem;
+    padding: 0.8rem max(0.4rem, env(safe-area-inset-left)) 0.8rem max(0.4rem, env(safe-area-inset-right));
   }
   .waste-crisis-image-frame {
-    width: calc(100% - 1.6rem);
+    width: min(100%, calc(100% - 1.6rem));
     max-width: 100%;
-    max-height: 300px;
-    margin: 0.8rem;
+    height: clamp(220px, 38vw, 320px);
+    max-height: min(360px, 48vh);
+    margin: 0.8rem auto;
     border-radius: 0.9rem;
-    justify-self: start;
+    justify-self: center;
   }
   .waste-crisis-cards {
     grid-template-columns: 1fr;
@@ -120,6 +136,41 @@
   }
   .waste-crisis-card {
     aspect-ratio: auto;
-    min-height: 130px;
+    min-height: 120px;
+    padding: 1rem 0.9rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 900px) {
+  .waste-crisis-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.65rem, 2vw, 1rem);
+  }
+
+  .waste-crisis-card {
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+    font-size: clamp(0.82rem, 1.5vw, 0.93rem);
+    padding: 0.85rem 0.55rem;
+  }
+
+  .waste-crisis-card svg {
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  }
+}
+
+@media (max-width: 639px) {
+  .waste-crisis-card {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 0.75rem;
+    min-height: 0;
+    padding: 1rem 1rem;
+  }
+
+  .waste-crisis-card svg {
+    flex-shrink: 0;
+    margin-bottom: 0;
   }
 }

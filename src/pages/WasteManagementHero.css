@@ -1,10 +1,14 @@
 .waste-hero {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 8rem 1.2rem 3rem;
+  padding: 8rem max(1.2rem, env(safe-area-inset-right)) 3rem max(1.2rem, env(safe-area-inset-left));
+  padding-top: max(8rem, calc(env(safe-area-inset-top) + 5.5rem));
+  box-sizing: border-box;
   background: url('https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Untitled%20design.jpg') center/cover no-repeat;
   color: #fff;
   font-family: "Space Grotesk", system-ui, sans-serif;
@@ -75,6 +79,7 @@
 }
 .waste-hero-ctas {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.2rem;
 }
 .waste-hero-btn-primary {
@@ -115,13 +120,14 @@
 }
 @media (max-width: 900px) {
   .waste-hero {
-    min-height: 85vh;
-    padding-top: 7rem;
+    min-height: min(92vh, 92dvh);
+    padding-top: max(6.5rem, calc(env(safe-area-inset-top) + 4.75rem));
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
     background-position: 58% center;
   }
 
   .waste-hero-content {
-    width: min(1000px, 95vw);
+    width: min(1000px, 100%);
     margin-left: 0;
   }
   .waste-hero h1 {
@@ -130,5 +136,77 @@
 
   .waste-impact-strip {
     gap: 1.15rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .waste-hero {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+
+  .waste-hero p {
+    font-size: clamp(1rem, 2.1vw, 1.08rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .waste-hero {
+    place-items: start center;
+    min-height: min(100vh, 100dvh);
+    padding: max(5.25rem, calc(env(safe-area-inset-top) + 4rem)) max(1rem, env(safe-area-inset-right))
+      max(1.75rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  }
+
+  .waste-hero-content {
+    width: 100%;
+    max-width: 100%;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .waste-hero h1 {
+    font-size: clamp(1.65rem, 7.2vw, 2.15rem);
+    margin-bottom: 0.85rem;
+  }
+
+  .waste-hero p {
+    font-size: clamp(0.94rem, 3.9vw, 1.02rem);
+    line-height: 1.6;
+    margin-bottom: 1.35rem;
+  }
+
+  .waste-impact-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .waste-impact-label {
+    font-size: 0.92rem;
+  }
+
+  .waste-hero-ctas {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .waste-hero-btn-primary,
+  .waste-hero-btn-secondary {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.9rem 1.25rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .waste-hero h1 {
+    font-size: clamp(1.45rem, 8vw, 1.75rem);
   }
 }

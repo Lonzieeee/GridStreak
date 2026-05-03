@@ -19,6 +19,12 @@ const wasteCrisisImages = [
   "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/ocean.jpg",
 ];
 
+const wasteCrisisImageAlts = [
+  "Waste management facility and environmental impact of unmanaged waste streams",
+  "Plastic waste piled at a landfill site",
+  "Plastic pollution in ocean waters affecting marine ecosystems",
+];
+
 const WasteCrisisSection = () => {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const prefersReducedMotion = useReducedMotion();
@@ -33,7 +39,10 @@ const WasteCrisisSection = () => {
   }, [prefersReducedMotion]);
 
   return (
-    <section className="waste-crisis-section">
+    <section
+      className="waste-crisis-section"
+      aria-labelledby="waste-crisis-heading"
+    >
     <motion.div
       className="waste-crisis-content"
       initial={{ opacity: 0, y: 28 }}
@@ -42,6 +51,7 @@ const WasteCrisisSection = () => {
       transition={{ duration: 0.55, ease: "easeOut" }}
     >
       <motion.h2
+        id="waste-crisis-heading"
         initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
@@ -105,7 +115,9 @@ const WasteCrisisSection = () => {
           key={wasteCrisisImages[activeImageIdx]}
           className="waste-crisis-image"
           src={wasteCrisisImages[activeImageIdx]}
-          alt="Waste crisis and pollution scene"
+          alt={wasteCrisisImageAlts[activeImageIdx] ?? "Waste crisis and pollution scene"}
+          sizes="(max-width: 900px) 100vw, 535px"
+          decoding="async"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -135,9 +147,14 @@ const SolutionOverviewSection = () => {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="solution-overview-section" ref={sectionRef}>
+    <section
+      className="solution-overview-section"
+      ref={sectionRef}
+      aria-labelledby="solution-overview-heading"
+    >
       <div className="solution-overview-inner">
         <motion.h2
+          id="solution-overview-heading"
           className="solution-overview-title"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
           animate={
@@ -324,7 +341,11 @@ const TechnologyDeepSection = () => {
   }, [sectionInView, prefersReducedMotion]);
 
   return (
-    <section className={`waste-tech-section ${sectionInView ? "is-active" : ""}`} ref={sectionRef}>
+    <section
+      className={`waste-tech-section ${sectionInView ? "is-active" : ""}`}
+      ref={sectionRef}
+      aria-labelledby="waste-tech-heading"
+    >
       <div className="waste-tech-inner">
         <motion.figure
           className="waste-tech-figure"
@@ -340,6 +361,8 @@ const TechnologyDeepSection = () => {
             src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Nolabels.jpg"
             alt="Co-pyrolysis system showing organic and inorganic waste streams"
             loading="lazy"
+            decoding="async"
+            sizes="(max-width: 1120px) 100vw, min(1320px, 55vw)"
           />
         </motion.figure>
 
@@ -354,6 +377,7 @@ const TechnologyDeepSection = () => {
           transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
         >
           <motion.h2
+            id="waste-tech-heading"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
             animate={prefersReducedMotion || sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
             transition={{ duration: 0.46, ease: "easeOut", delay: 0.16 }}
@@ -509,7 +533,11 @@ const ValueCreationSection = () => {
   };
 
   return (
-    <section className="value-creation-section" ref={sectionRef}>
+    <section
+      className="value-creation-section"
+      ref={sectionRef}
+      aria-labelledby="value-creation-heading"
+    >
       <div className="value-creation-inner">
         <motion.header
           className="value-creation-header"
@@ -517,7 +545,7 @@ const ValueCreationSection = () => {
           animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
-          <h2>Where GridStreak Creates Value</h2>
+          <h2 id="value-creation-heading">Where GridStreak Creates Value</h2>
           <p>From households to industry, delivering reliable energy across critical sectors.</p>
         </motion.header>
 
@@ -571,6 +599,7 @@ const ClimateImpactSection = () => {
     <section
       className="climate-impact-section"
       ref={sectionRef}
+      aria-labelledby="climate-impact-heading"
       style={{
         backgroundColor: "#1b2632",
         backgroundImage:
@@ -587,7 +616,7 @@ const ClimateImpactSection = () => {
           animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
-          <h2>Measurable Climate Impact</h2>
+          <h2 id="climate-impact-heading">Measurable Climate Impact</h2>
           <p>
             Every ton of waste processed through GridStreak delivers verified emissions
             reductions and helps shift communities away from landfill dependence.
@@ -655,6 +684,47 @@ const ClimateImpactSection = () => {
   );
 };
 
+const WASTE_PAGE_CANONICAL = "https://gridstreak.com/solutions/waste-management";
+const WASTE_PAGE_OG_IMAGE =
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/impactsectionwastemanagement.jpg";
+const WASTE_PAGE_TITLE = "Waste Management | GridStreak Solutions";
+const WASTE_PAGE_DESCRIPTION =
+  "Convert organic and plastic waste into reliable thermal energy with GridStreak: co-pyrolysis, sand-based thermal storage, methane reduction, and lower energy costs for communities, farms, and industry.";
+
+const wastePageJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${WASTE_PAGE_CANONICAL}#webpage`,
+    url: WASTE_PAGE_CANONICAL,
+    name: WASTE_PAGE_TITLE,
+    description: WASTE_PAGE_DESCRIPTION,
+    inLanguage: "en",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "GridStreak",
+      url: "https://gridstreak.com/",
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: WASTE_PAGE_OG_IMAGE,
+    },
+    about: {
+      "@type": "Thing",
+      name: "Waste-to-energy and thermal energy storage",
+    },
+  },
+];
+
+const wastePageMeta = [
+  {
+    name: "keywords",
+    content:
+      "waste management, waste to energy, methane reduction, thermal energy storage, co-pyrolysis, organic waste, plastic waste, GridStreak, circular economy, landfill diversion",
+  },
+  { name: "robots", content: "index, follow" },
+];
+
 const WasteManagement = () => {
   const [impactCountActive, setImpactCountActive] = useState(false);
   const impactSectionRef = useRef(null);
@@ -687,14 +757,17 @@ const WasteManagement = () => {
   return (
     <>
       <SEO
-        title="Waste Management | GridStreak Solutions"
-        description="Waste management solutions powered by GridStreak thermal storage technology."
-        canonical="https://gridstreak.com/solutions/waste-management"
+        title={WASTE_PAGE_TITLE}
+        description={WASTE_PAGE_DESCRIPTION}
+        canonical={WASTE_PAGE_CANONICAL}
+        image={WASTE_PAGE_OG_IMAGE}
+        jsonLd={wastePageJsonLd}
+        meta={wastePageMeta}
       />
       <PageIntroAnimation text="Waste Management" color="#b0f222" colorDark="#5d7d12" />
-      <section className="waste-hero">
+      <section className="waste-hero" aria-labelledby="waste-hero-heading">
         <div className="waste-hero-content">
-          <h1>Turning Waste into Clean, Reliable Energy</h1>
+          <h1 id="waste-hero-heading">Turning Waste into Clean, Reliable Energy</h1>
           <p>
             GridStreak converts organic and plastic waste into long-duration
             thermal energy, preventing methane emissions and delivering affordable

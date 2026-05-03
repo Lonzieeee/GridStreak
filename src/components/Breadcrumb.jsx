@@ -8,6 +8,7 @@ const Breadcrumb = () => {
 
   const breadcrumbNameMap = {
     'solutions': 'Solutions',
+    'waste-management': 'Waste Management',
     'partners': 'Partners',
     'sustainability': 'Sustainability',
     'contact': 'Contact',
