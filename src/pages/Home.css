@@ -209,6 +209,165 @@
     max-width: 24rem;
 }
 
+/* Home solutions section */
+.home-solutions {
+    width: 100vw;
+    height: 98vh;
+    min-height: 98vh;
+    display: flex;
+    flex-direction: column;
+    background: #04183f;
+    overflow: hidden;
+}
+
+.home-solutions__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    padding: clamp(1.1rem, 2vw, 1.75rem) clamp(1.25rem, 3vw, 2.5rem) clamp(0.85rem, 1.5vw, 1.25rem);
+    background: #ffffff;
+}
+
+.home-solutions__accent {
+    width: 0.3rem;
+    height: 1.45rem;
+    background: #1b5fe3;
+    flex-shrink: 0;
+}
+
+.home-solutions__header h2 {
+    margin: 0;
+    font-size: clamp(1.35rem, 2.3vw, 1.9rem);
+    line-height: 1.15;
+    color: #0d0d0d;
+    font-weight: 700;
+}
+
+.home-solutions__rail {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+}
+
+.home-solutions__card {
+    position: relative;
+    flex: 1 1 0;
+    overflow: hidden;
+    transition: flex 0.4s ease;
+    background: #123895;
+    cursor: pointer;
+}
+
+.home-solutions__card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 78, 210, 0.2) 0%, rgba(8, 34, 98, 0.88) 100%);
+    z-index: 1;
+    pointer-events: none;
+    transition: background 0.35s ease;
+}
+
+.home-solutions__card.is-active {
+    flex: 3.4 1 0;
+}
+
+.home-solutions__card.is-active::before {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(240, 245, 255, 0.98) 100%);
+}
+
+.home-solutions__media-wrap {
+    position: absolute;
+    inset: 0;
+}
+
+.home-solutions__media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05) contrast(1.02);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.home-solutions__card.is-active .home-solutions__media {
+    opacity: 0.08;
+    transform: scale(1.03);
+}
+
+.home-solutions__overlay {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(1.1rem, 2vw, 1.8rem);
+    color: #ffffff;
+}
+
+.home-solutions__overlay h3 {
+    margin: 0;
+    line-height: 1.12;
+    font-size: clamp(1.15rem, 1.8vw, 1.95rem);
+    font-weight: 700;
+}
+
+.home-solutions__teaser {
+    margin: 0.7rem 0 0;
+    font-size: clamp(0.82rem, 1vw, 0.98rem);
+    line-height: 1.4;
+    max-width: 28ch;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.home-solutions__description {
+    margin: 0.55rem 0 0;
+    font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+    line-height: 1.5;
+    max-width: 42ch;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.28s ease, max-height 0.3s ease;
+}
+
+.home-solutions__card.is-active .home-solutions__overlay {
+    color: #0d0d0d;
+}
+
+.home-solutions__card.is-active .home-solutions__teaser {
+    display: none;
+}
+
+.home-solutions__link {
+    margin-top: 1rem;
+    color: #1b5fe3;
+    text-decoration: none;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.28s ease, transform 0.28s ease, color 0.2s ease;
+    align-self: flex-start;
+}
+
+.home-solutions__card.is-active .home-solutions__description {
+    opacity: 1;
+    max-height: 8rem;
+    color: #2d3958;
+}
+
+.home-solutions__card.is-active .home-solutions__link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-solutions__link:hover {
+    color: #eb6a00;
+}
+
 
 @media (max-width: 768px) {
     .why-gridstreak__shell {
@@ -245,6 +404,52 @@
   }
   .hero-content p{
     font-size: 0.92rem;
+  }
+
+  .home-solutions {
+    height: auto;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .home-solutions__rail {
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .home-solutions__card,
+  .home-solutions__card.is-active {
+    flex: unset;
+    min-height: 12rem;
+  }
+
+  .home-solutions__teaser,
+  .home-solutions__description,
+  .home-solutions__link {
+    opacity: 1;
+    max-height: none;
+    transform: none;
+  }
+
+  .home-solutions__card.is-active .home-solutions__teaser {
+    display: block;
+  }
+
+  .home-solutions__card.is-active::before {
+    background: linear-gradient(180deg, rgba(17, 78, 210, 0.2) 0%, rgba(8, 34, 98, 0.88) 100%);
+  }
+
+  .home-solutions__card.is-active .home-solutions__overlay {
+    color: #ffffff;
+  }
+
+  .home-solutions__card.is-active .home-solutions__media {
+    opacity: 1;
+    transform: none;
+  }
+
+  .home-solutions__link {
+    color: #b0f222;
   }
 }
 

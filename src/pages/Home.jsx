@@ -73,10 +73,61 @@ const whyGridStreakStats = [
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeSolutionId, setActiveSolutionId] = useState(null);
   const [isMobileHero, setIsMobileHero] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false,
   );
   const activeHeroSlide = heroSlides[currentSlide] ?? heroSlides[0];
+  const homeSolutions = [
+    {
+      id: 1,
+      title: "Clean Cooking",
+      subtitle: "Smoke-free thermal cooking for communities and institutions.",
+      description: "Reliable heat for schools, kitchens, and community feeding centers without biomass fuel.",
+      path: "/solutions/clean-cooking",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sauteeing-food_compressed.webp",
+    },
+    {
+      id: 2,
+      title: "Hospitals & Clinics",
+      subtitle: "Consistent thermal energy for critical care operations.",
+      description: "Supports sterilization, laundry, kitchen systems, and resilient heat for healthcare facilities.",
+      path: "/solutions/hospitals-clinics",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cloudy-day_converted.avif",
+    },
+    {
+      id: 3,
+      title: "Cold Storage",
+      subtitle: "Renewable cooling for food and medicine resilience.",
+      description: "Thermal energy powers dependable cold storage to reduce spoilage and protect supply chains.",
+      path: "/solutions/cold-storage",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/frozen-food.png",
+    },
+    {
+      id: 4,
+      title: "Water Purification",
+      subtitle: "Thermal purification for safe daily water access.",
+      description: "Heat-powered treatment helps communities secure clean water without complex fuel logistics.",
+      path: "/solutions/water-purification",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/water.png",
+    },
+    {
+      id: 5,
+      title: "Waste Management",
+      subtitle: "Turning waste streams into useful thermal energy.",
+      description: "Closed-loop processing converts plastic waste into usable heat while reducing landfill pressure.",
+      path: "/solutions/waste-management",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/waste%20management.png",
+    },
+    {
+      id: 6,
+      title: "Emergency Relief",
+      subtitle: "Rapid deployment energy for crisis response.",
+      description: "Portable units deliver practical heat services for camps, shelters, and field operations.",
+      path: "/solutions/emergency-relief",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency.png",
+    },
+  ];
 
   React.useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -185,6 +236,41 @@ function Home() {
       </section>
       <WhoWeAre />
       <ProcessFlow />
+      <section className="home-solutions" aria-labelledby="home-solutions-title">
+        <header className="home-solutions__header">
+          <span className="home-solutions__accent" aria-hidden="true" />
+          <h2 id="home-solutions-title">Our Solutions</h2>
+        </header>
+
+        <div className="home-solutions__rail" role="list" onMouseLeave={() => setActiveSolutionId(null)}>
+          {homeSolutions.map((solution) => {
+            const isActive = solution.id === activeSolutionId;
+            return (
+              <article
+                key={solution.id}
+                role="listitem"
+                className={`home-solutions__card ${isActive ? "is-active" : ""}`}
+                onMouseEnter={() => setActiveSolutionId(solution.id)}
+                onFocus={() => setActiveSolutionId(solution.id)}
+                onClick={() => setActiveSolutionId(solution.id)}
+              >
+                <div className="home-solutions__media-wrap">
+                  <img src={solution.image} alt={solution.title} className="home-solutions__media" loading="lazy" />
+                </div>
+
+                <div className="home-solutions__overlay">
+                  <h3>{solution.title}</h3>
+                  <p className="home-solutions__teaser">{solution.subtitle}</p>
+                  <p className="home-solutions__description">{solution.description}</p>
+                  <Link to={solution.path} className="home-solutions__link">
+                    {solution.title} →
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
       <Impact />
       <Sustainability />
       <MapSection />
