@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import "./Home.css";
 import CookingCrisisCarousel from "../components/CleanCooking/CookingCrisisCarousel";
-const flexibleIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/flexible.svg";
-const carbonIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/zero-carbon.svg";
-const reliableIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/reliable.svg";
-const scalableIcon = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/scalable.svg"
+import ImpactCountStat from "../components/CleanCooking/ImpactCountStat";
+import RotatingEarth from "../components/RotatingEarth";
 import ProcessFlow from "../components/ProcessFlow";
 import Impact from "../components/Impact"
 import Sustainability from "../components/Sustainability";
@@ -46,6 +45,29 @@ const heroCarouselSlides = [
     id: "home-clean-water",
     image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
     alt: "GridStreak clean water thermal energy system inside containerized unit.",
+  },
+];
+
+const whyGridStreakStats = [
+  {
+    countUp: { type: "single", start: 1, end: 4, format: (n) => `${Math.round(n)}+` },
+    title: "Flexible Storage",
+    description: "Works with multiple renewable energy sources.",
+  },
+  {
+    countUp: { type: "single", start: 0, end: 100, format: (n) => `${Math.round(n)}%` },
+    title: "Zero Carbon Emissions",
+    description: "Fully decoupled from fossil fuel systems.",
+  },
+  {
+    countUp: { type: "single", start: 0, end: 24, format: (n) => `${Math.round(n)}/7` },
+    title: "Reliable Dispatch",
+    description: "Stores heat for hours to days with minimal losses.",
+  },
+  {
+    countUp: { type: "single", start: 0, end: 3, format: (n) => `${Math.round(n)}+` },
+    title: "Scalable",
+    description: "Modular units can fit residential to industrial projects.",
   },
 ];
 
@@ -134,36 +156,31 @@ function Home() {
 
       {/* Why GridStreak Section */}
       <section className="why-gridstreak">
-        <h2>Why GridStreak?</h2>
-        <div className="features">
-          <div className="feature-card">
-            <img src={flexibleIcon} alt="Flexible Storage" className="feature-icon" />
-            <h3>Flexible Storage</h3>
-            <p>
-                Works with multiple renewable energy sources, adapting to your specific power generation needs.
-            </p>
+        <div className="why-gridstreak__shell">
+          <div className="why-gridstreak__copy">
+            <p className="why-gridstreak__eyebrow">Why GridStreak</p>
+            <h2 className="why-gridstreak__title">Clean energy storage measured in real impact.</h2>
+
+            <div className="why-gridstreak__stats" aria-label="GridStreak statistics">
+              {whyGridStreakStats.map((item) => (
+                <article key={item.title} className="why-gridstreak__stat-item">
+                  <ImpactCountStat className="why-gridstreak__stat-number" countUp={item.countUp} start reducedMotion={false} />
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
-          <div className="feature-card">
-            <img src={carbonIcon} alt="Carbon Icon" className="feature-icon" />
-            <h3>Zero Carbon Emissions</h3>
-            <p>
-              Fully decoupled from fossil fuel systems, ensuring completely clean energy storage.
-            </p>
-          </div>
-          <div className="feature-card">
-            <img src={reliableIcon} alt="Reliable Icon" className="feature-icon" />
-            <h3>Reliable</h3>
-            <p>
-          Store heat for hours to days with minimal losses and providing instant dispatch.
-            </p>
-          </div>
-          <div className="feature-card">
-            <img src={scalableIcon} alt="scalable icon" className="feature-icon" />
-            <h3>Scalable</h3>
-            <p>
-              Modular units that can be configured to fit any size project from residential to industrial scale.
-            </p>
-          </div>
+
+          <motion.div
+            className="why-gridstreak__globe-stage"
+            initial={{ opacity: 0, x: 80, scale: 0.94 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <RotatingEarth className="why-gridstreak__globe" variant="continent" rotationDuration={40} maxWidth="28rem" />
+          </motion.div>
         </div>
       </section>
       <WhoWeAre />

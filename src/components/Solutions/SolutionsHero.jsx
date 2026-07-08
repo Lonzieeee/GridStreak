@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styles from "./SolutionsHero.module.css";
+import RotatingEarth from "../RotatingEarth";
 
 export default function SolutionsHero() {
   const scrollToSolutions = () => {
@@ -44,7 +45,7 @@ export default function SolutionsHero() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
       >
-        <div className={styles.earth} aria-hidden="true" />
+        <RotatingEarth variant="classic" rotationDuration={40} />
       </motion.div>
     </section>
   );

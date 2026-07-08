@@ -7,6 +7,11 @@ const DURATION_MS = 4500;
 
 function getInitialText(countUp) {
   if (!countUp) return "";
+  if (countUp.type === "single" && typeof countUp.start === "number") return countUp.format(countUp.start);
+  if (countUp.type === "range" && typeof countUp.startMin === "number" && typeof countUp.startMax === "number") {
+    return countUp.format(countUp.startMin, countUp.startMax);
+  }
+  if (countUp.type === "k" && typeof countUp.start === "number") return countUp.format(countUp.start);
   if (countUp.type === "single") return countUp.format(0);
   if (countUp.type === "range") return countUp.format(0, 0);
   if (countUp.type === "k") return countUp.format(0);
@@ -73,11 +78,18 @@ export default function ImpactCountStat({ stat, countUp, start, reducedMotion, d
 
       const t = easeInCubic(progress);
       if (countUp.type === "single") {
-        el.textContent = countUp.format(countUp.end * t);
+        const startValue = typeof countUp.start === "number" ? countUp.start : 0;
+        el.textContent = countUp.format(startValue + (countUp.end - startValue) * t);
       } else if (countUp.type === "range") {
-        el.textContent = countUp.format(countUp.endMin * t, countUp.endMax * t);
+        const startMin = typeof countUp.startMin === "number" ? countUp.startMin : 0;
+        const startMax = typeof countUp.startMax === "number" ? countUp.startMax : 0;
+        el.textContent = countUp.format(
+          startMin + (countUp.endMin - startMin) * t,
+          startMax + (countUp.endMax - startMax) * t,
+        );
       } else if (countUp.type === "k") {
-        el.textContent = countUp.format(countUp.end * t);
+        const startValue = typeof countUp.start === "number" ? countUp.start : 0;
+        el.textContent = countUp.format(startValue + (countUp.end - startValue) * t);
       }
       if (progress < 1) {
         raf = requestAnimationFrame(run);
