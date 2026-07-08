@@ -80,20 +80,36 @@ function Home() {
   const activeHeroSlide = heroSlides[currentSlide] ?? heroSlides[0];
   const homeSolutions = [
     {
-      id: 1,
-      title: "Clean Cooking",
-      subtitle: "Smoke-free thermal cooking for communities and institutions.",
-      description: "Reliable heat for schools, kitchens, and community feeding centers without biomass fuel.",
-      path: "/solutions/clean-cooking",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sauteeing-food_compressed.webp",
-    },
-    {
       id: 2,
       title: "Hospitals & Clinics",
       subtitle: "Consistent thermal energy for critical care operations.",
       description: "Supports sterilization, laundry, kitchen systems, and resilient heat for healthcare facilities.",
       path: "/solutions/hospitals-clinics",
       image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cloudy-day_converted.avif",
+      applications: [
+        "Sterilization",
+        "Laundry Systems",
+        "Kitchen & Catering",
+        "Hot Water Supply",
+        "Space Heating",
+        "Backup Power Resilience",
+      ],
+    },
+    {
+      id: 1,
+      title: "Clean Cooking",
+      subtitle: "Smoke-free thermal cooking for communities and institutions.",
+      description: "Reliable heat for schools, kitchens, and community feeding centers without biomass fuel.",
+      path: "/solutions/clean-cooking",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sauteeing-food_compressed.webp",
+      applications: [
+        "Schools & Institutions",
+        "Community Kitchens",
+        "Restaurants & Hotels",
+        "Feeding Programs",
+        "Bakeries",
+        "Household Cooking",
+      ],
     },
     {
       id: 3,
@@ -101,7 +117,15 @@ function Home() {
       subtitle: "Renewable cooling for food and medicine resilience.",
       description: "Thermal energy powers dependable cold storage to reduce spoilage and protect supply chains.",
       path: "/solutions/cold-storage",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/frozen-food.png",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/coldstorage.avif",
+      applications: [
+        "Food Preservation",
+        "Vaccine Storage",
+        "Dairy & Fisheries",
+        "Agricultural Produce",
+        "Pharmaceutical Cooling",
+        "Supply Chain Logistics",
+      ],
     },
     {
       id: 4,
@@ -109,7 +133,15 @@ function Home() {
       subtitle: "Thermal purification for safe daily water access.",
       description: "Heat-powered treatment helps communities secure clean water without complex fuel logistics.",
       path: "/solutions/water-purification",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/water.png",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/view-water-tank-storage_converted.avif",
+      applications: [
+        "Community Water Points",
+        "Schools & Clinics",
+        "Disaster Zones",
+        "Rural Households",
+        "Institutions",
+        "Agriculture & Irrigation",
+      ],
     },
     {
       id: 5,
@@ -117,7 +149,15 @@ function Home() {
       subtitle: "Turning waste streams into useful thermal energy.",
       description: "Closed-loop processing converts plastic waste into usable heat while reducing landfill pressure.",
       path: "/solutions/waste-management",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/waste%20management.png",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Nolabels.jpg",
+      applications: [
+        "Plastic Waste Processing",
+        "Landfill Reduction",
+        "Circular Recycling",
+        "Industrial Waste",
+        "Municipal Waste",
+        "Energy Recovery",
+      ],
     },
     {
       id: 6,
@@ -126,6 +166,14 @@ function Home() {
       description: "Portable units deliver practical heat services for camps, shelters, and field operations.",
       path: "/solutions/emergency-relief",
       image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency.png",
+      applications: [
+        "Refugee Camps",
+        "Disaster Response",
+        "Field Hospitals",
+        "Temporary Shelters",
+        "Mobile Kitchens",
+        "Off-Grid Deployments",
+      ],
     },
   ];
 
@@ -242,7 +290,11 @@ function Home() {
           <h2 id="home-solutions-title">Our Solutions</h2>
         </header>
 
-        <div className="home-solutions__rail" role="list" onMouseLeave={() => setActiveSolutionId(null)}>
+        <div
+          className={`home-solutions__rail ${activeSolutionId === homeSolutions[homeSolutions.length - 1].id ? "is-end" : ""}`}
+          role="list"
+          onMouseLeave={() => setActiveSolutionId(null)}
+        >
           {homeSolutions.map((solution) => {
             const isActive = solution.id === activeSolutionId;
             return (
@@ -261,9 +313,24 @@ function Home() {
                 <div className="home-solutions__overlay">
                   <h3>{solution.title}</h3>
                   <p className="home-solutions__teaser">{solution.subtitle}</p>
-                  <p className="home-solutions__description">{solution.description}</p>
+                </div>
+
+                <div className="home-solutions__panel" aria-hidden={!isActive}>
+                  <div className="home-solutions__panel-head">
+                    <h3 className="home-solutions__panel-title">{solution.title}</h3>
+                    <p className="home-solutions__panel-desc">{solution.description}</p>
+                  </div>
+
+                  <ul className="home-solutions__apps">
+                    {solution.applications.map((app) => (
+                      <li key={app} className="home-solutions__app">
+                        <span>{app}</span>
+                      </li>
+                    ))}
+                  </ul>
+
                   <Link to={solution.path} className="home-solutions__link">
-                    {solution.title} →
+                    Learn more →
                   </Link>
                 </div>
               </article>
