@@ -33,6 +33,13 @@ const heroSlides = [
   },
 ];
 
+const heroStats = [
+  { countUp: { type: "single", start: 0, end: 100, format: (n) => `${Math.round(n)}%` }, label: "Zero-Carbon Energy" },
+  { countUp: { type: "single", start: 0, end: 24, format: (n) => `${Math.round(n)}/7` }, label: "Reliable Dispatch" },
+  { countUp: { type: "single", start: 0, end: 4, format: (n) => `${Math.round(n)}+` }, label: "Renewable Sources" },
+  { countUp: { type: "single", start: 0, end: 3, format: (n) => `${Math.round(n)}+` }, label: "Deployment Scales" },
+];
+
 const heroCarouselSlides = [
   {
     id: "home-gridstreak-x",
@@ -73,6 +80,39 @@ const whyGridStreakStats = [
     description: "Modular units can fit residential to industrial projects.",
   },
 ];
+
+function Typewriter({ text, speed = 55, startDelay = 250, className }) {
+  const [count, setCount] = useState(0);
+
+  React.useEffect(() => {
+    setCount(0);
+    let intervalId = 0;
+    const startId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        setCount((c) => {
+          if (c >= text.length) {
+            window.clearInterval(intervalId);
+            return c;
+          }
+          return c + 1;
+        });
+      }, speed);
+    }, startDelay);
+    return () => {
+      window.clearTimeout(startId);
+      window.clearInterval(intervalId);
+    };
+  }, [text, speed, startDelay]);
+
+  const done = count >= text.length;
+
+  return (
+    <span className={className}>
+      {text.slice(0, count)}
+      <span className={`hero-type-caret ${done ? "is-done" : ""}`} aria-hidden="true" />
+    </span>
+  );
+}
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -262,13 +302,28 @@ function Home() {
         <div className="hero-content">
           {!isMobileHero && !heroIntroDone ? (
             <div className="hero-slide hero-slide--intro slide-in-right">
-              <h1>{HERO_INTRO_HEADING}</h1>
+              <h1>
+                <Typewriter text={HERO_INTRO_HEADING} />
+              </h1>
             </div>
           ) : (
             <>
               <div className="hero-slide slide-in-right">
                 <h1>{activeHeroSlide.heading}</h1>
                 <p>{activeHeroSlide.sub}</p>
+              </div>
+              <div className="hero-stats" aria-label="GridStreak at a glance">
+                {heroStats.map((stat) => (
+                  <div className="hero-stat" key={stat.label}>
+                    <ImpactCountStat
+                      className="hero-stat__value"
+                      countUp={stat.countUp}
+                      start
+                      reducedMotion={false}
+                    />
+                    <span className="hero-stat__label">{stat.label}</span>
+                  </div>
+                ))}
               </div>
               <Link to="/solutions" className="hero-btn">
                 Learn More
