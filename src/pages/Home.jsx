@@ -13,6 +13,9 @@ import WhoWeAre from "../components/WhoWeAre";
 import MapSection from "../components/MapSection";
 
 const MOBILE_HERO_IMAGE = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakNano.jpg";
+const HERO_INTRO_VIDEO = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/13272920_3840_2160_30fps%281%29.mp4";
+const HERO_INTRO_POSTER = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakX.jpg";
+const HERO_INTRO_HEADING = "The future runs on stored energy.";
 const HERO_ROTATE_MS = 5500;
 
 const heroSlides = [
@@ -73,6 +76,7 @@ const whyGridStreakStats = [
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [heroIntroDone, setHeroIntroDone] = useState(false);
   const [activeSolutionId, setActiveSolutionId] = useState(null);
   const [isMobileHero, setIsMobileHero] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false,
@@ -233,6 +237,19 @@ function Home() {
             style={{ backgroundImage: `url(${MOBILE_HERO_IMAGE})` }}
             aria-hidden="true"
           />
+        ) : !heroIntroDone ? (
+          <video
+            className="hero-intro-video"
+            src={HERO_INTRO_VIDEO}
+            poster={HERO_INTRO_POSTER}
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            onEnded={() => setHeroIntroDone(true)}
+            onError={() => setHeroIntroDone(true)}
+          />
         ) : (
           <CookingCrisisCarousel
             slides={heroCarouselSlides}
@@ -243,13 +260,21 @@ function Home() {
         )}
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <div className="hero-slide slide-in-right">
-            <h1>{activeHeroSlide.heading}</h1>
-            <p>{activeHeroSlide.sub}</p>
-          </div>
-          <Link to="/solutions" className="hero-btn">
-            Learn More
-          </Link>
+          {!isMobileHero && !heroIntroDone ? (
+            <div className="hero-slide hero-slide--intro slide-in-right">
+              <h1>{HERO_INTRO_HEADING}</h1>
+            </div>
+          ) : (
+            <>
+              <div className="hero-slide slide-in-right">
+                <h1>{activeHeroSlide.heading}</h1>
+                <p>{activeHeroSlide.sub}</p>
+              </div>
+              <Link to="/solutions" className="hero-btn">
+                Learn More
+              </Link>
+            </>
+          )}
         </div>
       </section>
 
