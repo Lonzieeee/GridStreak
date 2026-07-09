@@ -1,113 +1,150 @@
 .who-we-are {
-  background-color: #f9f9f9;
-  padding: 5rem 2rem;
-  color: #0D0D0D;
+  background-color: #0d0d0d;
+  background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/footer-bg-5.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 90vh;
+  min-height: 90vh;
+  box-sizing: border-box;
+  padding: 0 clamp(1rem, 10vw, 10vw);
+  display: flex;
+  align-items: center;
+  color: #ffffff;
 }
 
-.who-wrapper {
-  display: flex;
-  gap: 4rem;
-  max-width: 1200px;
+.who-we-are__shell {
+  max-width: 1100px;
+  width: 100%;
   margin: 0 auto;
+}
+
+.who-we-are__grid {
+  display: grid;
+  grid-template: repeat(6, [row] 1fr) / repeat(12, [col] 1fr);
+  grid-gap: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  min-height: 100%;
+  position: relative;
+}
+
+.who-we-are__copy,
+.who-we-are__media {
   align-items: center;
-  flex-wrap: wrap;
-}
-
-.who-text {
-  flex: 1;
-  min-width: 300px;
-}
-
-.who-text h2 {
-  font-size: 2.8rem;
-  margin-bottom: 1.5rem;
-  color: #0D0D0D;
-}
-
-.who-text p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #333;
-}
-
-.who-visual {
-  flex: 1;
-  max-width: 400px;
+  justify-items: center;
+  line-height: 1;
+  color: #ffffff;
   display: flex;
-  align-items: center;
+}
+
+.who-we-are__copy {
+  grid-column: col 2 / span 7;
+  grid-row: row 2 / span 4;
+  z-index: 3;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
+  gap: 1.1rem;
 }
 
-.visual-box {
-  width: 240px;
-  height: 240px;
-  background-color: #B0F222;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.who-we-are__media {
+  grid-column: col 6 / span 6;
+  grid-row: row 1 / span 6;
+  z-index: 1;
+  width: 100%;
+  height: 80vh;
+  min-height: 80vh;
+  align-self: center;
+  justify-self: end;
+  position: relative;
+  padding: 0;
 }
 
-@media (max-width: 768px) {
-  .who-wrapper {
-    flex-direction: column;
-    text-align: center;
-    gap: 2rem;
-   
-  }
-
-  .who-text h2 {
-    font-size: 2.2rem;
-    text-align: left;
-  }
-
-  .who-text p {
-    font-size: 1rem;
-    line-height: 1.6;
-    text-align: left;
-    /* margin: 0; */
-  }
-
-  .visual-box {
-    width: 200px;
-    height: 200px;
-    font-size: 3rem;
-    margin-top: 2rem;
-  }
+.who-we-are__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.74) 0%,
+    rgba(0, 0, 0, 0.5) 34%,
+    rgba(0, 0, 0, 0.2) 64%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
-@media (max-width: 480px) {
-  .who-text h2 {
-    font-size: 1.8rem;
-  }
-
-  .who-text p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    padding: 0;
-  }
-
-  .visual-box {
-    width: 180px;
-    height: 180px;
-    font-size: 2.5rem;
-  }
+.who-we-are__eyebrow {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b0f222;
 }
 
-@media (max-width: 360px) {
-  .who-text h2 {
-    font-size: 1.6rem;
+.who-we-are__copy h1 {
+  font-size: clamp(2.1rem, 4.8vw, 3rem);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 600;
+  text-transform: lowercase;
+  overflow: hidden;
+  display: block;
+  line-height: 1.1;
+  margin: 0;
+  color: #ffffff;
+}
+
+.who-we-are__copy h1 span {
+  visibility: hidden;
+}
+
+.who-we-are__body {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 38rem;
+}
+
+.who-we-are__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 80vh;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.95);
+  visibility: visible;
+  max-height: none;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 700px) {
+  .who-we-are {
+    height: auto;
+    min-height: auto;
+    display: block;
+    padding: clamp(1.25rem, 5vw, 2rem) clamp(1rem, 6vw, 1.5rem);
   }
 
-  .who-text p {
-    font-size: 0.9rem;
+  .who-we-are__grid {
+    min-height: auto;
+    display: block;
   }
 
-  .visual-box {
-    width: 160px;
-    height: 160px;
-    font-size: 2.2rem;
+  .who-we-are__copy {
+    grid-column: auto;
+    grid-row: auto;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+  }
+
+  .who-we-are__media {
+    display: none;
   }
 }

@@ -48,6 +48,7 @@ export default function CookingCrisisCarousel({
   showCaptions = true,
   ariaLabel = "Traditional cooking fuel crisis",
   onSlideChange,
+  controlledIndex,
 }) {
   const slides = Array.isArray(slidesProp) && slidesProp.length > 0 ? slidesProp : CRISIS_SLIDES;
   const total = slides.length;
@@ -62,7 +63,7 @@ export default function CookingCrisisCarousel({
     { ...slides[0], id: `${slides[0].id}-clone-post`, _clone: true },
   ];
 
-  const [virtualIndex, setVirtualIndex] = useState(1); // start on first real slide
+  const [virtualIndex, setVirtualIndex] = useState(1); 
   const [animate, setAnimate] = useState(true);
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
@@ -126,6 +127,12 @@ export default function CookingCrisisCarousel({
       onSlideChange(currentIndex);
     }
   }, [currentIndex, onSlideChange]);
+
+  useEffect(() => {
+    if (typeof controlledIndex !== "number") return undefined;
+    setAnimate(true);
+    setVirtualIndex(wrap(controlledIndex, total) + 1);
+  }, [controlledIndex, total]);
 
   useEffect(() => {
     if (typeof document === "undefined") return undefined;
