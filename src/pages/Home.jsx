@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -11,21 +11,21 @@ import Impact from "../components/Impact"
 import Sustainability from "../components/Sustainability";
 import WhoWeAre from "../components/WhoWeAre";
 import MapSection from "../components/MapSection";
+import HeroVideoFlowStrip from "../components/HeroVideoFlowStrip";
 
 const MOBILE_HERO_IMAGE = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakNano.jpg";
 const HERO_INTRO_VIDEO = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/13272920_3840_2160_30fps%281%29.mp4";
-const HERO_INTRO_POSTER = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakX.jpg";
 const HERO_INTRO_HEADING = "The future runs on stored energy.";
-const HERO_ROTATE_MS = 5500;
+const HERO_ROTATE_MS = 7500;
 
 const heroSlides = [
   {
-    heading: "Zero-Carbon Grid Stability Starts Here",
-    sub: "Our thermal bricks convert plastic waste into grid resilience stabilizing networks with 100% clean energy storage.",
+    heading: "Clean Cooking That Protects Families and the Planet.",
+    sub: "Smoke-free thermal cooking replaces charcoal and firewood with renewable heat for households, schools, and community kitchens.",
   },
   {
-    heading: "Grid Stability Powered by 100% Clean and Renewable Energy.",
-    sub: "Containerized thermal storage systems deliver dependable power continuity for industrial and community-scale operations.",
+    heading: "Clean, Reliable Water for Every Community.",
+    sub: "Solar-powered thermal purification delivers safe drinking water and dependable daily access without fuel logistics.",
   },
   {
     heading: "Thermal Energy Systems Built for Power, Heat, and Clean Water.",
@@ -34,22 +34,22 @@ const heroSlides = [
 ];
 
 const heroStats = [
-  { countUp: { type: "single", start: 0, end: 100, format: (n) => `${Math.round(n)}%` }, label: "Zero-Carbon Energy" },
-  { countUp: { type: "single", start: 0, end: 24, format: (n) => `${Math.round(n)}/7` }, label: "Reliable Dispatch" },
-  { countUp: { type: "single", start: 0, end: 4, format: (n) => `${Math.round(n)}+` }, label: "Renewable Sources" },
-  { countUp: { type: "single", start: 0, end: 3, format: (n) => `${Math.round(n)}+` }, label: "Deployment Scales" },
+  { id: "savings", countUp: { type: "single", start: 0, end: 40, format: (n) => `Up to ${Math.round(n)}%` }, label: "Lower energy costs" },
+  { id: "lifespan", countUp: { type: "range", startMin: 0, startMax: 0, endMin: 10, endMax: 25, format: (a, b) => `${Math.round(a)}–${Math.round(b)}+` }, label: "Years of service life" },
+  { id: "dispatch", countUp: { type: "single", start: 0, end: 24, format: (n) => `${Math.round(n)}/7` }, label: "Reliable dispatch" },
+  { id: "carbon", countUp: { type: "single", start: 0, end: 100, format: (n) => `${Math.round(n)}%` }, label: "Zero carbon emissions" },
 ];
 
 const heroCarouselSlides = [
   {
-    id: "home-gridstreak-x",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakX.jpg",
-    alt: "GridStreak X thermal energy container with rooftop solar panels.",
+    id: "home-clean-cooking",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
+    alt: "Family cooking with a GridStreak clean cooking system in a modern smoke-free kitchen.",
   },
   {
-    id: "home-gridstreak-ultra",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakUltra.jpg",
-    alt: "GridStreak Ultra thermal brick battery system inside a container.",
+    id: "home-water-purification",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/purificationhero.webp",
+    alt: "GridStreak solar and thermal water purification system delivering clean reliable water.",
   },
   {
     id: "home-clean-water",
@@ -60,14 +60,14 @@ const heroCarouselSlides = [
 
 const whyGridStreakStats = [
   {
-    countUp: { type: "single", start: 1, end: 4, format: (n) => `${Math.round(n)}+` },
-    title: "Flexible Storage",
-    description: "Works with multiple renewable energy sources.",
+    countUp: { type: "single", start: 0, end: 40, format: (n) => `Up to ${Math.round(n)}%` },
+    title: "Lower Energy Costs",
+    description: "Cut operating spend by up to 40% compared with fuel-based systems.",
   },
   {
-    countUp: { type: "single", start: 0, end: 100, format: (n) => `${Math.round(n)}%` },
-    title: "Zero Carbon Emissions",
-    description: "Fully decoupled from fossil fuel systems.",
+    countUp: { type: "range", startMin: 0, startMax: 0, endMin: 10, endMax: 25, format: (a, b) => `${Math.round(a)}-${Math.round(b)}+` },
+    title: "10–25+ Year Lifespan",
+    description: "Durable thermal systems engineered for long-term field deployment.",
   },
   {
     countUp: { type: "single", start: 0, end: 24, format: (n) => `${Math.round(n)}/7` },
@@ -75,9 +75,9 @@ const whyGridStreakStats = [
     description: "Stores heat for hours to days with minimal losses.",
   },
   {
-    countUp: { type: "single", start: 0, end: 3, format: (n) => `${Math.round(n)}+` },
-    title: "Scalable",
-    description: "Modular units can fit residential to industrial projects.",
+    countUp: { type: "single", start: 0, end: 100, format: (n) => `${Math.round(n)}%` },
+    title: "Zero Carbon Emissions",
+    description: "Fully decoupled from fossil fuel systems.",
   },
 ];
 
@@ -116,7 +116,9 @@ function Typewriter({ text, speed = 55, startDelay = 250, className }) {
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [heroIntroDone, setHeroIntroDone] = useState(false);
+  const [heroPhase, setHeroPhase] = useState("carousel");
+  const heroVideoRef = useRef(null);
+  const heroVideoSessionRef = useRef(0);
   const [activeSolutionId, setActiveSolutionId] = useState(null);
   const [isMobileHero, setIsMobileHero] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false,
@@ -236,6 +238,74 @@ function Home() {
     return () => window.clearInterval(id);
   }, [isMobileHero]);
 
+  React.useEffect(() => {
+    if (isMobileHero) return undefined;
+    const video = heroVideoRef.current;
+    if (!video) return undefined;
+    video.preload = "auto";
+    video.load();
+    return undefined;
+  }, [isMobileHero]);
+
+  React.useEffect(() => {
+    if (isMobileHero || heroPhase !== "carousel") return undefined;
+    const id = window.setInterval(() => {
+      setCurrentSlide((prev) => {
+        if (prev < heroSlides.length - 1) return prev + 1;
+        setHeroPhase("video");
+        return prev;
+      });
+    }, HERO_ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [isMobileHero, heroPhase]);
+
+  const heroVideoActiveRef = useRef(false);
+
+  React.useEffect(() => {
+    heroVideoActiveRef.current = heroPhase === "video";
+  }, [heroPhase]);
+
+  const finishHeroVideo = React.useCallback(() => {
+    if (!heroVideoActiveRef.current) return;
+    heroVideoActiveRef.current = false;
+    const video = heroVideoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    setHeroPhase("carousel");
+    setCurrentSlide(0);
+  }, []);
+
+  React.useEffect(() => {
+    if (isMobileHero || heroPhase !== "video") return undefined;
+    const video = heroVideoRef.current;
+    if (!video) return undefined;
+
+    const session = heroVideoSessionRef.current + 1;
+    heroVideoSessionRef.current = session;
+    video.loop = false;
+
+    const playOnce = () => {
+      if (heroVideoSessionRef.current !== session) return;
+      video.currentTime = 0;
+      video.play().catch(finishHeroVideo);
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
+      playOnce();
+    } else {
+      video.addEventListener("canplaythrough", playOnce, { once: true });
+    }
+
+    return () => {
+      video.removeEventListener("canplaythrough", playOnce);
+      if (heroVideoSessionRef.current === session) {
+        video.pause();
+      }
+    };
+  }, [isMobileHero, heroPhase, finishHeroVideo]);
+
   return (
     <div className="home-page">
       <SEO
@@ -277,44 +347,51 @@ function Home() {
             style={{ backgroundImage: `url(${MOBILE_HERO_IMAGE})` }}
             aria-hidden="true"
           />
-        ) : !heroIntroDone ? (
-          <video
-            className="hero-intro-video"
-            src={HERO_INTRO_VIDEO}
-            poster={HERO_INTRO_POSTER}
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-            onEnded={() => setHeroIntroDone(true)}
-            onError={() => setHeroIntroDone(true)}
-          />
         ) : (
-          <CookingCrisisCarousel
-            slides={heroCarouselSlides}
-            showCaptions={false}
-            ariaLabel="GridStreak system showcase"
-            onSlideChange={setCurrentSlide}
-          />
+          <div className="hero-media" aria-hidden="true">
+            <div className={`hero-media__layer ${heroPhase === "carousel" ? "is-active" : ""}`}>
+              <CookingCrisisCarousel
+                slides={heroCarouselSlides}
+                showCaptions={false}
+                autoplay={false}
+                controlledIndex={currentSlide}
+                ariaLabel="GridStreak system showcase"
+                onSlideChange={setCurrentSlide}
+              />
+            </div>
+            <div className={`hero-media__layer ${heroPhase === "video" ? "is-active" : ""}`}>
+              <video
+                ref={heroVideoRef}
+                className="hero-intro-video"
+                src={HERO_INTRO_VIDEO}
+                muted
+                playsInline
+                loop={false}
+                preload="auto"
+                onEnded={finishHeroVideo}
+                onError={finishHeroVideo}
+              />
+            </div>
+          </div>
         )}
         <div className="hero-overlay"></div>
+        {!isMobileHero && heroPhase === "video" ? <HeroVideoFlowStrip /> : null}
         <div className="hero-content">
-          {!isMobileHero && !heroIntroDone ? (
-            <div className="hero-slide hero-slide--intro slide-in-right">
+          {!isMobileHero && heroPhase === "video" ? (
+            <div className="hero-slide hero-slide--intro hero-content__phase is-active" key="hero-video-copy">
               <h1>
                 <Typewriter text={HERO_INTRO_HEADING} />
               </h1>
             </div>
           ) : (
-            <>
+            <div className="hero-content__phase is-active" key={`hero-slide-${currentSlide}`}>
               <div className="hero-slide slide-in-right">
                 <h1>{activeHeroSlide.heading}</h1>
                 <p>{activeHeroSlide.sub}</p>
               </div>
               <div className="hero-stats" aria-label="GridStreak at a glance">
                 {heroStats.map((stat) => (
-                  <div className="hero-stat" key={stat.label}>
+                  <div className="hero-stat" key={stat.id}>
                     <ImpactCountStat
                       className="hero-stat__value"
                       countUp={stat.countUp}
@@ -328,10 +405,12 @@ function Home() {
               <Link to="/solutions" className="hero-btn">
                 Learn More
               </Link>
-            </>
+            </div>
           )}
         </div>
       </section>
+
+      <WhoWeAre />
 
       {/* Why GridStreak Section */}
       <section className="why-gridstreak">
@@ -362,7 +441,6 @@ function Home() {
           </motion.div>
         </div>
       </section>
-      <WhoWeAre />
       <ProcessFlow />
       <section className="home-solutions" aria-labelledby="home-solutions-title">
         <header className="home-solutions__header">
