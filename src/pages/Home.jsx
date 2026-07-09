@@ -7,6 +7,7 @@ import CookingCrisisCarousel from "../components/CleanCooking/CookingCrisisCarou
 import ImpactCountStat from "../components/CleanCooking/ImpactCountStat";
 import RotatingEarth from "../components/RotatingEarth";
 import ProcessFlow from "../components/ProcessFlow";
+import HowItWorks from "../components/HowItWorks";
 import Impact from "../components/Impact"
 import Sustainability from "../components/Sustainability";
 import WhoWeAre from "../components/WhoWeAre";
@@ -411,6 +412,7 @@ function Home() {
       </section>
 
       <WhoWeAre />
+      <HowItWorks />
 
       {/* Why GridStreak Section */}
       <section className="why-gridstreak">
