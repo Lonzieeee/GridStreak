@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "./Home.css";
 import CookingCrisisCarousel from "../components/CleanCooking/CookingCrisisCarousel";
 import ImpactCountStat from "../components/CleanCooking/ImpactCountStat";
-import RotatingEarth from "../components/RotatingEarth";
 import ProcessFlow from "../components/ProcessFlow";
 import HowItWorks from "../components/HowItWorks";
 import Impact from "../components/Impact"
@@ -18,6 +18,7 @@ const MOBILE_HERO_IMAGE = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/g
 const HERO_INTRO_VIDEO = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/13272920_3840_2160_30fps%281%29.mp4";
 const HERO_INTRO_HEADING = "The future runs on stored energy.";
 const HERO_ROTATE_MS = 7500;
+const SOLUTIONS_ROTATE_MS = 5200;
 
 const heroSlides = [
   {
@@ -44,7 +45,7 @@ const heroStats = [
 const heroCarouselSlides = [
   {
     id: "home-clean-cooking",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/image-d81f0fcb-34de-44e5-a47e-1835732a9dfa.jpg",
     alt: "Family cooking with a GridStreak clean cooking system in a modern smoke-free kitchen.",
   },
   {
@@ -59,27 +60,11 @@ const heroCarouselSlides = [
   },
 ];
 
-const whyGridStreakStats = [
-  {
-    countUp: { type: "single", start: 0, end: 40, format: (n) => `Up to ${Math.round(n)}%` },
-    title: "Lower Energy Costs",
-    description: "Cut operating spend by up to 40% compared with fuel-based systems.",
-  },
-  {
-    countUp: { type: "range", startMin: 0, startMax: 0, endMin: 10, endMax: 25, format: (a, b) => `${Math.round(a)}-${Math.round(b)}+` },
-    title: "10–25+ Year Lifespan",
-    description: "Durable thermal systems engineered for long-term field deployment.",
-  },
-  {
-    countUp: { type: "single", start: 0, end: 24, format: (n) => `${Math.round(n)}/7` },
-    title: "Reliable Dispatch",
-    description: "Stores heat for hours to days with minimal losses.",
-  },
-  {
-    countUp: { type: "single", start: 0, end: 100, format: (n) => `${Math.round(n)}%` },
-    title: "Zero Carbon Emissions",
-    description: "Fully decoupled from fossil fuel systems.",
-  },
+const whyGridStreakFeatures = [
+  { label: "Affordable", description: "Up to 40% lower energy costs." },
+  { label: "Safe", description: "No explosion risk and no thermal runaway." },
+  { label: "Non-Toxic", description: "No hazardous battery materials." },
+  { label: "Long Lasting", description: "Expected lifespan of 10-25+ years." },
 ];
 
 function Typewriter({ text, speed = 55, startDelay = 250, className }) {
@@ -120,19 +105,35 @@ function Home() {
   const [heroPhase, setHeroPhase] = useState("carousel");
   const heroVideoRef = useRef(null);
   const heroVideoSessionRef = useRef(0);
+  const heroVideoPreloadedRef = useRef(false);
+  const solutionsSectionRef = useRef(null);
   const [activeSolutionId, setActiveSolutionId] = useState(null);
+  const [solutionDirection, setSolutionDirection] = useState(1);
+  const [isSolutionsInView, setIsSolutionsInView] = useState(false);
   const [isMobileHero, setIsMobileHero] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false,
   );
   const activeHeroSlide = heroSlides[currentSlide] ?? heroSlides[0];
+  const whySectionVariants = {
+    hidden: { opacity: 0, y: 28 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut", when: "beforeChildren", staggerChildren: 0.12 },
+    },
+  };
+  const whyItemVariants = {
+    hidden: { opacity: 0, y: 22 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  };
   const homeSolutions = [
     {
       id: 2,
       title: "Hospitals & Clinics",
-      subtitle: "Consistent thermal energy for critical care operations.",
+      subtitle: "Reliable thermal energy for critical care.",
       description: "Supports sterilization, laundry, kitchen systems, and resilient heat for healthcare facilities.",
       path: "/solutions/hospitals-clinics",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cloudy-day_converted.avif",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hospital-building-with-solar-panels-and-ambulances.webp",
       applications: [
         "Sterilization",
         "Laundry Systems",
@@ -145,10 +146,10 @@ function Home() {
     {
       id: 1,
       title: "Clean Cooking",
-      subtitle: "Smoke-free thermal cooking for communities and institutions.",
+      subtitle: "Smoke-free thermal cooking at scale.",
       description: "Reliable heat for schools, kitchens, and community feeding centers without biomass fuel.",
       path: "/solutions/clean-cooking",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/sauteeing-food_compressed.webp",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_jazzqojazzqojazz-4a18993d-7bda-4a6f-961a-4c389cba0b8a.jpg",
       applications: [
         "Schools & Institutions",
         "Community Kitchens",
@@ -161,7 +162,7 @@ function Home() {
     {
       id: 3,
       title: "Cold Storage",
-      subtitle: "Renewable cooling for food and medicine resilience.",
+      subtitle: "Renewable cooling for food and medicine.",
       description: "Thermal energy powers dependable cold storage to reduce spoilage and protect supply chains.",
       path: "/solutions/cold-storage",
       image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/coldstorage.avif",
@@ -177,10 +178,10 @@ function Home() {
     {
       id: 4,
       title: "Water Purification",
-      subtitle: "Thermal purification for safe daily water access.",
+      subtitle: "Thermal purification for safe water access.",
       description: "Heat-powered treatment helps communities secure clean water without complex fuel logistics.",
       path: "/solutions/water-purification",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/view-water-tank-storage_converted.avif",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
       applications: [
         "Community Water Points",
         "Schools & Clinics",
@@ -193,7 +194,7 @@ function Home() {
     {
       id: 5,
       title: "Waste Management",
-      subtitle: "Turning waste streams into useful thermal energy.",
+      subtitle: "Converts waste into useful thermal energy.",
       description: "Closed-loop processing converts plastic waste into usable heat while reducing landfill pressure.",
       path: "/solutions/waste-management",
       image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Nolabels.jpg",
@@ -209,10 +210,10 @@ function Home() {
     {
       id: 6,
       title: "Emergency Relief",
-      subtitle: "Rapid deployment energy for crisis response.",
+      subtitle: "Rapid thermal support for crisis response.",
       description: "Portable units deliver practical heat services for camps, shelters, and field operations.",
       path: "/solutions/emergency-relief",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency.png",
+      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_bs67zibs67zibs67-b0671137-2c13-4065-877b-83cec871d426(1).jpg",
       applications: [
         "Refugee Camps",
         "Disaster Response",
@@ -223,6 +224,16 @@ function Home() {
       ],
     },
   ];
+  const activeSolution = homeSolutions.find((solution) => solution.id === activeSolutionId) ?? homeSolutions[0];
+  const activeSolutionIndex = Math.max(
+    0,
+    homeSolutions.findIndex((solution) => solution.id === activeSolution.id),
+  );
+  const previewSolutions = [
+    homeSolutions[(activeSolutionIndex + 1) % homeSolutions.length],
+    homeSolutions[(activeSolutionIndex + 2) % homeSolutions.length],
+  ].filter(Boolean);
+  const solutionQueue = [activeSolution, ...previewSolutions];
 
   React.useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -242,9 +253,10 @@ function Home() {
   React.useEffect(() => {
     if (isMobileHero) return undefined;
     const video = heroVideoRef.current;
-    if (!video) return undefined;
+    if (!video || heroVideoPreloadedRef.current) return undefined;
     video.preload = "auto";
     video.load();
+    heroVideoPreloadedRef.current = true;
     return undefined;
   }, [isMobileHero]);
 
@@ -306,6 +318,41 @@ function Home() {
       }
     };
   }, [isMobileHero, heroPhase, finishHeroVideo]);
+
+  const showNextSolution = React.useCallback(() => {
+    if (!homeSolutions.length) return;
+    setSolutionDirection(1);
+    const nextIndex = (activeSolutionIndex + 1) % homeSolutions.length;
+    setActiveSolutionId(homeSolutions[nextIndex].id);
+  }, [activeSolutionIndex, homeSolutions]);
+
+  const showPrevSolution = React.useCallback(() => {
+    if (!homeSolutions.length) return;
+    setSolutionDirection(-1);
+    const prevIndex = (activeSolutionIndex - 1 + homeSolutions.length) % homeSolutions.length;
+    setActiveSolutionId(homeSolutions[prevIndex].id);
+  }, [activeSolutionIndex, homeSolutions]);
+
+  React.useEffect(() => {
+    const section = solutionsSectionRef.current;
+    if (!section) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSolutionsInView(entry.isIntersecting);
+      },
+      { threshold: 0.35 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!homeSolutions.length || !isSolutionsInView) return undefined;
+    const id = window.setInterval(() => {
+      showNextSolution();
+    }, SOLUTIONS_ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [homeSolutions.length, showNextSolution, isSolutionsInView]);
 
   return (
     <div className="home-page">
@@ -413,89 +460,103 @@ function Home() {
 
       <WhoWeAre />
       <HowItWorks />
+      <ProcessFlow />
 
       {/* Why GridStreak Section */}
-      <section className="why-gridstreak">
+      <motion.section
+        className="why-gridstreak"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+        variants={whySectionVariants}
+      >
+        <div className="why-gridstreak__overlay" aria-hidden="true" />
         <div className="why-gridstreak__shell">
-          <div className="why-gridstreak__copy">
+          <motion.div className="why-gridstreak__copy" variants={whyItemVariants}>
             <p className="why-gridstreak__eyebrow">Why GridStreak</p>
-            <h2 className="why-gridstreak__title">Clean energy storage measured in real impact.</h2>
+            <h2 className="why-gridstreak__title">Built from Local Resources.</h2>
+            <p className="why-gridstreak__lede">
+              We use locally available inputs such as sand, clay, industrial minerals, recycled materials, and agricultural by-products to lower costs, strengthen local supply chains, and support circular economic growth.
+            </p>
+            <Link to="/sustainability" className="why-gridstreak__action-link">
+              <span>Sustainability</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </motion.div>
 
-            <div className="why-gridstreak__stats" aria-label="GridStreak statistics">
-              {whyGridStreakStats.map((item) => (
-                <article key={item.title} className="why-gridstreak__stat-item">
-                  <ImpactCountStat className="why-gridstreak__stat-number" countUp={item.countUp} start reducedMotion={false} />
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <motion.div
-            className="why-gridstreak__globe-stage"
-            initial={{ opacity: 0, x: 80, scale: 0.94 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <RotatingEarth className="why-gridstreak__globe" variant="continent" rotationDuration={40} maxWidth="28rem" />
+          <motion.div className="why-gridstreak__rows" aria-label="GridStreak advantages" variants={whyItemVariants}>
+            {whyGridStreakFeatures.map((item) => (
+              <motion.article key={item.label} className="why-gridstreak__row" variants={whyItemVariants}>
+                <h3>{item.label}</h3>
+                <p>{item.description}</p>
+              </motion.article>
+            ))}
           </motion.div>
         </div>
-      </section>
-      <ProcessFlow />
-      <section className="home-solutions" aria-labelledby="home-solutions-title">
+      </motion.section>
+      <section className="home-solutions" aria-labelledby="home-solutions-title" ref={solutionsSectionRef}>
         <header className="home-solutions__header">
-          <span className="home-solutions__accent" aria-hidden="true" />
-          <h2 id="home-solutions-title">Our Solutions</h2>
+          <h2 id="home-solutions-title">
+            Our <span>Solutions</span>
+          </h2>
         </header>
 
-        <div
-          className={`home-solutions__rail ${activeSolutionId === homeSolutions[homeSolutions.length - 1].id ? "is-end" : ""}`}
-          role="list"
-          onMouseLeave={() => setActiveSolutionId(null)}
-        >
-          {homeSolutions.map((solution) => {
-            const isActive = solution.id === activeSolutionId;
-            return (
-              <article
-                key={solution.id}
-                role="listitem"
-                className={`home-solutions__card ${isActive ? "is-active" : ""}`}
-                onMouseEnter={() => setActiveSolutionId(solution.id)}
-                onFocus={() => setActiveSolutionId(solution.id)}
-                onClick={() => setActiveSolutionId(solution.id)}
-              >
-                <div className="home-solutions__media-wrap">
-                  <img src={solution.image} alt={solution.title} className="home-solutions__media" loading="lazy" />
-                </div>
+        <div className="home-solutions__showcase">
+          <div className="home-solutions__visual-row">
+            <AnimatePresence initial={false} custom={solutionDirection} mode="popLayout">
+              {solutionQueue.map((solution, slot) => (
+                <motion.button
+                  layout
+                  key={solution.id}
+                  custom={{ direction: solutionDirection, slot }}
+                  variants={{
+                    initial: ({ direction, slot: enteringSlot }) => ({
+                      opacity: 0,
+                      x: direction > 0 ? 80 : -80,
+                      scale: enteringSlot === 0 ? 0.96 : 0.92,
+                    }),
+                    animate: { opacity: 1, x: 0, scale: 1 },
+                    exit: ({ direction }) => ({
+                      opacity: 0,
+                      x: direction > 0 ? -80 : 80,
+                      scale: 0.9,
+                    }),
+                  }}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                  type="button"
+                  className={`home-solutions__queue-card ${slot === 0 ? "is-active" : ""}`}
+                  onClick={() => {
+                    setSolutionDirection(slot === 0 ? 1 : 1);
+                    setActiveSolutionId(solution.id);
+                  }}
+                  aria-label={`Show ${solution.title}`}
+                >
+                  <img src={solution.image} alt={solution.title} loading="lazy" />
+                </motion.button>
+              ))}
+            </AnimatePresence>
+          </div>
 
-                <div className="home-solutions__overlay">
-                  <h3>{solution.title}</h3>
-                  <p className="home-solutions__teaser">{solution.subtitle}</p>
-                </div>
+          <div className="home-solutions__copy">
+            <h3>
+              <Link to={activeSolution.path} className="home-solutions__category-link">
+                {activeSolution.title}
+              </Link>
+            </h3>
+            <p className="home-solutions__description">{activeSolution.description}</p>
+          </div>
 
-                <div className="home-solutions__panel" aria-hidden={!isActive}>
-                  <div className="home-solutions__panel-head">
-                    <h3 className="home-solutions__panel-title">{solution.title}</h3>
-                    <p className="home-solutions__panel-desc">{solution.description}</p>
-                  </div>
-
-                  <ul className="home-solutions__apps">
-                    {solution.applications.map((app) => (
-                      <li key={app} className="home-solutions__app">
-                        <span>{app}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link to={solution.path} className="home-solutions__link">
-                    Learn more →
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
+          <div className="home-solutions__controls">
+            <button type="button" aria-label="Previous solution" onClick={showPrevSolution}>
+              <FiChevronLeft className="home-solutions__chevron-icon" />
+            </button>
+            <button type="button" aria-label="Next solution" onClick={showNextSolution}>
+              <FiChevronRight className="home-solutions__chevron-icon" />
+            </button>
+          </div>
         </div>
       </section>
       <Impact />

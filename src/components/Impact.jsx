@@ -4,7 +4,6 @@ import {
  PieChart,
  Pie,
  Cell,
- Legend,
  Tooltip,
 
 } from "recharts";
@@ -63,14 +62,15 @@ function Impact() {
             <h2>GridStreak's Circular Impact</h2>
 
             <div className="impact-chart-wrapper">
+            <div className="impact-chart">
 
-            <PieChart width={600} height={400}>
+            <PieChart width={390} height={350}>
                 <Pie
                 data={data}
-                cx={200}
-                cy={200}
+                cx={168}
+                cy={175}
                 innerRadius={0}
-                outerRadius={150}
+                outerRadius={138}
                 // fill="#8884d8"
                 dataKey="value"
                 label={renderCustomLabel}
@@ -84,10 +84,9 @@ function Impact() {
           ))}
           </Pie>
           <Tooltip/>
-
-          
- <Legend content={renderLegend} />
             </PieChart>
+            </div>
+            {renderLegend()}
            
             </div>
         </section>
