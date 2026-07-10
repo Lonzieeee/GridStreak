@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { motion } from "framer-motion";
 import "./Home.css";
 import CookingCrisisCarousel from "../components/CleanCooking/CookingCrisisCarousel";
 import ImpactCountStat from "../components/CleanCooking/ImpactCountStat";
@@ -13,12 +12,12 @@ import Sustainability from "../components/Sustainability";
 import WhoWeAre from "../components/WhoWeAre";
 import MapSection from "../components/MapSection";
 import HeroVideoFlowStrip from "../components/HeroVideoFlowStrip";
+import HomeSolutions from "../components/HomeSolutions";
 
 const MOBILE_HERO_IMAGE = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakNano.jpg";
 const HERO_INTRO_VIDEO = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/13272920_3840_2160_30fps%281%29.mp4";
 const HERO_INTRO_HEADING = "The future runs on stored energy.";
 const HERO_ROTATE_MS = 7500;
-const SOLUTIONS_ROTATE_MS = 5200;
 
 const heroSlides = [
   {
@@ -26,12 +25,12 @@ const heroSlides = [
     sub: "Smoke-free thermal cooking replaces charcoal and firewood with renewable heat for households, schools, and community kitchens.",
   },
   {
-    heading: "Clean, Reliable Water for Every Community.",
-    sub: "Solar-powered thermal purification delivers safe drinking water and dependable daily access without fuel logistics.",
+    heading: "Turning Waste into Clean, Reliable Energy.",
+    sub: "GridStreak converts organic and plastic waste into long-duration thermal energy, preventing methane emissions and delivering affordable power for communities, agriculture, and industry.",
   },
   {
-    heading: "Thermal Energy Systems Built for Power, Heat, and Clean Water.",
-    sub: "From GridStreak X to Ultra and clean water deployments, each unit turns renewable energy into reliable daily service.",
+    heading: "Clean Water Systems Powered by Thermal Energy.",
+    sub: "Containerized deployments turn stored renewable heat into safe drinking water and dependable daily access without complex fuel logistics.",
   },
 ];
 
@@ -45,18 +44,18 @@ const heroStats = [
 const heroCarouselSlides = [
   {
     id: "home-clean-cooking",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/image-d81f0fcb-34de-44e5-a47e-1835732a9dfa.jpg",
-    alt: "Family cooking with a GridStreak clean cooking system in a modern smoke-free kitchen.",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
+    alt: "GridStreak clean cooking solutions powered by thermal energy storage.",
   },
   {
-    id: "home-water-purification",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/purificationhero.webp",
-    alt: "GridStreak solar and thermal water purification system delivering clean reliable water.",
+    id: "home-waste-management",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Untitled%20design.jpg",
+    alt: "GridStreak waste-to-energy system converting waste into clean thermal energy.",
   },
   {
     id: "home-clean-water",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
-    alt: "GridStreak clean water thermal energy system inside containerized unit.",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_tuzte5tuzte5tuzt-22fea8e0-359c-4bad-a574-9667c5e0748c.jpg",
+    alt: "GridStreak clean water system powered by thermal energy inside a containerized unit.",
   },
 ];
 
@@ -106,10 +105,6 @@ function Home() {
   const heroVideoRef = useRef(null);
   const heroVideoSessionRef = useRef(0);
   const heroVideoPreloadedRef = useRef(false);
-  const solutionsSectionRef = useRef(null);
-  const [activeSolutionId, setActiveSolutionId] = useState(null);
-  const [solutionDirection, setSolutionDirection] = useState(1);
-  const [isSolutionsInView, setIsSolutionsInView] = useState(false);
   const [isMobileHero, setIsMobileHero] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false,
   );
@@ -126,114 +121,6 @@ function Home() {
     hidden: { opacity: 0, y: 22 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
   };
-  const homeSolutions = [
-    {
-      id: 2,
-      title: "Hospitals & Clinics",
-      subtitle: "Reliable thermal energy for critical care.",
-      description: "Supports sterilization, laundry, kitchen systems, and resilient heat for healthcare facilities.",
-      path: "/solutions/hospitals-clinics",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/hospital-building-with-solar-panels-and-ambulances.webp",
-      applications: [
-        "Sterilization",
-        "Laundry Systems",
-        "Kitchen & Catering",
-        "Hot Water Supply",
-        "Space Heating",
-        "Backup Power Resilience",
-      ],
-    },
-    {
-      id: 1,
-      title: "Clean Cooking",
-      subtitle: "Smoke-free thermal cooking at scale.",
-      description: "Reliable heat for schools, kitchens, and community feeding centers without biomass fuel.",
-      path: "/solutions/clean-cooking",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_jazzqojazzqojazz-4a18993d-7bda-4a6f-961a-4c389cba0b8a.jpg",
-      applications: [
-        "Schools & Institutions",
-        "Community Kitchens",
-        "Restaurants & Hotels",
-        "Feeding Programs",
-        "Bakeries",
-        "Household Cooking",
-      ],
-    },
-    {
-      id: 3,
-      title: "Cold Storage",
-      subtitle: "Renewable cooling for food and medicine.",
-      description: "Thermal energy powers dependable cold storage to reduce spoilage and protect supply chains.",
-      path: "/solutions/cold-storage",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/coldstorage.avif",
-      applications: [
-        "Food Preservation",
-        "Vaccine Storage",
-        "Dairy & Fisheries",
-        "Agricultural Produce",
-        "Pharmaceutical Cooling",
-        "Supply Chain Logistics",
-      ],
-    },
-    {
-      id: 4,
-      title: "Water Purification",
-      subtitle: "Thermal purification for safe water access.",
-      description: "Heat-powered treatment helps communities secure clean water without complex fuel logistics.",
-      path: "/solutions/water-purification",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
-      applications: [
-        "Community Water Points",
-        "Schools & Clinics",
-        "Disaster Zones",
-        "Rural Households",
-        "Institutions",
-        "Agriculture & Irrigation",
-      ],
-    },
-    {
-      id: 5,
-      title: "Waste Management",
-      subtitle: "Converts waste into useful thermal energy.",
-      description: "Closed-loop processing converts plastic waste into usable heat while reducing landfill pressure.",
-      path: "/solutions/waste-management",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Nolabels.jpg",
-      applications: [
-        "Plastic Waste Processing",
-        "Landfill Reduction",
-        "Circular Recycling",
-        "Industrial Waste",
-        "Municipal Waste",
-        "Energy Recovery",
-      ],
-    },
-    {
-      id: 6,
-      title: "Emergency Relief",
-      subtitle: "Rapid thermal support for crisis response.",
-      description: "Portable units deliver practical heat services for camps, shelters, and field operations.",
-      path: "/solutions/emergency-relief",
-      image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_bs67zibs67zibs67-b0671137-2c13-4065-877b-83cec871d426(1).jpg",
-      applications: [
-        "Refugee Camps",
-        "Disaster Response",
-        "Field Hospitals",
-        "Temporary Shelters",
-        "Mobile Kitchens",
-        "Off-Grid Deployments",
-      ],
-    },
-  ];
-  const activeSolution = homeSolutions.find((solution) => solution.id === activeSolutionId) ?? homeSolutions[0];
-  const activeSolutionIndex = Math.max(
-    0,
-    homeSolutions.findIndex((solution) => solution.id === activeSolution.id),
-  );
-  const previewSolutions = [
-    homeSolutions[(activeSolutionIndex + 1) % homeSolutions.length],
-    homeSolutions[(activeSolutionIndex + 2) % homeSolutions.length],
-  ].filter(Boolean);
-  const solutionQueue = [activeSolution, ...previewSolutions];
 
   React.useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -318,41 +205,6 @@ function Home() {
       }
     };
   }, [isMobileHero, heroPhase, finishHeroVideo]);
-
-  const showNextSolution = React.useCallback(() => {
-    if (!homeSolutions.length) return;
-    setSolutionDirection(1);
-    const nextIndex = (activeSolutionIndex + 1) % homeSolutions.length;
-    setActiveSolutionId(homeSolutions[nextIndex].id);
-  }, [activeSolutionIndex, homeSolutions]);
-
-  const showPrevSolution = React.useCallback(() => {
-    if (!homeSolutions.length) return;
-    setSolutionDirection(-1);
-    const prevIndex = (activeSolutionIndex - 1 + homeSolutions.length) % homeSolutions.length;
-    setActiveSolutionId(homeSolutions[prevIndex].id);
-  }, [activeSolutionIndex, homeSolutions]);
-
-  React.useEffect(() => {
-    const section = solutionsSectionRef.current;
-    if (!section) return undefined;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSolutionsInView(entry.isIntersecting);
-      },
-      { threshold: 0.35 },
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  React.useEffect(() => {
-    if (!homeSolutions.length || !isSolutionsInView) return undefined;
-    const id = window.setInterval(() => {
-      showNextSolution();
-    }, SOLUTIONS_ROTATE_MS);
-    return () => window.clearInterval(id);
-  }, [homeSolutions.length, showNextSolution, isSolutionsInView]);
 
   return (
     <div className="home-page">
@@ -478,10 +330,6 @@ function Home() {
             <p className="why-gridstreak__lede">
               We use locally available inputs such as sand, clay, industrial minerals, recycled materials, and agricultural by-products to lower costs, strengthen local supply chains, and support circular economic growth.
             </p>
-            <Link to="/sustainability" className="why-gridstreak__action-link">
-              <span>Sustainability</span>
-              <span aria-hidden="true">→</span>
-            </Link>
           </motion.div>
 
           <motion.div className="why-gridstreak__rows" aria-label="GridStreak advantages" variants={whyItemVariants}>
@@ -494,71 +342,7 @@ function Home() {
           </motion.div>
         </div>
       </motion.section>
-      <section className="home-solutions" aria-labelledby="home-solutions-title" ref={solutionsSectionRef}>
-        <header className="home-solutions__header">
-          <h2 id="home-solutions-title">
-            Our <span>Solutions</span>
-          </h2>
-        </header>
-
-        <div className="home-solutions__showcase">
-          <div className="home-solutions__visual-row">
-            <AnimatePresence initial={false} custom={solutionDirection} mode="popLayout">
-              {solutionQueue.map((solution, slot) => (
-                <motion.button
-                  layout
-                  key={solution.id}
-                  custom={{ direction: solutionDirection, slot }}
-                  variants={{
-                    initial: ({ direction, slot: enteringSlot }) => ({
-                      opacity: 0,
-                      x: direction > 0 ? 80 : -80,
-                      scale: enteringSlot === 0 ? 0.96 : 0.92,
-                    }),
-                    animate: { opacity: 1, x: 0, scale: 1 },
-                    exit: ({ direction }) => ({
-                      opacity: 0,
-                      x: direction > 0 ? -80 : 80,
-                      scale: 0.9,
-                    }),
-                  }}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  transition={{ duration: 0.45, ease: "easeOut" }}
-                  type="button"
-                  className={`home-solutions__queue-card ${slot === 0 ? "is-active" : ""}`}
-                  onClick={() => {
-                    setSolutionDirection(slot === 0 ? 1 : 1);
-                    setActiveSolutionId(solution.id);
-                  }}
-                  aria-label={`Show ${solution.title}`}
-                >
-                  <img src={solution.image} alt={solution.title} loading="lazy" />
-                </motion.button>
-              ))}
-            </AnimatePresence>
-          </div>
-
-          <div className="home-solutions__copy">
-            <h3>
-              <Link to={activeSolution.path} className="home-solutions__category-link">
-                {activeSolution.title}
-              </Link>
-            </h3>
-            <p className="home-solutions__description">{activeSolution.description}</p>
-          </div>
-
-          <div className="home-solutions__controls">
-            <button type="button" aria-label="Previous solution" onClick={showPrevSolution}>
-              <FiChevronLeft className="home-solutions__chevron-icon" />
-            </button>
-            <button type="button" aria-label="Next solution" onClick={showNextSolution}>
-              <FiChevronRight className="home-solutions__chevron-icon" />
-            </button>
-          </div>
-        </div>
-      </section>
+      <HomeSolutions />
       <Impact />
       <Sustainability />
       <MapSection />

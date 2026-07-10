@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./CookingCrisisCarousel.css";
 
 const CRISIS_SLIDES = [
@@ -70,19 +71,29 @@ export default function CookingCrisisCarousel({
   const baseId = useId();
   const trackRef = useRef(null);
   const rootRef = useRef(null);
+  const prevControlledRef = useRef(controlledIndex);
+  const isControlled = typeof controlledIndex === "number";
 
   // Real slide index (0..total-1) derived from the virtual index.
   const currentIndex = wrap(virtualIndex - 1, total);
 
   const go = useCallback((dir) => {
+    if (isControlled && typeof onSlideChange === "function") {
+      onSlideChange(wrap(currentIndex + dir, total));
+      return;
+    }
     setAnimate(true);
     setVirtualIndex((v) => v + dir);
-  }, []);
+  }, [isControlled, onSlideChange, currentIndex, total]);
 
   const goTo = useCallback((index) => {
+    if (isControlled && typeof onSlideChange === "function") {
+      onSlideChange(wrap(index, total));
+      return;
+    }
     setAnimate(true);
     setVirtualIndex(wrap(index, total) + 1);
-  }, [total]);
+  }, [isControlled, onSlideChange, total]);
 
   const onKeyDown = (e) => {
     if (e.key === "ArrowLeft") {
@@ -129,10 +140,32 @@ export default function CookingCrisisCarousel({
   }, [currentIndex, onSlideChange]);
 
   useEffect(() => {
+    if (!isControlled) return undefined;
     if (typeof controlledIndex !== "number") return undefined;
+
+    const prev = prevControlledRef.current;
+    if (prev === controlledIndex) return undefined;
+
+    prevControlledRef.current = controlledIndex;
+
+    // Wrapped backward: first slide -> last slide
+    if (typeof prev === "number" && prev === 0 && controlledIndex === total - 1) {
+      setAnimate(true);
+      setVirtualIndex(0);
+      return undefined;
+    }
+
+    // Wrapped forward: last slide -> first slide
+    if (typeof prev === "number" && prev === total - 1 && controlledIndex === 0) {
+      setAnimate(true);
+      setVirtualIndex(total + 1);
+      return undefined;
+    }
+
     setAnimate(true);
     setVirtualIndex(wrap(controlledIndex, total) + 1);
-  }, [controlledIndex, total]);
+    return undefined;
+  }, [controlledIndex, total, isControlled]);
 
   useEffect(() => {
     if (typeof document === "undefined") return undefined;
@@ -231,9 +264,7 @@ export default function CookingCrisisCarousel({
           aria-controls={`${baseId}-stage`}
           aria-label="Previous crisis"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="m15 18-6-6 6-6" />
-          </svg>
+          <FaChevronLeft aria-hidden="true" />
         </button>
 
         <button
@@ -243,9 +274,7 @@ export default function CookingCrisisCarousel({
           aria-controls={`${baseId}-stage`}
           aria-label="Next crisis"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="m9 18 6-6-6-6" />
-          </svg>
+          <FaChevronRight aria-hidden="true" />
         </button>
 
         <div className="cc-crisis-carousel__controls">

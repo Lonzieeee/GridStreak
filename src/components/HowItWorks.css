@@ -33,16 +33,15 @@
 }
 
 .how-works__header {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: clamp(1rem, 4vw, 3rem);
-  align-items: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
   margin-bottom: 0;
   padding-top: 0;
 }
 
 .how-works__eyebrow {
-  grid-column: 1 / -1;
   margin: 0;
   font-size: 0.82rem;
   letter-spacing: 0.16em;
@@ -55,16 +54,17 @@
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.1rem);
   line-height: 1.05;
-  max-width: 16ch;
+  max-width: none;
+  white-space: nowrap;
   color: #f3f4f6;
 }
 
-.how-works__header > p {
+.how-works__lede {
   margin: 0;
   font-size: clamp(1rem, 1.25vw, 1.15rem);
-  line-height: 1.55;
+  line-height: 1.45;
   color: rgba(243, 244, 246, 0.84);
-  max-width: 36ch;
+  max-width: 78ch;
 }
 
 .how-works__rail {
@@ -313,13 +313,11 @@
 }
 
 @media (max-width: 1060px) {
-  .how-works__header {
-    grid-template-columns: 1fr;
-    gap: 0.9rem;
+  .how-works__header h2 {
+    white-space: normal;
   }
 
-  .how-works__header h2,
-  .how-works__header > p {
+  .how-works__lede {
     max-width: none;
   }
 

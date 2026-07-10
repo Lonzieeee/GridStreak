@@ -217,11 +217,11 @@
 }
 
 .cc-crisis-carousel__btn svg {
-  width: 22px;
-  height: 22px;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
-/* ---------------- CONTROLS (overlaid bottom bar) ---------------- */
+
 .cc-crisis-carousel__controls {
   position: absolute;
   left: 0;

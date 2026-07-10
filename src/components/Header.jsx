@@ -61,15 +61,60 @@ const solutionDropdownItems = [
   },
 ];
 
+const SCROLL_SOLID_AFTER = 12;
+
+function getScrollTop() {
+  return Math.max(
+    window.scrollY ?? 0,
+    document.documentElement?.scrollTop ?? 0,
+    document.body?.scrollTop ?? 0,
+  );
+}
+
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [navTheme, setNavTheme] = useState("transparent");
   const location = useLocation();
   const navRef = useRef();
   const hamburgerRef = useRef();
   const solutionsRef = useRef();
 
+  const effectiveNavTheme = !isOpen && navTheme === "transparent" ? "transparent" : "solid";
+  const isScrolled = effectiveNavTheme === "solid";
+
   const isActive = (path) => location.pathname === path;
+
+  useEffect(() => {
+    const updateNavTheme = () => {
+      setNavTheme(getScrollTop() > SCROLL_SOLID_AFTER ? "solid" : "transparent");
+    };
+
+    setNavTheme("transparent");
+
+    const syncAfterPaint = window.requestAnimationFrame(() => {
+      updateNavTheme();
+    });
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        updateNavTheme();
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(syncAfterPaint);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -117,7 +162,10 @@ function Header() {
   };
 
   return (
-    <header className="header">
+    <header
+      className={`header${isScrolled ? " header--scrolled" : ""}`}
+      data-nav-theme={effectiveNavTheme}
+    >
       <div className="container">
         <Link to="/" className="logo">
           <img

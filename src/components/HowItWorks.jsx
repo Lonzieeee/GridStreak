@@ -113,8 +113,8 @@ function HowItWorks() {
       <div className="how-works__inner">
         <header className="how-works__header">
           <p className="how-works__eyebrow">How It Works</p>
-          <h2 id="how-works-title">Simple principle. Powerful performance.</h2>
-          <p>
+          <h2 id="how-works-title">Powerful performance.</h2>
+          <p className="how-works__lede">
             We capture energy as heat, store it in sand-based bricks, and release it where and when it is needed most.
           </p>
         </header>
