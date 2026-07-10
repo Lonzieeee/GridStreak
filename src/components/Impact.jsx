@@ -1,11 +1,11 @@
 import React from "react";
 import  "./Impact.css";
 import {
- PieChart,
- Pie,
- Cell,
- Tooltip,
-
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
 const data = [
@@ -63,28 +63,27 @@ function Impact() {
 
             <div className="impact-chart-wrapper">
             <div className="impact-chart">
-
-            <PieChart width={390} height={350}>
-                <Pie
-                data={data}
-                cx={168}
-                cy={175}
-                innerRadius={0}
-                outerRadius={138}
-                // fill="#8884d8"
-                dataKey="value"
-                label={renderCustomLabel}
-                labelLine={false}
-                
-                 stroke="#0D0D0D"
-          strokeWidth={2}
-        >
-          {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index]} />
-          ))}
-          </Pie>
-          <Tooltip/>
-            </PieChart>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={data}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={0}
+                    outerRadius="88%"
+                    dataKey="value"
+                    label={renderCustomLabel}
+                    labelLine={false}
+                    stroke="#0D0D0D"
+                    strokeWidth={2}
+                  >
+                    {data.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
             {renderLegend()}
            

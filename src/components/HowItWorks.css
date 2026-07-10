@@ -342,11 +342,16 @@
     opacity: 1;
     transform: none;
     transition: none;
+    overflow-x: hidden;
   }
 
   .how-works__inner {
     min-height: auto;
     display: block;
+  }
+
+  .how-works__header h2 {
+    font-size: clamp(1.55rem, 6vw, 2rem);
   }
 
   .how-works__rail {
@@ -356,5 +361,21 @@
 
   .how-works__card {
     min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .how-works__card p {
+    font-size: 0.9rem;
+  }
+
+  .how-works__icon-wrap {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .how-works__icon {
+    width: 1.7rem;
+    height: 1.7rem;
   }
 }

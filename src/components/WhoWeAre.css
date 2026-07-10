@@ -123,6 +123,23 @@
   z-index: 1;
 }
 
+@media (max-width: 900px) {
+  .who-we-are__copy {
+    grid-column: col 1 / span 8;
+    grid-row: row 2 / span 4;
+  }
+
+  .who-we-are__media {
+    grid-column: col 5 / span 8;
+    height: 72vh;
+    min-height: 72vh;
+  }
+
+  .who-we-are__media img {
+    min-height: 72vh;
+  }
+}
+
 @media (max-width: 700px) {
   .who-we-are {
     height: auto;
