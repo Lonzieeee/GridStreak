@@ -28,8 +28,8 @@
   line-height: 1.5;
 }
 
-.footer-links h4,
-.footer-contact h4 {
+.footer-links h3,
+.footer-contact h3 {
   font-size: 1.1rem;
   margin-bottom: 1rem;
   color: #EB6A00;
@@ -114,8 +114,8 @@
     font-size: 1.6rem;
   }
 
-  .footer-links h4,
-  .footer-contact h4 {
+  .footer-links h3,
+  .footer-contact h3 {
     font-size: 1rem;
   }
 }
@@ -171,8 +171,8 @@
   line-height: 1.5;
 }
 
-.footer-links h4,
-.footer-contact h4 {
+.footer-links h3,
+.footer-contact h3 {
   font-size: 1.1rem;
   margin-bottom: 1rem;
   color: #EB6A00;
@@ -238,8 +238,8 @@
     font-size: 1.6rem;
   }
 
-  .footer-links h4,
-  .footer-contact h4 {
+  .footer-links h3,
+  .footer-contact h3 {
     font-size: 1rem;
   }
 }

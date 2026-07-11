@@ -39,8 +39,18 @@ export default function HomeSolutions() {
   const [prevIndex, setPrevIndex] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const sectionRef = useRef(null);
   const currentIndexRef = useRef(0);
+
+  useEffect(() => {
+    const mq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!mq) return undefined;
+    const update = () => setReduceMotion(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     currentIndexRef.current = currentIndex;
@@ -100,10 +110,10 @@ export default function HomeSolutions() {
   }, []);
 
   useEffect(() => {
-    if (!isInView) return undefined;
+    if (!isInView || reduceMotion) return undefined;
     const interval = window.setInterval(handleNext, SOLUTIONS_ROTATE_MS);
     return () => window.clearInterval(interval);
-  }, [isInView, handleNext]);
+  }, [isInView, handleNext, reduceMotion]);
 
   const previewIndices = [
     (currentIndex + 1) % homeSolutions.length,
@@ -140,11 +150,16 @@ export default function HomeSolutions() {
             <span className="home-solutions__counter-denominator">{homeSolutions.length}</span>
           </div>
 
-          <div className="home-solutions__main-image-wrapper">
+          <div
+            className="home-solutions__main-image-wrapper"
+            role="img"
+            aria-label={currentSolution.title}
+          >
             {prevSolution && isTransitioning && (
               <div
                 className="home-solutions__main-image-img crossfade-out"
                 style={{ backgroundImage: `url("${prevSolution.image}")` }}
+                aria-hidden="true"
               >
                 <div className="home-solutions__image-category">
                   {getShortSubtitle(prevSolution.subtitle)}
@@ -161,7 +176,7 @@ export default function HomeSolutions() {
             </div>
           </div>
 
-          <div className="home-solutions__main-content">
+          <div className="home-solutions__main-content" aria-live="polite" aria-atomic="true">
             <h3 className="home-solutions__name">{currentSolution.title}</h3>
             <p className="home-solutions__description">
               {isMobile
@@ -195,7 +210,7 @@ export default function HomeSolutions() {
                     </span>
                   </span>
                 </button>
-                <div className="home-solutions__preview-card home-solutions__preview-card-back">
+                <div className="home-solutions__preview-card home-solutions__preview-card-back" aria-hidden="true">
                   <SolutionFlipBack solution={homeSolutions[previewIndices[0]]} />
                 </div>
               </div>
@@ -243,13 +258,12 @@ export default function HomeSolutions() {
       </div>
 
       <div className="home-solutions__navigation">
-        <div className="home-solutions__dots" role="tablist" aria-label="Solution slides">
+        <div className="home-solutions__dots" aria-label="Solution slides">
           {homeSolutions.map((solution, idx) => (
             <button
               key={solution.id}
               type="button"
-              role="tab"
-              aria-selected={idx === currentIndex}
+              aria-current={idx === currentIndex ? "true" : undefined}
               aria-label={`Go to ${solution.title}`}
               className={`home-solutions__dot${idx === currentIndex ? " active" : ""}`}
               onClick={() => transitionToIndex(idx)}

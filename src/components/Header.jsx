@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   FaFire,
@@ -10,7 +10,21 @@ import {
 } from "react-icons/fa";
 import "./Header.css";
 
-const solutionDropdownItems = [
+const LOGO_SRC =
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/navbar.png";
+
+const NAV_LINKS = [
+  { to: "/", label: "Home", title: "GridStreak Home" },
+  { to: "/partners", label: "Partners", title: "GridStreak Partners" },
+  { to: "/team", label: "About", title: "About GridStreak" },
+  {
+    to: "/sustainability",
+    label: "Sustainability",
+    title: "GridStreak Sustainability",
+  },
+];
+
+const SOLUTION_ITEMS = [
   {
     to: "/solutions/clean-cooking",
     label: "Clean Cooking",
@@ -61,234 +75,213 @@ const solutionDropdownItems = [
   },
 ];
 
-const SCROLL_SOLID_AFTER = 12;
-
-function getScrollTop() {
-  return Math.max(
-    window.scrollY ?? 0,
-    document.documentElement?.scrollTop ?? 0,
-    document.body?.scrollTop ?? 0,
-  );
-}
-
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
-  const [navTheme, setNavTheme] = useState("transparent");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.innerWidth >= 768,
+  );
   const location = useLocation();
-  const navRef = useRef();
-  const hamburgerRef = useRef();
-  const solutionsRef = useRef();
-
-  const effectiveNavTheme = !isOpen && navTheme === "transparent" ? "transparent" : "solid";
-  const isScrolled = effectiveNavTheme === "solid";
 
   const isActive = (path) => location.pathname === path;
+  const isSolutionsActive =
+    isActive("/solutions") || location.pathname.startsWith("/solutions/");
+  const isContactActive = isActive("/contact");
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    setSolutionsOpen(false);
+  }, []);
 
   useEffect(() => {
-    const updateNavTheme = () => {
-      setNavTheme(getScrollTop() > SCROLL_SOLID_AFTER ? "solid" : "transparent");
+    const sentinel = document.getElementById("navbar-scroll-sentinel");
+    if (!sentinel) return undefined;
+
+    const syncScrollState = () => {
+      setIsScrolled(window.scrollY > 8);
     };
 
-    setNavTheme("transparent");
+    setIsScrolled(false);
 
-    const syncAfterPaint = window.requestAnimationFrame(() => {
-      updateNavTheme();
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsScrolled(!entry.isIntersecting),
+      { threshold: 0 },
+    );
 
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        updateNavTheme();
-        ticking = false;
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    observer.observe(sentinel);
+    const syncId = window.setTimeout(syncScrollState, 0);
+    window.addEventListener("scroll", syncScrollState, { passive: true });
 
     return () => {
-      window.cancelAnimationFrame(syncAfterPaint);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.clearTimeout(syncId);
+      observer.disconnect();
+      window.removeEventListener("scroll", syncScrollState);
     };
   }, [location.pathname]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        navRef.current &&
-        !navRef.current.contains(event.target) &&
-        !hamburgerRef.current.contains(event.target)
-      ) {
-        setIsOpen(false);
-      }
+    const onResize = () => {
+      const desktop = window.innerWidth >= 768;
+      setIsDesktop(desktop);
+      if (desktop) closeMenu();
     };
 
-    document.addEventListener("click", handleClickOutside);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, [closeMenu]);
+
+  useEffect(() => {
+    closeMenu();
+  }, [location.pathname, closeMenu]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.body.style.overflow = "";
     };
-  }, []);
+  }, [menuOpen]);
 
-  const handleNavClick = () => {
-    if (window.innerWidth < 768) {
-      setIsOpen(false);
-    }
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    });
-  };
+  useEffect(() => {
+    if (!menuOpen) return undefined;
 
-  const handleSolutionsClick = (e) => {
-   
-    setIsSolutionsOpen((open) => (window.innerWidth < 768 ? !open : true));
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    });
-  };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") closeMenu();
+    };
 
-  const handleDropdownItemClick = () => {
-    if (window.innerWidth < 768) {
-      setIsSolutionsOpen(false);
-      setIsOpen(false);
-    }
-  };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen, closeMenu]);
+
+  const linkClass = (path) =>
+    `navbar__link${isActive(path) ? " navbar__link--active" : ""}`;
 
   return (
     <header
-      className={`header${isScrolled ? " header--scrolled" : ""}`}
-      data-nav-theme={effectiveNavTheme}
+      className={`navbar${isScrolled ? " navbar--scrolled" : ""}${menuOpen ? " navbar--menu-open" : ""}`}
     >
-      <div className="container">
-        <Link to="/" className="logo">
-          <img
-            src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/navbar.png"
-            alt="GridStreak"
-          />
+      <div className="navbar__inner">
+        <Link to="/" className="navbar__logo" aria-label="GridStreak home">
+          <img src={LOGO_SRC} alt="GridStreak" width={160} height={48} />
         </Link>
 
         <button
-          className="hamburger"
-          ref={hamburgerRef}
-          onClick={() => setIsOpen(!isOpen)}
+          type="button"
+          className={`navbar__toggle${menuOpen ? " navbar__toggle--open" : ""}`}
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="navbar-menu"
         >
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
+          <span className="navbar__toggle-bar" aria-hidden="true" />
+          <span className="navbar__toggle-bar" aria-hidden="true" />
+          <span className="navbar__toggle-bar" aria-hidden="true" />
         </button>
 
-     
-        <nav className={`nav-links ${isOpen ? "open" : ""}`} ref={navRef} role="navigation" aria-label="Main navigation">
-          {/* close icon for mobile */}
-          <button className="close-menu" onClick={() => setIsOpen(false)} aria-label="Close menu">&times;</button>
-          <Link
-            to="/"
-            onClick={handleNavClick}
-            className={isActive("/") ? "active-link" : ""}
-            title="GridStreak Home"
-          >
+        <button
+          type="button"
+          className={`navbar__backdrop${menuOpen ? " navbar__backdrop--visible" : ""}`}
+          aria-label="Close menu"
+          tabIndex={menuOpen ? 0 : -1}
+          onClick={closeMenu}
+        />
+
+        <nav
+          id="navbar-menu"
+          className={`navbar__nav${menuOpen ? " navbar__nav--open" : ""}`}
+          aria-label="Main navigation"
+          aria-hidden={!isDesktop && !menuOpen ? true : undefined}
+        >
+          <Link to="/" className={linkClass("/")} onClick={closeMenu}>
             Home
           </Link>
+
           <div
-            className="nav-dropdown"
-            ref={solutionsRef}
-            onMouseEnter={() => window.innerWidth >= 768 && setIsSolutionsOpen(true)}
-            onMouseLeave={() => window.innerWidth >= 768 && setIsSolutionsOpen(false)}
+            className="navbar__dropdown"
+            onMouseEnter={() => isDesktop && setSolutionsOpen(true)}
+            onMouseLeave={() => isDesktop && setSolutionsOpen(false)}
           >
             <Link
               to="/solutions"
-              onClick={handleSolutionsClick}
+              className={`navbar__link navbar__link--has-menu${isSolutionsActive ? " navbar__link--active" : ""}`}
               aria-haspopup="menu"
-              aria-expanded={isSolutionsOpen}
-              aria-controls="solutions-submenu"
-              className={isActive("/solutions") || 
-                location.pathname.startsWith("/solutions/") ? "active-link" : ""}
-              title="GridStreak Solutions - Clean Energy Storage Systems"
+              aria-expanded={solutionsOpen}
+              aria-controls="navbar-solutions-menu"
+              onClick={(e) => {
+                if (!isDesktop) {
+                  e.preventDefault();
+                  setSolutionsOpen((open) => !open);
+                } else {
+                  closeMenu();
+                }
+              }}
             >
               Solutions
             </Link>
+
             <div
-              id="solutions-submenu"
-              className={`dropdown-menu ${isSolutionsOpen ? "open" : ""}`}
+              id="navbar-solutions-menu"
+              role="menu"
+              className={`navbar__mega${solutionsOpen ? " navbar__mega--open" : ""}`}
             >
-              {solutionDropdownItems.map(({ to, label, Icon, iconColor, description }) => (
+              {SOLUTION_ITEMS.map(({ to, label, Icon, iconColor, description }) => (
                 <Link
                   key={to}
                   to={to}
-                  onClick={handleDropdownItemClick}
-                  className={isActive(to) ? "active-dropdown-item" : ""}
+                  role="menuitem"
+                  className={`navbar__mega-item${isActive(to) ? " navbar__mega-item--active" : ""}`}
+                  onClick={closeMenu}
                 >
-                  <span className="dropdown-item-head">
+                  <span className="navbar__mega-head">
                     <span
-                      className="dropdown-item-icon"
+                      className="navbar__mega-icon"
                       style={{ "--icon-color": iconColor }}
                       aria-hidden="true"
                     >
                       <Icon />
                     </span>
-                    <span className="dropdown-item-label">{label}</span>
+                    <span className="navbar__mega-label">{label}</span>
                   </span>
-                  <span className="dropdown-item-desc">{description}</span>
+                  <span className="navbar__mega-desc">{description}</span>
                 </Link>
               ))}
             </div>
           </div>
-          <Link
-            to="/partners"
-            onClick={handleNavClick}
-            className={isActive("/partners") ? "active-link" : ""}
-            title="GridStreak Partners - Collaboration Opportunities"
-          >
-            Partners
-          </Link>
-          <Link
-            to="/team"
-            onClick={handleNavClick}
-            className={isActive("/team") ? "active-link" : ""}
-            title="About GridStreak - Meet the People Behind the Mission"
-          >
-            About
-          </Link>
-          <Link
-            to="/sustainability"
-            onClick={handleNavClick}
-            className={isActive("/sustainability") ? "active-link" : ""}
-            title="GridStreak Sustainability - Environmental Impact"
-          >
-            Sustainability
-          </Link>
-          <Link
-            to="#"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-            className=""
-            title="GridStreak Industries - Sector Solutions"
-          >
+
+          {NAV_LINKS.slice(1).map(({ to, label }) => (
+            <Link key={to} to={to} className={linkClass(to)} onClick={closeMenu}>
+              {label}
+            </Link>
+          ))}
+
+          <span className="navbar__link navbar__link--disabled" aria-disabled="true" title="Coming soon">
             Industries
+          </span>
+          <span className="navbar__link navbar__link--disabled" aria-disabled="true" title="Coming soon">
+            Shop
+          </span>
+
+          <Link
+            to="/contact"
+            className={`navbar__cta navbar__cta--mobile${isContactActive ? " navbar__cta--disabled" : ""}`}
+            aria-current={isContactActive ? "page" : undefined}
+            onClick={(e) => {
+              if (isContactActive) e.preventDefault();
+              else closeMenu();
+            }}
+          >
+            Get in Touch
           </Link>
         </nav>
 
-       <Link
-  to="/contact"
-  className={`get-in-touch ${isActive("/contact") ? "disabled-contact" : ""}`}
-  onClick={(e) => {
-    if (isActive("/contact")) {
-      e.preventDefault(); 
-    }
-  }}
->
-  Get in Touch
-</Link>
-
-
+        <Link
+          to="/contact"
+          className={`navbar__cta navbar__cta--desktop${isContactActive ? " navbar__cta--disabled" : ""}`}
+          aria-current={isContactActive ? "page" : undefined}
+          onClick={(e) => isContactActive && e.preventDefault()}
+        >
+          Get in Touch
+        </Link>
       </div>
     </header>
   );

@@ -142,12 +142,18 @@
   background-color: #B0F222;
   color: white;
   padding: 14px 16px;
+  border: none;
   border-radius: 50%;
   font-size: 20px;
   cursor: pointer;
   z-index: 998;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
+}
+
+.chat-toggle:focus-visible {
+  outline: 3px solid #eb6a00;
+  outline-offset: 2px;
 }
 
 .chat-toggle:hover {

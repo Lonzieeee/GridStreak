@@ -1,0 +1,22 @@
+.er-body {
+  background: #f2f2f2;
+  padding: clamp(3rem, 8vh, 5rem) clamp(1.25rem, 4vw, 2rem);
+}
+
+.er-body__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  color: #0d0d0d;
+}
+
+.er-body__inner h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+
+.er-body__inner p {
+  line-height: 1.65;
+  color: #444444;
+}

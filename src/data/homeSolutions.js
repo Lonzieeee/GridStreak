@@ -59,7 +59,7 @@ export const homeSolutions = [
       "Solar and thermal distillation deliver safe drinking water in off-grid villages and coastal towns.",
     path: "/solutions/water-purification",
     image:
-      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_tuzte5tuzte5tuzt-22fea8e0-359c-4bad-a574-9667c5e0748c.jpg",
+      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
     applications: [
       "Community water points and institutions",
       "Schools, clinics, and rural households",

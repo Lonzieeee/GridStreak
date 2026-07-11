@@ -86,9 +86,9 @@ function WhoWeAre() {
         <div className="who-we-are__grid">
           <div className="who-we-are__copy item-1">
             <p className="who-we-are__eyebrow">Who We Are</p>
-            <h1 id="who-we-are-heading" ref={headingRef} data-splitting="lines">
+            <h2 id="who-we-are-heading" ref={headingRef} data-splitting="lines">
               Thermal energy storage built for real-world impact
-            </h1>
+            </h2>
             <p className="who-we-are__body">
               GridStreak is a thermal energy storage startup developing long-duration, sand-based brick batteries
               that deliver safe, affordable, and reliable energy across household, healthcare, agricultural, industrial,

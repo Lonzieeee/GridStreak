@@ -1,5 +1,5 @@
 .partners-hero-section {
-  height: 95vh;
+  height: 99vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -96,7 +96,7 @@
 
   @media (max-width: 768px) {
   .partners-hero-section {
-    height: 70vh; 
+    height: 99vh; 
     padding: 0;    
     text-align: left;
     display: flex;  

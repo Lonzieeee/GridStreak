@@ -85,7 +85,7 @@
   color: #b0f222;
 }
 
-.who-we-are__copy h1 {
+.who-we-are__copy h2 {
   font-size: clamp(2.1rem, 4.8vw, 3rem);
   font-family: "Space Grotesk", system-ui, sans-serif;
   font-weight: 600;
@@ -97,7 +97,7 @@
   color: #ffffff;
 }
 
-.who-we-are__copy h1 span {
+.who-we-are__copy h2 span {
   visibility: hidden;
 }
 

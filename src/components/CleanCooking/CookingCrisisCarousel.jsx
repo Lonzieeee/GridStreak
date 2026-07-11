@@ -48,6 +48,8 @@ export default function CookingCrisisCarousel({
   slides: slidesProp,
   showCaptions = true,
   ariaLabel = "Traditional cooking fuel crisis",
+  prevLabel = "Previous slide",
+  nextLabel = "Next slide",
   onSlideChange,
   controlledIndex,
 }) {
@@ -228,6 +230,7 @@ export default function CookingCrisisCarousel({
         >
           {extendedSlides.map((slide, index) => {
             const isCurrent = index === virtualIndex;
+            const slideLabel = slide.eyebrow || slide.alt || `Slide ${index + 1}`;
             return (
               <article
                 key={slide.id}
@@ -235,7 +238,7 @@ export default function CookingCrisisCarousel({
                 data-current={isCurrent ? "" : undefined}
                 aria-hidden={!isCurrent || slide._clone}
                 aria-roledescription="slide"
-                aria-label={`${slide.eyebrow}`}
+                aria-label={slideLabel}
               >
                 <img
                   className="cc-crisis-slide__image"
@@ -262,7 +265,7 @@ export default function CookingCrisisCarousel({
           className="cc-crisis-carousel__btn cc-crisis-carousel__btn--prev"
           onClick={() => go(-1)}
           aria-controls={`${baseId}-stage`}
-          aria-label="Previous crisis"
+          aria-label={prevLabel}
         >
           <FaChevronLeft aria-hidden="true" />
         </button>
@@ -272,13 +275,13 @@ export default function CookingCrisisCarousel({
           className="cc-crisis-carousel__btn cc-crisis-carousel__btn--next"
           onClick={() => go(1)}
           aria-controls={`${baseId}-stage`}
-          aria-label="Next crisis"
+          aria-label={nextLabel}
         >
           <FaChevronRight aria-hidden="true" />
         </button>
 
         <div className="cc-crisis-carousel__controls">
-          <div className="cc-crisis-carousel__dots" role="tablist" aria-label="Select crisis">
+          <div className="cc-crisis-carousel__dots" aria-label="Select slide">
             {slides.map((slide, index) => {
               const isCurrent = index === currentIndex;
               return (
@@ -287,8 +290,7 @@ export default function CookingCrisisCarousel({
                   type="button"
                   className="cc-crisis-carousel__dot"
                   data-current={isCurrent ? "" : undefined}
-                  role="tab"
-                  aria-selected={isCurrent}
+                  aria-current={isCurrent ? "true" : undefined}
                   aria-label={`Go to slide ${index + 1}`}
                   onClick={() => goTo(index)}
                 >

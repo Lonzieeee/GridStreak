@@ -29,8 +29,8 @@ const heroSlides = [
     sub: "GridStreak converts organic and plastic waste into long-duration thermal energy, preventing methane emissions and delivering affordable power for communities, agriculture, and industry.",
   },
   {
-    heading: "Clean Water Systems Powered by Thermal Energy.",
-    sub: "Containerized deployments turn stored renewable heat into safe drinking water and dependable daily access without complex fuel logistics.",
+    heading: "Thermal Energy Systems Built for Power, Heat, and Clean Water.",
+    sub: "From GridStreak X to Ultra and clean water deployments, each unit turns renewable energy into reliable daily service.",
   },
 ];
 
@@ -54,8 +54,8 @@ const heroCarouselSlides = [
   },
   {
     id: "home-clean-water",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_tuzte5tuzte5tuzt-22fea8e0-359c-4bad-a574-9667c5e0748c.jpg",
-    alt: "GridStreak clean water system powered by thermal energy inside a containerized unit.",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
+    alt: "GridStreak clean water thermal energy system inside containerized unit.",
   },
 ];
 
@@ -131,6 +131,8 @@ function Home() {
 
   React.useEffect(() => {
     if (!isMobileHero) return undefined;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (reduceMotion) return undefined;
     const id = window.setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, HERO_ROTATE_MS);
@@ -149,6 +151,8 @@ function Home() {
 
   React.useEffect(() => {
     if (isMobileHero || heroPhase !== "carousel") return undefined;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (reduceMotion) return undefined;
     const id = window.setInterval(() => {
       setCurrentSlide((prev) => {
         if (prev < heroSlides.length - 1) return prev + 1;
@@ -248,7 +252,7 @@ function Home() {
             aria-hidden="true"
           />
         ) : (
-          <div className="hero-media" aria-hidden="true">
+          <div className="hero-media">
             <div className={`hero-media__layer ${heroPhase === "carousel" ? "is-active" : ""}`}>
               <CookingCrisisCarousel
                 slides={heroCarouselSlides}
@@ -257,9 +261,11 @@ function Home() {
                 controlledIndex={currentSlide}
                 ariaLabel="GridStreak system showcase"
                 onSlideChange={setCurrentSlide}
+                prevLabel="Previous hero slide"
+                nextLabel="Next hero slide"
               />
             </div>
-            <div className={`hero-media__layer ${heroPhase === "video" ? "is-active" : ""}`}>
+            <div className={`hero-media__layer ${heroPhase === "video" ? "is-active" : ""}`} aria-hidden="true">
               <video
                 ref={heroVideoRef}
                 className="hero-intro-video"
@@ -270,11 +276,12 @@ function Home() {
                 preload="auto"
                 onEnded={finishHeroVideo}
                 onError={finishHeroVideo}
+                aria-hidden="true"
               />
             </div>
           </div>
         )}
-        <div className="hero-overlay"></div>
+        <div className="hero-overlay" aria-hidden="true" />
         {!isMobileHero && heroPhase === "video" ? <HeroVideoFlowStrip /> : null}
         <div className="hero-content">
           {!isMobileHero && heroPhase === "video" ? (
@@ -285,7 +292,7 @@ function Home() {
             </div>
           ) : (
             <div className="hero-content__phase is-active" key={`hero-slide-${currentSlide}`}>
-              <div className="hero-slide slide-in-right">
+              <div className="hero-slide slide-in-right" aria-live="polite" aria-atomic="true">
                 <h1>{activeHeroSlide.heading}</h1>
                 <p>{activeHeroSlide.sub}</p>
               </div>

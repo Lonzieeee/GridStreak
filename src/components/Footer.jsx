@@ -23,7 +23,7 @@ function Footer () {
                 </div>
                 {/* middle */}
                 <div className="footer-links">
-                    <h4>Quick Links</h4>
+                    <h3>Quick Links</h3>
                     <ul>
                        <li><Link to="/" onClick={handleFooterNavClick}>Home</Link></li>
                        <li><Link to="/solutions" onClick={handleFooterNavClick}>Solutions</Link></li>
@@ -35,10 +35,10 @@ function Footer () {
 
                 {/* right */}
                 <div className="footer-contact">
-                    <h4>Contact Us</h4>
-                    <p>Email: info@gridstreak.com</p>
-                    <p>Telephone: +254 706 059 906</p>
-                    <p>Location: Chandaria Innovation Center,Kenyatta University</p>
+                    <h3>Contact Us</h3>
+                    <p>Email: <a href="mailto:info@gridstreak.com">info@gridstreak.com</a></p>
+                    <p>Telephone: <a href="tel:+254706059906">+254 706 059 906</a></p>
+                    <p>Location: Chandaria Innovation Center, Kenyatta University</p>
                     <div className="social-links" aria-label="Social Links">
                       <a href="https://www.linkedin.com/company/grid-streak/?viewAsMember=true" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="social-link" title="LinkedIn">
                         <FaLinkedin size={22} color="#fff" />

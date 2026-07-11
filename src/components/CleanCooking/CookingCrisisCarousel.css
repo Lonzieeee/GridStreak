@@ -203,7 +203,8 @@
   background: var(--cc-crisis-accent);
   border-color: var(--cc-crisis-accent);
   color: #fff;
-  outline: none;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
 }
 
 .cc-crisis-carousel__btn--prev:hover,

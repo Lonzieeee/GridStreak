@@ -100,30 +100,37 @@ const ChatBot = () => {
   return (
     <>
       {minimized ? (
-        <div
+        <button
+          type="button"
           className="chat-toggle"
+          aria-label="Open StreakBot chat"
           onClick={() => {
             setMinimized(false);
             setChatHistory([]);
             setRemainingFaqs(faqList);
           }}
         >
-          💬
-        </div>
+          <span aria-hidden="true">💬</span>
+        </button>
       ) : (
-        <div className="chat-container slide-in">
+        <div className="chat-container slide-in" role="dialog" aria-label="StreakBot chat">
           <div className="chat-header">
             StreakBot
-            <button className="close-btn" onClick={() => setMinimized(true)}>
+            <button
+              type="button"
+              className="close-btn"
+              aria-label="Minimize chat"
+              onClick={() => setMinimized(true)}
+            >
               &minus;
             </button>
           </div>
 
-          <div className="chat-body">
+          <div className="chat-body" aria-live="polite">
             {chatHistory.length === 0 && (
               <div className="bot-msg">
                 <span className="icon">
-                  <img src={botIcon} alt="bot" width="20" height="20" />
+                  <img src={botIcon} alt="" width="20" height="20" />
                 </span>
                 <div className="bubble">{INITIAL_BOT_MESSAGE}</div>
               </div>
@@ -137,7 +144,7 @@ const ChatBot = () => {
                 <span className="icon">
                   <img
                     src={entry.type === "bot" ? botIcon : userIcon}
-                    alt={entry.type}
+                    alt=""
                     width="20"
                     height="20"
                   />
@@ -149,7 +156,7 @@ const ChatBot = () => {
             {isTyping && (
               <div className="bot-msg">
                 <span className="icon">
-                  <img src={botIcon} alt="bot" width="20" height="20" />
+                  <img src={botIcon} alt="" width="20" height="20" />
                 </span>
                 <div className="bubble typing-dots">
                   <span>.</span>

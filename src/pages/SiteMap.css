@@ -1,0 +1,31 @@
+.sitemap-body {
+  background: #f2f2f2;
+  padding: clamp(2.5rem, 6vh, 4rem) clamp(1.25rem, 4vw, 2rem) clamp(4rem, 10vh, 6rem);
+}
+
+.sitemap-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 480px;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sitemap-list a {
+  display: block;
+  padding: 0.85rem 1.1rem;
+  background: #ffffff;
+  border: 1px solid rgba(13, 13, 13, 0.08);
+  border-radius: 10px;
+  color: #0d0d0d;
+  text-decoration: none;
+  font-weight: 500;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.sitemap-list a:hover {
+  color: #eb6a00;
+  border-color: rgba(235, 106, 0, 0.35);
+  transform: translateX(4px);
+}
