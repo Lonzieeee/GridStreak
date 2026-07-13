@@ -6,7 +6,7 @@ function MapSection() {
     <section className="map-section">
       <div className="map-content">
         <h2>Our Location</h2>
-        <p>We operate across Kenya — headquartered in Nairobi, Kenya</p>
+        <p>We operate worldwide - headquartered in Nairobi, Kenya</p>
 
         <div className="map-card">
           <iframe

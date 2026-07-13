@@ -14,7 +14,8 @@
   --nav-link-active: #ffffff;
   --nav-link-disabled: rgba(255, 255, 255, 0.45);
 
-  --nav-logo-filter: brightness(0) invert(1);
+  --nav-logo-filter: none;
+  --nav-logo-text: rgba(255, 255, 255, 0.9);
   --nav-toggle-bar: #ffffff;
 
   --nav-cta-bg: transparent;
@@ -52,6 +53,7 @@
   --nav-link-disabled: #999999;
 
   --nav-logo-filter: none;
+  --nav-logo-text: #5c5c5c;
   --nav-toggle-bar: #111111;
 
   --nav-cta-bg: var(--black);
@@ -74,16 +76,33 @@
 
 .navbar__logo {
   flex-shrink: 0;
-  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  line-height: 1;
   text-decoration: none;
+  color: var(--nav-logo-text);
 }
 
 .navbar__logo img {
   display: block;
-  height: 48px;
+  height: 36px;
   width: auto;
-  filter: var(--nav-logo-filter);
-  transition: filter 0.3s ease;
+  filter: none;
+}
+
+.navbar__logo-text {
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--nav-logo-text);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.navbar__logo:hover .navbar__logo-text {
+  color: var(--nav-link-hover);
 }
 
 
@@ -98,7 +117,7 @@
   text-decoration: none;
   text-transform: uppercase;
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.06em;
   color: var(--nav-link);
   white-space: nowrap;
@@ -108,7 +127,7 @@
 .navbar__link:hover,
 .navbar__link--active {
   color: var(--nav-link-hover);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .navbar__link--active::after {
@@ -332,7 +351,11 @@
   }
 
   .navbar__logo img {
-    height: 40px;
+    height: 32px;
+  }
+
+  .navbar__logo-text {
+    font-size: 1.1rem;
   }
 
   .navbar__toggle {
@@ -396,7 +419,7 @@
     width: 100%;
     padding: 0.85rem 0;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 400;
     color: #222222 !important;
     letter-spacing: 0.04em;
   }
@@ -404,7 +427,7 @@
   .navbar__nav .navbar__link:hover,
   .navbar__nav .navbar__link--active {
     color: var(--heat) !important;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .navbar__nav .navbar__link--disabled {

@@ -28,6 +28,7 @@ function Footer () {
                        <li><Link to="/" onClick={handleFooterNavClick}>Home</Link></li>
                        <li><Link to="/solutions" onClick={handleFooterNavClick}>Solutions</Link></li>
                        <li><Link to="/partners" onClick={handleFooterNavClick}>Partners</Link></li>
+                       <li><Link to="/team" onClick={handleFooterNavClick}>About</Link></li>
                        <li><Link to="/sustainability" onClick={handleFooterNavClick}>Sustainability</Link></li>
                        <li><Link to="/contact" onClick={handleFooterNavClick}>Contact</Link></li>
                     </ul>
@@ -37,7 +38,6 @@ function Footer () {
                 <div className="footer-contact">
                     <h3>Contact Us</h3>
                     <p>Email: <a href="mailto:info@gridstreak.com">info@gridstreak.com</a></p>
-                    <p>Telephone: <a href="tel:+254706059906">+254 706 059 906</a></p>
                     <p>Location: Chandaria Innovation Center, Kenyatta University</p>
                     <div className="social-links" aria-label="Social Links">
                       <a href="https://www.linkedin.com/company/grid-streak/?viewAsMember=true" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="social-link" title="LinkedIn">

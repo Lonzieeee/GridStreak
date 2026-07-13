@@ -61,6 +61,16 @@
   color: #ccc;
 }
 
+.footer-contact a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-contact a:hover {
+  color: #B0F222;
+}
+
 .footer-bottom {
   border-top: 1px solid #444;
   margin-top: 3rem;
@@ -202,6 +212,16 @@
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
   color: #ccc;
+}
+
+.footer-contact a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-contact a:hover {
+  color: #B0F222;
 }
 
 .footer-bottom {

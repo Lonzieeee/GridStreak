@@ -11,12 +11,11 @@ import {
 import "./Header.css";
 
 const LOGO_SRC =
-  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/navbar.png";
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/outLine-Green_3x-removebg-preview.png";
 
 const NAV_LINKS = [
   { to: "/", label: "Home", title: "GridStreak Home" },
   { to: "/partners", label: "Partners", title: "GridStreak Partners" },
-  { to: "/team", label: "About", title: "About GridStreak" },
   {
     to: "/sustainability",
     label: "Sustainability",
@@ -162,7 +161,8 @@ function Header() {
     >
       <div className="navbar__inner">
         <Link to="/" className="navbar__logo" aria-label="GridStreak home">
-          <img src={LOGO_SRC} alt="GridStreak" width={160} height={48} />
+          <img src={LOGO_SRC} alt="" width={40} height={48} aria-hidden="true" />
+          <span className="navbar__logo-text">ridstreak</span>
         </Link>
 
         <button

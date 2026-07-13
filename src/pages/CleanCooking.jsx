@@ -500,7 +500,7 @@ const CleanCooking = () => {
         description="Safe, affordable, smoke-free clean cooking powered by GridStreak's sand-based thermal batteries — for homes, schools, and clinics, on-grid or off-grid."
         canonical="https://www.gridstreak.com/solutions/clean-cooking"
         type="website"
-        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg"
+        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_1u91qf1u91qf1u91-75900db6-1f7a-4854-9d17-c9c25830aac5.jpg"
         meta={[
           { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
           {
@@ -539,7 +539,7 @@ const CleanCooking = () => {
             },
             primaryImageOfPage: {
               "@type": "ImageObject",
-              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
+              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_1u91qf1u91qf1u91-75900db6-1f7a-4854-9d17-c9c25830aac5.jpg",
             },
           },
           {
@@ -566,7 +566,7 @@ const CleanCooking = () => {
             },
             url: "https://www.gridstreak.com/solutions/clean-cooking",
             image:
-              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
+              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_1u91qf1u91qf1u91-75900db6-1f7a-4854-9d17-c9c25830aac5.jpg",
           },
           {
             "@context": "https://schema.org",

@@ -56,16 +56,18 @@
 
 .read-more-btn {
   display: inline-block;
-  background-color: var(--lime);
-  color: black;
+  background-color: #b0f222;
+  color: #0d0d0d;
   padding: 10px 20px;
   border-radius: 30px;
   font-weight: bold;
   text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .read-more-btn:hover {
-  background-color: var(--lime-soft);
+  background-color: #eb6a00;
+  color: #ffffff;
 }
 
 .pillars-wrapper {

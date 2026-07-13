@@ -28,9 +28,13 @@ const heroSlides = [
     heading: "Turning Waste into Clean, Reliable Energy.",
     sub: "GridStreak converts organic and plastic waste into long-duration thermal energy, preventing methane emissions and delivering affordable power for communities, agriculture, and industry.",
   },
+  // {
+  //   heading: "Thermal Energy Systems Built for Power, Heat, and Clean Water.",
+  //   sub: "From GridStreak X to Ultra and clean water deployments, each unit turns renewable energy into reliable daily service.",
+  // },
   {
-    heading: "Thermal Energy Systems Built for Power, Heat, and Clean Water.",
-    sub: "From GridStreak X to Ultra and clean water deployments, each unit turns renewable energy into reliable daily service.",
+    heading: "A Cleaner Future, Guaranteed.",
+    sub: "Reliable thermal energy that cuts emissions, protects communities, and powers everyday life so every deployment moves us toward cleaner air and a cleaner tomorrow.",
   },
 ];
 
@@ -44,18 +48,23 @@ const heroStats = [
 const heroCarouselSlides = [
   {
     id: "home-clean-cooking",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gsBanner.jpg",
-    alt: "GridStreak clean cooking solutions powered by thermal energy storage.",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_1u91qf1u91qf1u91-75900db6-1f7a-4854-9d17-c9c25830aac5.jpg",
+    alt: "From smoky traditional cooking to a clean GridStreak kitchen with a family cooking together.",
   },
   {
     id: "home-waste-management",
     image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Untitled%20design.jpg",
     alt: "GridStreak waste-to-energy system converting waste into clean thermal energy.",
   },
+  // {
+  //   id: "home-clean-water",
+  //   image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
+  //   alt: "GridStreak clean water thermal energy system inside containerized unit.",
+  // },
   {
-    id: "home-clean-water",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
-    alt: "GridStreak clean water thermal energy system inside containerized unit.",
+    id: "home-cleaner-future",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/guranteedcleanfuture.webp",
+    alt: "Lush green forest canopy representing GridStreak's commitment to a cleaner future.",
   },
 ];
 

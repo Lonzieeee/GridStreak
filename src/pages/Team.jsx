@@ -10,7 +10,7 @@ const TEAM_MEMBERS = [
     role: "Mechanical Engineer",
     bio: "Engineers the mechanical backbone of GridStreak's thermal energy platform, designing the hardware that turns clean heat into reliable energy for homes, hospitals, and communities.",
     photo:
-      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Faith%20Mwabe.jpeg",
+      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/mwabee.jpeg",
   },
   {
     name: "Kombo Steve",
