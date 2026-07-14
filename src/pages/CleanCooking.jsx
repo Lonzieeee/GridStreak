@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import {
   FaBatteryFull,
   FaBolt,
@@ -20,6 +20,9 @@ import {
   FaSeedling,
   FaSolarPanel,
   FaTree,
+  FaChevronLeft,
+  FaChevronRight,
+  FaSmog,
 } from "react-icons/fa";
 import SEO from "../components/SEO";
 import HealthcareProductsSection from "../components/HospitalsClinics/HealthcareProductsSection";
@@ -317,6 +320,124 @@ const createImpactSegmentPath = (startAngle, endAngle) => {
   `;
 };
 
+const HERO_ROTATE_MS = 11000;
+const AUDIENCE_ROTATE_MS = 30000;
+
+const heroSlides = [
+  {
+    id: "household",
+    image:
+      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_1u91qf1u91qf1u91-75900db6-1f7a-4854-9d17-c9c25830aac5.jpg",
+    kicker: "Household Cooking",
+    heading: "Clean Cooking That Protects Families",
+    body: "Replace charcoal and firewood with smoke free thermal cooking built for everyday home meals  safer air, lower fuel costs, and reliable heat for the people you cook for.",
+    primaryLabel: "Explore household systems",
+    primaryHref: "#clean-cooking-systems",
+  },
+  {
+    id: "institutional",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Institutional.jpg",
+    kicker: "Institutional Cooking",
+    heading: "High Volume Kitchens Without Dirty Fuel",
+    body: "Scale clean heat for schools, hospitals, and community kitchens  continuous, high capacity cooking that cuts charcoal and LPG dependence while feeding many people every day.",
+    primaryLabel: "Explore institutional systems",
+    primaryHref: "#clean-cooking-systems",
+  },
+];
+
+const audienceSlides = [
+  {
+    id: "household",
+    image:
+      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/image-removebg-preview%281%29.png",
+    label: "Household Cooking",
+    heading: "From firewood smoke to clean heat at home",
+    body: "Too many homes still cook on firewood and charcoal living with smoke, high fuel costs, and heat that runs out before the meal is done.",
+    points: [
+      {
+        icon: FaLeaf,
+        countUp: {
+          type: "range",
+          startMin: 0,
+          startMax: 0,
+          endMin: 2,
+          endMax: 4,
+          format: (a, b) => `${Math.round(a)}–${Math.round(b)} t`,
+        },
+        text: "CO₂ avoided per home / year",
+      },
+      {
+        icon: FaUsers,
+        countUp: {
+          type: "single",
+          start: 0,
+          end: 8,
+          format: (n) => `${Math.round(n)}`,
+        },
+        text: "People served per Nano system",
+      },
+      {
+        icon: FaClock,
+        countUp: {
+          type: "single",
+          start: 0,
+          end: 8,
+          format: (n) => `${Math.round(n)}`,
+        },
+        text: "Meals delivered per charge",
+      },
+      {
+        icon: FaLungs,
+        text: "Smoke-free family kitchens",
+      },
+    ],
+    ctaLabel: "See household systems",
+    ctaHref: "#clean-cooking-systems",
+  },
+  {
+    id: "institutional",
+    image:
+      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/image-removebg-preview%282%29.png",
+    label: "Institutional Cooking",
+    heading: "Big kitchens deserve better than burning piles of wood",
+    body: "Schools and hospitals still burn bulk wood and charcoal to feed hundreds  filling kitchens with smoke, unstable heat, and rising fuel bills.",
+    points: [
+      {
+        icon: FaTree,
+        countUp: {
+          type: "range",
+          startMin: 0,
+          startMax: 0,
+          endMin: 15,
+          endMax: 30,
+          format: (a, b) => `${Math.round(a)}–${Math.round(b)}+ t`,
+        },
+        text: "CO₂ avoided per year at scale",
+      },
+      {
+        icon: FaSchool,
+        countUp: {
+          type: "single",
+          start: 0,
+          end: 100,
+          format: (n) => `${Math.round(n)}+`,
+        },
+        text: "Meals served without open fires",
+      },
+      {
+        icon: FaSmog,
+        text: "No kitchen smoke cloud for staff",
+      },
+      {
+        icon: FaMoneyBillWave,
+        text: "Lower spend on bulk firewood & charcoal",
+      },
+    ],
+    ctaLabel: "See institutional systems",
+    ctaHref: "#clean-cooking-systems",
+  },
+];
+
 const getSolarGridConfig = (width) => {
   if (width <= 640) {
     return { columns: 1, cardWidth: 280, cardHeight: 220, gap: 16 };
@@ -338,6 +459,8 @@ const getImpactCircleSize = (width) => {
 };
 
 const CleanCooking = () => {
+  const [heroSlide, setHeroSlide] = useState(0);
+  const [audienceSlide, setAudienceSlide] = useState(0);
   const [solarVisible, setSolarVisible] = useState(false);
   const [solarStart, setSolarStart] = useState(false);
   const [impactVisible, setImpactVisible] = useState(false);
@@ -349,6 +472,33 @@ const CleanCooking = () => {
   const impactSectionRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
 
+  useEffect(() => {
+    if (prefersReducedMotion || heroSlides.length < 2) return undefined;
+    const id = window.setInterval(() => {
+      setHeroSlide((prev) => (prev + 1) % heroSlides.length);
+    }, HERO_ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    if (prefersReducedMotion || audienceSlides.length < 2) return undefined;
+    const id = window.setTimeout(() => {
+      setAudienceSlide((prev) => (prev + 1) % audienceSlides.length);
+    }, AUDIENCE_ROTATE_MS);
+    return () => window.clearTimeout(id);
+  }, [prefersReducedMotion, audienceSlide]);
+
+  const activeHero = heroSlides[heroSlide] ?? heroSlides[0];
+  const activeAudience = audienceSlides[audienceSlide] ?? audienceSlides[0];
+
+  const goAudience = (direction) => {
+    setAudienceSlide((prev) => {
+      const next = prev + direction;
+      if (next < 0) return audienceSlides.length - 1;
+      if (next >= audienceSlides.length) return 0;
+      return next;
+    });
+  };
   const solarGrid = useMemo(() => getSolarGridConfig(viewportWidth), [viewportWidth]);
   const impactCircleSize = useMemo(() => getImpactCircleSize(viewportWidth), [viewportWidth]);
   const isMobileImpact = viewportWidth <= 900;
@@ -598,23 +748,133 @@ const CleanCooking = () => {
       <PageIntroAnimation text="Clean Cooking" color="#eb6a00" colorDark="#7a3700" />
 
       <div className="cc-page">
-        <section className="cc-hero">
+        <section className="cc-hero" aria-roledescription="carousel" aria-label="Clean cooking audiences">
+          <div className="cc-hero-media" aria-hidden="true">
+            {heroSlides.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={`cc-hero-slide${index === heroSlide ? " is-active" : ""}`}
+                style={{ backgroundImage: `url(${slide.image})` }}
+              />
+            ))}
+          </div>
           <div className="cc-hero-overlay" />
-          <div className="cc-hero-content">
-            <p className="cc-kicker">Clean Cooking Solutions</p>
-            <h1>Affordable, Safe, and Reliable Clean Cooking Anywhere</h1>
-            <p>
-              GridStreak is a clean energy startup delivering advanced clean cooking
-              solutions for households, communities, and institutions, powered by
-              sand-based thermal energy storage.
-            </p>
+          <div className="cc-hero-content" key={activeHero.id}>
+            <h1>{activeHero.heading}</h1>
+            <p>{activeHero.body}</p>
             <div className="cc-hero-actions">
-              <a href="#clean-cooking-systems" className="cc-btn cc-btn-primary">
-                Explore Systems
+              <a href={activeHero.primaryHref} className="cc-btn cc-btn-primary">
+                {activeHero.primaryLabel}
               </a>
               <Link to="/contact" className="cc-btn cc-btn-secondary">
                 Contact GridStreak
               </Link>
+            </div>
+          </div>
+
+          <div className="cc-hero-dots" role="tablist" aria-label="Hero slides">
+            {heroSlides.map((slide, index) => (
+              <button
+                key={slide.id}
+                type="button"
+                role="tab"
+                className={`cc-hero-dot${index === heroSlide ? " is-active" : ""}`}
+                aria-selected={index === heroSlide}
+                aria-label={slide.kicker}
+                onClick={() => setHeroSlide(index)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="cc-audience"
+          aria-roledescription="carousel"
+          aria-label="Household and institutional cooking"
+        >
+          <div className="cc-audience__inner">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeAudience.id}
+                className="cc-audience__panel"
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.55, ease: "easeInOut" }}
+              >
+                <div className="cc-audience__media">
+                  <img
+                    src={activeAudience.image}
+                    alt=""
+                    className={`cc-audience__image cc-audience__image--${activeAudience.id}`}
+                  />
+                </div>
+
+                <div className="cc-audience__copy">
+                  <p className="cc-audience__label">{activeAudience.label}</p>
+                  <h2>{activeAudience.heading}</h2>
+                  <p className="cc-audience__body">{activeAudience.body}</p>
+                  <ul className="cc-audience__points">
+                    {activeAudience.points.map((point, index) => {
+                      const Icon = point.icon;
+                      return (
+                        <li key={point.text}>
+                          <span className="cc-audience__point-icon" aria-hidden="true">
+                            <Icon />
+                          </span>
+                          <span className="cc-audience__point-copy">
+                            {point.countUp ? (
+                              <ImpactCountStat
+                                countUp={point.countUp}
+                                start
+                                reducedMotion={!!prefersReducedMotion}
+                                delayMs={index * 90}
+                                className="cc-audience__stat"
+                              />
+                            ) : null}
+                            <span className="cc-audience__point-text">{point.text}</span>
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <a href={activeAudience.ctaHref} className="cc-btn cc-btn-primary">
+                    {activeAudience.ctaLabel}
+                  </a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="cc-audience__controls">
+              <button
+                type="button"
+                className="cc-audience__nav"
+                onClick={() => goAudience(-1)}
+                aria-label="Previous cooking audience"
+              >
+                <FaChevronLeft aria-hidden="true" />
+              </button>
+              <div className="cc-audience__dots" role="tablist" aria-label="Audience slides">
+                {audienceSlides.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    role="tab"
+                    className={`cc-audience__dot${index === audienceSlide ? " is-active" : ""}`}
+                    aria-selected={index === audienceSlide}
+                    aria-label={slide.label}
+                    onClick={() => setAudienceSlide(index)}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                className="cc-audience__nav"
+                onClick={() => goAudience(1)}
+                aria-label="Next cooking audience"
+              >
+                <FaChevronRight aria-hidden="true" />
+              </button>
             </div>
           </div>
         </section>

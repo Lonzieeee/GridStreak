@@ -17,7 +17,7 @@ import HomeSolutions from "../components/HomeSolutions";
 const MOBILE_HERO_IMAGE = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakNano.jpg";
 const HERO_INTRO_VIDEO = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/13272920_3840_2160_30fps%281%29.mp4";
 const HERO_INTRO_HEADING = "The future runs on stored energy.";
-const HERO_ROTATE_MS = 7500;
+const HERO_ROTATE_MS = 14000;
 
 const heroSlides = [
   {
@@ -27,6 +27,10 @@ const heroSlides = [
   {
     heading: "Turning Waste into Clean, Reliable Energy.",
     sub: "GridStreak converts organic and plastic waste into long-duration thermal energy, preventing methane emissions and delivering affordable power for communities, agriculture, and industry.",
+  },
+  {
+    heading: "Decarbonizing Big Industry, One Heat Load at a Time.",
+    sub: "Heavy industry runs on intense, continuous heat. GridStreak’s long duration thermal storage helps factories cut fossil fuel use, lower emissions, and keep high temperature processes running cleanly and reliably.",
   },
   // {
   //   heading: "Thermal Energy Systems Built for Power, Heat, and Clean Water.",
@@ -56,6 +60,11 @@ const heroCarouselSlides = [
     image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Untitled%20design.jpg",
     alt: "GridStreak waste-to-energy system converting waste into clean thermal energy.",
   },
+  {
+    id: "home-decarbonizing-industry",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/steel-factory.jpg",
+    alt: "Interior of a steel factory with molten metal and heavy industrial equipment, representing the challenge of decarbonizing big industry.",
+  },
   // {
   //   id: "home-clean-water",
   //   image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cleanWaterSystem.jpg",
@@ -63,8 +72,8 @@ const heroCarouselSlides = [
   // },
   {
     id: "home-cleaner-future",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/guranteedcleanfuture.webp",
-    alt: "Lush green forest canopy representing GridStreak's commitment to a cleaner future.",
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/pylons.avif",
+    alt: "Electricity pylons over a green hillside under a blue sky, representing clean power for a cleaner future.",
   },
 ];
 

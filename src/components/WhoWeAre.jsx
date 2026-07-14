@@ -6,7 +6,7 @@ import "./WhoWeAre.css";
 
 const WHO_WE_ARE_BG = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/footer-bg-5.jpg";
 const WHO_WE_ARE_IMAGE =
-  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/cooker.jpg";
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/image-removebg-preview.png";
 
 function WhoWeAre() {
   const sectionRef = useRef(null);

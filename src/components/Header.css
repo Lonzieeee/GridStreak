@@ -200,11 +200,12 @@
 
 .navbar__mega {
   position: absolute;
-  top: calc(100% + 10px);
+  top: 100%;
   left: 50%;
   transform: translate(-55%, -6px);
   width: min(100vw - 2.5rem, 980px);
-  padding: 1rem;
+  padding: 0.85rem 1rem 1rem;
+  margin-top: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.35rem;
@@ -222,6 +223,16 @@
     visibility 0.2s ease,
     transform 0.2s ease;
   z-index: 1001;
+}
+
+
+.navbar__mega::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18px;
+  height: 18px;
 }
 
 .navbar__mega--open {

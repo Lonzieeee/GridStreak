@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   FaFire,
@@ -81,6 +81,7 @@ function Header() {
   const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== "undefined" && window.innerWidth >= 768,
   );
+  const solutionsCloseTimer = useRef(null);
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
@@ -88,10 +89,35 @@ function Header() {
     isActive("/solutions") || location.pathname.startsWith("/solutions/");
   const isContactActive = isActive("/contact");
 
+  const clearSolutionsCloseTimer = useCallback(() => {
+    if (solutionsCloseTimer.current != null) {
+      window.clearTimeout(solutionsCloseTimer.current);
+      solutionsCloseTimer.current = null;
+    }
+  }, []);
+
+  const openSolutionsMenu = useCallback(() => {
+    if (!isDesktop) return;
+    clearSolutionsCloseTimer();
+    setSolutionsOpen(true);
+  }, [isDesktop, clearSolutionsCloseTimer]);
+
+  const scheduleCloseSolutionsMenu = useCallback(() => {
+    if (!isDesktop) return;
+    clearSolutionsCloseTimer();
+    solutionsCloseTimer.current = window.setTimeout(() => {
+      setSolutionsOpen(false);
+      solutionsCloseTimer.current = null;
+    }, 180);
+  }, [isDesktop, clearSolutionsCloseTimer]);
+
   const closeMenu = useCallback(() => {
+    clearSolutionsCloseTimer();
     setMenuOpen(false);
     setSolutionsOpen(false);
-  }, []);
+  }, [clearSolutionsCloseTimer]);
+
+  useEffect(() => () => clearSolutionsCloseTimer(), [clearSolutionsCloseTimer]);
 
   useEffect(() => {
     const sentinel = document.getElementById("navbar-scroll-sentinel");
@@ -198,8 +224,8 @@ function Header() {
 
           <div
             className="navbar__dropdown"
-            onMouseEnter={() => isDesktop && setSolutionsOpen(true)}
-            onMouseLeave={() => isDesktop && setSolutionsOpen(false)}
+            onMouseEnter={openSolutionsMenu}
+            onMouseLeave={scheduleCloseSolutionsMenu}
           >
             <Link
               to="/solutions"
