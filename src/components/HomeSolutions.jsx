@@ -138,7 +138,7 @@ export default function HomeSolutions() {
         </h2>
         <p className="home-solutions__subtitle">
           Thermal energy systems for clean cooking, healthcare, water, cold storage, waste recovery,
-          and emergency response.
+          emergency response, and big industry.
         </p>
       </div>
 
@@ -183,9 +183,11 @@ export default function HomeSolutions() {
                 ? getShortDesc(currentSolution.description, 120)
                 : currentSolution.description}
             </p>
-            <Link to={currentSolution.path} className="home-solutions__btn">
-              Learn More
-            </Link>
+            {currentSolution.path ? (
+              <Link to={currentSolution.path} className="home-solutions__btn">
+                Learn More
+              </Link>
+            ) : null}
           </div>
         </div>
 

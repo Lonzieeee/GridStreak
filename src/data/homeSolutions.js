@@ -99,4 +99,20 @@ export const homeSolutions = [
       "Mobile kitchens and water purification",
     ],
   },
+  {
+    id: 7,
+    title: "Big Industry",
+    subtitle: "Decarbonizing heavy industry heat.",
+    description:
+      "Long-duration thermal storage helps factories cut fossil fuel use while keeping high-temperature processes running cleanly and reliably.",
+    backSummary:
+      "Stored renewable heat for energy-intensive industry—cutting emissions without shutting down critical production.",
+    path: null,
+    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/steel-factory.jpg",
+    applications: [
+      "High-temperature industrial process heat",
+      "Factory fossil-fuel displacement",
+      "Continuous operations with lower emissions",
+    ],
+  },
 ];
