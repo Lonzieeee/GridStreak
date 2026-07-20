@@ -40,6 +40,11 @@
   display: none;
 }
 
+.solution-overview-tablet,
+.solution-overview-tablet-loop {
+  display: none;
+}
+
 .solution-flow-arrows {
   position: absolute;
   inset: 0;
@@ -200,7 +205,85 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (min-width: 641px) and (max-width: 1024px) {
+  .solution-overview-flow {
+    display: none;
+  }
+
+  .solution-overview-tablet {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.85rem, 2vw, 1.15rem);
+    width: min(640px, 100%);
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .solution-tablet-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.4rem;
+    padding: clamp(0.85rem, 2vw, 1.1rem);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(176, 242, 34, 0.35);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    box-sizing: border-box;
+  }
+
+  .solution-tablet-card__step {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(175, 241, 34, 0.72);
+  }
+
+  .solution-tablet-card__icon {
+    display: grid;
+    place-items: center;
+    font-size: clamp(1.55rem, 3vw, 1.85rem);
+    color: #aff122;
+  }
+
+  .solution-tablet-card h3 {
+    margin: 0;
+    font-size: clamp(0.92rem, 1.8vw, 1.02rem);
+    line-height: 1.2;
+    color: #ffffff;
+  }
+
+  .solution-tablet-card p {
+    margin: 0;
+    font-size: clamp(0.78rem, 1.5vw, 0.86rem);
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.84);
+    max-width: 16ch;
+  }
+
+  .solution-overview-tablet-loop {
+    display: block;
+    margin: clamp(0.85rem, 2vw, 1.1rem) auto 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(0.76rem, 1.4vw, 0.84rem);
+    letter-spacing: 0.01em;
+  }
+
+  .solution-overview-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
   .solution-overview-flow {
     display: none;
   }

@@ -104,6 +104,34 @@
   max-height: 90px;
 }
 
+@media (max-width: 1024px) {
+  .partners-spotlight {
+    min-height: auto;
+    padding: 3.5rem 1.5rem;
+  }
+
+  .partners-spotlight__heading {
+    margin-bottom: 2rem;
+  }
+
+  .partners-spotlight__grid {
+    --card-gap: 1.25rem;
+  }
+
+  .partners-spotlight__card {
+    padding: 1.15rem;
+  }
+
+  .partners-spotlight__card img {
+    max-height: 100px;
+  }
+
+  .partners-spotlight__card--growthafrica img,
+  .partners-spotlight__card--kenyatta img {
+    max-height: 115px;
+  }
+}
+
 @media (max-width: 900px) {
   .partners-spotlight__grid {
     --card-basis: calc((100% - var(--card-gap)) / 2);
@@ -113,6 +141,7 @@
 @media (max-width: 560px) {
   .partners-spotlight {
     min-height: auto;
+    padding: 2.75rem 1.15rem;
   }
 
   .partners-spotlight__grid {

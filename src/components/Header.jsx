@@ -79,7 +79,7 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(
-    () => typeof window !== "undefined" && window.innerWidth >= 768,
+    () => typeof window !== "undefined" && window.innerWidth >= 1025,
   );
   const solutionsCloseTimer = useRef(null);
   const location = useLocation();
@@ -147,7 +147,7 @@ function Header() {
 
   useEffect(() => {
     const onResize = () => {
-      const desktop = window.innerWidth >= 768;
+      const desktop = window.innerWidth >= 1025;
       setIsDesktop(desktop);
       if (desktop) closeMenu();
     };

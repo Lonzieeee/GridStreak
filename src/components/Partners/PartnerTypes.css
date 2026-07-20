@@ -122,6 +122,28 @@
   }
 }
 
+
+@media (max-width: 1024px) {
+  .partner-types-section {
+    height: auto;
+    padding: 4rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .partner-types-title {
+    font-size: 2.1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .partner-timeline {
+    max-width: 640px;
+  }
+
+  .partner-node {
+    margin-bottom: 2.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .partner-types-section {
     padding: 60px 15px;

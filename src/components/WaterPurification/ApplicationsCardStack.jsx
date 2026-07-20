@@ -77,7 +77,8 @@ export default function ApplicationsCardStack() {
   useEffect(() => {
     const checkScreen = () => {
       const width = window.innerWidth;
-      setIsMobile(width <= 768);
+ 
+      setIsMobile(width <= 1024);
       setIsDesktop(width > 1024);
     };
     checkScreen();

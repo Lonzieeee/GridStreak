@@ -258,6 +258,196 @@ const PRODUCTS: Product[] = [
 ];
 
 const DEFAULT_AUTO_ROTATE_MS = 8000;
+const COMPACT_LAYOUT_MAX_WIDTH = 1024;
+
+function useCompactProductsLayout() {
+  const [isCompact, setIsCompact] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth <= COMPACT_LAYOUT_MAX_WIDTH : false,
+  );
+
+  useEffect(() => {
+    const onResize = () => setIsCompact(window.innerWidth <= COMPACT_LAYOUT_MAX_WIDTH);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return isCompact;
+}
+
+function ProductProseContent({ product }: { product: Product }) {
+  return (
+    <>
+      {product.bodyParagraphs && product.bodyParagraphs.length > 0 ? (
+        <div className="hc-products-menu__contentProse">
+          {product.bodyParagraphs.map((para, index) => {
+            const isObject = typeof para === "object" && para !== null && "text" in para;
+            const text = isObject ? (para as { text: string }).text : (para as string);
+            const highlight = isObject && Boolean((para as { highlight?: boolean }).highlight);
+            return (
+              <p
+                key={index}
+                className={
+                  highlight
+                    ? "hc-products-menu__contentBody hc-products-menu__contentBody--highlight"
+                    : "hc-products-menu__contentBody"
+                }
+              >
+                {text}
+              </p>
+            );
+          })}
+        </div>
+      ) : product.body ? (
+        <div className="hc-products-menu__contentProse">
+          <p className="hc-products-menu__contentBody">{product.body}</p>
+        </div>
+      ) : null}
+
+      {product.bulletGroups && product.bulletGroups.length > 0
+        ? product.bulletGroups.map((group, gi) => (
+            <div key={gi} className="hc-products-menu__contentBlock">
+              <h4 className="hc-products-menu__contentBlockTitle">{group.heading}</h4>
+              <ul className="hc-products-menu__contentList hc-products-menu__contentList--unordered">
+                {group.items.map((item, ii) => (
+                  <li key={ii}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        : null}
+
+      {product.bullets && product.bullets.length > 0 ? (
+        <div className="hc-products-menu__contentHighlights">
+          <p className="hc-products-menu__listKicker" id={`hc-product-highlights-${product.id}`}>
+            Key points
+          </p>
+          <ol
+            className="hc-products-menu__contentList hc-products-menu__contentList--steps"
+            aria-labelledby={`hc-product-highlights-${product.id}`}
+          >
+            {product.bullets.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
+
+      {product.closing ? <p className="hc-products-menu__contentClosing">{product.closing}</p> : null}
+    </>
+  );
+}
+
+function CompactProductsLayout({
+  products,
+  selected,
+  selectedId,
+  onSelect,
+  imgSrc,
+  onImgError,
+  onPointerEnter,
+  onPointerLeave,
+}: {
+  products: Product[];
+  selected: Product;
+  selectedId: string;
+  onSelect: (id: string) => void;
+  imgSrc: string;
+  onImgError: () => void;
+  onPointerEnter: () => void;
+  onPointerLeave: () => void;
+}) {
+  return (
+    <div
+      className="hc-products-compact"
+      onMouseEnter={onPointerEnter}
+      onMouseLeave={onPointerLeave}
+    >
+      <div
+        className="hc-products-compact__picker"
+        role="tablist"
+        aria-label="Product systems"
+      >
+        {products.map((product) => {
+          const isActive = product.id === selectedId;
+          return (
+            <button
+              key={product.id}
+              type="button"
+              role="tab"
+              id={`hc-product-tab-${product.id}`}
+              aria-selected={isActive}
+              aria-controls="hc-product-panel"
+              className={`hc-products-compact__pickerCard${isActive ? " is-active" : ""}`}
+              onClick={() => onSelect(product.id)}
+            >
+              <span className="hc-products-compact__pickerLabel">{product.shortLabel}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        id="hc-product-panel"
+        className="hc-products-compact__panel"
+        role="tabpanel"
+        aria-labelledby={`hc-product-tab-${selected.id}`}
+      >
+        <div className="hc-products-compact__hero" aria-hidden="true">
+          <img
+            key={selected.id}
+            src={imgSrc}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onError={onImgError}
+          />
+        </div>
+
+        <header className="hc-products-compact__head">
+          <h3 className="hc-products-compact__title">{selected.title}</h3>
+          {selected.subtitle ? (
+            <p className="hc-products-compact__subtitle">{selected.subtitle}</p>
+          ) : null}
+        </header>
+
+        {selected.sections && selected.sections.length > 0 ? (
+          <div
+            className="hc-products-compact__features"
+            role="list"
+            aria-label={`${selected.title} details`}
+          >
+            {selected.sections.map((section, index) => {
+              const Icon = section.icon;
+              return (
+                <article
+                  key={`${selected.id}-section-${index}`}
+                  role="listitem"
+                  className={
+                    section.highlight
+                      ? "hc-products-compact__feature hc-products-compact__feature--highlight"
+                      : "hc-products-compact__feature"
+                  }
+                >
+                  {Icon ? (
+                    <span className="hc-products-compact__featureIcon" aria-hidden="true">
+                      <Icon />
+                    </span>
+                  ) : null}
+                  <h4 className="hc-products-compact__featureTitle">{section.title}</h4>
+                  <p className="hc-products-compact__featureText">{section.text}</p>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="hc-products-compact__body">
+            <ProductProseContent product={selected} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function HealthcareProductsSection({
   sectionTitle = "Our Healthcare Energy Systems",
@@ -270,6 +460,7 @@ export default function HealthcareProductsSection({
 }: HealthcareProductsSectionProps) {
   const gradientId = useId().replace(/:/g, "");
   const prefersReducedMotion = useReducedMotion();
+  const isCompact = useCompactProductsLayout();
   const safeProducts = products.length > 0 ? products : PRODUCTS;
   const sectionRef = useRef<HTMLElement | null>(null);
   const listRef = useRef(safeProducts);
@@ -494,7 +685,13 @@ export default function HealthcareProductsSection({
     <section
       ref={sectionRef}
       id={sectionId}
-      className={useTabbedGridLayout ? "hc-products-section hc-products-section--tabbed" : "hc-products-section"}
+      className={[
+        "hc-products-section",
+        useTabbedGridLayout ? "hc-products-section--tabbed" : "",
+        isCompact ? "hc-products-section--compact" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
       aria-labelledby={headingId}
     >
       <div className="hc-products-wave-bg" aria-hidden="true">
@@ -535,7 +732,22 @@ export default function HealthcareProductsSection({
         ) : null}
       </h2>
 
-      {useTabbedGridLayout ? (
+      {isCompact ? (
+        <CompactProductsLayout
+          products={safeProducts}
+          selected={selected}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+          imgSrc={imgSrc}
+          onImgError={() => setImgSrc(PROFILE_IMAGE_FALLBACK)}
+          onPointerEnter={() => {
+            hoverPauseRef.current = true;
+          }}
+          onPointerLeave={() => {
+            hoverPauseRef.current = false;
+          }}
+        />
+      ) : useTabbedGridLayout ? (
         <div
           className="hc-products-app hc-products-app--tabbed"
           onMouseEnter={() => {

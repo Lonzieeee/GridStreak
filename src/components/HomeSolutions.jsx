@@ -33,7 +33,8 @@ function getShortSubtitle(subtitle) {
 }
 
 export default function HomeSolutions() {
-  const isMobile = useIsMobile();
+
+  const isCompact = useIsMobile(1024);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [prevIndex, setPrevIndex] = useState(null);
@@ -179,8 +180,8 @@ export default function HomeSolutions() {
           <div className="home-solutions__main-content" aria-live="polite" aria-atomic="true">
             <h3 className="home-solutions__name">{currentSolution.title}</h3>
             <p className="home-solutions__description">
-              {isMobile
-                ? getShortDesc(currentSolution.description, 120)
+              {isCompact
+                ? getShortDesc(currentSolution.description, 140)
                 : currentSolution.description}
             </p>
             {currentSolution.path ? (
@@ -191,7 +192,7 @@ export default function HomeSolutions() {
           </div>
         </div>
 
-        {!isMobile && (
+        {!isCompact && (
           <div className={`home-solutions__previews${isTransitioning ? " transitioning" : ""}`}>
             <div className="home-solutions__preview-flip-container large">
               <div className="home-solutions__preview-flip-card">

@@ -141,6 +141,13 @@ const solutionCardVariants = {
   }),
 };
 
+const solutionTabletSteps = [
+  { step: "01", Icon: FaRecycle, title: "Waste Interception", text: "Prevents decomposition" },
+  { step: "02", Icon: FaFire, title: "Energy Conversion", text: "Converts waste to heat" },
+  { step: "03", Icon: FaThermometerHalf, title: "Thermal Storage", text: "Long-duration retention" },
+  { step: "04", Icon: FaBolt, title: "Energy Use", text: "Productive applications" },
+];
+
 const SolutionOverviewSection = () => {
   const sectionRef = useRef(null);
   const sectionInView = useInView(sectionRef, { once: true, amount: 0.28 });
@@ -239,6 +246,34 @@ const SolutionOverviewSection = () => {
           <p>Productive applications</p>
         </motion.article>
       </div>
+
+      <ol className="solution-overview-tablet" aria-label="Circular energy platform steps">
+        {solutionTabletSteps.map((item, index) => {
+          const Icon = item.Icon;
+          return (
+            <motion.li
+              key={item.step}
+              className="solution-tablet-card"
+              variants={solutionCardVariants}
+              initial="hidden"
+              animate={prefersReducedMotion || sectionInView ? "visible" : "hidden"}
+              custom={120 + index * 100}
+            >
+              <span className="solution-tablet-card__step" aria-hidden="true">
+                {item.step}
+              </span>
+              <span className="solution-tablet-card__icon" aria-hidden="true">
+                <Icon />
+              </span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </motion.li>
+          );
+        })}
+      </ol>
+      <p className="solution-overview-tablet-loop">
+        <span aria-hidden="true">↺</span> Loops back to waste interception
+      </p>
 
       <div className="solution-overview-mobile" aria-label="Mobile circular energy flow">
         <motion.article
