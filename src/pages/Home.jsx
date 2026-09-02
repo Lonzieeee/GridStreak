@@ -13,7 +13,6 @@ import WhoWeAre from "../components/WhoWeAre";
 import MapSection from "../components/MapSection";
 import HomeSolutions from "../components/HomeSolutions";
 
-const MOBILE_HERO_IMAGE = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/gridstreakNano.jpg";
 const HERO_CAROUSEL_VIDEO =
   "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/%5Btrimmed%5D%20WC0A4354(1)_compressed(3).mp4";
 const HERO_STORY_VIDEO =
@@ -62,7 +61,6 @@ const HERO_IMAGE_SLIDES = [
 const HERO_VIDEO_SLIDE = {
   id: "home-hero-video",
   video: HERO_CAROUSEL_VIDEO,
-  poster: MOBILE_HERO_IMAGE,
   alt: "GridStreak thermal energy systems in action.",
 };
 
@@ -345,7 +343,6 @@ function Home() {
               ref={introVideoRef}
               className={`hero-intro-video hero-intro-video--intro${heroPhase === "intro" ? " is-active" : ""}`}
               src={HERO_INTRO_VIDEO}
-              poster={MOBILE_HERO_IMAGE}
               muted
               playsInline
               loop={false}
