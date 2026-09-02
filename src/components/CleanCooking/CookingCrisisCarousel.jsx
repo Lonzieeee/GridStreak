@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./CookingCrisisCarousel.css";
 
@@ -41,6 +41,105 @@ const AUTOPLAY_INTERVAL_MS = 5500;
 
 const wrap = (n, max) => ((n % max) + max) % max;
 
+function CrisisSlideMedia({ slide, isCurrent, onVideoEnded }) {
+  const videoRef = useRef(null);
+  const retryTimerRef = useRef(0);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !slide.video) return undefined;
+
+    const clearRetry = () => {
+      if (retryTimerRef.current) {
+        window.clearTimeout(retryTimerRef.current);
+        retryTimerRef.current = 0;
+      }
+    };
+
+    const tryPlay = (attempt = 0) => {
+      if (!isCurrent || !videoRef.current) return;
+
+      const el = videoRef.current;
+      el.muted = true;
+
+      const start = () => {
+        if (!isCurrent || !videoRef.current) return;
+        el.currentTime = 0;
+        const playPromise = el.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {
+            if (!isCurrent || attempt >= 4) return;
+            clearRetry();
+            retryTimerRef.current = window.setTimeout(() => tryPlay(attempt + 1), 350);
+          });
+        }
+      };
+
+      if (el.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+        start();
+        return;
+      }
+
+      const onReady = () => {
+        el.removeEventListener("canplay", onReady);
+        el.removeEventListener("error", onError);
+        start();
+      };
+      const onError = () => {
+        el.removeEventListener("canplay", onReady);
+        el.removeEventListener("error", onError);
+        if (attempt < 4 && isCurrent) {
+          clearRetry();
+          retryTimerRef.current = window.setTimeout(() => tryPlay(attempt + 1), 500);
+        }
+      };
+
+      el.addEventListener("canplay", onReady);
+      el.addEventListener("error", onError);
+      el.load();
+    };
+
+    if (isCurrent) {
+      tryPlay();
+      return clearRetry;
+    }
+
+    clearRetry();
+    video.pause();
+    return undefined;
+  }, [isCurrent, slide.video]);
+
+  if (slide.video) {
+    return (
+      <video
+        ref={videoRef}
+        className="cc-crisis-slide__image cc-crisis-slide__video"
+        src={slide.video}
+        poster={slide.poster}
+        muted
+        playsInline
+        autoPlay={isCurrent}
+        loop={false}
+        preload="auto"
+        onEnded={() => {
+          if (isCurrent) onVideoEnded?.();
+        }}
+        aria-hidden="true"
+      />
+    );
+  }
+
+  return (
+    <img
+      className="cc-crisis-slide__image"
+      src={slide.image}
+      alt={slide.alt}
+      loading={slide._eagerLoad ? "eager" : "lazy"}
+      fetchPriority={slide._eagerLoad ? "high" : undefined}
+    />
+  );
+}
+
 export default function CookingCrisisCarousel({
   reducedMotion = false,
   autoplay = true,
@@ -52,21 +151,23 @@ export default function CookingCrisisCarousel({
   nextLabel = "Next slide",
   onSlideChange,
   controlledIndex,
+  onVideoEnded,
 }) {
   const slides = Array.isArray(slidesProp) && slidesProp.length > 0 ? slidesProp : CRISIS_SLIDES;
   const total = slides.length;
+  const isControlled = typeof controlledIndex === "number";
 
-  // Build an extended track with a clone of the last slide at the start
-  // and a clone of the first slide at the end, so we can seamlessly loop.
-  // Extended indices:  0          1 .. total       total + 1
-  //                    clone-last real slides      clone-first
-  const extendedSlides = [
+  const loopSlides = [
     { ...slides[total - 1], id: `${slides[total - 1].id}-clone-pre`, _clone: true },
     ...slides,
     { ...slides[0], id: `${slides[0].id}-clone-post`, _clone: true },
   ];
 
-  const [virtualIndex, setVirtualIndex] = useState(1); 
+  const trackSlides = isControlled ? slides : loopSlides;
+
+  const [virtualIndex, setVirtualIndex] = useState(() =>
+    isControlled && typeof controlledIndex === "number" ? controlledIndex : 1,
+  );
   const [animate, setAnimate] = useState(true);
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
@@ -74,10 +175,8 @@ export default function CookingCrisisCarousel({
   const trackRef = useRef(null);
   const rootRef = useRef(null);
   const prevControlledRef = useRef(controlledIndex);
-  const isControlled = typeof controlledIndex === "number";
 
-  // Real slide index (0..total-1) derived from the virtual index.
-  const currentIndex = wrap(virtualIndex - 1, total);
+  const currentIndex = isControlled ? wrap(virtualIndex, total) : wrap(virtualIndex - 1, total);
 
   const go = useCallback((dir) => {
     if (isControlled && typeof onSlideChange === "function") {
@@ -141,7 +240,7 @@ export default function CookingCrisisCarousel({
     }
   }, [currentIndex, onSlideChange]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isControlled) return undefined;
     if (typeof controlledIndex !== "number") return undefined;
 
@@ -150,24 +249,16 @@ export default function CookingCrisisCarousel({
 
     prevControlledRef.current = controlledIndex;
 
-    // Wrapped backward: first slide -> last slide
-    if (typeof prev === "number" && prev === 0 && controlledIndex === total - 1) {
-      setAnimate(true);
+    if (typeof prev === "number" && prev === total - 1 && controlledIndex === 0 && total > 2) {
+      setAnimate(false);
       setVirtualIndex(0);
       return undefined;
     }
 
-    // Wrapped forward: last slide -> first slide
-    if (typeof prev === "number" && prev === total - 1 && controlledIndex === 0) {
-      setAnimate(true);
-      setVirtualIndex(total + 1);
-      return undefined;
-    }
-
     setAnimate(true);
-    setVirtualIndex(wrap(controlledIndex, total) + 1);
+    setVirtualIndex(controlledIndex);
     return undefined;
-  }, [controlledIndex, total, isControlled]);
+  }, [controlledIndex, isControlled, total]);
 
   useEffect(() => {
     if (typeof document === "undefined") return undefined;
@@ -179,13 +270,12 @@ export default function CookingCrisisCarousel({
   // When we land on one of the clones, snap (without animation) to the
   // matching real slide, so the forward motion continues indefinitely.
   const onTransitionEnd = (e) => {
+    if (isControlled) return;
     if (e.target !== trackRef.current) return;
-    if (virtualIndex === extendedSlides.length - 1) {
-      // landed on clone-first after the last real slide -> snap to real first
+    if (virtualIndex === loopSlides.length - 1) {
       setAnimate(false);
       setVirtualIndex(1);
     } else if (virtualIndex === 0) {
-      // landed on clone-last before the first real slide -> snap to real last
       setAnimate(false);
       setVirtualIndex(total);
     }
@@ -228,9 +318,11 @@ export default function CookingCrisisCarousel({
           style={{ transform: `translate3d(-${virtualIndex * 100}vw, 0, 0)` }}
           onTransitionEnd={onTransitionEnd}
         >
-          {extendedSlides.map((slide, index) => {
+          {trackSlides.map((slide, index) => {
             const isCurrent = index === virtualIndex;
             const slideLabel = slide.eyebrow || slide.alt || `Slide ${index + 1}`;
+            const mediaSlide =
+              isControlled && index === 0 ? { ...slide, _eagerLoad: true } : slide;
             return (
               <article
                 key={slide.id}
@@ -240,11 +332,10 @@ export default function CookingCrisisCarousel({
                 aria-roledescription="slide"
                 aria-label={slideLabel}
               >
-                <img
-                  className="cc-crisis-slide__image"
-                  src={slide.image}
-                  alt={slide.alt}
-                  loading={index <= 1 ? "eager" : "lazy"}
+                <CrisisSlideMedia
+                  slide={mediaSlide}
+                  isCurrent={isCurrent && !slide._clone}
+                  onVideoEnded={onVideoEnded}
                 />
                 <div className="cc-crisis-slide__scrim" aria-hidden="true" />
 

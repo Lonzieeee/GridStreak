@@ -14,7 +14,7 @@ const links = [
   { to: "/solutions/waste-management", label: "Waste Management" },
   { to: "/solutions/emergency-relief", label: "Emergency Relief" },
   { to: "/partners", label: "Partners" },
-  { to: "/team", label: "About" },
+  // { to: "/team", label: "About" },
   { to: "/sustainability", label: "Sustainability" },
   { to: "/contact", label: "Contact" },
 ];

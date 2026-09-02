@@ -11,7 +11,7 @@ import ColdStorage from './pages/ColdStorage.jsx';
 import WaterPurification from './pages/WaterPurification.jsx';
 import WasteManagement from './pages/WasteManagement.jsx';
 import EmergencyRelief from './pages/EmergencyRelief.jsx';
-import Team from './pages/Team.jsx';
+// import Team from './pages/Team.jsx';
 
 export const routes = [
   {
@@ -63,10 +63,10 @@ export const routes = [
         path: 'partners',
         element: <Partners />,
       },
-      {
-        path: 'team',
-        element: <Team />,
-      },
+      // {
+      //   path: 'team',
+      //   element: <Team />,
+      // },
       {
         path: 'site-map',
         element: <SiteMap />,

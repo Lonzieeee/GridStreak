@@ -28,7 +28,7 @@ function Footer () {
                        <li><Link to="/" onClick={handleFooterNavClick}>Home</Link></li>
                        <li><Link to="/solutions" onClick={handleFooterNavClick}>Solutions</Link></li>
                        <li><Link to="/partners" onClick={handleFooterNavClick}>Partners</Link></li>
-                       <li><Link to="/team" onClick={handleFooterNavClick}>About</Link></li>
+                       {/* <li><Link to="/team" onClick={handleFooterNavClick}>About</Link></li> */}
                        <li><Link to="/sustainability" onClick={handleFooterNavClick}>Sustainability</Link></li>
                        <li><Link to="/contact" onClick={handleFooterNavClick}>Contact</Link></li>
                     </ul>

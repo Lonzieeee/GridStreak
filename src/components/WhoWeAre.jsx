@@ -6,7 +6,7 @@ import "./WhoWeAre.css";
 
 const WHO_WE_ARE_BG = "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/footer-bg-5.jpg";
 const WHO_WE_ARE_IMAGE =
-  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/image-removebg-preview.png";
+  "https://pub-4f2f828d8afd481c97de7c6bd410724a.r2.dev/product01Copy-Photoroom-removebg-preview.png";
 
 function WhoWeAre() {
   const sectionRef = useRef(null);
@@ -105,7 +105,7 @@ function WhoWeAre() {
             <img
               ref={imageRef}
               src={WHO_WE_ARE_IMAGE}
-              alt="Stacked GridStreak modular thermal units with company branding."
+              alt="Stack of four GridStreak stainless steel energy storage units with company branding."
               loading="eager"
             />
           </div>

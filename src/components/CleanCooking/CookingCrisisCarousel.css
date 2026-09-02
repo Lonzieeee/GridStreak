@@ -66,6 +66,17 @@
   transform: scale(1);
 }
 
+.cc-crisis-slide__video {
+  object-fit: cover;
+  object-position: center center;
+  transform: none;
+  background: #000000;
+}
+
+.cc-crisis-slide[data-current] .cc-crisis-slide__video {
+  transform: none;
+}
+
 .cc-crisis-slide__scrim {
   position: absolute;
   inset: 0;
