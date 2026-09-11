@@ -47,35 +47,6 @@
         );
 }
 
-.hero-intro-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background-color: #ffffff;
-}
-
-.hero-intro-video--intro {
-    object-fit: contain;
-    background-color: #ffffff;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.hero-intro-video--intro.is-active {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 4;
-}
-
-.hero--intro-phase .hero-overlay {
-    opacity: 0;
-}
-
 .hero-type-caret {
     display: inline-block;
     width: 0.06em;

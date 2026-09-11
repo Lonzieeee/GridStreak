@@ -1,3 +1,71 @@
+.page-hero--cold-storage .page-hero__content {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+.page-hero--cold-storage .page-hero__kicker {
+  position: absolute;
+  top: clamp(5.5rem, 10vh, 7rem);
+  left: clamp(1.5rem, 4vw, 3.5rem);
+  margin: 0;
+}
+
+.page-hero--cold-storage .page-hero__title {
+  position: absolute;
+  left: clamp(1.5rem, 4vw, 3.5rem);
+  bottom: clamp(8.5rem, 17vh, 11rem);
+  max-width: min(52rem, 62vw);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.page-hero--cold-storage .page-hero__lead {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 3.5rem);
+  bottom: clamp(5rem, 9vh, 6.5rem);
+  max-width: min(25rem, 29vw);
+  margin: 0;
+}
+
+.page-hero--cold-storage .page-hero__actions {
+  position: absolute;
+  left: clamp(1.5rem, 4vw, 3.5rem);
+  bottom: clamp(4.5rem, 9vh, 6.5rem);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .page-hero--cold-storage .page-hero__content {
+    position: absolute;
+  }
+
+  .page-hero--cold-storage .page-hero__kicker {
+    top: 6rem;
+    left: 1.25rem;
+  }
+
+  .page-hero--cold-storage .page-hero__title {
+    left: 1.25rem;
+    bottom: 10rem;
+    max-width: calc(100% - 2.5rem);
+  }
+
+  .page-hero--cold-storage .page-hero__lead {
+    right: 1.25rem;
+    bottom: 4.5rem;
+    left: 1.25rem;
+    max-width: none;
+  }
+
+  .page-hero--cold-storage .page-hero__actions {
+    left: 1.25rem;
+    bottom: 1.25rem;
+  }
+}
+
 .cs-body {
   background: #f2f2f2;
   padding: clamp(3rem, 8vh, 5rem) clamp(1.25rem, 4vw, 2rem);

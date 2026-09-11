@@ -42,6 +42,7 @@ export const homeSolutions = [
     backSummary:
       "Absorption cooling powered by stored thermal energy—no constant grid electricity required.",
     path: "/solutions/cold-storage",
+    disabled: true,
     image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/coldstorage.avif",
     applications: [
       "Agricultural cooperatives and rural markets",
@@ -91,6 +92,7 @@ export const homeSolutions = [
     backSummary:
       "Portable units deploy fast to camps and field hospitals for cooking, water, and sterilization off-grid.",
     path: "/solutions/emergency-relief",
+    disabled: true,
     image:
       "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_bs67zibs67zibs67-b0671137-2c13-4065-877b-83cec871d426(1).jpg",
     applications: [

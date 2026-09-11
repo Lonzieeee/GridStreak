@@ -37,6 +37,7 @@ const solutions = [
     id: 3,
     title: "Cold Storage",
     path: "/solutions/cold-storage",
+    disabled: true,
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/frozen-food.png"
@@ -79,6 +80,7 @@ const solutions = [
     id: 6,
     title: "Emergency Relief",
     path: "/solutions/emergency-relief",
+    disabled: true,
     icon: (
       <img
         src="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/emergency.png"
@@ -145,14 +147,20 @@ export default function SolutionsGrid() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {solutions.slice(0, 3).map((sol, index) => (
-            <Link key={sol.id} to={sol.path} style={{ textDecoration: "none", color: "inherit" }}>
+          {solutions.slice(0, 3).map((sol, index) => {
+            const CardWrapper = sol.disabled ? "div" : Link;
+            const cardProps = sol.disabled
+              ? { "aria-disabled": "true", title: "Coming soon" }
+              : { to: sol.path };
+
+            return (
+            <CardWrapper key={sol.id} {...cardProps} style={{ textDecoration: "none", color: "inherit" }}>
               <motion.div
                 className={`${styles.card} ${styles[sol.category]}`}
                 variants={index % 2 === 0 ? cardVariantsLeft : cardVariantsRight}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: sol.disabled ? "default" : "pointer" }}
               >
                 <div className={styles.cardInner}>
                   <div className={styles.iconWrapper}>
@@ -165,8 +173,9 @@ export default function SolutionsGrid() {
                   <div className={styles.cardAccent}></div>
                 </div>
               </motion.div>
-            </Link>
-          ))}
+            </CardWrapper>
+            );
+          })}
         </motion.div>
 
   
@@ -176,14 +185,20 @@ export default function SolutionsGrid() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {solutions.slice(3, 6).map((sol, index) => (
-            <Link key={sol.id} to={sol.path} style={{ textDecoration: "none", color: "inherit" }}>
+          {solutions.slice(3, 6).map((sol, index) => {
+            const CardWrapper = sol.disabled ? "div" : Link;
+            const cardProps = sol.disabled
+              ? { "aria-disabled": "true", title: "Coming soon" }
+              : { to: sol.path };
+
+            return (
+            <CardWrapper key={sol.id} {...cardProps} style={{ textDecoration: "none", color: "inherit" }}>
               <motion.div
                 className={`${styles.card} ${styles[sol.category]}`}
                 variants={index % 2 === 0 ? cardVariantsRight : cardVariantsLeft}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: sol.disabled ? "default" : "pointer" }}
               >
                 <div className={styles.cardInner}>
                   <div className={styles.iconWrapper}>
@@ -196,8 +211,9 @@ export default function SolutionsGrid() {
                   <div className={styles.cardAccent}></div>
                 </div>
               </motion.div>
-            </Link>
-          ))}
+            </CardWrapper>
+            );
+          })}
         </motion.div>
 
       

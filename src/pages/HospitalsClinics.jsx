@@ -178,7 +178,7 @@ const HospitalsClinics = () => {
         description="Reliable energy, sterilization heat, and cold-chain continuity for hospitals and clinics — powered by GridStreak's sand-based thermal storage in grid-unstable regions."
         canonical="https://www.gridstreak.com/solutions/hospitals-clinics"
         type="website"
-        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Hospitalrural(1).png"
+        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/1020X550-Hero.webp"
         meta={[
           { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
           {
@@ -217,7 +217,7 @@ const HospitalsClinics = () => {
             },
             primaryImageOfPage: {
               "@type": "ImageObject",
-              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Hospitalrural(1).png",
+              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/1020X550-Hero.webp",
             },
           },
           {
@@ -245,7 +245,7 @@ const HospitalsClinics = () => {
             },
             url: "https://www.gridstreak.com/solutions/hospitals-clinics",
             image:
-              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Hospitalrural(1).png",
+              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/1020X550-Hero.webp",
           },
           {
             "@context": "https://schema.org",

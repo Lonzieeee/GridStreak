@@ -9,13 +9,14 @@ export default function PageHero({
   image,
   accent = "#b0f222",
   align = "left",
+  className = "",
   children,
   primaryCta,
   secondaryCta,
 }) {
   return (
     <section
-      className={`page-hero page-hero--${align}`}
+      className={`page-hero page-hero--${align}${className ? ` ${className}` : ""}`}
       style={{
         "--hero-image": image ? `url(${image})` : undefined,
         "--hero-accent": accent,

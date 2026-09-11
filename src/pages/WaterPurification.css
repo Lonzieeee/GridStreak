@@ -10,5 +10,27 @@
 
 .hc-hero.hc-hero--water {
   --hc-c1: #b0f222;
-  background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/purificationhero.webp");
+  background-image: url("https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/1220(1).jpg");
+}
+
+.hc-hero--water .hc-hero-content {
+  max-width: 980px;
+  width: min(92%, 980px);
+  text-align: left;
+}
+
+.hc-hero--water .hc-hero-content h1 {
+  max-width: 920px;
+  margin-bottom: 0.35rem;
+  text-wrap: balance;
+}
+
+.hc-hero--water .hc-hero-content p {
+  max-width: 820px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.hc-hero--water .hc-buttons {
+  justify-content: flex-start;
 }

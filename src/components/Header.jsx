@@ -47,6 +47,7 @@ const SOLUTION_ITEMS = [
     iconColor: "#0ea5e9",
     description:
       "Off-grid and grid-tied cold rooms that keep harvests fresh and reduce food loss.",
+    disabled: true,
   },
   {
     to: "/solutions/water-purification",
@@ -71,6 +72,7 @@ const SOLUTION_ITEMS = [
     iconColor: "#b91c1c",
     description:
       "Rapid-deploy thermal systems for disaster response, camps, and mobile operations.",
+    disabled: true,
   },
 ];
 
@@ -250,13 +252,17 @@ function Header() {
               role="menu"
               className={`navbar__mega${solutionsOpen ? " navbar__mega--open" : ""}`}
             >
-              {SOLUTION_ITEMS.map(({ to, label, Icon, iconColor, description }) => (
-                <Link
+              {SOLUTION_ITEMS.map(({ to, label, Icon, iconColor, description, disabled }) => {
+                const itemProps = disabled
+                  ? { role: "menuitem", "aria-disabled": "true", title: "Coming soon" }
+                  : { to, role: "menuitem", onClick: closeMenu };
+                const Item = disabled ? "div" : Link;
+
+                return (
+                <Item
                   key={to}
-                  to={to}
-                  role="menuitem"
-                  className={`navbar__mega-item${isActive(to) ? " navbar__mega-item--active" : ""}`}
-                  onClick={closeMenu}
+                  {...itemProps}
+                  className={`navbar__mega-item${isActive(to) ? " navbar__mega-item--active" : ""}${disabled ? " navbar__mega-item--disabled" : ""}`}
                 >
                   <span className="navbar__mega-head">
                     <span
@@ -269,8 +275,9 @@ function Header() {
                     <span className="navbar__mega-label">{label}</span>
                   </span>
                   <span className="navbar__mega-desc">{description}</span>
-                </Link>
-              ))}
+                </Item>
+                );
+              })}
             </div>
           </div>
 

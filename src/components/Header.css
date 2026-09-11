@@ -277,6 +277,17 @@ body[data-hero-nav="solid"] .navbar:not(.navbar--scrolled):not(.navbar--menu-ope
   border-left-color: var(--heat);
 }
 
+.navbar__mega-item--disabled {
+  cursor: default;
+  opacity: 0.62;
+}
+
+.navbar__mega-item--disabled:hover {
+  color: #555555;
+  background: transparent;
+  border-left-color: transparent;
+}
+
 .navbar__mega-head {
   display: inline-flex;
   align-items: center;

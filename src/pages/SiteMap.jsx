@@ -9,10 +9,10 @@ const links = [
   { to: "/solutions", label: "Solutions" },
   { to: "/solutions/clean-cooking", label: "Clean Cooking" },
   { to: "/solutions/hospitals-clinics", label: "Hospitals & Clinics" },
-  { to: "/solutions/cold-storage", label: "Cold Storage" },
+  { to: "/solutions/cold-storage", label: "Cold Storage", disabled: true },
   { to: "/solutions/water-purification", label: "Water Purification" },
   { to: "/solutions/waste-management", label: "Waste Management" },
-  { to: "/solutions/emergency-relief", label: "Emergency Relief" },
+  { to: "/solutions/emergency-relief", label: "Emergency Relief", disabled: true },
   { to: "/partners", label: "Partners" },
   // { to: "/team", label: "About" },
   { to: "/sustainability", label: "Sustainability" },
@@ -46,7 +46,11 @@ const SiteMap = () => {
         <ul className="sitemap-list">
           {links.map((link) => (
             <li key={link.to}>
-              <Link to={link.to}>{link.label}</Link>
+              {link.disabled ? (
+                <span aria-disabled="true" title="Coming soon">{link.label}</span>
+              ) : (
+                <Link to={link.to}>{link.label}</Link>
+              )}
             </li>
           ))}
         </ul>

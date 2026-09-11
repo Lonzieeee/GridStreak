@@ -17,8 +17,6 @@ const HERO_CAROUSEL_VIDEO =
   "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/%5Btrimmed%5D%20WC0A4354(1)_compressed(3).mp4";
 const HERO_STORY_VIDEO =
   "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/WC0A4354(1)_compressed.mp4";
-const HERO_INTRO_VIDEO =
-  "https://pub-4f2f828d8afd481c97de7c6bd410724a.r2.dev/Cooker1-%20MotionStudy.mp4";
 const HERO_ROTATE_MS = 12000;
 
 const HERO_IMAGE_SLIDES = [
@@ -144,20 +142,15 @@ const whyGridStreakFeatures = [
 ];
 
 function Home() {
-  const introVideoRef = useRef(null);
   const cacheVideoRef = useRef(null);
   const [isMobileHero, setIsMobileHero] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false,
-  );
-  const [heroPhase, setHeroPhase] = useState(() =>
-    typeof window !== "undefined" && window.innerWidth <= 768 ? "carousel" : "intro",
   );
   const [currentSlide, setCurrentSlide] = useState(0);
   const [storyOpen, setStoryOpen] = useState(false);
 
   const carouselSlides = isMobileHero ? mobileHeroSlides : heroSlides;
   const activeHeroSlide = carouselSlides[currentSlide] ?? carouselSlides[0];
-  const showCornerContent = heroPhase === "carousel" || isMobileHero;
 
   const whySectionVariants = {
     hidden: { opacity: 0, y: 28 },
@@ -180,16 +173,9 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (!isMobileHero) return undefined;
-    setHeroPhase("carousel");
-    setCurrentSlide(0);
-    return undefined;
-  }, [isMobileHero]);
-
-  useEffect(() => {
     if (typeof window === "undefined" || isMobileHero) return undefined;
 
-    [HERO_INTRO_VIDEO, HERO_CAROUSEL_VIDEO].forEach((href) => {
+    [HERO_CAROUSEL_VIDEO].forEach((href) => {
       const link = document.createElement("link");
       link.rel = "prefetch";
       link.href = href;
@@ -211,55 +197,11 @@ function Home() {
     };
   }, [isMobileHero]);
 
-  useEffect(() => {
-    if (isMobileHero) {
-      delete document.body.dataset.heroNav;
-      return undefined;
-    }
-
-    if (heroPhase === "intro") {
-      document.body.dataset.heroNav = "solid";
-    } else {
-      delete document.body.dataset.heroNav;
-    }
-
-    return () => {
-      delete document.body.dataset.heroNav;
-    };
-  }, [heroPhase, isMobileHero]);
-
-  useEffect(() => {
-    if (isMobileHero) return undefined;
-
-    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    if (reduceMotion) {
-      setCurrentSlide(0);
-      setHeroPhase("carousel");
-      return undefined;
-    }
-
-    if (heroPhase !== "intro") return undefined;
-
-    const introVideo = introVideoRef.current;
-    if (!introVideo) return undefined;
-
-    introVideo.loop = false;
-    introVideo.currentTime = 0;
-    introVideo.play().catch(() => {
-      setCurrentSlide(0);
-      setHeroPhase("carousel");
-    });
-
-    return undefined;
-  }, [heroPhase, isMobileHero]);
-
   const handleCarouselVideoEnded = useCallback(() => {
     setCurrentSlide(0);
   }, []);
 
   useEffect(() => {
-    if (heroPhase !== "carousel") return undefined;
-
     const slides = isMobileHero ? mobileHeroSlides : heroSlides;
     const id = window.setInterval(() => {
       setCurrentSlide((prev) => {
@@ -271,21 +213,7 @@ function Home() {
     }, HERO_ROTATE_MS);
 
     return () => window.clearInterval(id);
-  }, [heroPhase, isMobileHero]);
-
-  const handleIntroEnded = () => {
-    if (introVideoRef.current) {
-      introVideoRef.current.pause();
-    }
-    setCurrentSlide(0);
-    setHeroPhase("carousel");
-  };
-
-  useEffect(() => {
-    if (heroPhase !== "carousel" || !introVideoRef.current) return undefined;
-    introVideoRef.current.pause();
-    return undefined;
-  }, [heroPhase]);
+  }, [isMobileHero]);
 
   return (
     <div className="home-page">
@@ -322,47 +250,30 @@ function Home() {
         ]}
       />
       <section
-        className={`hero${showCornerContent ? " hero--content-visible" : ""}${heroPhase === "intro" ? " hero--intro-phase" : ""}${isMobileHero ? " hero--mobile-slides" : ""}`}
+        className={`hero hero--content-visible${isMobileHero ? " hero--mobile-slides" : ""}`}
       >
         <div className="hero-media">
-          {heroPhase === "carousel" && (
-            <CookingCrisisCarousel
-              slides={carouselSlides}
-              showCaptions={false}
-              autoplay={false}
-              controlledIndex={currentSlide}
-              ariaLabel="GridStreak hero showcase"
-              onSlideChange={setCurrentSlide}
-              onVideoEnded={handleCarouselVideoEnded}
-              prevLabel="Previous hero slide"
-              nextLabel="Next hero slide"
-            />
-          )}
-          {!isMobileHero && (
-            <video
-              ref={introVideoRef}
-              className={`hero-intro-video hero-intro-video--intro${heroPhase === "intro" ? " is-active" : ""}`}
-              src={HERO_INTRO_VIDEO}
-              muted
-              playsInline
-              loop={false}
-              preload="auto"
-              onEnded={handleIntroEnded}
-              aria-hidden={heroPhase !== "intro"}
-            />
-          )}
+          <CookingCrisisCarousel
+            slides={carouselSlides}
+            showCaptions={false}
+            autoplay={false}
+            controlledIndex={currentSlide}
+            ariaLabel="GridStreak hero showcase"
+            onSlideChange={setCurrentSlide}
+            onVideoEnded={handleCarouselVideoEnded}
+            prevLabel="Previous hero slide"
+            nextLabel="Next hero slide"
+          />
         </div>
         <div
-          className={`hero-overlay${showCornerContent ? " hero-overlay--cinematic" : ""}`}
+          className="hero-overlay hero-overlay--cinematic"
           aria-hidden="true"
         />
-        {showCornerContent && (
-          <HeroCornerLayout
-            slide={activeHeroSlide}
-            onPlayStory={() => setStoryOpen(true)}
-            isMobile={isMobileHero}
-          />
-        )}
+        <HeroCornerLayout
+          slide={activeHeroSlide}
+          onPlayStory={() => setStoryOpen(true)}
+          isMobile={isMobileHero}
+        />
         <HeroVideoModal
           src={HERO_STORY_VIDEO}
           isOpen={storyOpen}

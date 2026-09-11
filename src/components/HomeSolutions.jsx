@@ -184,7 +184,7 @@ export default function HomeSolutions() {
                 ? getShortDesc(currentSolution.description, 140)
                 : currentSolution.description}
             </p>
-            {currentSolution.path ? (
+            {currentSolution.path && !currentSolution.disabled ? (
               <Link to={currentSolution.path} className="home-solutions__btn">
                 Learn More
               </Link>

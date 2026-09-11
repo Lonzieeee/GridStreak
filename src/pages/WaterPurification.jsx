@@ -120,7 +120,7 @@ const WaterPurification = () => {
         description="Clean drinking water and 24/7 hot water from GridStreak's solar + thermal storage and distillation systems — built for off-grid villages, coastal regions, and institutions."
         canonical="https://www.gridstreak.com/solutions/water-purification"
         type="website"
-        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/purificationhero.webp"
+        image="https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/1220(1).jpg"
         meta={[
           { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
           {
@@ -159,7 +159,7 @@ const WaterPurification = () => {
             },
             primaryImageOfPage: {
               "@type": "ImageObject",
-              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/purificationhero.webp",
+              url: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/1220(1).jpg",
             },
           },
           {
@@ -187,7 +187,7 @@ const WaterPurification = () => {
             },
             url: "https://www.gridstreak.com/solutions/water-purification",
             image:
-              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/purificationhero.webp",
+              "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/1220(1).jpg",
           },
           {
             "@context": "https://schema.org",
@@ -230,10 +230,7 @@ const WaterPurification = () => {
         >
           <div className="hc-hero-content">
             <h1>Reliable, Clean Water Systems Powered by Thermal Energy</h1>
-            <p>
-              GridStreak combines sand-based thermal storage, solar energy, and distillation to
-              deliver safe drinking water and reliable hot water — anywhere.
-            </p>
+            <p>GridStreak combines sand-based thermal storage, solar energy, and distillation to deliver safe drinking water and reliable hot water — anywhere.</p>
             <div className="hc-buttons">
               <button
                 type="button"

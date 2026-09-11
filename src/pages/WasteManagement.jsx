@@ -802,52 +802,58 @@ const WasteManagement = () => {
       <PageIntroAnimation text="Waste Management" color="#b0f222" colorDark="#5d7d12" />
       <section className="waste-hero" aria-labelledby="waste-hero-heading">
         <div className="waste-hero-content">
-          <h1 id="waste-hero-heading">Turning Waste into Clean, Reliable Energy</h1>
-          <p>
-            GridStreak converts organic and plastic waste into long-duration
-            thermal energy, preventing methane emissions and delivering affordable
-            power for communities, agriculture, and industry.
-          </p>
-          <div className="waste-impact-strip" ref={impactSectionRef}>
-            <div className="waste-impact-item">
-              <ImpactCountStat
-                stat="2.8 tCO2e"
-                countUp={{
-                  type: "single",
-                  end: 2.8,
-                  format: (n) => `${n.toFixed(1)} tCO2e`,
-                }}
-                start={impactCountActive}
-                reducedMotion={!!prefersReducedMotion}
-                style={{ color: "#eb6a00" }}
-                className="waste-impact-number"
-              />
-              <span className="waste-impact-label">avoided per ton</span>
+          <div className="waste-hero-block waste-hero-block--top-left">
+            <span className="waste-hero-kicker">Waste-to-energy systems</span>
+          </div>
+          <div className="waste-hero-block waste-hero-block--bottom-left">
+            <h1 id="waste-hero-heading">Turning Waste into Clean, Reliable Energy</h1>
+            <div className="waste-impact-strip" ref={impactSectionRef}>
+              <div className="waste-impact-item">
+                <ImpactCountStat
+                  stat="2.8 tCO2e"
+                  countUp={{
+                    type: "single",
+                    end: 2.8,
+                    format: (n) => `${n.toFixed(1)} tCO2e`,
+                  }}
+                  start={impactCountActive}
+                  reducedMotion={!!prefersReducedMotion}
+                  style={{ color: "#eb6a00" }}
+                  className="waste-impact-number"
+                />
+                <span className="waste-impact-label">avoided per ton</span>
+              </div>
+              <div className="waste-impact-item">
+                <ImpactCountStat
+                  stat="40%"
+                  countUp={{
+                    type: "single",
+                    end: 40,
+                    format: (n) => `${Math.round(n)}%`,
+                  }}
+                  start={impactCountActive}
+                  reducedMotion={!!prefersReducedMotion}
+                  delayMs={150}
+                  style={{ color: "#eb6a00" }}
+                  className="waste-impact-number"
+                />
+                <span className="waste-impact-label">lower energy costs</span>
+              </div>
             </div>
-            <div className="waste-impact-item">
-              <ImpactCountStat
-                stat="40%"
-                countUp={{
-                  type: "single",
-                  end: 40,
-                  format: (n) => `${Math.round(n)}%`,
-                }}
-                start={impactCountActive}
-                reducedMotion={!!prefersReducedMotion}
-                delayMs={150}
-                style={{ color: "#eb6a00" }}
-                className="waste-impact-number"
-              />
-              <span className="waste-impact-label">lower energy costs</span>
+            <div className="waste-hero-ctas">
+              <Link to="/technology" className="waste-hero-btn-primary">
+                Explore Technology
+              </Link>
+              <Link to="/partners" className="waste-hero-btn-secondary">
+                Partner With Us
+              </Link>
             </div>
           </div>
-          <div className="waste-hero-ctas">
-            <Link to="/technology" className="waste-hero-btn-primary">
-              Explore Technology
-            </Link>
-            <Link to="/partners" className="waste-hero-btn-secondary">
-              Partner With Us
-            </Link>
+          <div className="waste-hero-block waste-hero-block--bottom-right">
+            <p>
+              GridStreak converts organic and plastic waste into long-duration thermal energy, preventing methane
+              emissions and delivering affordable power for communities, agriculture, and industry.
+            </p>
           </div>
         </div>
       </section>

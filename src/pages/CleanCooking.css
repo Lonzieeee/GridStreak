@@ -13,10 +13,10 @@
 
 .cc-hero {
   position: relative;
-  min-height: 96vh;
+  min-height: 99vh;
   display: grid;
   place-items: center;
-  padding: 8rem 1.2rem 3rem;
+  padding: 0;
   overflow: hidden;
   background: #0d0d0d;
 }
@@ -50,12 +50,43 @@
 }
 
 .cc-hero-content {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  width: min(1000px, 94%);
+  width: 100%;
   color: #f2f2f2;
-  text-align: left;
   animation: ccReveal 0.7s ease;
+}
+
+.cc-hero-block {
+  position: absolute;
+  max-width: min(42rem, 58vw);
+}
+
+.cc-hero-block--top-left {
+  top: clamp(5.5rem, 10vh, 7rem);
+  left: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.cc-hero-block--bottom-left {
+  bottom: clamp(4.5rem, 9vh, 6.5rem);
+  left: clamp(1.5rem, 4vw, 3.5rem);
+  max-width: min(52rem, 62vw);
+}
+
+.cc-hero-block--bottom-right {
+  right: clamp(1.5rem, 4vw, 3.5rem);
+  bottom: clamp(4.5rem, 9vh, 6.5rem);
+  max-width: min(25rem, 29vw);
+}
+
+.cc-hero-kicker {
+  margin: 0;
+  color: var(--cc-green);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .cc-kicker {
@@ -76,9 +107,15 @@
 }
 
 .cc-hero-content p {
-  max-width: 68ch;
   line-height: 1.65;
   color: #e5e5e5;
+}
+
+.cc-hero-block--bottom-right p {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 600;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
 }
 
 .cc-hero-actions {
@@ -1592,8 +1629,7 @@
 
 @media (max-width: 768px) {
   .cc-hero {
-    min-height: 85vh;
-    padding-top: 7rem;
+    min-height: 99vh;
   }
 
   .cc-hero-slide {
@@ -1602,6 +1638,28 @@
 
   .cc-hero-content h1 {
     max-width: 100%;
+  }
+
+  .cc-hero-block {
+    max-width: calc(100% - 3rem);
+  }
+
+  .cc-hero-block--top-left {
+    top: 6rem;
+  }
+
+  .cc-hero-block--bottom-left {
+    bottom: 7.5rem;
+  }
+
+  .cc-hero-block--bottom-right {
+    right: 1.5rem;
+    bottom: 3rem;
+    left: 1.5rem;
+  }
+
+  .cc-hero-block--bottom-right p {
+    font-size: 0.88rem;
   }
 
   .cc-btn {

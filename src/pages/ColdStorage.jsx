@@ -15,6 +15,7 @@ const ColdStorage = () => {
         canonical="https://gridstreak.com/solutions/cold-storage"
       />
       <PageHero
+        className="page-hero--cold-storage"
         kicker="Cold Storage"
         title="Keep harvests fresh with reliable off-grid cold rooms."
         description="GridStreak thermal storage delivers consistent cooling for agriculture, healthcare, and community cold chains — even where the grid is unreliable."

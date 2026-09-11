@@ -271,12 +271,12 @@ const impactInfoCards = [
 
 const HERO_ROTATE_MS = 11000;
 const AUDIENCE_ROTATE_MS = 30000;
+const CLEAN_COOKING_HERO_IMAGE =
+  "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/31563.jpg";
 
 const heroSlides = [
   {
     id: "household",
-    image:
-      "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Gemini_Generated_Image_1u91qf1u91qf1u91-75900db6-1f7a-4854-9d17-c9c25830aac5.jpg",
     kicker: "Household Cooking",
     heading: "Clean Cooking That Protects Families",
     body: "Replace charcoal and firewood with smoke free thermal cooking built for everyday home meals  safer air, lower fuel costs, and reliable heat for the people you cook for.",
@@ -285,7 +285,6 @@ const heroSlides = [
   },
   {
     id: "institutional",
-    image: "https://pub-4cadfb4c0ebc41a9bdd57aa74b8bd719.r2.dev/Institutional.jpg",
     kicker: "Institutional Cooking",
     heading: "High Volume Kitchens Without Dirty Fuel",
     body: "Scale clean heat for schools, hospitals, and community kitchens  continuous, high capacity cooking that cuts charcoal and LPG dependence while feeding many people every day.",
@@ -641,25 +640,29 @@ const CleanCooking = () => {
       <div className="cc-page">
         <section className="cc-hero" aria-roledescription="carousel" aria-label="Clean cooking audiences">
           <div className="cc-hero-media" aria-hidden="true">
-            {heroSlides.map((slide, index) => (
-              <div
-                key={slide.id}
-                className={`cc-hero-slide${index === heroSlide ? " is-active" : ""}`}
-                style={{ backgroundImage: `url(${slide.image})` }}
-              />
-            ))}
+            <div
+              className="cc-hero-slide is-active"
+              style={{ backgroundImage: `url(${CLEAN_COOKING_HERO_IMAGE})` }}
+            />
           </div>
           <div className="cc-hero-overlay" />
           <div className="cc-hero-content" key={activeHero.id}>
-            <h1>{activeHero.heading}</h1>
-            <p>{activeHero.body}</p>
-            <div className="cc-hero-actions">
-              <a href={activeHero.primaryHref} className="cc-btn cc-btn-primary">
-                {activeHero.primaryLabel}
-              </a>
-              <Link to="/contact" className="cc-btn cc-btn-secondary">
-                Contact GridStreak
-              </Link>
+            <div className="cc-hero-block cc-hero-block--top-left">
+              <p className="cc-hero-kicker">{activeHero.kicker}</p>
+            </div>
+            <div className="cc-hero-block cc-hero-block--bottom-left">
+              <h1>{activeHero.heading}</h1>
+              <div className="cc-hero-actions">
+                <a href={activeHero.primaryHref} className="cc-btn cc-btn-primary">
+                  {activeHero.primaryLabel}
+                </a>
+                <Link to="/contact" className="cc-btn cc-btn-secondary">
+                  Contact GridStreak
+                </Link>
+              </div>
+            </div>
+            <div className="cc-hero-block cc-hero-block--bottom-right">
+              <p>{activeHero.body}</p>
             </div>
           </div>
 
